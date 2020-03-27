@@ -1,0 +1,18 @@
+{
+  "name": "monte-elearning",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:monterail/monterail-elearning.git",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "engines": {
+    "yarn": ">=1.15.x",
+    "node": ">=12.8.1"
+  },
+  "workspaces": {
+    "packages": [
+      "packages/*"
+    ]
+  }
+}
