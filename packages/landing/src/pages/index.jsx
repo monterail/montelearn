@@ -5,6 +5,14 @@ import ContentWidth from '../components/ContentWidth';
 import { COLOR_GREEN, COLOR_WHITE, FONT_SERIF } from '../theming/const';
 import { rem } from '../theming/utils';
 
+const EDITOR_ID = 'try-it-out';
+
+function scrollToEditor() {
+  document.getElementById(EDITOR_ID).scrollIntoView({
+    behavior: 'smooth',
+  });
+}
+
 export default function HomePage() {
   return (
     <>
@@ -34,7 +42,7 @@ export default function HomePage() {
               minHeight: rem(32),
               padding: rem(0, 15),
               flexShrink: 0,
-            }}>
+            }} onClick={scrollToEditor}>
               Try it out!
             </button>
           </ContentWidth>
@@ -47,13 +55,22 @@ export default function HomePage() {
           justifyContent: 'center',
         }}>
           <ContentWidth style={{ padding: rem(20) }}>
-            <h1 style={{ margin: rem(20, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>Build your own learning experience</h1>
-            <p style={{ margin: rem(20, 0), fontSize: rem(18) }}>We provide a rich API for developers who can build custom learning software for students on every education level</p>
+            <h1 style={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>Build your own learning experience</h1>
+            <p style={{ margin: rem(30, 0), fontSize: rem(18), lineHeight: 1.4 }}>We provide a rich API for developers who can build custom learning software for students on every education level</p>
           </ContentWidth>
         </section>
       </section>
       <ContentWidth as="main" style={{ flexGrow: 1, padding: rem(20) }}>
-        Here we will place a <u>try it out</u> component! 👍
+        <section id={EDITOR_ID} style={{
+          width: '100%', maxWidth: rem(425), padding: rem(20),
+          border: '1px solid #ccc',
+          borderRadius: '5px',
+          marginLeft: 'auto',
+          marginRight: 'auto',
+
+        }}>
+          Here we will place a <u>try it out</u> component!
+        </section>
       </ContentWidth>
       <footer style={{ backgroundColor: '#dde3e4', color: '#584e56', padding: rem(20) }}>
         <ContentWidth style={{ fontSize: rem(14), textAlign: 'right' }}>
