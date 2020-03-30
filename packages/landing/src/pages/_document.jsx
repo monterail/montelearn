@@ -8,7 +8,7 @@ export default class NextDocument extends Document {
 
   render() {
     return (
-      <Html>
+      <Html lang="en">
         <Head>
           <style
             dangerouslySetInnerHTML={{ __html: `
@@ -28,11 +28,27 @@ export default class NextDocument extends Document {
               }
             ` }}
           />
-          <link href="https://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400&display=swap&subset=latin-ext" rel="stylesheet" />
         </Head>
         <body>
           <Main />
           <NextScript />
+          <script type="text/javascript"
+          dangerouslySetInnerHTML={{ __html: `
+            WebFontConfig = {
+              google: {
+                families: [ 'Playfair+Display:700', 'Roboto:400' ]
+              }
+            };
+            (function() {
+              var wf = document.createElement('script');
+              wf.src = 'https://ajax.googleapis.com/ajax/libs/webfont/1/webfont.js';
+              wf.type = 'text/javascript';
+              wf.async = 'true';
+              var s = document.getElementsByTagName('script')[0];
+              s.parentNode.insertBefore(wf, s);
+            })();
+          `}}
+          />
         </body>
       </Html>
     )

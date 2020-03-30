@@ -18,6 +18,7 @@ export default function HomePage() {
     <>
       <Head>
         <title>Monterail e-learning</title>
+        <meta name="description" content="REST API for building custom e-learning software" />
       </Head>
       <section style={{
         backgroundColor: COLOR_GREEN,
@@ -34,7 +35,7 @@ export default function HomePage() {
             justifyContent: 'space-between',
             flexWrap: 'wrap'
           }}>
-            <img height="27" style={{ flexShrink: 0 }} src="/images/logo.svg" />
+            <img alt="Logo" height="27" style={{ flexShrink: 0 }} src="/images/logo.svg" />
             <button style={{
               MozAppearance: 'none', WebkitAppearance: 'none', backgroundColor: 'transparent',
               fontFamily: 'inherit', color: COLOR_WHITE, fontSize: rem(14),
