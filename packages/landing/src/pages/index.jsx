@@ -34,7 +34,7 @@ export default function HomePage() {
             justifyContent: 'space-between',
             flexWrap: 'wrap'
           }}>
-            <img height="27" width="132" style={{ flexShrink: 0 }} src="/images/logo.svg" />
+            <img height="27" style={{ flexShrink: 0 }} src="/images/logo.svg" />
             <button style={{
               MozAppearance: 'none', WebkitAppearance: 'none', backgroundColor: 'transparent',
               fontFamily: 'inherit', color: COLOR_WHITE, fontSize: rem(14),
