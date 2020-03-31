@@ -1,24 +1,7 @@
-# README
+# tests-api
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## Development setup
 
-Things you may want to cover:
-
-* Ruby version
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+It's based on https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development
+You need only docker to develop the application.
+All the shell commands pls run inside `docker-compose run --rm runner`
