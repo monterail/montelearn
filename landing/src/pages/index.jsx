@@ -1,9 +1,8 @@
 import Head from "next/head";
 
-import ContentWidth from "../components/ContentWidth";
-
-import { COLOR_GREEN, COLOR_WHITE, FONT_SERIF } from "../theming/const";
-import { rem } from "../theming/utils";
+import ContentWidth from "@/components/ContentWidth";
+import { COLOR_GREEN, COLOR_WHITE, FONT_SERIF } from "@/theming/const";
+import { rem } from "@/theming/utils";
 
 const EDITOR_ID = "try-it-out";
 
