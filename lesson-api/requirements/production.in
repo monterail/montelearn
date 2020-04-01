@@ -1,0 +1,6 @@
+-r ./base.in
+
+gunicorn
+sentry-sdk
+
+django-anymail[mailgun]
