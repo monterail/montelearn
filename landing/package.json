@@ -12,12 +12,16 @@
     "lint-and-fix": "yarn lint --fix"
   },
   "dependencies": {
+    "@emotion/babel-preset-css-prop": "10.0.27",
+    "@emotion/core": "10.0.28",
     "next": "9.3.2",
     "react": "16.13.1",
     "react-dom": "16.13.1"
   },
   "devDependencies": {
+    "@babel/core": "7.9.0",
     "babel-eslint": "10.1.0",
+    "babel-plugin-emotion": "10.0.29",
     "eslint": "^6.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-config-prettier": "6.10.1",

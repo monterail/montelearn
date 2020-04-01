@@ -20,7 +20,7 @@ export default function HomePage() {
         <meta name="description" content="REST API for building custom e-learning software" />
       </Head>
       <section
-        style={{
+        css={{
           backgroundColor: COLOR_GREEN,
         }}
       >
