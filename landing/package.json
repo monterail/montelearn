@@ -8,7 +8,7 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "eslint 'src/**/*.{js,jsx}'",
+    "lint": "eslint 'src/**/*.{js,jsx}' '*.js'",
     "lint-and-fix": "yarn lint --fix"
   },
   "dependencies": {
