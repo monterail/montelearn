@@ -1,0 +1,4 @@
+[flake8]
+extend-ignore = E129
+exclude = .git,__pycache__,*migrations*
+max-line-length = 100

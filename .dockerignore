@@ -9,3 +9,7 @@
 **/.next
 **/lib
 **/out
+.*
+!.coveragerc
+!.env
+!.flake8
