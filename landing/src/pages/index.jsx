@@ -20,23 +20,21 @@ export default function HomePage() {
         <title>Monterail e-learning</title>
         <meta name="description" content="REST API for building custom e-learning software" />
       </Head>
-      <section style={{
-        backgroundColor: COLOR_GREEN,
-      }}
-      >
-        <section style={{
-          color: COLOR_WHITE,
-          margin: rem(0, 20),
+      <section
+        style={{
+          backgroundColor: COLOR_GREEN,
         }}
-        >
-          <ContentWidth style={{
-            borderBottom: `1px solid ${COLOR_WHITE}`,
-            padding: rem(15, 0),
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-            flexWrap: "wrap",
-          }}
+      >
+        <section style={{ color: COLOR_WHITE, margin: rem(0, 20) }}>
+          <ContentWidth
+            style={{
+              borderBottom: `1px solid ${COLOR_WHITE}`,
+              padding: rem(15, 0),
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+              flexWrap: "wrap",
+            }}
           >
             <img alt="Logo" height="27" style={{ flexShrink: 0 }} src="/images/logo.svg" />
             <button
@@ -55,22 +53,29 @@ export default function HomePage() {
                 flexShrink: 0,
               }}
               onClick={scrollToEditor}
+              type="button"
             >
               Try it out!
             </button>
           </ContentWidth>
         </section>
-        <section style={{
-          minHeight: "60vh",
-          color: "#fff",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-        }}
+        <section
+          style={{
+            minHeight: "60vh",
+            color: "#fff",
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+          }}
         >
           <ContentWidth style={{ padding: rem(20) }}>
-            <h1 style={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>Build your own learning experience</h1>
-            <p style={{ margin: rem(30, 0), fontSize: rem(18), lineHeight: 1.4 }}>We provide a rich API for developers who can build custom learning software for students on every education level</p>
+            <h1 style={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>
+              Build your own learning experience
+            </h1>
+            <p style={{ margin: rem(30, 0), fontSize: rem(18), lineHeight: 1.4 }}>
+              We provide a rich API for developers who can build custom learning software for
+              students on every education level
+            </p>
           </ContentWidth>
         </section>
       </section>
@@ -85,7 +90,6 @@ export default function HomePage() {
             borderRadius: "5px",
             marginLeft: "auto",
             marginRight: "auto",
-
           }}
         >
           Here we will place a <u>try it out</u> component!
