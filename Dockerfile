@@ -1,9 +1,9 @@
 FROM node:13.11.0-alpine AS builder
 WORKDIR /usr/src/project
-COPY package.json yarn.lock packages/landing/package.json ./
+COPY package.json yarn.lock landing/package.json ./
 RUN yarn --frozen-lockfile
 COPY . .
-WORKDIR /usr/src/project/packages/landing
+WORKDIR /usr/src/project/landing
 RUN yarn build
 RUN yarn export
 
@@ -16,6 +16,6 @@ RUN rm -rf /etc/apache2/sites-enabled/*
 RUN a2enmod expires deflate rewrite
 
 FROM httpd-pagespeed AS runner
-COPY --from=builder /usr/src/project/packages/landing/out/ /var/www/html/
-COPY --from=builder /usr/src/project/packages/landing/httpd.conf /etc/apache2/sites-enabled/default.conf
+COPY --from=builder /usr/src/project/landing/out/ /var/www/html/
+COPY --from=builder /usr/src/project/landing/httpd.conf /etc/apache2/sites-enabled/default.conf
 CMD apache2ctl -D FOREGROUND
