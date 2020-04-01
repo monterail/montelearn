@@ -1,0 +1,17 @@
+{
+  "name": "@elearning/landing",
+  "version": "1.0.0",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "9.3.2",
+    "react": "16.13.1",
+    "react-dom": "16.13.1"
+  }
+}

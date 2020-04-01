@@ -1,0 +1,11 @@
+**/*
+!package.json
+!yarn.lock
+!packages
+!public
+!src
+**/node_modules
+**/*.md
+packages/**/.next
+packages/**/lib
+packages/**/out
