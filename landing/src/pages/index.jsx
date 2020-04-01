@@ -53,7 +53,7 @@ export default function HomePage() {
                 flexShrink: 0,
               }}
               onClick={scrollToEditor}
-              type="button"
+              type='button'
             >
               Try it out!
             </button>
