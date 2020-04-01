@@ -1,3 +1,4 @@
+import { css, Global } from "@emotion/core";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { FONT_SANS_SERIF } from "@/theming/const";
@@ -9,25 +10,27 @@ export default class NextDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <style
-            dangerouslySetInnerHTML={{
-              __html: `
+          <Global
+            styles={css`
               body {
-                font-family: ${FONT_SANS_SERIF}; margin: 0;
                 -webkit-font-smoothing: antialiased;
+                font-family: ${FONT_SANS_SERIF};
+                margin: 0;
               }
 
-              body, #__next {
-                min-height: 100vh;
+              body,
+              #__next {
                 display: flex;
                 flex-direction: column;
+                min-height: 100vh;
               }
 
-              *, *:before, *:after {
+              *,
+              *:before,
+              *:after {
                 box-sizing: border-box;
               }
-            `,
-            }}
+            `}
           />
           <link rel="preconnect" href="googleapis.com" />
         </Head>
