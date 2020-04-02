@@ -21,3 +21,5 @@ if env("USE_DOCKER") == "yes":
     INTERNAL_IPS += [ip[:-1] + "1" for ip in ips]
 
 SWAGGER_ENABLED = True
+
+CORS_ORIGIN_ALLOW_ALL = True
