@@ -20,8 +20,9 @@ RUN yarn export
 # COPY --from=builder /usr/src/project/landing/httpd.conf /etc/apache2/sites-enabled/default.conf
 # CMD apache2ctl -D FOREGROUND
 
-FROM pagespeed/nginx-pagespeed:stable-alpine3.8
+FROM pagespeed/nginx-pagespeed:stable-alpine3.8 AS runner
 COPY --from=builder /usr/src/project/landing/out /usr/share/nginx/html
+COPY --from=builder /usr/src/project/landing/.nginx/entrypoint.sh /usr/src/entrypoint.sh
 COPY --from=builder /usr/src/project/landing/.nginx/default.conf /etc/nginx/conf.d/default-tmplt.conf
-CMD envsubst "${PORT}" < /etc/nginx/conf.d/default-tmplt.conf > /etc/nginx/conf.d/default.conf && \
-    cat /etc/nginx/conf.d/default.conf && nginx -g "daemon off;"
+RUN chmod +x /usr/src/entrypoint.sh
+CMD /usr/src/entrypoint.sh
