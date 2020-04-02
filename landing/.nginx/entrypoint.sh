@@ -9,10 +9,7 @@ set -euxo pipefail
 export PORT=${PORT:-80}
 
 # Inject env variables into nginx config template
-envsubst < /etc/nginx/conf.d/default-tmplt.conf > /etc/nginx/conf.d/default.conf
-
-# Remove template so it's not picked up as a config file by mistake
-rm -f /etc/nginx/conf.d/default-tmplt.conf
+envsubst < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
 # Run nginx
 nginx -g "daemon off;"
