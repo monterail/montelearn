@@ -5,5 +5,33 @@ server {
   listen [::]:${PORT};
   server_name landing;
 
+  gzip on;
+  gzip_vary on;
+  gzip_min_length 256;
+  gzip_proxied any;
+  gzip_types
+    text/plain
+    text/css
+    text/xml
+    text/javascript
+    application/json
+    application/javascript
+    application/x-javascript
+    image/svg+xml;
+  gzip_disable "MSIE [1-6]\.";
+  gzip_buffers 16 8k;
+
   root /usr/share/nginx/html/;
+
+  pagespeed on;
+  pagespeed FileCachePath "/var/cache/pagespeed/";
+  pagespeed FileCacheSizeKb 102400;
+  pagespeed FileCacheCleanIntervalMs 3600000;
+  pagespeed FileCacheInodeLimit 500000;
+  pagespeed InPlaceResourceOptimization on;
+
+  pagespeed EnableFilters insert_dns_prefetch;
+  pagespeed EnableFilters inline_google_font_css;
+  pagespeed EnableFilters inline_javascript;
+  pagespeed EnableFilters in_place_optimize_for_browser;
 }
