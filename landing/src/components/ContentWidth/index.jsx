@@ -1,9 +1,9 @@
 import { rem } from "@/theming/utils";
 
-export default function ContentWidth({ as: C = "div", style = {}, ...props }) {
+export default function ContentWidth({ as: Component = "div", style = {}, ...props }) {
   return (
-    <C
-      style={{
+    <Component
+      css={{
         marginLeft: "auto",
         marginRight: "auto",
         maxWidth: rem(1024),
