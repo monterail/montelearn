@@ -32,8 +32,8 @@ export default class NextDocument extends Document {
               }
             `}
           />
-          <link rel="preconnect" href="http://fonts.gstatic.com" />
-          <link rel="preconnect" href="http://fonts.googleapis.com" />
+          <link rel="preconnect" href="//fonts.gstatic.com" />
+          <link rel="preconnect" href="//fonts.googleapis.com" />
         </Head>
         <body>
           <Main />
