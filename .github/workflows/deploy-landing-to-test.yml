@@ -13,24 +13,20 @@ jobs:
     name: Deploy landing to Heroku
     runs-on: ubuntu-latest
     env:
-      HEROKU_API_KEY: 0 # ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
+      HEROKU_API_KEY: ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - run: ls -al
-      if: 'true'
+    - name: Build docker
+      run: docker build -t registry.heroku.com/montelearn-landing/web .
 
-    # - name: Build docker
-    #   run: |
-    #     docker build -t registry.heroku.com/montelearn-landing/web .
+    - name: Login to Heroku Container registry
+      run: heroku container:login
 
-    # - name: Login to Heroku Container registry
-    #   run: heroku container:login
+    - name: Push container
+      run: docker push registry.heroku.com/montelearn-landing/web
 
-    # - name: Push container
-    #   run: docker push registry.heroku.com/montelearn-landing/web
-
-    # - name: Release container
-    #   run: heroku container:release web --app montelearn-landing
+    - name: Release container
+      run: heroku container:release web --app montelearn-landing
