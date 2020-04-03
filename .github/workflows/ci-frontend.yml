@@ -1,0 +1,46 @@
+name: CI Frontend
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+jobs:
+  lint-and-build:
+    name: Lint and build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Get yarn cache dir
+      id: yarn-cache-output
+      run: echo "::set-output name=dir::$(yarn cache dir)"
+
+    - name: Restore yarn global cache
+      uses: actions/cache@v1
+      id: yarn-cache
+      with:
+        path: ${{ steps.yarn-cache-output.outputs.dir }}
+        key: ${{ runner.os }}-yarn-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-yarn-
+
+    - name: Restore node_modules cache
+      uses: actions/cache@v1
+      id: node-modules-cache
+      with:
+        path: ./node_modules
+        key: ${{ runner.os }}-node-modules-${{ hashFiles('**/yarn.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-node-modules-
+
+    - name: Install NPM packages
+      run: yarn --frozen-lockfile
+
+    - name: ESLint
+      run: (cd landing && yarn lint)
+
+    - name: Build landing page
+      run: (cd landing && yarn build && yarn export)
