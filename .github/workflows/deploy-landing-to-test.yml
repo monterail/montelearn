@@ -18,8 +18,7 @@ jobs:
 
     - name: Build docker
       run: |
-        DOCKER_BUILDKIT=1 docker build --target server \
-        -t registry.heroku.com/montelearn-landing/web .
+        docker build -t registry.heroku.com/montelearn-landing/web .
 
     # - name: Login to Heroku Container registry
     #   env:
