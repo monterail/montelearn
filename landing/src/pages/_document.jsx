@@ -32,7 +32,8 @@ export default class NextDocument extends Document {
               }
             `}
           />
-          <link rel="preconnect" href="googleapis.com" />
+          <link rel="preconnect" href="//fonts.gstatic.com" />
+          <link rel="preconnect" href="//fonts.googleapis.com" />
         </Head>
         <body>
           <Main />
@@ -41,9 +42,10 @@ export default class NextDocument extends Document {
             type="text/javascript"
             dangerouslySetInnerHTML={{
               __html: `
+                var proto = window.location.protocol;
                 var l = document.createElement('link');
                 l.rel = 'stylesheet';
-                l.href = 'http://fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400&display=swap';
+                l.href = proto + '//fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400&display=swap';
                 document.head.append(l);
               `,
             }}
