@@ -13,11 +13,11 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - name: Restore landing cache
+    - name: Check if landing has changes
       uses: actions/cache@v1
       id: landing-cache
       with:
-        path: ./README.md
+        path: README.md
         key: ${{ runner.os }}-landing-${{ hashFiles('landing/**') }}
 
     - name: Run
