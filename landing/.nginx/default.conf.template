@@ -1,8 +1,8 @@
 error_log /dev/stdout info;
 
 server {
-  listen ${PORT} default_server;
-  listen [::]:${PORT};
+  listen $PORT default_server;
+  listen [::]:$PORT;
   server_name landing;
 
   gzip on;
@@ -34,4 +34,5 @@ server {
   pagespeed EnableFilters inline_google_font_css;
   pagespeed EnableFilters inline_javascript;
   pagespeed EnableFilters in_place_optimize_for_browser;
+  pagespeed EnableFilters extend_cache;
 }
