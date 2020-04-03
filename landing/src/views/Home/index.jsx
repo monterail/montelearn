@@ -54,7 +54,7 @@ export default function HomePage() {
         >
           <ContentWidth css={{ padding: rem(20) }}>
             <h1 css={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>
-              Witam! Build your own learning experience
+              Build your own learning experience
             </h1>
             <p css={{ maxWidth: rem(512), margin: rem(30, 0), fontSize: rem(18), lineHeight: 1.4 }}>
               We provide a rich API for developers who can build custom learning software for
