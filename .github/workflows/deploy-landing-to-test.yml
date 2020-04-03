@@ -28,7 +28,7 @@ jobs:
     - run: ls -al
       if: steps.landing-cache.outputs.cache-hit != 'true'
 
-    - run: echo ${{ steps.landing-cache.outputs.cache-hit }}
+    - run: echo "${{ steps.landing-cache.outputs.cache-hit }}"
 
     # - name: Build docker
     #   run: |
