@@ -1,0 +1,45 @@
+name: CD Landing Page (test)
+on:
+  push:
+    branches:
+      # - master
+      - '**'
+jobs:
+  build-and-deploy:
+    name: Deploy landing to Heroku
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Restore landing cache
+      uses: actions/cache@v1
+      id: landing-cache
+      with:
+        path: ./README.md
+        key: ${{ runner.os }}-landing-${{ hashFiles('landing/**') }}
+
+    - name: Run
+      if: steps.landing-cache.outputs.cache-hit != 'true'
+      run: exit 0
+
+    # - name: Build docker
+    #   run: |
+    #     DOCKER_BUILDKIT=1 docker build --target server \
+    #     -t registry.heroku.com/montelearn-landing/web .
+
+    # - name: Login to Heroku Container registry
+    #   env:
+    #     HEROKU_API_KEY: ${{ secrets.HEROKU_OAUTH_TOKEN }}
+    #   run: heroku container:login
+
+    # - name: Push container
+    #   env:
+    #     HEROKU_API_KEY: ${{ secrets.HEROKU_OAUTH_TOKEN }}
+    #   run: docker push registry.heroku.com/montelearn-landing/web
+
+    # - name: Release container
+    #   env:
+    #     HEROKU_API_KEY: ${{ secrets.HEROKU_OAUTH_TOKEN }}
+    #   run: heroku container:release web --app montelearn-landing
