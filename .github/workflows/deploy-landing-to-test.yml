@@ -25,15 +25,12 @@ jobs:
         restore-keys: |
           ${{ runner.os }}-landing-
 
-    - run: echo "${{ hashFiles('landing/**') }}"
-
     - run: ls -al
+      if: steps.landing-cache.outputs.cache-hit != 'true'
 
-    - run: exit 0
-
-    - name: Build docker
-      run: |
-        docker build -t registry.heroku.com/montelearn-landing/web .
+    # - name: Build docker
+    #   run: |
+    #     docker build -t registry.heroku.com/montelearn-landing/web .
 
     # - name: Login to Heroku Container registry
     #   run: heroku container:login
