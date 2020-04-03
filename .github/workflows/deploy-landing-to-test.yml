@@ -21,12 +21,14 @@ jobs:
       id: landing-cache
       with:
         path: README.md
-        key: ${{ runner.os }}-landing-${{ hashFiles('landing/**') }}
+        key: ${{ runner.os }}-landing001-${{ hashFiles('landing/**') }}
         restore-keys: |
-          ${{ runner.os }}-landing-
+          ${{ runner.os }}-landing001-
 
     - run: ls -al
       if: steps.landing-cache.outputs.cache-hit != 'true'
+
+    - run: echo ${{ steps.landing-cache.outputs.cache-hit }}
 
     # - name: Build docker
     #   run: |
