@@ -4,33 +4,23 @@ on:
     branches:
       # - master
       - '**'
+    paths:
+      - 'landing/**'
+      - 'Dockerfile'
 #
 jobs:
   build-and-deploy:
     name: Deploy landing to Heroku
     runs-on: ubuntu-latest
     env:
-      ARTIFACT_NAME: "landing-fingerprint"
       HEROKU_API_KEY: 0 # ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
 
     steps:
     - name: Checkout
       uses: actions/checkout@v2
 
-    - uses: actions/download-artifact@v1
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-
-    - run: mkdir -p ~/artifacts
-    - run: echo "${{ hashFiles('landing/**') }}" > ~/artifacts/${{ env.ARTIFACT_NAME }}
-
-    - uses: actions/upload-artifact@v1
-      with:
-        name: ${{ env.ARTIFACT_NAME }}
-        path: ~/artifacts/landing-fingerprint
-
     - run: ls -al
-      if: steps.landing-cache.outputs.cache-hit != 'true'
+      if: 'true'
 
     # - name: Build docker
     #   run: |
