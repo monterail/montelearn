@@ -11,7 +11,5 @@ export PORT=${PORT:-80}
 # Inject env variables into nginx config template
 envsubst '$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf
 
-cat /etc/nginx/conf.d/default.conf
-
 # Run nginx
 nginx -g 'daemon off;'
