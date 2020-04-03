@@ -2,14 +2,13 @@ name: CD Landing Page (test)
 on:
   push:
     branches:
-      # - master
-      - '**'
+      - master
     paths:
       - 'landing/**'
       - 'Dockerfile'
       - '!landing/.eslintrc.js'
       - '!landing/prettierrc'
-#
+
 jobs:
   build-and-deploy:
     name: Deploy landing to Heroku
