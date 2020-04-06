@@ -40,3 +40,25 @@ reqs:
 	python -m piptools compile requirements/test.in
 	python -m piptools compile requirements/local.in
 	python -m piptools compile requirements/production.in
+
+HEROKU_INSTALL_CLI := ./docker/install_heroku_cli.sh
+HEROKU_LOGIN := docker login --username=$$HEROKU_EMAIL --password=$$HEROKU_TOKEN registry.heroku.com
+HEROKU_CLI :=  ~/bin/heroku-cli/bin/heroku
+HEROKU_PUSH_CONTAINER := $(HEROKU_CLI) container:push web worker scheduler --recursive --app
+HEROKU_RELEASE_CONTAINER := $(HEROKU_CLI) container:release web worker scheduler --app
+INSTALL_HEROKU_CLI_AND_LOGIN_AND_SETUP_DOCKERFILES := $(HEROKU_INSTALL_CLI) && $(HEROKU_LOGIN) && mv docker/production/django/Dockerfile.* ./
+
+deploy_test:
+	$(INSTALL_HEROKU_CLI_AND_LOGIN_AND_SETUP_DOCKERFILES)
+	$(HEROKU_PUSH_CONTAINER) lesson-api-test
+	$(HEROKU_RELEASE_CONTAINER) lesson-api-test
+
+deploy_stage:
+	$(INSTALL_HEROKU_CLI_AND_LOGIN_AND_SETUP_DOCKERFILES)
+	$(HEROKU_PUSH_CONTAINER) lesson-api-stage
+	$(HEROKU_RELEASE_CONTAINER) lesson-api-stage
+
+deploy_prod:
+	$(INSTALL_HEROKU_CLI_AND_LOGIN_AND_SETUP_DOCKERFILES)
+	$(HEROKU_PUSH_CONTAINER) lesson-api-stage
+	$(HEROKU_RELEASE_CONTAINER) lesson-api-stage
