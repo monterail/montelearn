@@ -240,3 +240,18 @@ SWAGGER_SETTINGS = {
 MEDIA_ROOT = os.path.join(ROOT_DIR, "media")
 make_dir_if_does_not_exist(MEDIA_ROOT)
 MEDIA_URL = "/media/"
+
+DEFAULT_FILE_STORAGE = env.str(
+    "DJANGO_DEFAULT_FILE_STORAGE", default="storages.backends.s3boto3.S3Boto3Storage"
+)
+
+AWS_ACCESS_KEY_ID = env.str("AWS_ACCESS_KEY_ID", default="")
+AWS_SECRET_ACCESS_KEY = env.str("AWS_SECRET_ACCESS_KEY", default="")
+AWS_STORAGE_BUCKET_NAME = env.str("AWS_STORAGE_BUCKET_NAME", default="")
+AWS_DEFAULT_ACL = None
+AWS_AUTO_CREATE_BUCKET = False
+AWS_QUERYSTRING_AUTH = False
+AWS_S3_ENCRYPTION = False
+AWS_S3_FILE_OVERWRITE = False
+AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="")
+AWS_S3_URL_PROTOCOL = env.str("AWS_S3_URL_PROTOCOL", default="https:")
