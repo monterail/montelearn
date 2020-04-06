@@ -34,6 +34,7 @@ export default class NextDocument extends Document {
           />
           <link rel="preconnect" href="//fonts.gstatic.com" />
           <link rel="preconnect" href="//fonts.googleapis.com" />
+          <script src="https://embed.runkit.com" />
         </Head>
         <body>
           <Main />

@@ -1,6 +1,7 @@
 import Head from "next/head";
 
 import ContentWidth from "@/components/ContentWidth";
+import TryItOutComponent from "@/components/TryItOut";
 import {
   COLOR_GREEN,
   COLOR_WHITE,
@@ -67,17 +68,13 @@ export default function HomePage() {
       <ContentWidth as="main" css={{ flexGrow: 1, padding: rem(20) }}>
         <section
           css={{
-            width: "100%",
-            maxWidth: rem(425),
-            padding: rem(20),
-            border: `1px solid ${COLOR_GEYSER}`,
-            borderRadius: "5px",
-            marginLeft: "auto",
-            marginRight: "auto",
+            padding: rem(20, 0),
+            display: "flex",
+            justifyContent: "center",
           }}
           id={EDITOR_ID}
         >
-          Here we will place a <u>try it out</u> component!
+          <TryItOutComponent />
         </section>
       </ContentWidth>
       <footer css={{ backgroundColor: COLOR_GEYSER, color: COLOR_DON_JUAN, padding: rem(20) }}>
