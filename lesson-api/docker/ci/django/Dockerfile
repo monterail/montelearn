@@ -12,17 +12,14 @@ RUN apt-get update \
   && apt-get install -y gettext \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
   && apt-get install -y postgresql-client
-
+ 
 RUN addgroup --system django && adduser --system --ingroup  django django
 
 # Requirements are installed here to ensure they will be cached.
 COPY ./requirements /requirements
-RUN pip install --no-cache-dir -r /requirements/production.txt \
+RUN pip install --no-cache-dir -r /requirements/test.txt \
   && rm -rf /requirements
 
-COPY ./docker/production/django/start-worker.sh /start-worker.sh
-RUN chmod +x /start-worker.sh
-RUN chown django /start-worker.sh
 COPY . /app
 
 RUN chown -R django /app
@@ -30,5 +27,3 @@ RUN chown -R django /app
 USER django
 
 WORKDIR /app
-
-CMD ["/start-worker.sh"]

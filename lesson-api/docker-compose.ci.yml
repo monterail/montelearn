@@ -1,0 +1,39 @@
+# Used for running tests
+version: '3'
+
+
+services:
+  sut:
+    build:
+      context: .
+      dockerfile: ./docker/ci/django/Dockerfile
+    image: lesson_api_ci
+    depends_on:
+      - postgres_ci
+      - redis_ci
+    environment:
+      USE_DOCKER: "yes"
+      DJANGO_ADMIN_URL: admin/
+      DJANGO_SECRET_KEY: not_so_secret
+      DJANGO_SETTINGS_MODULE: config.settings.test
+      DJANGO_DEFAULT_FILE_STORAGE: django.core.files.storage.FileSystemStorage
+      DATABASE_URL: postgres://debug:debug@postgres_ci:5432/debug
+      PORT: 8000
+      HOST: 0.0.0.0
+      CODECOV_REPO_TOKEN: ${CODECOV_REPO_TOKEN}
+      REDIS_CACHE_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+
+  postgres_ci:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: debug
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+
+  redis_ci:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
