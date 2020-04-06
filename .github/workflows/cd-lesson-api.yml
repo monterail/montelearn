@@ -1,0 +1,33 @@
+name: Deploy lesson-api to Heroku
+on:
+  push:
+    branches: 
+      - master
+    paths:
+      - 'lesson-api/**'
+  pull_request:
+    branches: 
+      - master
+    paths:
+      - 'lesson-api/**'
+
+jobs:
+  build-and-deploy:
+    name: Deploy lesson-api to Heroku
+    runs-on: ubuntu-latest
+    env:
+      HEROKU_EMAIL: ${{ secrets.LESSON_API__HEROKU_EMAIL }}
+      HEROKU_TOKEN: ${{ secrets.LESSON_API__HEROKU_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install Heroku CLI, login and setup Docker files
+      run: cd lesson-api && ./docker/install_heroku_cli.sh && docker login --username=$HEROKU_EMAIL --password=$HEROKU_TOKEN registry.heroku.com && mv docker/production/django/Dockerfile.* ./ && rm -rf ./docker/local
+
+    - name: Push container
+      run: cd lesson-api && ~/bin/heroku-cli/bin/heroku container:push web worker scheduler --recursive --app lesson-api-test
+
+    - name: Release container
+      run: cd lesson-api && ~/bin/heroku-cli/bin/heroku container:release web worker scheduler --app lesson-api-test
