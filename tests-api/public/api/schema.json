@@ -1,6 +1,127 @@
 {
   "resources": [
     {
+      "name": "QuestionResource",
+      "type": "questions",
+      "description": null,
+      "attributes": {
+        "id": {
+          "type": "uuid",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "content": {
+          "type": "string",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "options": {
+          "type": "hash",
+          "readable": true,
+          "writable": true,
+          "description": null
+        },
+        "created_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        },
+        "updated_at": {
+          "type": "datetime",
+          "readable": true,
+          "writable": false,
+          "description": null
+        }
+      },
+      "extra_attributes": {
+      },
+      "sorts": {
+        "id": {
+        },
+        "content": {
+        },
+        "options": {
+        },
+        "created_at": {
+        },
+        "updated_at": {
+        }
+      },
+      "filters": {
+        "id": {
+          "type": "uuid",
+          "operators": [
+            "eq",
+            "not_eq"
+          ]
+        },
+        "test_id": {
+          "type": "uuid",
+          "operators": [
+            "eq",
+            "not_eq"
+          ]
+        },
+        "content": {
+          "type": "string",
+          "operators": [
+            "eq",
+            "not_eq",
+            "eql",
+            "not_eql",
+            "prefix",
+            "not_prefix",
+            "suffix",
+            "not_suffix",
+            "match",
+            "not_match"
+          ]
+        },
+        "options": {
+          "type": "hash",
+          "operators": [
+            "eq"
+          ]
+        },
+        "created_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        },
+        "updated_at": {
+          "type": "datetime",
+          "operators": [
+            "eq",
+            "not_eq",
+            "gt",
+            "gte",
+            "lt",
+            "lte"
+          ]
+        }
+      },
+      "relationships": {
+        "test": {
+          "type": "belongs_to",
+          "description": null,
+          "resource": "TestResource"
+        }
+      },
+      "polymorphic": true,
+      "children": [
+        "Binary::QuestionResource"
+      ]
+    },
+    {
       "name": "TestResource",
       "type": "tests",
       "description": null,
@@ -93,6 +214,25 @@
     }
   ],
   "endpoints": {
+    "/api/questions": {
+      "actions": {
+        "index": {
+          "resource": "QuestionResource"
+        },
+        "show": {
+          "resource": "QuestionResource"
+        },
+        "create": {
+          "resource": "QuestionResource"
+        },
+        "update": {
+          "resource": "QuestionResource"
+        },
+        "destroy": {
+          "resource": "QuestionResource"
+        }
+      }
+    },
     "/api/tests": {
       "actions": {
         "index": {
