@@ -1,0 +1,72 @@
+# Used for provisioning local dev environment
+version: '3.4'
+
+x-environment: &common-environment
+  USE_DOCKER: "yes"
+  DJANGO_SETTINGS_MODULE: config.settings.local
+  DJANGO_SECRET_KEY: not_so_secret
+  DJANGO_DEFAULT_FILE_STORAGE: django.core.files.storage.FileSystemStorage
+  DATABASE_URL: postgres://debug:debug@postgres:5432/debug
+  REDIS_CACHE_URL: redis://redis:6380/0
+  CELERY_BROKER_URL: redis://redis:6380/1
+
+services:
+  appserver:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    image: auth_local
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+    environment:
+      <<: *common-environment
+      DJANGO_ADMIN_URL: admin/
+      PORT: 8080
+      HOST: 0.0.0.0
+      DJANGO_DEBUG: "True"
+    ports:
+      - "8080:8080"
+    command: /start.sh
+
+  postgres:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: debug
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+
+  redis:
+    image: "redis:alpine"
+    ports:
+      - "6380:6380"
+
+  celery_worker:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    image: auth_local
+    environment: *common-environment
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - .:/app
+    command: celery -A config worker -l info
+
+  celery_beat:
+    build:
+      context: .
+      dockerfile: ./docker/local/django/Dockerfile
+    image: auth_local
+    environment: *common-environment
+    volumes:
+      - .:/app
+    depends_on:
+      - postgres
+      - redis
+    command: celery -A config beat -l info
