@@ -10,5 +10,5 @@ class Question < ApplicationRecord
   belongs_to :test, optional: true
 
   validates :content, presence: true
-  validates :options, presence: true
+  validates_with OptionsForQuestionTypeValidator
 end
