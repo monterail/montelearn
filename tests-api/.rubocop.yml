@@ -14,7 +14,25 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/ActiveRecordAliases:
+  Enabled: false
+
+RSpec/ContextWording:
+  Enabled: false
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
 Style/Documentation:
+  Enabled: false
+
+RSpec/ExampleLength:
+  Enabled: false
+
+RSpec/LetSetup:
+  Enabled: false
+
+RSpec/EmptyExampleGroup:
   Enabled: false
 
 Style/SymbolProc:
@@ -151,3 +169,4 @@ RSpec/MultipleExpectations:
 RSpec/FilePath:
   Exclude:
     - spec/mailers/**/*
+    - spec/resources/**/*
