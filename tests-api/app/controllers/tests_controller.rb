@@ -1,54 +1,43 @@
 # frozen_string_literal: true
 
 class TestsController < ApplicationController
-  before_action :set_test, only: %i(show update destroy)
-
-  # GET /tests
   def index
-    @tests = Test.all
-
-    render json: @tests
+    tests = TestResource.all(params)
+    respond_with(tests)
   end
 
-  # GET /tests/1
   def show
-    render json: @test
+    test = TestResource.find(params)
+    respond_with(test)
   end
 
-  # POST /tests
   def create
-    @test = Test.new(test_params)
+    test = TestResource.build(params)
 
-    if @test.save
-      render json: @test, status: :created, location: @test
+    if test.save
+      render jsonapi: test, status: :created
     else
-      render json: @test.errors, status: :unprocessable_entity
+      render jsonapi_errors: test
     end
   end
 
-  # PATCH/PUT /tests/1
   def update
-    if @test.update(test_params)
-      render json: @test
+    test = TestResource.find(params)
+
+    if test.update_attributes
+      render jsonapi: test
     else
-      render json: @test.errors, status: :unprocessable_entity
+      render jsonapi_errors: test
     end
   end
 
-  # DELETE /tests/1
   def destroy
-    @test.destroy
-  end
+    test = TestResource.find(params)
 
-  private
-
-  # Use callbacks to share common setup or constraints between actions.
-  def set_test
-    @test = Test.find(params[:id])
-  end
-
-  # Only allow a trusted parameter "white list" through.
-  def test_params
-    params.require(:test).permit(:title)
+    if test.destroy
+      render jsonapi: { meta: {} }, status: :ok
+    else
+      render jsonapi_errors: test
+    end
   end
 end
