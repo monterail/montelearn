@@ -4,7 +4,7 @@ FactoryBot.define do
   factory :question do
     content { Faker::Lorem.question }
 
-    factory :binary_question, parent: :question, class: "Binary::Question" do
+    factory :binary_question, parent: :question, class: "BinaryQuestion" do
       options do
         {
           choices: [

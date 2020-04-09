@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class QuestionResource < ApplicationResource
-  self.polymorphic = Question::QUESTION_TYPES.map { |qt| "#{qt}::QuestionResource" }.freeze
+  self.polymorphic = Question::TYPES.map { |type| "#{type}Resource" }.freeze
 
   attribute :id, :uuid
   attribute :test_id, :uuid, only: [:filterable]

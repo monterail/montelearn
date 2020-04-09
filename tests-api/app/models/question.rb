@@ -1,14 +1,12 @@
 # frozen_string_literal: true
 
 class Question < ApplicationRecord
-  QUESTION_TYPES = %w(
-    Binary
+  TYPES = %w(
+    BinaryQuestion
   ).freeze
-
-  TYPES = QUESTION_TYPES.map { |qt| "#{qt}::Question" }.freeze
 
   belongs_to :test, optional: true
 
   validates :content, presence: true
-  validates_with OptionsForQuestionTypeValidator
+  validates :options, presence: true
 end
