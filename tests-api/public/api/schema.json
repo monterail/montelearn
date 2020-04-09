@@ -118,7 +118,7 @@
       },
       "polymorphic": true,
       "children": [
-        "Binary::QuestionResource"
+        "BinaryQuestionResource"
       ]
     },
     {
