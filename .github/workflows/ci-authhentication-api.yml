@@ -1,0 +1,24 @@
+name: CI authentication-api
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+jobs:
+  test:
+    name: CI authentication-api
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Install docker compose
+      run: |
+        curl -L https://github.com/docker/compose/releases/download/1.21.2/docker-compose-`uname -s`-`uname -m` > ~/docker-compose
+        chmod +x ~/docker-compose
+        sudo mv ~/docker-compose /usr/local/bin/docker-compose
+
+    - name: Test
+      run: cd authentication-api/ && make test_ci

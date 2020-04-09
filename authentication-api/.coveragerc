@@ -1,0 +1,2 @@
+[run]
+omit = *migrations*, *tests*, */conftest.py, */apps.py

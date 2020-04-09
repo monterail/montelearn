@@ -1,0 +1,14 @@
+[tool.black]
+line-length = 100
+
+[tool.isort]
+line_length = 100
+known_django = "django"
+known_drf = "rest_framework"
+known_first_party = "auth"
+sections = ["FUTURE", "STDLIB", "THIRDPARTY", "DJANGO", "DRF", "FIRSTPARTY", "LOCALFOLDER"]
+default_section = "THIRDPARTY"
+no_lines_before = "LOCALFOLDER"
+lines_after_imports = 2
+multi_line_output = 3  # to handle the same way as black
+include_trailing_comma = true  # to handle the same way as black
