@@ -90,6 +90,7 @@ THIRD_PARTY_APPS = [
 LOCAL_APPS = [
     "auth.core.apps.CoreConfig",
     "auth.user.apps.UserConfig",
+    "auth.proxy.apps.ProxyConfig",
 ]
 
 INSTALLED_APPS = DJANGO_APPS + THIRD_PARTY_APPS + LOCAL_APPS
@@ -183,7 +184,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": env.int("DJANGO_PAGINATION_LIMIT", default=10),
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication"
+        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
@@ -337,3 +338,12 @@ JWT_AUTH = {
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "auth.user.serializers.UserSerializer",
 }
+
+REST_PROXY = {
+    "DEFAULT_HTTP_ACCEPT": "application/json",
+    "DEFAULT_CONTENT_TYPE": "application/json",
+    "RETURN_RAW": False,
+}
+
+LESSON_API_HOST = env.str("LESSON_API_HOST", default="")
+TEST_API_HOST = env.str("TEST_API_HOST", default="")

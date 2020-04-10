@@ -23,3 +23,4 @@ if env("USE_DOCKER") == "yes":
 SWAGGER_ENABLED = True
 
 CORS_ORIGIN_ALLOW_ALL = True
+LESSON_API_HOST = "http://lesson-api:8000"

@@ -7,15 +7,15 @@ x-environment: &common-environment
   DJANGO_SECRET_KEY: not_so_secret
   DJANGO_DEFAULT_FILE_STORAGE: django.core.files.storage.FileSystemStorage
   DATABASE_URL: postgres://debug:debug@postgres:5432/debug
-  REDIS_CACHE_URL: redis://redis:6380/0
-  CELERY_BROKER_URL: redis://redis:6380/1
+  REDIS_CACHE_URL: redis://redis:6379/0
+  CELERY_BROKER_URL: redis://redis:6379/1
 
 services:
   appserver:
     build:
       context: .
       dockerfile: ./docker/local/django/Dockerfile
-    image: auth_local
+    image: auth_api_local
     depends_on:
       - postgres
       - redis
@@ -43,7 +43,7 @@ services:
   redis:
     image: "redis:alpine"
     ports:
-      - "6380:6380"
+      - "6380:6379"
 
   celery_worker:
     build:

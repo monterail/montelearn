@@ -26,6 +26,7 @@ django-filter==2.2.0      # via -r requirements/./base.in
 django-model-utils==3.2.0  # via -r requirements/./base.in
 django-redis==4.11.0      # via -r requirements/./base.in
 django-rest-auth[with_social]==0.9.5  # via -r requirements/./base.in
+django-rest-framework-proxy==1.6.0  # via -r requirements/./base.in
 django-storages==1.8      # via -r requirements/./base.in
 django==2.2.10            # via -r requirements/./base.in, django-allauth, django-anymail, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, djangorestframework-jsonapi, drf-yasg
 djangorestframework-jsonapi==3.1.0  # via -r requirements/./base.in
@@ -60,7 +61,7 @@ python3-openid==3.1.0     # via django-allauth
 pytz==2019.2              # via celery, django
 redis==3.3.11             # via celery, django-redis
 requests-oauthlib==1.2.0  # via django-allauth
-requests==2.22.0          # via coreapi, django-allauth, django-anymail, requests-oauthlib
+requests==2.22.0          # via coreapi, django-allauth, django-anymail, django-rest-framework-proxy, requests-oauthlib
 rsa==4.0                  # via google-auth
 ruamel.yaml.clib==0.1.2   # via ruamel.yaml
 ruamel.yaml==0.16.5       # via drf-yasg

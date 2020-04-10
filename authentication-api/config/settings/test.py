@@ -8,3 +8,7 @@ INSTALLED_APPS = ["whitenoise.runserver_nostatic"] + INSTALLED_APPS  # noqa
 # ------------------------------------------------------------------------------
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
 EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
+
+REST_PROXY = {"RETURN_RAW": True}
+
+LESSON_API_HOST = "http://lesson-api:8000"
