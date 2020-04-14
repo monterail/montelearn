@@ -16,6 +16,7 @@ class Lesson(TimeStampedModel):
         null=True,
         validators=[FileExtensionValidator(["pdf"])],
     )
+    url = models.URLField(("URL"), max_length=300, blank=True, default="")
 
     def __str__(self):
         return self.name

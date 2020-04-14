@@ -21,4 +21,5 @@ def get_lesson_detail_expected_response(lesson):
         "name": lesson.name,
         "description": lesson.description,
         "pdf_file": "http://testserver" + settings.MEDIA_URL + str(lesson.pdf_file),
+        "url": lesson.url,
     }
