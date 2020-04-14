@@ -47,7 +47,9 @@ LOCALE_PATHS = [ROOT_DIR.path("locale")]
 DATABASES = {"default": env.db("DATABASE_URL")}
 # https://docs.djangoproject.com/en/2.2/topics/db/transactions/#tying-transactions-to-http-requests
 # At scale having ATOMIC_REQUESTS enabled can impact performance
-DATABASES["default"]["ATOMIC_REQUESTS"] = env.bool("DATABASE_ATOMIC_REQUESTS", default=True)
+DATABASES["default"]["ATOMIC_REQUESTS"] = env.bool(
+    "DATABASE_ATOMIC_REQUESTS", default=True
+)
 # https://devcenter.heroku.com/articles/python-concurrency-and-database-connections#persistent-connections
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("DATABASE_CONN_MAX_AGE", default=500)
 # URLS
@@ -151,7 +153,9 @@ AUTHENTICATION_BACKENDS = [
 
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-password-validators
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -204,7 +208,9 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/2.2/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="anymail.backends.mailgun.EmailBackend")
+EMAIL_BACKEND = env(
+    "DJANGO_EMAIL_BACKEND", default="anymail.backends.mailgun.EmailBackend"
+)
 # https://docs.djangoproject.com/en/2.2/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -227,7 +233,11 @@ LOGGING = {
         }
     },
     "handlers": {
-        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "verbose"}
+        "console": {
+            "level": "DEBUG",
+            "class": "logging.StreamHandler",
+            "formatter": "verbose",
+        }
     },
     "root": {"level": "INFO", "handlers": ["console"]},
 }
@@ -241,7 +251,10 @@ CACHES = {
         "LOCATION": env("REDIS_CACHE_URL", default=""),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "CONNECTION_POOL_KWARGS": {"max_connections": 100, "retry_on_timeout": True},
+            "CONNECTION_POOL_KWARGS": {
+                "max_connections": 100,
+                "retry_on_timeout": True,
+            },
         },
     }
 }
@@ -250,7 +263,9 @@ CACHES = {
 SWAGGER_ENABLED = env.bool("DJANGO_SWAGGER_ENABLED", default=False)
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
+    "SECURITY_DEFINITIONS": {
+        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
+    },
 }
 
 # User uploads

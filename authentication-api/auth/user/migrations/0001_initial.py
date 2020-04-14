@@ -23,13 +23,18 @@ class Migration(migrations.Migration):
                 (
                     "id",
                     models.AutoField(
-                        auto_created=True, primary_key=True, serialize=False, verbose_name="ID"
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
                     ),
                 ),
                 ("password", models.CharField(max_length=128, verbose_name="password")),
                 (
                     "last_login",
-                    models.DateTimeField(blank=True, null=True, verbose_name="last login"),
+                    models.DateTimeField(
+                        blank=True, null=True, verbose_name="last login"
+                    ),
                 ),
                 (
                     "is_superuser",
@@ -45,20 +50,32 @@ class Migration(migrations.Migration):
                 (
                     "created",
                     model_utils.fields.AutoCreatedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="created"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="created",
                     ),
                 ),
                 (
                     "modified",
                     model_utils.fields.AutoLastModifiedField(
-                        default=django.utils.timezone.now, editable=False, verbose_name="modified"
+                        default=django.utils.timezone.now,
+                        editable=False,
+                        verbose_name="modified",
                     ),
                 ),
-                ("first_name", models.CharField(max_length=30, verbose_name="first name")),
-                ("last_name", models.CharField(max_length=30, verbose_name="last name")),
+                (
+                    "first_name",
+                    models.CharField(max_length=30, verbose_name="first name"),
+                ),
+                (
+                    "last_name",
+                    models.CharField(max_length=30, verbose_name="last name"),
+                ),
                 (
                     "email",
-                    models.EmailField(max_length=254, unique=True, verbose_name="email address"),
+                    models.EmailField(
+                        max_length=254, unique=True, verbose_name="email address"
+                    ),
                 ),
                 (
                     "is_staff",

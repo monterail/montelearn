@@ -3,7 +3,10 @@ import pytest
 from django.urls import reverse
 
 from .factories import LessonFactory
-from .helpers import get_lesson_detail_expected_response, get_lesson_list_expected_response
+from .helpers import (
+    get_lesson_detail_expected_response,
+    get_lesson_list_expected_response,
+)
 
 
 @pytest.mark.django_db

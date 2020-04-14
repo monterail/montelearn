@@ -21,7 +21,9 @@ from django.core.wsgi import get_wsgi_application
 
 # This allows easy placement of apps within the interior
 # auth directory.
-app_path = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir))
+app_path = os.path.abspath(
+    os.path.join(os.path.dirname(os.path.abspath(__file__)), os.pardir)
+)
 sys.path.append(os.path.join(app_path, "auth"))
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION

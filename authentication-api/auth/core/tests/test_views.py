@@ -68,7 +68,9 @@ def test_email_registration_confirm_email(api_client, mailoutbox):
     assert len(mailoutbox) == 1
 
     # Find confirmation link in the last email sent by the app
-    email_url_match = re.search(r"https?://[^/]*(/.*confirm-email/\S*/)", mailoutbox[0].body)
+    email_url_match = re.search(
+        r"https?://[^/]*(/.*confirm-email/\S*/)", mailoutbox[0].body
+    )
 
     assert email_url_match
 
@@ -99,7 +101,8 @@ def test_email_login(api_client):
     assert response.status_code == 201
 
     response = api_client.post(
-        reverse("rest_login"), data={"email": "user@example.com", "password": "1234example1234"}
+        reverse("rest_login"),
+        data={"email": "user@example.com", "password": "1234example1234"},
     )
 
     assert "token" in response.data
@@ -160,7 +163,8 @@ def test_email_password_change(api_client):
     assert response.status_code == 200
 
     response = api_client.post(
-        reverse("rest_login"), data={"email": "user@example.com", "password": new_password}
+        reverse("rest_login"),
+        data={"email": "user@example.com", "password": new_password},
     )
 
     assert response.status_code == 200
@@ -180,12 +184,16 @@ def test_email_reset_password(api_client, mailoutbox):
     )
 
     assert response.status_code == 201
-    response = api_client.post(reverse("rest_password_reset"), data={"email": "user@example.com"})
+    response = api_client.post(
+        reverse("rest_password_reset"), data={"email": "user@example.com"}
+    )
 
     assert response.status_code == 200
     assert len(mailoutbox) == 2
 
-    email_url_match = re.search(r"https?://[^/]*(/.*password-reset/\S*)", mailoutbox[1].body)
+    email_url_match = re.search(
+        r"https?://[^/]*(/.*password-reset/\S*)", mailoutbox[1].body
+    )
 
     assert email_url_match
 
@@ -198,7 +206,8 @@ def test_email_reset_password(api_client, mailoutbox):
     assert response.status_code == 302
 
     response = api_client.post(
-        reverse("rest_login"), data={"email": "user@example.com", "password": new_password}
+        reverse("rest_login"),
+        data={"email": "user@example.com", "password": new_password},
     )
 
     assert response.status_code == 200
@@ -235,7 +244,8 @@ def test_email_reset_password_confirm(api_client, mailoutbox):
     assert response.status_code == 200
 
     response = api_client.post(
-        reverse("rest_login"), data={"email": "user@example.com", "password": new_password}
+        reverse("rest_login"),
+        data={"email": "user@example.com", "password": new_password},
     )
 
     assert response.status_code == 200
@@ -287,7 +297,9 @@ def test_verify_token(api_client):
 
 @pytest.mark.django_db
 def test_verify_token_invalid(api_client):
-    response = api_client.post(reverse("rest_verify_token"), data={"token": "invalidtoken"})
+    response = api_client.post(
+        reverse("rest_verify_token"), data={"token": "invalidtoken"}
+    )
 
     assert response.status_code == 400
     assert not response.data.get("token")
@@ -316,7 +328,9 @@ def test_refresh_token(api_client):
 
 @pytest.mark.django_db
 def test_refresh_token_invalid(api_client):
-    response = api_client.post(reverse("rest_refresh_token"), data={"token": "invalidtoken"})
+    response = api_client.post(
+        reverse("rest_refresh_token"), data={"token": "invalidtoken"}
+    )
 
     assert response.status_code == 400
     assert not response.data.get("token")
