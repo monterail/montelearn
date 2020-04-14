@@ -11,4 +11,5 @@ class LessonSerializer(serializers.ModelSerializer):
             "name",
             "description",
             "pdf_file",
+            "url",
         )
