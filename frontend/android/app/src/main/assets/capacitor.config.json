@@ -1,0 +1,12 @@
+{
+  "appId": "io.ionic.starter",
+  "appName": "frontend",
+  "bundledWebRuntime": false,
+  "npmClient": "npm",
+  "webDir": "build",
+  "cordova": {},
+  "server": {
+    "url": "http://192.168.1.20:8100",
+    "cleartext": true
+  }
+}
