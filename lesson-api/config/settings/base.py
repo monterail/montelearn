@@ -146,13 +146,17 @@ MIDDLEWARE = [
 REST_FRAMEWORK = {
     "DEFAULT_FILTER_BACKENDS": ("django_filters.rest_framework.DjangoFilterBackend",),
     "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%S%z",
-    "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
+    "DEFAULT_PAGINATION_CLASS": "rest_framework_json_api.pagination.JsonApiPageNumberPagination",
     "PAGE_SIZE": env.int("DJANGO_PAGINATION_LIMIT", default=10),
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.BasicAuthentication"
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
-    "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "DEFAULT_RENDERER_CLASSES": [
+        "rest_framework_json_api.renderers.JSONRenderer",
+        "rest_framework.renderers.JSONRenderer"
+    ],
+    "DEFAULT_PARSER_CLASSES": ["rest_framework_json_api.parsers.JSONParser"],
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
     "DEFAULT_VERSION": "1.0",
 }

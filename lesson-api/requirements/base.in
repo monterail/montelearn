@@ -19,3 +19,4 @@ boto3
 celery[redis]
 pyjwt
 cryptography
+djangorestframework-jsonapi
