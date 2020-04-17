@@ -18,11 +18,16 @@ def test_email_registration_invalid_data(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "",
-            "last_name": "",
-            "email": "userexample.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "",
+                    "last_name": "",
+                    "email": "userexample.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -39,11 +44,16 @@ def test_email_registration(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -56,11 +66,16 @@ def test_email_registration_confirm_email(api_client, mailoutbox):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -68,9 +83,7 @@ def test_email_registration_confirm_email(api_client, mailoutbox):
     assert len(mailoutbox) == 1
 
     # Find confirmation link in the last email sent by the app
-    email_url_match = re.search(
-        r"https?://[^/]*(/.*confirm-email/\S*/)", mailoutbox[0].body
-    )
+    email_url_match = re.search(r"https?://[^/]*(/.*confirm-email/\S*/)", mailoutbox[0].body)
 
     assert email_url_match
 
@@ -90,11 +103,16 @@ def test_email_login(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -102,7 +120,12 @@ def test_email_login(api_client):
 
     response = api_client.post(
         reverse("rest_login"),
-        data={"email": "user@example.com", "password": "1234example1234"},
+        data={
+            "data": {
+                "type": "EmailLogin",
+                "attributes": {"email": "user@example.com", "password": "1234example1234"},
+            }
+        },
     )
 
     assert "token" in response.data
@@ -114,18 +137,29 @@ def test_email_login_invalid_password(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
     assert response.status_code == 201
 
     response = api_client.post(
-        reverse("rest_login"), data={"email": "user@example.com", "password": "invalid"}
+        reverse("rest_login"),
+        data={
+            "data": {
+                "type": "EmailLogin",
+                "attributes": {"email": "user@example.com", "password": "invalid"},
+            }
+        },
     )
 
     assert response.status_code == 400
@@ -136,11 +170,16 @@ def test_email_password_change(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -154,9 +193,14 @@ def test_email_password_change(api_client):
     response = api_client.post(
         reverse("rest_password_change"),
         data={
-            "email": "user@example.com",
-            "new_password1": new_password,
-            "new_password2": new_password,
+            "data": {
+                "type": "EmailPasswordChange",
+                "attributes": {
+                    "email": "user@example.com",
+                    "new_password1": new_password,
+                    "new_password2": new_password,
+                },
+            }
         },
     )
 
@@ -164,7 +208,12 @@ def test_email_password_change(api_client):
 
     response = api_client.post(
         reverse("rest_login"),
-        data={"email": "user@example.com", "password": new_password},
+        data={
+            "data": {
+                "type": "EmailLogin",
+                "attributes": {"email": "user@example.com", "password": new_password},
+            }
+        },
     )
 
     assert response.status_code == 200
@@ -175,25 +224,29 @@ def test_email_reset_password(api_client, mailoutbox):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
     assert response.status_code == 201
     response = api_client.post(
-        reverse("rest_password_reset"), data={"email": "user@example.com"}
+        reverse("rest_password_reset"),
+        data={"data": {"type": "EmailPasswordReset", "attributes": {"email": "user@example.com"}}},
     )
 
     assert response.status_code == 200
     assert len(mailoutbox) == 2
 
-    email_url_match = re.search(
-        r"https?://[^/]*(/.*password-reset/\S*)", mailoutbox[1].body
-    )
+    email_url_match = re.search(r"https?://[^/]*(/.*password-reset/\S*)", mailoutbox[1].body)
 
     assert email_url_match
 
@@ -207,7 +260,12 @@ def test_email_reset_password(api_client, mailoutbox):
 
     response = api_client.post(
         reverse("rest_login"),
-        data={"email": "user@example.com", "password": new_password},
+        data={
+            "data": {
+                "type": "EmailLogin",
+                "attributes": {"email": "user@example.com", "password": new_password},
+            }
+        },
     )
 
     assert response.status_code == 200
@@ -218,11 +276,16 @@ def test_email_reset_password_confirm(api_client, mailoutbox):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -234,10 +297,15 @@ def test_email_reset_password_confirm(api_client, mailoutbox):
     response = api_client.post(
         reverse("rest_password_reset_confirm"),
         data={
-            "new_password1": new_password,
-            "new_password2": new_password,
-            "uid": force_text(urlsafe_base64_encode(force_bytes(user.pk))),
-            "token": default_token_generator.make_token(user),
+            "data": {
+                "type": "EmailPasswordResetConfirm",
+                "attributes": {
+                    "new_password1": new_password,
+                    "new_password2": new_password,
+                    "uid": force_text(urlsafe_base64_encode(force_bytes(user.pk))),
+                    "token": default_token_generator.make_token(user),
+                },
+            }
         },
     )
 
@@ -245,7 +313,12 @@ def test_email_reset_password_confirm(api_client, mailoutbox):
 
     response = api_client.post(
         reverse("rest_login"),
-        data={"email": "user@example.com", "password": new_password},
+        data={
+            "data": {
+                "type": "EmailLogin",
+                "attributes": {"email": "user@example.com", "password": new_password},
+            }
+        },
     )
 
     assert response.status_code == 200
@@ -256,11 +329,16 @@ def test_user_email_logout(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
@@ -279,17 +357,25 @@ def test_verify_token(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
     token = response.data["token"]
 
-    response = api_client.post(reverse("rest_verify_token"), data={"token": token})
+    response = api_client.post(
+        reverse("rest_verify_token"),
+        data={"data": {"type": "VerifyToken", "attributes": {"token": token}}},
+    )
 
     assert response.status_code == 200
     assert "token" in response.data
@@ -297,9 +383,7 @@ def test_verify_token(api_client):
 
 @pytest.mark.django_db
 def test_verify_token_invalid(api_client):
-    response = api_client.post(
-        reverse("rest_verify_token"), data={"token": "invalidtoken"}
-    )
+    response = api_client.post(reverse("rest_verify_token"), data={"token": "invalidtoken"})
 
     assert response.status_code == 400
     assert not response.data.get("token")
@@ -310,17 +394,25 @@ def test_refresh_token(api_client):
     response = api_client.post(
         reverse("rest_register"),
         data={
-            "first_name": "user first name",
-            "last_name": "user last name",
-            "email": "user@example.com",
-            "password1": "1234example1234",
-            "password2": "1234example1234",
+            "data": {
+                "type": "EmailRegister",
+                "attributes": {
+                    "first_name": "user first name",
+                    "last_name": "user last name",
+                    "email": "user@example.com",
+                    "password1": "1234example1234",
+                    "password2": "1234example1234",
+                },
+            }
         },
     )
 
     token = response.data["token"]
 
-    response = api_client.post(reverse("rest_refresh_token"), data={"token": token})
+    response = api_client.post(
+        reverse("rest_refresh_token"),
+        data={"data": {"type": "RefreshToken", "attributes": {"token": token}}},
+    )
 
     assert response.status_code == 200
     assert "token" in response.data
@@ -328,9 +420,7 @@ def test_refresh_token(api_client):
 
 @pytest.mark.django_db
 def test_refresh_token_invalid(api_client):
-    response = api_client.post(
-        reverse("rest_refresh_token"), data={"token": "invalidtoken"}
-    )
+    response = api_client.post(reverse("rest_refresh_token"), data={"token": "invalidtoken"})
 
     assert response.status_code == 400
     assert not response.data.get("token")

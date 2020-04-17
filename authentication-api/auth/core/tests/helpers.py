@@ -1,9 +1,6 @@
 import re
 
-from django.contrib.auth.views import (
-    INTERNAL_RESET_SESSION_TOKEN,
-    INTERNAL_RESET_URL_TOKEN,
-)
+from django.contrib.auth.views import INTERNAL_RESET_SESSION_TOKEN, INTERNAL_RESET_URL_TOKEN
 from django.test import Client
 
 

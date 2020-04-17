@@ -31,9 +31,10 @@ django-model-utils==3.2.0  # via -r requirements/./base.in
 django-redis==4.11.0      # via -r requirements/./base.in
 django-rest-auth[with_social]==0.9.5  # via -r requirements/./base.in
 django-storages==1.8      # via -r requirements/./base.in
-django==2.2.4             # via -r requirements/./base.in, django-allauth, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, drf-yasg
+django==2.2.4             # via -r requirements/./base.in, django-allauth, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, djangorestframework-jsonapi, drf-yasg
+djangorestframework-jsonapi==3.1.0  # via -r requirements/./base.in
 djangorestframework-jwt==1.11.0  # via -r requirements/./base.in
-djangorestframework==3.10.2  # via -r requirements/./base.in, django-rest-auth, drf-yasg
+djangorestframework==3.10.2  # via -r requirements/./base.in, django-rest-auth, djangorestframework-jsonapi, drf-yasg
 docutils==0.15.2          # via botocore
 drf-yasg==1.16.1          # via -r requirements/./base.in
 entrypoints==0.3          # via flake8
@@ -48,7 +49,7 @@ google-auth==1.9.0        # via google-api-python-client, google-auth-httplib2
 httplib2==0.14.0          # via google-api-python-client, google-auth-httplib2
 idna==2.8                 # via requests
 importlib-metadata==0.21  # via kombu, pluggy, pytest
-inflection==0.3.1         # via drf-yasg
+inflection==0.3.1         # via djangorestframework-jsonapi, drf-yasg
 itypes==1.1.0             # via coreapi
 jinja2==2.10.1            # via coreschema
 jmespath==0.9.4           # via boto3, botocore
