@@ -1,7 +1,8 @@
-import dynamic from "next/dynamic";
 import Head from "next/head";
 
+import Button from "@/components/Button";
 import ContentWidth from "@/components/ContentWidth";
+import TryItOut from "@/components/TryItOut";
 import {
   COLOR_GREEN,
   COLOR_WHITE,
@@ -12,16 +13,16 @@ import {
 } from "@/theming/const";
 import { rem } from "@/theming/utils";
 
-import CallToAction from "./CallToAction";
-
-const TryItOutComponent = dynamic(() => import("@/components/TryItOut"));
-
 const EDITOR_ID = "try-it-out";
 
 function scrollToEditor() {
-  document.getElementById(EDITOR_ID).scrollIntoView({
-    behavior: "smooth",
-  });
+  const editorElement = document.getElementById(EDITOR_ID);
+
+  if (!editorElement) {
+    return;
+  }
+
+  editorElement.scrollIntoView({ behavior: "smooth" });
 }
 
 export default function HomePage() {
@@ -63,7 +64,9 @@ export default function HomePage() {
               We provide a rich API for developers who can build custom learning software for
               students on every education level
             </p>
-            <CallToAction onClick={scrollToEditor} />
+            <Button onClick={scrollToEditor} palette="white" size="large" type="button">
+              Try it out!
+            </Button>
           </ContentWidth>
         </section>
       </div>
@@ -79,8 +82,11 @@ export default function HomePage() {
               <br />
               Feel free and have some fun!
             </p>
-            <div id={EDITOR_ID} css={{ margin: "0 auto", minHeight: rem(100), width: rem(475) }}>
-              <TryItOutComponent />
+            <div
+              id={EDITOR_ID}
+              css={{ margin: "0 auto", minHeight: rem(100), maxWidth: "100%", width: rem(475) }}
+            >
+              <TryItOut />
             </div>
           </ContentWidth>
         </section>
