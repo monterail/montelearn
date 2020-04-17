@@ -1,7 +1,10 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetConfirmView
+from django.contrib.auth.views import (
+    PasswordResetCompleteView,
+    PasswordResetConfirmView,
+)
 from django.urls import include, path, re_path
 
 from auth.core.views import (
