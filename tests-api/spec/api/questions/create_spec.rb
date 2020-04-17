@@ -14,7 +14,7 @@ RSpec.describe "questions#create", type: :request do
     let(:payload) do
       {
         data: {
-          type: "binary",
+          type: "binary_questions",
           attributes: params,
         },
       }

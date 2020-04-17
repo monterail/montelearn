@@ -17,7 +17,7 @@ RSpec.describe "questions#index", type: :request do
       expect(QuestionResource).to receive(:all).and_call_original
       make_request
       expect(response.status).to eq(200), response.body
-      expect(d.map(&:jsonapi_type).uniq).to match_array(["binary"])
+      expect(d.map(&:jsonapi_type).uniq).to match_array(["binary_questions"])
       expect(d.map(&:rawid)).to match_array([question1.id, question2.id])
     end
   end

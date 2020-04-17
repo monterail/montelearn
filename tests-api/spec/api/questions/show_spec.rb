@@ -16,7 +16,7 @@ RSpec.describe "questions#show", type: :request do
       expect(QuestionResource).to receive(:find).and_call_original
       make_request
       expect(response.status).to eq(200)
-      expect(d.jsonapi_type).to eq("binary")
+      expect(d.jsonapi_type).to eq("binary_questions")
       expect(d.rawid).to eq(question.id)
     end
   end

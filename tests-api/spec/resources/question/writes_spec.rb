@@ -7,7 +7,7 @@ RSpec.describe QuestionResource, type: :resource do
     let(:payload) do
       {
         data: {
-          type: "binary",
+          type: "binary_questions",
           attributes: attributes_for(:binary_question),
         },
       }

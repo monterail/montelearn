@@ -10,7 +10,7 @@ RSpec.describe QuestionResource, type: :resource do
       render
       data = jsonapi_data[0]
       expect(data.rawid).to eq(question.id)
-      expect(data.jsonapi_type).to eq("binary")
+      expect(data.jsonapi_type).to eq("binary_questions")
     end
   end
 

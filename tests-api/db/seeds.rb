@@ -8,7 +8,8 @@ TESTS = Test.create(TESTS_DATA)
 
 QUESTIONS_DATA = [
   {
-    type: "Binary::Question",
+    test: TESTS[0],
+    type: "BinaryQuestion",
     content: "Is math related to science?",
     options: {
       choices: [
