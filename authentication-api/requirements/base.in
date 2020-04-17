@@ -20,3 +20,4 @@ celery[redis]
 pyjwt
 cryptography
 djangorestframework-jwt
+djangorestframework-jsonapi
