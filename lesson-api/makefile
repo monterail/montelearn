@@ -9,7 +9,7 @@ test:
 	docker-compose run --rm appserver ./test.sh $(args)
 
 test_failed:
-	make test args='-vv --last-failed'
+	make test args='--last-failed'
 
 test_ci:
 	# this is so that codecov can get SHA
