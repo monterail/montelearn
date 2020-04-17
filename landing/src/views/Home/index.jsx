@@ -78,9 +78,7 @@ export default function HomePage() {
               We know how reading documentation can be a hassle.
               <br />
               That's why we created a simple section where you can play with data provided by our
-              services.
-              <br />
-              Feel free and have some fun!
+              services. Have fun!
             </p>
             <div
               id={EDITOR_ID}

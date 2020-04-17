@@ -30,10 +30,12 @@ module.exports = {
   plugins: ["prettier"],
   rules: {
     "import/prefer-default-export": "off",
+    "no-restricted-syntax": "off",
     "prettier/prettier": ["error"],
     "quotes": ["error", "double"],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
+    "react/no-array-index-key": "off",
     "react/no-danger": "off",
     "react/no-unescaped-entities": "off",
     "react/prop-types": "off",
