@@ -22,10 +22,8 @@ def test_lesson_list_view_success(api_client):
 @pytest.mark.django_db
 def test_lesson_detail_view_success(api_client):
     lesson = LessonFactory()
-    expected_response = dict()
 
     response = api_client.get(reverse("lesson:lesson-detail", args=[lesson.uuid]))
-    expected_response["data"] = get_lesson_detail_expected_response(lesson)
 
     assert response.status_code == 200
-    assert response.json() == expected_response
+    assert response.json() == get_lesson_detail_expected_response(lesson)

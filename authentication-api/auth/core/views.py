@@ -13,14 +13,12 @@ from django.urls import reverse
 
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-from .helpers import CustomUserJSONRenderer
 from .serializers import EmailLoginSerializer, EmailRegisterSerializer
 
 
 class EmailRegister(RegisterView):
     permission_classes = (AllowAny,)
     serializer_class = EmailRegisterSerializer
-    renderer_classes = (CustomUserJSONRenderer,)
 
 
 class VerifyEmail(VerifyEmailView):
@@ -30,7 +28,6 @@ class VerifyEmail(VerifyEmailView):
 class EmailLogin(LoginView):
     permission_classes = (AllowAny,)
     serializer_class = EmailLoginSerializer
-    renderer_classes = (CustomUserJSONRenderer,)
 
 
 class Logout(LogoutView):
