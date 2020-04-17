@@ -1,24 +1,17 @@
 import Embed from "react-runkit";
 
 const defaultCode = `
-  try {
-    const response = await fetch(' https://lesson-api-test.herokuapp.com/api/lesson')
-    const lessons = await response.json()
-  } catch (error) {
-    console.error(error)
-  }
+const response = await fetch(API_URL + "/api/lesson")
+await response.json();
+`.trim();
+
+const preable = `
+const fetch = require('node-fetch');
+const API_URL = "https://lesson-api-test.herokuapp.com";
 `;
 
-const TryItOutComponent = ({ code }) => {
-  return (
-    <div css={{ width: "70%" }}>
-      <Embed source={code} preamble={"const fetch = require('node-fetch')"} />
-    </div>
-  );
-};
-
-TryItOutComponent.defaultProps = {
-  code: defaultCode,
+const TryItOutComponent = ({ code = defaultCode }) => {
+  return <Embed source={code} preamble={preable} />;
 };
 
 export default TryItOutComponent;

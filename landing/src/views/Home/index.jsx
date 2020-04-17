@@ -1,7 +1,7 @@
+import dynamic from "next/dynamic";
 import Head from "next/head";
 
 import ContentWidth from "@/components/ContentWidth";
-import TryItOutComponent from "@/components/TryItOut";
 import {
   COLOR_GREEN,
   COLOR_WHITE,
@@ -13,6 +13,8 @@ import {
 import { rem } from "@/theming/utils";
 
 import CallToAction from "./CallToAction";
+
+const TryItOutComponent = dynamic(() => import("@/components/TryItOut"));
 
 const EDITOR_ID = "try-it-out";
 
@@ -65,19 +67,25 @@ export default function HomePage() {
           </ContentWidth>
         </section>
       </div>
-      <ContentWidth as="main" css={{ flexGrow: 1, padding: rem(20) }}>
-        <section
-          css={{
-            padding: rem(20, 0),
-            display: "flex",
-            justifyContent: "center",
-          }}
-          id={EDITOR_ID}
-        >
-          <TryItOutComponent />
+      <main css={{ flexGrow: 1 }}>
+        <section css={{ backgroundColor: COLOR_GEYSER, padding: rem(40, 0) }}>
+          <ContentWidth css={{ padding: rem(0, 20) }}>
+            <h2 css={{ fontFamily: FONT_SERIF, fontSize: rem(32), margin: 0 }}>Try it out now!</h2>
+            <p css={{ color: COLOR_DON_JUAN, fontSize: rem(18), margin: rem(20, 0) }}>
+              We know how reading documentation can be a hassle.
+              <br />
+              That's why we created a simple section where you can play with data provided by our
+              services.
+              <br />
+              Feel free and have some fun!
+            </p>
+            <div id={EDITOR_ID} css={{ margin: "0 auto", minHeight: rem(100), width: rem(475) }}>
+              <TryItOutComponent />
+            </div>
+          </ContentWidth>
         </section>
-      </ContentWidth>
-      <footer css={{ backgroundColor: COLOR_GEYSER, color: COLOR_DON_JUAN, padding: rem(20) }}>
+      </main>
+      <footer css={{ backgroundColor: COLOR_WHITE, color: COLOR_DON_JUAN, padding: rem(20) }}>
         <ContentWidth css={{ fontSize: rem(14), textAlign: "right" }}>
           Developed with <span css={{ color: COLOR_MILANO_RED }}>&#9829;</span> by Monterail
         </ContentWidth>
