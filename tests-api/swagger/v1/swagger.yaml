@@ -1,0 +1,84 @@
+---
+openapi: '2.0'
+info:
+  title: tests_api
+  version: v1.0
+paths:
+  "/api/backoffice/articles":
+    get:
+      summary: Find all articles
+      tags:
+      - Articles
+      parameters:
+      - name: limit
+        in: query
+        type: integer
+        description: Number of results to return per page.
+        required: false
+      - name: offset
+        in: query
+        type: integer
+        description: The initial index from which to return the results.
+        required: false
+      responses:
+        '200':
+          description: success
+          schema:
+            type: object
+            properties:
+              count: integer
+              next: integer
+              previous: integer
+              results:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: string
+                    subject:
+                      type: string
+                    question:
+                      type: string
+                    answer:
+                      type: string
+  "/tests/{id}":
+    get:
+      summary: Retrieves a test
+      tags:
+      - Tests
+      produces:
+      - application/json
+      parameters:
+      - name: id
+        in: path
+        type: string
+        required: true
+      responses:
+        '200':
+          description: success
+          schema:
+            type: object
+            properties:
+              id:
+                type: string
+              subject:
+                type: string
+              question:
+                type: string
+              answer:
+                type: string
+            required:
+            - id
+            - subject
+            - question
+            - answer
+        '404':
+          description: not_found
+        '406':
+          description: unsupported accept header
+servers:
+- url: https://{defaultHost}
+  variables:
+    defaultHost:
+      default: www.example.com

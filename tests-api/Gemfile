@@ -15,16 +15,23 @@ gem "puma", "~> 4.1"
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
 gem "rack-cors"
 
+gem "rswag-api"
+gem "rswag-ui"
+
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem "byebug", platforms: %i(mri mingw x64_mingw)
+  gem "factory_bot_rails", "~> 4.0"
+  gem "faker", "~> 2.11.0"
+  gem "rspec-rails"
+  gem "rswag-specs"
   gem "rubocop", "~> 0.81.0", require: false
   gem "rubocop-rails", "~>2.4.1", require: false
   gem "rubocop-rspec", "~>1.38", require: false
-  gem "faker", "~> 2.11.0"
 end
 
-group :development do
+group :test do
+  gem "database_cleaner-active_record"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
