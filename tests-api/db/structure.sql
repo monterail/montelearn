@@ -40,21 +40,6 @@ CREATE TABLE public.ar_internal_metadata (
 
 
 --
--- Name: questions; Type: TABLE; Schema: public; Owner: -
---
-
-CREATE TABLE public.questions (
-    id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    test_id uuid,
-    type character varying NOT NULL,
-    content text NOT NULL,
-    options jsonb NOT NULL,
-    created_at timestamp(6) without time zone NOT NULL,
-    updated_at timestamp(6) without time zone NOT NULL
-);
-
-
---
 -- Name: schema_migrations; Type: TABLE; Schema: public; Owner: -
 --
 
@@ -69,7 +54,9 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.tests (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
-    title character varying NOT NULL,
+    subject character varying NOT NULL,
+    question character varying NOT NULL,
+    answer character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
@@ -81,14 +68,6 @@ CREATE TABLE public.tests (
 
 ALTER TABLE ONLY public.ar_internal_metadata
     ADD CONSTRAINT ar_internal_metadata_pkey PRIMARY KEY (key);
-
-
---
--- Name: questions questions_pkey; Type: CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT questions_pkey PRIMARY KEY (id);
 
 
 --
@@ -108,37 +87,13 @@ ALTER TABLE ONLY public.tests
 
 
 --
--- Name: index_questions_on_test_id; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_questions_on_test_id ON public.questions USING btree (test_id);
-
-
---
--- Name: index_questions_on_type; Type: INDEX; Schema: public; Owner: -
---
-
-CREATE INDEX index_questions_on_type ON public.questions USING btree (type);
-
-
---
--- Name: questions fk_rails_cb4b358d50; Type: FK CONSTRAINT; Schema: public; Owner: -
---
-
-ALTER TABLE ONLY public.questions
-    ADD CONSTRAINT fk_rails_cb4b358d50 FOREIGN KEY (test_id) REFERENCES public.tests(id);
-
-
---
 -- PostgreSQL database dump complete
 --
 
 SET search_path TO "$user", public;
 
 INSERT INTO "schema_migrations" (version) VALUES
-('20200401185622'),
-('20200402151557'),
-('20200406195624'),
-('20200419084204');
+('20200419084204'),
+('20200419090040');
 
 
