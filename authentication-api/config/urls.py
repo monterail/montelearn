@@ -57,6 +57,7 @@ urlpatterns = [
     path("api/", include(email_auth_urls)),
     path("api/", include("auth.core.urls")),
     path("api/", include("auth.user.urls")),
+    path("api/", include("auth.proxy.urls")),
     re_path(
         r"^confirm-email/(?P<key>[-:\w]+)/$",
         ConfirmEmail.as_view(),

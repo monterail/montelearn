@@ -27,7 +27,6 @@ services:
       PORT: 8000
       HOST: 0.0.0.0
       DJANGO_DEBUG: "True"
-      GOOGLE_OAUTH2_CLIENT_ID: ""
     ports:
       - "8000:8000"
     command: /start.sh

@@ -255,3 +255,5 @@ AWS_S3_ENCRYPTION = False
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="")
 AWS_S3_URL_PROTOCOL = env.str("AWS_S3_URL_PROTOCOL", default="https:")
+
+CORS_ORIGIN_WHITELIST = ["https://auth-api-test.herokuapp.com"]
