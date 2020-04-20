@@ -1,5 +1,9 @@
 # tests-api
 
+Stateful microservice, with its own database, that exposes a single JSON API endpoint `/tests`.
+
+Documented with Swagger 2.0 through [`rswag`](https://github.com/rswag/rswag) gem.
+
 ## Development setup
 
 It's based on https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development

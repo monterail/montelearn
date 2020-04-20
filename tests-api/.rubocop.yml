@@ -151,3 +151,10 @@ RSpec/MultipleExpectations:
 RSpec/FilePath:
   Exclude:
     - spec/mailers/**/*
+
+RSpec/EmptyExampleGroup:
+  Enabled: false
+
+Naming/FileName:
+  Enabled: false
+ 
