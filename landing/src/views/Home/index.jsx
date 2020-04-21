@@ -82,7 +82,7 @@ export default function HomePage() {
             </p>
             <div
               id={EDITOR_ID}
-              css={{ margin: "0 auto", minHeight: rem(100), maxWidth: "100%", width: rem(475) }}
+              css={{ margin: "0 auto", minHeight: rem(100), maxWidth: "100%", width: rem(600) }}
             >
               <TryItOut />
             </div>

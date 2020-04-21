@@ -1,72 +1,24 @@
-import { createContext, useContext, useState, useCallback, useMemo } from "react";
+import { createContext, useCallback, useContext, useState } from "react";
 
 import { COLOR_DON_JUAN, COLOR_GREEN } from "@/theming/const";
 import { rem } from "@/theming/utils";
 import { isUrlLike } from "@/utils/paths";
 import { pluralize } from "@/utils/wording";
 
-const Ctx = createContext();
+import RevealButton from "./RevealButton";
 
-function WithContext({ children }) {
-  const [actives, setActives] = useState({});
+const Context = createContext();
 
-  const toggle = useCallback(
-    (id) => {
-      const newActives = { ...actives };
-      newActives[id] = !actives[id];
-
-      setActives(newActives);
-    },
-    [actives],
-  );
-
-  const isActive = useMemo(() => {
-    return (id) => !!actives[id];
-  }, [actives]);
-
-  return <Ctx.Provider value={{ active: actives, toggle, isActive }}>{children}</Ctx.Provider>;
-}
-
-function RevealBtn(props) {
-  return (
-    <button
-      {...props}
-      css={{
-        WebkitAppearance: "none",
-        backgroundColor: "transparent",
-        border: "none",
-        cursor: "pointer",
-        fontFamily: "inherit",
-        margin: 0,
-        padding: 0,
-        ":hover": {
-          textDecoration: "underline",
-        },
-      }}
-      type="button"
-    >
-      show/hide
-    </button>
-  );
-}
-
-function RecursiveReveal({ id, value }) {
-  const { isActive, toggle } = useContext(Ctx);
-
-  if (!id) {
-    throw new Error("Missing id property");
-  }
+function ValueReveal({ id, value }) {
+  const { isActive, toggle } = useContext(Context);
+  const expanded = isActive(id);
 
   if (value === null) {
     return <span>NULL</span>;
   }
 
   if (typeof value === "undefined") {
-    return <span css={{ color: "#aa0" }}>undefined</span>;
-  }
-
-  if (typeof value === "boolean") {
-    return <span>{value.toString()}</span>;
+    return <span>undefined</span>;
   }
 
   if (Array.isArray(value)) {
@@ -77,14 +29,14 @@ function RecursiveReveal({ id, value }) {
           <i css={{ fontSize: rem(10) }}>
             ({value.length > 0 ? pluralize(value.length, "element", "elements") : "empty"})
           </i>{" "}
-          {value.length > 0 && <RevealBtn onClick={() => toggle(id)} />}
+          {value.length > 0 && <RevealButton onClick={() => toggle(id)} />}
         </span>
-        {isActive(id) && (
+        {expanded && (
           <div css={{ marginLeft: "1em" }}>
             {value.map((el, idx) => (
               <div key={idx}>
                 <span css={{ color: COLOR_GREEN }}>{idx}</span>:{" "}
-                <RecursiveReveal id={`${id}.${idx}`} value={el} />
+                <ValueReveal id={`${id}.${idx}`} value={el} />
               </div>
             ))}
           </div>
@@ -99,23 +51,23 @@ function RecursiveReveal({ id, value }) {
 
   if (typeof value === "object") {
     const keys = Object.keys(value);
-    const keysLen = keys.length;
+    const keysCount = keys.length;
 
     return (
       <>
         <span>
           <span css={{ color: COLOR_DON_JUAN }}>Object</span>{" "}
           <i css={{ fontSize: rem(10) }}>
-            ({keysLen > 0 ? pluralize(keysLen, "key", "keys") : "empty"})
+            ({keysCount > 0 ? pluralize(keysCount, "key", "keys") : "empty"})
           </i>{" "}
-          {keysLen > 0 && <RevealBtn onClick={() => toggle(id)} />}
+          {keysCount > 0 && <RevealButton onClick={() => toggle(id)} />}
         </span>
-        {isActive(id) && (
+        {expanded && (
           <div css={{ marginLeft: "1em" }}>
-            {keys.map((k) => (
-              <div key={k}>
-                <span css={{ color: COLOR_GREEN }}>{k}</span>:{" "}
-                <RecursiveReveal id={`${id}.${k}`} value={value[k]} />
+            {keys.map((key) => (
+              <div key={key}>
+                <span css={{ color: COLOR_GREEN }}>{key}</span>:{" "}
+                <ValueReveal id={`${id}.${key}`} value={value[key]} />
               </div>
             ))}
           </div>
@@ -126,19 +78,49 @@ function RecursiveReveal({ id, value }) {
 
   if (typeof value === "string" && isUrlLike(value)) {
     return (
-      <a rel="noopener noreferrer" href={value} target="_blank">
+      <a
+        css={{
+          color: "inherit",
+          ":not(:hover)": {
+            textDecoration: "none",
+          },
+        }}
+        href={value}
+        rel="noopener noreferrer"
+        target="_blank"
+      >
         {value}
       </a>
     );
   }
 
-  return <>{JSON.stringify(value)}</>;
+  // It's important to stringify the value, so strings are rendered with quotes..
+  return <span>{JSON.stringify(value)}</span>;
 }
 
-export default function (props) {
+export default function RecursiveReveal(props) {
+  const [actives, setActives] = useState({});
+
+  const toggle = useCallback(
+    (id) => {
+      const newActives = { ...actives };
+      newActives[id] = !actives[id];
+
+      setActives(newActives);
+    },
+    [actives],
+  );
+
+  const isActive = useCallback(
+    (id) => {
+      return !!actives[id];
+    },
+    [actives],
+  );
+
   return (
-    <WithContext>
-      <RecursiveReveal {...props} />
-    </WithContext>
+    <Context.Provider value={{ isActive, toggle }}>
+      <ValueReveal {...props} />
+    </Context.Provider>
   );
 }
