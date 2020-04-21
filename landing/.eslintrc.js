@@ -11,7 +11,8 @@ module.exports = {
   },
   env: {
     browser: true,
-    node: true
+    node: true,
+    "jest/globals": true
   },
   settings: {
     react: {
@@ -27,7 +28,7 @@ module.exports = {
     }
   },
   extends: ["airbnb", "airbnb/hooks", "prettier"],
-  plugins: ["prettier"],
+  plugins: ["jest", "prettier"],
   rules: {
     "import/prefer-default-export": "off",
     "no-restricted-syntax": "off",

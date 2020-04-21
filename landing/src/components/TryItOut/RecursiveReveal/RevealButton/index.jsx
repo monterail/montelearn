@@ -8,6 +8,7 @@ export default function RevealButton({ onClick, onClickData, ...props }) {
   return (
     <button
       {...props}
+      data-testid="RevealButton"
       css={{
         MozAppearance: "none",
         WebkitAppearance: "none",
