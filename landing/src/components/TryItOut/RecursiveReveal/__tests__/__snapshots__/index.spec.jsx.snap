@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RecursiveReveal should render Date 1`] = `
+<span
+  data-testid="RecursiveReveal_Date"
+>
+  Date (
+  2020-01-01T00:00:00.000Z
+  )
+</span>
+`;
+
+exports[`RecursiveReveal should render empty array 1`] = `
+<span
+  data-testid="RecursiveReveal_Array"
+>
+  <span
+    class="css-avslql-ValueReveal"
+  >
+    Array
+  </span>
+   
+  <i
+    class="css-1k6t0vo-ValueReveal"
+  >
+    (
+    empty
+    )
+  </i>
+   
+</span>
+`;
+
+exports[`RecursiveReveal should render empty object 1`] = `
+<span
+  data-testid="RecursiveReveal_Object"
+>
+  <span
+    class="css-avslql-ValueReveal"
+  >
+    Object
+  </span>
+   
+  <i
+    class="css-1k6t0vo-ValueReveal"
+  >
+    (
+    empty
+    )
+  </i>
+   
+</span>
+`;
+
+exports[`RecursiveReveal should render null 1`] = `
+<span
+  data-testid="RecursiveReveal_Null"
+>
+  NULL
+</span>
+`;
+
+exports[`RecursiveReveal should render simple value 1`] = `
+<span
+  data-testid="RecursiveReveal_Primitive"
+>
+  123
+</span>
+`;
+
+exports[`RecursiveReveal should render undefined 1`] = `
+<span
+  data-testid="RecursiveReveal_Undefined"
+>
+  undefined
+</span>
+`;

@@ -14,27 +14,33 @@ function ValueReveal({ id, value }) {
   const expanded = isActive(id);
 
   if (value === null) {
-    return <span>NULL</span>;
+    return <span data-testid="RecursiveReveal_Null">NULL</span>;
   }
 
   if (typeof value === "undefined") {
-    return <span>undefined</span>;
+    return <span data-testid="RecursiveReveal_Undefined">undefined</span>;
   }
 
   if (Array.isArray(value)) {
     return (
       <>
-        <span>
+        <span data-testid="RecursiveReveal_Array">
           <span css={{ color: COLOR_DON_JUAN }}>Array</span>{" "}
           <i css={{ fontSize: rem(10) }}>
             ({value.length > 0 ? pluralize(value.length, "element", "elements") : "empty"})
           </i>{" "}
-          {value.length > 0 && <RevealButton onClick={() => toggle(id)} />}
+          {value.length > 0 && (
+            <RevealButton
+              data-testid="RecursiveReveal_ArrayReveal"
+              onClick={toggle}
+              onClickData={id}
+            />
+          )}
         </span>
         {expanded && (
-          <div css={{ marginLeft: "1em" }}>
+          <div data-testid="RecursiveReveal_ArrayProperties" css={{ marginLeft: "1em" }}>
             {value.map((el, idx) => (
-              <div key={idx}>
+              <div data-testid="RecursiveReveal_ArrayProperty" key={idx}>
                 <span css={{ color: COLOR_GREEN }}>{idx}</span>:{" "}
                 <ValueReveal id={`${id}.${idx}`} value={el} />
               </div>
@@ -46,7 +52,7 @@ function ValueReveal({ id, value }) {
   }
 
   if (value instanceof Date) {
-    return <span>Date ({value.toISOString()})</span>;
+    return <span data-testid="RecursiveReveal_Date">Date ({value.toISOString()})</span>;
   }
 
   if (typeof value === "object") {
@@ -55,17 +61,23 @@ function ValueReveal({ id, value }) {
 
     return (
       <>
-        <span>
+        <span data-testid="RecursiveReveal_Object">
           <span css={{ color: COLOR_DON_JUAN }}>Object</span>{" "}
           <i css={{ fontSize: rem(10) }}>
             ({keysCount > 0 ? pluralize(keysCount, "key", "keys") : "empty"})
           </i>{" "}
-          {keysCount > 0 && <RevealButton onClick={() => toggle(id)} />}
+          {keysCount > 0 && (
+            <RevealButton
+              data-testid="RecursiveReveal_ObjectReveal"
+              onClick={toggle}
+              onClickData={id}
+            />
+          )}
         </span>
         {expanded && (
-          <div css={{ marginLeft: "1em" }}>
+          <div data-testid="RecursiveReveal_ObjectProperties" css={{ marginLeft: "1em" }}>
             {keys.map((key) => (
-              <div key={key}>
+              <div data-testid="RecursiveReveal_ObjectProperty" key={key}>
                 <span css={{ color: COLOR_GREEN }}>{key}</span>:{" "}
                 <ValueReveal id={`${id}.${key}`} value={value[key]} />
               </div>
@@ -79,6 +91,7 @@ function ValueReveal({ id, value }) {
   if (typeof value === "string" && isUrlLike(value)) {
     return (
       <a
+        data-testid="RecursiveReveal_Link"
         css={{
           color: "inherit",
           ":not(:hover)": {
@@ -95,7 +108,7 @@ function ValueReveal({ id, value }) {
   }
 
   // It's important to stringify the value, so strings are rendered with quotes..
-  return <span>{JSON.stringify(value)}</span>;
+  return <span data-testid="RecursiveReveal_Primitive">{JSON.stringify(value)}</span>;
 }
 
 export default function RecursiveReveal(props) {

@@ -1,13 +1,12 @@
 import { useCallback } from "react";
 
-export default function RevealButton({ onClick, onClickData, ...props }) {
+export default function RevealButton({ css, onClick, onClickData, ...props }) {
   const handleClick = useCallback(() => {
     onClick(onClickData);
   }, [onClick, onClickData]);
 
   return (
     <button
-      {...props}
       data-testid="RevealButton"
       css={{
         MozAppearance: "none",
@@ -23,9 +22,12 @@ export default function RevealButton({ onClick, onClickData, ...props }) {
         ":hover": {
           textDecoration: "underline",
         },
+
+        ...css,
       }}
       onClick={handleClick}
       type="button"
+      {...props}
     >
       show/ hide
     </button>
