@@ -234,7 +234,7 @@ export default function TryItOutComponent() {
                   overflow: "auto",
                 }}
               >
-                <RecursiveReveal value={request.response.data} />
+                <RecursiveReveal id="root" value={request.response.data} />
               </div>
             ) : (
               <pre style={{ fontSize: rem(16), wordBreak: "break-all", whiteSpace: "pre-wrap" }}>

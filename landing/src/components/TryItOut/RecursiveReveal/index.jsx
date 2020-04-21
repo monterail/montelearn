@@ -1,19 +1,9 @@
-import { useState, useCallback, useMemo, createContext, useContext } from "react";
+import { createContext, useContext, useState, useCallback, useMemo } from "react";
 
+import { COLOR_DON_JUAN, COLOR_GREEN } from "@/theming/const";
 import { rem } from "@/theming/utils";
+import { isUrlLike } from "@/utils/paths";
 import { pluralize } from "@/utils/wording";
-
-const chevronRight = (
-  <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
-    <path fill="#fff" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" />
-  </svg>
-);
-
-const chevronUp = (
-  <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 0 24 24" width="16">
-    <path fill="#fff" d="M12 8l-6 6 1.41 1.41L12 10.83l4.59 4.58L18 14z" />
-  </svg>
-);
 
 const Ctx = createContext();
 
@@ -37,129 +27,110 @@ export function WithContext({ children }) {
   return <Ctx.Provider value={{ active: actives, toggle, isActive }}>{children}</Ctx.Provider>;
 }
 
-const tab = <>&nbsp;&nbsp;</>;
+function RevealBtn(props) {
+  return (
+    <button
+      {...props}
+      css={{
+        WebkitAppearance: "none",
+        backgroundColor: "transparent",
+        border: "none",
+        cursor: "pointer",
+        fontFamily: "inherit",
+        margin: 0,
+        padding: 0,
+        ":hover": {
+          textDecoration: "underline",
+        },
+      }}
+      type="button"
+    >
+      show/hide
+    </button>
+  );
+}
 
-function Revealable({ children, id }) {
+export default function RecursiveReveal({ id, value }) {
   const { isActive, toggle } = useContext(Ctx);
 
   if (!id) {
     throw new Error("Missing id property");
   }
 
-  const toggleSelf = useCallback(() => {
-    toggle(id);
-  }, [id, toggle]);
-
-  const isOn = isActive(id);
-
-  return (
-    <>
-      <button
-        css={{
-          WebkitAppearance: "none",
-          MozAppearance: "none",
-          appearance: "none",
-          padding: 0,
-          margin: 0,
-          lineHeight: 0,
-          border: "none",
-          borderRadius: rem(4),
-          backgroundColor: "#b3aac3",
-          cursor: "pointer",
-          ":hover": {
-            opacity: 0.75,
-          },
-        }}
-        onClick={toggleSelf}
-        type="button"
-      >
-        {isOn ? chevronUp : chevronRight}
-      </button>
-      {isOn && children}
-    </>
-  );
-}
-
-function RecursiveReveal({ css, value, ...props }) {
-  if (typeof value === "undefined") {
-    return (
-      <span css={{ ...css, color: "grey" }} {...props}>
-        undefined
-      </span>
-    );
-  }
-
-  if (typeof value === "number") {
-    return (
-      <span css={{ ...css }} {...props}>
-        {JSON.stringify(value)}
-      </span>
-    );
-  }
-
   if (value === null) {
-    return (
-      <span css={{ ...css, color: "grey" }} {...props}>
-        NULL
-      </span>
-    );
+    return <span>NULL</span>;
   }
 
-  if (value instanceof Date) {
-    return (
-      <span css={{ ...css }} {...props}>
-        Date ({value.toISOString()})
-      </span>
-    );
+  if (typeof value === "undefined") {
+    return <span css={{ color: "#aa0" }}>undefined</span>;
+  }
+
+  if (typeof value === "boolean") {
+    return <span>{value.toString()}</span>;
   }
 
   if (Array.isArray(value)) {
     return (
-      <span css={{ ...css }} {...props}>
-        Array ({pluralize(value.length, "element", "elements")}) [
-        {value.length > 0 && (
-          <Revealable id={JSON.stringify(value)}>
-            {value.map((el, index) => (
-              <div key={index} css={{ display: "flex", flexWrap: "wrap" }}>
-                {tab}
-                {index}: <RecursiveReveal value={el} />
+      <>
+        <span>
+          <span css={{ color: COLOR_DON_JUAN }}>Array</span>{" "}
+          <i css={{ fontSize: rem(10) }}>
+            ({value.length > 0 ? pluralize(value.length, "element", "elements") : "empty"})
+          </i>{" "}
+          {value.length > 0 && <RevealBtn onClick={() => toggle(id)} />}
+        </span>
+        {isActive(id) && (
+          <div css={{ marginLeft: "1em" }}>
+            {value.map((el, idx) => (
+              <div key={idx}>
+                <span css={{ color: COLOR_GREEN }}>{idx}</span>:{" "}
+                <RecursiveReveal id={`${id}.${idx}`} value={el} />
               </div>
             ))}
-          </Revealable>
+          </div>
         )}
-        ]
-      </span>
+      </>
     );
+  }
+
+  if (value instanceof Date) {
+    return <span>Date ({value.toISOString()})</span>;
   }
 
   if (typeof value === "object") {
-    const nodes = [];
-
-    for (const k in value) {
-      if (Object.prototype.hasOwnProperty.call(value, k)) {
-        nodes.push(
-          <div key={k}>
-            {tab}
-            {k}: <RecursiveReveal value={value[k]} />
-          </div>,
-        );
-      }
-    }
+    const keys = Object.keys(value);
+    const keysLen = keys.length;
 
     return (
-      <span css={{ ...css }} {...props}>
-        Object ({pluralize(nodes.length, "key", "keys")}) &#123;
-        {nodes.length > 0 && <Revealable id={JSON.stringify(value)}>{nodes}</Revealable>}
-        &#125;
-      </span>
+      <>
+        <span>
+          <span css={{ color: COLOR_DON_JUAN }}>Object</span>{" "}
+          <i css={{ fontSize: rem(10) }}>
+            ({keysLen > 0 ? pluralize(keysLen, "key", "keys") : "empty"})
+          </i>{" "}
+          {keysLen > 0 && <RevealBtn onClick={() => toggle(id)} />}
+        </span>
+        {isActive(id) && (
+          <div css={{ marginLeft: "1em" }}>
+            {keys.map((k) => (
+              <div key={k}>
+                <span css={{ color: COLOR_GREEN }}>{k}</span>:{" "}
+                <RecursiveReveal id={`${id}.${k}`} value={value[k]} />
+              </div>
+            ))}
+          </div>
+        )}
+      </>
     );
   }
 
-  return (
-    <span css={{ ...css }} {...props}>
-      {JSON.stringify(value)}
-    </span>
-  );
-}
+  if (typeof value === "string" && isUrlLike(value)) {
+    return (
+      <a rel="noopener noreferrer" href={value} target="_blank">
+        {value}
+      </a>
+    );
+  }
 
-export default RecursiveReveal;
+  return <>{JSON.stringify(value)}</>;
+}
