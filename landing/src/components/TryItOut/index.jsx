@@ -36,7 +36,7 @@ export default function TryItOutComponent() {
 
         setParams(JSON.stringify(parsedParams, null, 2));
 
-        const res = await fetch(`http://localhost:8000${ensureLeadingSlash(url)}`, {
+        const res = await fetch(`${process.env.API_PLAYGROUND_URL}${ensureLeadingSlash(url)}`, {
           method,
           data: params,
         });
@@ -101,7 +101,7 @@ export default function TryItOutComponent() {
             onChange={onChangeApi}
           >
             {Object.keys(predefinedAPIs).map((k) => (
-              <option value={k}>
+              <option key={k} value={k}>
                 {predefinedAPIs[k].method} {predefinedAPIs[k].url}
               </option>
             ))}

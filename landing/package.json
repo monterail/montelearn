@@ -8,12 +8,13 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "eslint 'src/**/*.{js,jsx}' '*.js'",
+    "lint": "eslint '{src,env}/**/*.{js,jsx}' '*.js'",
     "lint-and-fix": "yarn lint --fix"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@emotion/core": "10.0.28",
+    "envalid": "6.0.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "9.3.5",
     "react": "16.13.1",
