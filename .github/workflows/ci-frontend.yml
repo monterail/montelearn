@@ -40,7 +40,7 @@ jobs:
       run: yarn --frozen-lockfile
 
     - name: ESLint
-      run: (cd landing && yarn lint)
+      run: (cd landing && make lint)
 
     - name: Build landing page
-      run: (cd landing && yarn build && yarn export)
+      run: (cd landing && make build && make export)
