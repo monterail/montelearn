@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
   "license": "MIT",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "export": "next export",
+    "start": "next start",
+    "lint": "eslint 'src/**/*.{js,jsx}' '*.js'",
+    "lint-and-fix": "yarn lint --fix"
+  },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@emotion/core": "10.0.28",
@@ -33,6 +41,6 @@
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": "make lint-and-fix"
+    "*.{js,jsx}": "yarn lint-and-fix"
   }
 }

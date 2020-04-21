@@ -4,8 +4,8 @@ COPY package.json yarn.lock landing/package.json ./
 RUN yarn --frozen-lockfile
 COPY . .
 WORKDIR /usr/src/project/landing
-RUN make build
-RUN make export
+RUN yarn build
+RUN yarn export
 
 FROM pagespeed/nginx-pagespeed:stable-alpine3.8 AS runner
 COPY --from=builder /usr/src/project/landing/out /usr/share/nginx/html
