@@ -2,20 +2,26 @@ import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import { useCallback, useState } from "react";
 
-import { FONT_MONOSPACE, COLOR_GREEN, COLOR_WHITE, FONT_SANS_SERIF } from "@/theming/const";
+import {
+  COLOR_GREEN,
+  COLOR_MILANO_RED,
+  COLOR_WHITE,
+  FONT_MONOSPACE,
+  FONT_SANS_SERIF,
+} from "@/theming/const";
 import { rem } from "@/theming/utils";
 import { ensureLeadingSlash } from "@/utils/paths";
 
-import RecursiveReveal, { WithContext } from "./RecursiveReveal";
+import RecursiveReveal from "./RecursiveReveal";
 
 const predefinedAPIs = {
-  lessonsApi: { method: "GET", url: "/api/lesson" },
+  LESSONS_API: { method: "GET", url: "/api/lesson" },
 };
 
 export default function TryItOutComponent() {
-  const [params, setParams] = useState(JSON.stringify({ id: 1 }, null, 2));
+  const [params, setParams] = useState(JSON.stringify({}, null, 2));
   const [request, setRequest] = useState({});
-  const [apiConfig, setApiConfig] = useState("lessonsApi");
+  const [apiConfig, setApiConfig] = useState("LESSONS_API");
 
   const onChangeApi = useCallback((evt) => {
     setApiConfig(evt.target.value);
@@ -36,23 +42,38 @@ export default function TryItOutComponent() {
 
         setParams(JSON.stringify(parsedParams, null, 2));
 
-        const res = await fetch(`${process.env.API_PLAYGROUND_URL}${ensureLeadingSlash(url)}`, {
+        fetch(`${process.env.API_PLAYGROUND_URL}${ensureLeadingSlash(url)}`, {
           method,
           data: params,
-        });
-
-        setRequest({
-          params: parsedParams,
-          url,
-          method,
-          response: {
-            body: res.ok ? (await res.json()).data : null,
-            headers: Array.from(res.headers.entries()),
-            ok: res.ok,
-            status: res.status,
-            statusText: res.statusText,
-          },
-        });
+        })
+          .then(async (res) => {
+            setRequest({
+              params: parsedParams,
+              url,
+              method,
+              response: {
+                body: res.ok ? (await res.json()).data : null,
+                headers: Array.from(res.headers.entries()),
+                ok: res.ok,
+                status: res.status,
+                statusText: res.statusText,
+              },
+            });
+          })
+          .catch(() => {
+            setRequest({
+              params: parsedParams,
+              url,
+              method,
+              response: {
+                body: null,
+                headers: [],
+                ok: false,
+                status: 400,
+                statusText: "Not found",
+              },
+            });
+          });
       } catch {
         // Ignore error.
       }
@@ -97,8 +118,8 @@ export default function TryItOutComponent() {
               width: `calc(100% - ${rem(100)})`,
             }}
             name="apiConfig"
-            value={apiConfig}
             onChange={onChangeApi}
+            value={apiConfig}
           >
             {Object.keys(predefinedAPIs).map((k) => (
               <option key={k} value={k}>
@@ -148,31 +169,30 @@ export default function TryItOutComponent() {
           value={params}
         />
       </form>
-      <WithContext>
-        {request.response &&
-          (request.response.ok ? (
-            <div
-              css={{
-                backgroundColor: COLOR_WHITE,
-                border: `1px solid ${COLOR_GREEN}`,
-                borderRadius: rem(4),
-                fontFamily: FONT_MONOSPACE,
-                fontSize: rem(14),
-                lineHeight: rem(24),
-                marginTop: rem(10),
-                overflow: "auto",
-                padding: rem(5, 10),
-                whiteSpace: "nowrap",
-              }}
-            >
-              <RecursiveReveal id="root" value={request.response.body} />
-            </div>
+      {request.response && (
+        <div
+          css={{
+            backgroundColor: COLOR_WHITE,
+            border: `1px solid ${COLOR_GREEN}`,
+            borderRadius: rem(4),
+            fontFamily: FONT_MONOSPACE,
+            fontSize: rem(14),
+            lineHeight: rem(24),
+            marginTop: rem(10),
+            overflow: "auto",
+            padding: rem(5, 10),
+            whiteSpace: "nowrap",
+          }}
+        >
+          {request.response.ok ? (
+            <RecursiveReveal id="root" value={request.response.body} />
           ) : (
-            <div>
+            <span css={{ color: COLOR_MILANO_RED }}>
               {request.response.status} {request.response.statusText}
-            </div>
-          ))}
-      </WithContext>
+            </span>
+          )}
+        </div>
+      )}
     </>
   );
 }

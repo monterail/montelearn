@@ -7,7 +7,7 @@ import { pluralize } from "@/utils/wording";
 
 const Ctx = createContext();
 
-export function WithContext({ children }) {
+function WithContext({ children }) {
   const [actives, setActives] = useState({});
 
   const toggle = useCallback(
@@ -50,7 +50,7 @@ function RevealBtn(props) {
   );
 }
 
-export default function RecursiveReveal({ id, value }) {
+function RecursiveReveal({ id, value }) {
   const { isActive, toggle } = useContext(Ctx);
 
   if (!id) {
@@ -133,4 +133,12 @@ export default function RecursiveReveal({ id, value }) {
   }
 
   return <>{JSON.stringify(value)}</>;
+}
+
+export default function (props) {
+  return (
+    <WithContext>
+      <RecursiveReveal {...props} />
+    </WithContext>
+  );
 }
