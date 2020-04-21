@@ -42,6 +42,9 @@ jobs:
     - name: ESLint
       run: (cd landing && yarn lint)
 
+    - name: Run unit tests
+      run: (cd landing && yarn test)
+
     - name: Build landing page
       env:
         API_PLAYGROUND_URL: http://localhost:8000
