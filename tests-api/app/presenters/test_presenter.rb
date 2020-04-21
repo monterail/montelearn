@@ -3,7 +3,7 @@
 class TestPresenter < Presenter
   def as_json(*)
     {
-      id: @object.id,
+      uuid: @object.id,
       subject: @object.subject,
       question: @object.question,
       answer: @object.answer,

@@ -3,7 +3,7 @@
 require "swagger_helper"
 
 RSpec.describe "api/tests", type: :request do
-  path "/api/backoffice/articles" do
+  path "/tests/" do
     get "Find all articles" do
       tags "Articles"
       parameter name: :limit,
@@ -28,7 +28,7 @@ RSpec.describe "api/tests", type: :request do
                    items: {
                      type: :object,
                      properties: {
-                       id: { type: :string },
+                       uuid: { type: :string },
                        subject: { type: :string },
                        question: { type: :string },
                        answer: { type: :string },
@@ -42,28 +42,28 @@ RSpec.describe "api/tests", type: :request do
     end
   end
 
-  path "/tests/{id}" do
+  path "/tests/{uuid}" do
     get "Retrieves a test" do
       tags "Tests"
       produces "application/json"
-      parameter name: :id, in: :path, type: :string
+      parameter name: :uuid, in: :path, type: :string
 
       response "200", :success do
         schema type: :object,
                properties: {
-                 id: { type: :string },
+                 uuid: { type: :string },
                  subject: { type: :string },
                  question: { type: :string },
                  answer: { type: :string },
                },
-               required: %w(id subject question answer)
+               required: %w(uuid subject question answer)
 
-        let(:id) { create(:test).id }
+        let(:uuid) { create(:test).id }
         run_test!
       end
 
       response "404", :not_found do
-        let(:id) { "invalid" }
+        let(:uuid) { "invalid" }
         run_test!
       end
 
