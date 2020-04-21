@@ -1,6 +1,6 @@
 const authProvider = {
   login: ({ username, password }) => {
-    const request = new Request('http://localhost:8080/api/auth/email/login/', {
+    const request = new Request(`${process.env.REACT_APP_API_URL}/auth/email/login/`, {
       method: 'POST',
       body: JSON.stringify({ email: username, password: password }),
       headers: new Headers({ 'Content-Type': 'application/json' }),

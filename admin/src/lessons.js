@@ -7,7 +7,7 @@ import {
 } from 'react-admin';
 
 const ListActions = ({ record, basePath, resource }) => (
-  <ShowButton basePath={basePath} record={{ id: record["uuid"] }} />
+  <ShowButton basePath={basePath} record={{ id: record["id"] }} />
 );
 
 export const LessonList = props => (
