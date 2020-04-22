@@ -27,4 +27,12 @@ function filterEnvForNextjs(allEnv) {
   return env;
 }
 
-module.exports = filterEnvForNextjs(getConfigEnv());
+function getCleanEnv() {
+  return filterEnvForNextjs(getConfigEnv());
+}
+
+module.exports = {
+  filterEnvForNextjs,
+  getConfigEnv,
+  getCleanEnv,
+};
