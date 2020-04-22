@@ -8,8 +8,9 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "eslint '{src,env}/**/*.{js,jsx}' '*.js'",
+    "lint": "eslint '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js' '.*.js'",
     "lint-and-fix": "yarn lint --fix",
+    "tsc": "tsc --noEmit",
     "test": "jest"
   },
   "dependencies": {
@@ -25,11 +26,16 @@
     "@babel/core": "7.9.0",
     "@testing-library/jest-dom": "5.5.0",
     "@testing-library/react": "10.0.3",
+    "@types/node": "13.13.2",
+    "@types/react": "16.9.34",
+    "@typescript-eslint/eslint-plugin": "2.29.0",
+    "@typescript-eslint/parser": "2.29.0",
     "babel-eslint": "10.1.0",
     "babel-plugin-emotion": "10.0.33",
     "babel-plugin-jsx-remove-data-test-id": "2.1.3",
-    "eslint": "^6.8.0",
+    "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
+    "eslint-config-airbnb-typescript": "7.2.1",
     "eslint-config-prettier": "6.10.1",
     "eslint-import-resolver-alias": "1.1.2",
     "eslint-plugin-import": "2.20.2",
@@ -37,18 +43,19 @@
     "eslint-plugin-jsx-a11y": "6.2.3",
     "eslint-plugin-prettier": "3.1.3",
     "eslint-plugin-react": "7.19.0",
-    "eslint-plugin-react-hooks": "3.0.0",
+    "eslint-plugin-react-hooks": "2.5",
     "husky": "4.2.5",
     "jest": "25.4.0",
     "lint-staged": "10.1.6",
-    "prettier": "2.0.4"
+    "prettier": "2.0.4",
+    "typescript": "3.8.3"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "yarn tsc && lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": "yarn lint-and-fix"
+    "*.{ts,tsx,js,jsx}": "yarn lint-and-fix"
   }
 }
