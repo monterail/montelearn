@@ -18,3 +18,13 @@ def authenticated_api_client():
     client = APIClientWithUser()
     client.force_authenticate(user=client.user)
     return client
+
+
+@pytest.fixture
+def authenticated_admin_client():
+    class AdminClient(APIClient):
+        user = UserFactory(is_staff=True)
+
+    client = AdminClient()
+    client.force_authenticate(user=client.user)
+    return client
