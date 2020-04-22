@@ -3,7 +3,7 @@ import { createContext, useCallback, useContext, useState } from "react";
 import { COLOR_DON_JUAN, COLOR_GREEN } from "@/theming/const";
 import { rem } from "@/theming/utils";
 import { isUrlLike } from "@/utils/paths";
-import { pluralize } from "@/utils/wording";
+import { pluralize } from "@/utils/words";
 
 import RevealButton from "./RevealButton";
 

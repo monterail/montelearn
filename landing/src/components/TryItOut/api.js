@@ -2,7 +2,7 @@ import fetch from "isomorphic-unfetch";
 
 export default async function sendRequest(method, url, data = {}) {
   try {
-    const res = await fetch(`${process.env.API_PLAYGROUND_URL}${url}`, { method, data });
+    const res = await fetch(url, { method, data });
     const headers = Array.from(res.headers.entries());
 
     let body = null;

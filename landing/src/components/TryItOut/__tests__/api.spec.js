@@ -4,22 +4,14 @@ import sendRequest from "../api";
 
 jest.mock("isomorphic-unfetch");
 
+const FAKE_API_URL = "http://fake.backend/api/lesson";
+
 describe("api", () => {
-  const API_PLAYGROUND_URL = "http://lessonapi.com";
-
-  beforeEach(() => {
-    process.env.API_PLAYGROUND_URL = API_PLAYGROUND_URL;
-  });
-
-  afterEach(() => {
-    delete process.env.API_PLAYGROUND_URL;
-  });
-
   describe("sendRequest", () => {
     it("should send request and pass configuration to fetch function", async () => {
-      await sendRequest("GET", "/api/lesson", { id: 1 });
+      await sendRequest("GET", FAKE_API_URL, { id: 1 });
 
-      expect(fetch).toBeCalledWith(`${API_PLAYGROUND_URL}/api/lesson`, {
+      expect(fetch).toBeCalledWith(FAKE_API_URL, {
         method: "GET",
         data: { id: 1 },
       });
@@ -36,7 +28,7 @@ describe("api", () => {
         statusText: "OK",
       });
 
-      expect(await sendRequest("GET", "/api/lesson", {})).toStrictEqual({
+      expect(await sendRequest("GET", FAKE_API_URL, {})).toStrictEqual({
         headers: [],
         ok: true,
         status: 200,
@@ -55,7 +47,7 @@ describe("api", () => {
         statusText: "Not Found",
       });
 
-      expect(await sendRequest("GET", "/api/lesson", {})).toStrictEqual({
+      expect(await sendRequest("GET", FAKE_API_URL, {})).toStrictEqual({
         headers: [],
         ok: false,
         status: 404,
@@ -69,7 +61,7 @@ describe("api", () => {
         return Promise.reject();
       });
 
-      expect(await sendRequest("GET", "/api/lesson", {})).toStrictEqual({
+      expect(await sendRequest("GET", FAKE_API_URL, {})).toStrictEqual({
         headers: [],
         ok: false,
         status: 111,

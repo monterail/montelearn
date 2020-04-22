@@ -13,6 +13,14 @@ import {
 } from "@/theming/const";
 import { rem } from "@/theming/utils";
 
+const endpoints = [
+  {
+    displayText: "GET /api/lesson",
+    method: "GET",
+    url: `${process.env.API_PLAYGROUND_URL}/api/lesson`,
+  },
+];
+
 const EDITOR_ID = "try-it-out";
 
 function scrollToEditor() {
@@ -84,7 +92,7 @@ export default function HomePage() {
               id={EDITOR_ID}
               css={{ margin: "0 auto", minHeight: rem(100), maxWidth: "100%", width: rem(600) }}
             >
-              <TryItOut />
+              <TryItOut endpoints={endpoints} />
             </div>
           </ContentWidth>
         </section>

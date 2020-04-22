@@ -9,55 +9,53 @@ import {
   FONT_SANS_SERIF,
 } from "@/theming/const";
 import { rem } from "@/theming/utils";
-import { ensureLeadingSlash } from "@/utils/paths";
+import { getLinesCount } from "@/utils/words";
 
 import sendRequest from "./api";
 import RecursiveReveal from "./RecursiveReveal";
 
-const predefinedAPIs = {
-  LESSONS_API: { method: "GET", url: "/api/lesson" },
-};
-
-export default function TryItOutComponent() {
+export default function TryItOut({ endpoints }) {
+  const [endpointIndex, setEndpointIndex] = useState(0);
   const [params, setParams] = useState(JSON.stringify({}, null, 2));
   const [request, setRequest] = useState({});
-  const [apiConfig, setApiConfig] = useState("LESSONS_API");
 
-  const onChangeApi = useCallback((evt) => {
-    setApiConfig(evt.target.value);
-    setRequest({});
-  }, []);
+  const onChangeEndpoint = useCallback(
+    (evt) => {
+      setEndpointIndex(parseInt(evt.target.value, 10));
+      setRequest({});
+    },
+    [setEndpointIndex, setRequest],
+  );
 
-  const onParamsChange = useCallback((evt) => {
-    setParams(evt.target.value);
-  }, []);
+  const onParamsChange = useCallback(
+    (evt) => {
+      setParams(evt.target.value);
+    },
+    [setParams],
+  );
 
   const onSend = useCallback(
     async (evt) => {
       evt.preventDefault();
 
       try {
-        const { url, method } = predefinedAPIs[apiConfig];
-        const parsedParams = JSON.parse(params);
+        const { url, method } = endpoints[endpointIndex];
+        const body = JSON.parse(params);
 
-        setParams(JSON.stringify(parsedParams, null, 2));
+        setParams(JSON.stringify(body, null, 2));
 
-        const response = await sendRequest(method, ensureLeadingSlash(url), parsedParams);
+        const response = await sendRequest(method, url, body);
 
         setRequest({
-          params: parsedParams,
-          url,
-          method,
           response,
+          request: { body, method, url },
         });
       } catch {
         // Ignore JSON parsing error.
       }
     },
-    [params, apiConfig],
+    [params, endpoints, endpointIndex],
   );
-
-  const lines = (params.match(/\n/g) || []).length + 1;
 
   return (
     <>
@@ -67,7 +65,11 @@ export default function TryItOutComponent() {
           href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@500&display=swap"
         />
       </Head>
-      <form css={{ display: "flex", flexDirection: "column" }} onSubmit={onSend}>
+      <form
+        data-testid="TryItOut_Form"
+        css={{ display: "flex", flexDirection: "column" }}
+        onSubmit={onSend}
+      >
         <div
           css={{
             alignItems: "stretch",
@@ -93,13 +95,14 @@ export default function TryItOutComponent() {
               padding: rem(5, 10),
               width: `calc(100% - ${rem(100)})`,
             }}
-            name="apiConfig"
-            onChange={onChangeApi}
-            value={apiConfig}
+            data-testid="TryItOut_EndpointSelect"
+            name="endpoint"
+            onChange={onChangeEndpoint}
+            value={endpointIndex}
           >
-            {Object.keys(predefinedAPIs).map((k) => (
-              <option key={k} value={k}>
-                {predefinedAPIs[k].method} {predefinedAPIs[k].url}
+            {endpoints.map(({ displayText, url }, index) => (
+              <option key={url} value={index}>
+                {displayText}
               </option>
             ))}
           </select>
@@ -121,6 +124,7 @@ export default function TryItOutComponent() {
               padding: 0,
               width: rem(80),
             }}
+            data-testid="TryItOut_SubmitButton"
             type="submit"
           >
             Send
@@ -132,11 +136,12 @@ export default function TryItOutComponent() {
             borderRadius: rem(0, 0, 4, 4),
             fontFamily: FONT_MONOSPACE,
             fontSize: rem(12),
-            height: rem(Math.min(10, lines) * 16 + 25),
+            height: rem(Math.min(10, getLinesCount(params)) * 16 + 25),
             margin: rem(0, 0, 10),
             outline: "none",
             padding: rem(10),
           }}
+          data-testid="TryItOut_ParamsInput"
           name="body"
           onChange={onParamsChange}
           value={params}
