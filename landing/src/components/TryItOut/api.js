@@ -1,6 +1,6 @@
 import fetch from "isomorphic-unfetch";
 
-export default async function sendRequest(method, url, data = {}) {
+export default async function sendRequest(method, url, data) {
   try {
     const res = await fetch(url, { method, data });
     const headers = Array.from(res.headers.entries());

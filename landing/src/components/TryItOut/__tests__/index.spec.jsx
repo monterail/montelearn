@@ -93,17 +93,13 @@ describe("TryItOut", () => {
 
     it("should render error after failed request", async () => {
       api.mockReset();
-      api.mockImplementationOnce(
-        jest.fn(() => {
-          return {
-            body: null,
-            headers: [],
-            ok: false,
-            status: 400,
-            statusText: "Bad Request",
-          };
-        }),
-      );
+      api.mockResolvedValueOnce({
+        body: null,
+        headers: [],
+        ok: false,
+        status: 400,
+        statusText: "Bad Request",
+      });
 
       await act(async () => {
         fireEvent.click(screen.getByTestId("TryItOut_SubmitButton"));
