@@ -3,9 +3,11 @@
 require "swagger_helper"
 
 RSpec.describe "api/tests", type: :request do
-  path "/tests/" do
-    get "Find all articles" do
-      tags "Articles"
+  path "/api/tests/" do
+    get "Retrieves tests" do
+      tags "Tests"
+      produces "application/json"
+
       parameter name: :limit,
                 in: :query,
                 type: :integer,
@@ -20,9 +22,9 @@ RSpec.describe "api/tests", type: :request do
       response "200", :success do
         schema type: :object,
                properties: {
-                 count: :integer,
-                 next: :integer,
-                 previous: :integer,
+                 count: { type: :integer },
+                 next: { type: :integer, nullable: true },
+                 previous: { type: :integer, nullable: true },
                  results: {
                    type: :array,
                    items: {
@@ -35,17 +37,35 @@ RSpec.describe "api/tests", type: :request do
                      },
                    },
                  },
-               }
-        let(:test) { create(:test) }
+               },
+               required: %w(count next previous results)
+
+        examples "application/json" => {
+          count: 10,
+          next: nil,
+          previous: nil,
+          results: [
+            {
+              uuid: "b77eb326-efc1-41e1-a37e-c66bcff4f340",
+              subject: "Science",
+              question: "Is math related to science?",
+              answer: "Non't",
+            },
+          ],
+        }
+
+        let(:test) { create(:test, :binary_question) }
+
         run_test!
       end
     end
   end
 
-  path "/tests/{uuid}" do
+  path "/api/tests/{uuid}" do
     get "Retrieves a test" do
       tags "Tests"
       produces "application/json"
+
       parameter name: :uuid, in: :path, type: :string
 
       response "200", :success do
@@ -58,17 +78,30 @@ RSpec.describe "api/tests", type: :request do
                },
                required: %w(uuid subject question answer)
 
+        examples "application/json" => {
+          uuid: "b77eb326-efc1-41e1-a37e-c66bcff4f340",
+          subject: "Science",
+          question: "Is math related to science?",
+          answer: "Non't",
+        }
+
         let(:uuid) { create(:test).id }
+
         run_test!
       end
 
       response "404", :not_found do
-        let(:uuid) { "invalid" }
-        run_test!
-      end
+        schema type: :object,
+               properties: {
+                 detail: { type: :string },
+               }
 
-      response "406", "unsupported accept header" do
-        let(:Accept) { "application/foo" }
+        examples "application/json" => {
+          detail: "Not found.",
+        }
+
+        let(:uuid) { "invalid" }
+
         run_test!
       end
     end

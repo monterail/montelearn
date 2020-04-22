@@ -4,11 +4,13 @@ info:
   title: tests_api
   version: v1.0
 paths:
-  "/tests/":
+  "/api/tests/":
     get:
-      summary: Find all articles
+      summary: Retrieves tests
       tags:
-      - Articles
+      - Tests
+      produces:
+      - application/json
       parameters:
       - name: limit
         in: query
@@ -26,9 +28,14 @@ paths:
           schema:
             type: object
             properties:
-              count: integer
-              next: integer
-              previous: integer
+              count:
+                type: integer
+              next:
+                type: integer
+                nullable: true
+              previous:
+                type: integer
+                nullable: true
               results:
                 type: array
                 items:
@@ -42,7 +49,22 @@ paths:
                       type: string
                     answer:
                       type: string
-  "/tests/{uuid}":
+            required:
+            - count
+            - next
+            - previous
+            - results
+          examples:
+            application/json:
+              count: 10
+              next: 
+              previous: 
+              results:
+              - uuid: b77eb326-efc1-41e1-a37e-c66bcff4f340
+                subject: Science
+                question: Is math related to science?
+                answer: Non't
+  "/api/tests/{uuid}":
     get:
       summary: Retrieves a test
       tags:
@@ -73,10 +95,22 @@ paths:
             - subject
             - question
             - answer
+          examples:
+            application/json:
+              uuid: b77eb326-efc1-41e1-a37e-c66bcff4f340
+              subject: Science
+              question: Is math related to science?
+              answer: Non't
         '404':
           description: not_found
-        '406':
-          description: unsupported accept header
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+          examples:
+            application/json:
+              detail: Not found.
 servers:
 - url: https://{defaultHost}
   variables:
