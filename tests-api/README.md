@@ -1,8 +1,14 @@
 # tests-api
 
-Stateful microservice, with its own database, that exposes a single JSON API endpoint `/tests`.
+Stateful microservice, with its own database, that exposes a `Test` resources.
 
-Documented with Swagger 2.0 through [`rswag`](https://github.com/rswag/rswag) gem.
+Available endpoints:
+- GET `/api/tests/`
+- GET `/api/tests/{uuid}`
+
+Documented using Swagger 2.0 with [`rswag`](https://github.com/rswag/rswag) gem.
+
+Check documentation at http://localhost:3000/swagger
 
 ## Development setup
 
@@ -14,6 +20,9 @@ To improve docker interaction on development we recommend to use dip
 https://github.com/bibendi/dip#dip
 
 ```
-# Run commands each by each from provision section of dip.yml
+gem install dip
+# Run commands each by each from provision section of dip.yml (setup)
 dip provision
+# Run Rails server available at http://localhost:3000
+dip rails s
 ```
