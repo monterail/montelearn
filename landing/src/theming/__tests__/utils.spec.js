@@ -2,7 +2,7 @@ import { getRGB, hexToRGBA, rem } from "../utils";
 
 describe("theming/utils", () => {
   describe("rem", () => {
-    it("should return 0 for 0 px", () => {
+    it("should return 0 for 0px", () => {
       expect(rem(0)).toBe("0");
     });
 
@@ -38,7 +38,7 @@ describe("theming/utils", () => {
       expect(hexToRGBA("#000", 1)).toBe("rgba(0,0,0,1)");
     });
 
-    it("should return RGBA with non-1 alpha", () => {
+    it("should return RGBA with alpha", () => {
       expect(hexToRGBA("#fff", 0.54)).toBe("rgba(255,255,255,0.54)");
     });
   });
