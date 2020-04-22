@@ -1,4 +1,3 @@
-import fetch from "isomorphic-unfetch";
 import Head from "next/head";
 import { useCallback, useState } from "react";
 
@@ -12,6 +11,7 @@ import {
 import { rem } from "@/theming/utils";
 import { ensureLeadingSlash } from "@/utils/paths";
 
+import sendRequest from "./api";
 import RecursiveReveal from "./RecursiveReveal";
 
 const predefinedAPIs = {
@@ -42,40 +42,16 @@ export default function TryItOutComponent() {
 
         setParams(JSON.stringify(parsedParams, null, 2));
 
-        fetch(`${process.env.API_PLAYGROUND_URL}${ensureLeadingSlash(url)}`, {
+        const response = await sendRequest(method, ensureLeadingSlash(url), parsedParams);
+
+        setRequest({
+          params: parsedParams,
+          url,
           method,
-          data: params,
-        })
-          .then(async (res) => {
-            setRequest({
-              params: parsedParams,
-              url,
-              method,
-              response: {
-                body: res.ok ? (await res.json()).data : null,
-                headers: Array.from(res.headers.entries()),
-                ok: res.ok,
-                status: res.status,
-                statusText: res.statusText,
-              },
-            });
-          })
-          .catch(() => {
-            setRequest({
-              params: parsedParams,
-              url,
-              method,
-              response: {
-                body: null,
-                headers: [],
-                ok: false,
-                status: 400,
-                statusText: "Not found",
-              },
-            });
-          });
+          response,
+        });
       } catch {
-        // Ignore error.
+        // Ignore JSON parsing error.
       }
     },
     [params, apiConfig],
@@ -156,15 +132,12 @@ export default function TryItOutComponent() {
             borderRadius: rem(0, 0, 4, 4),
             fontFamily: FONT_MONOSPACE,
             fontSize: rem(12),
+            height: rem(Math.min(10, lines) * 16 + 25),
             margin: rem(0, 0, 10),
             outline: "none",
             padding: rem(10),
           }}
           name="body"
-          data-lines={lines}
-          style={{
-            height: rem(Math.min(10, lines) * 16 + 25),
-          }}
           onChange={onParamsChange}
           value={params}
         />
