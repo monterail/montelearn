@@ -29,7 +29,7 @@ export default function RevealButton({ css, onClick, onClickData, ...props }) {
       type="button"
       {...props}
     >
-      show/ hide
+      show/hide
     </button>
   );
 }

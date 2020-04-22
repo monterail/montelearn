@@ -6,7 +6,7 @@ import Component from "../index";
 describe("RevealButton", () => {
   it("renders", () => {
     render(<Component />);
-    expect(screen.getByText("show/ hide")).toBeInTheDocument();
+    expect(screen.getByText("show/hide")).toBeInTheDocument();
   });
 
   it("should call onClick", () => {
