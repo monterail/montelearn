@@ -24,7 +24,15 @@ describe("TryItOut", () => {
     let mock;
 
     beforeEach(() => {
-      mock = jest.fn();
+      mock = jest.fn(() => {
+        return {
+          body: {},
+          headers: [],
+          ok: true,
+          status: 200,
+          statusText: "OK",
+        };
+      });
       api.mockImplementationOnce(mock);
 
       render(<Component endpoints={endpoints} />);
@@ -72,6 +80,37 @@ describe("TryItOut", () => {
       });
 
       expect(mock).not.toBeCalled();
+    });
+
+    it("should render response after successful request", async () => {
+      await act(async () => {
+        fireEvent.click(screen.getByTestId("TryItOut_SubmitButton"));
+      });
+
+      expect(screen.getByTestId("TryItOut_Response")).toBeInTheDocument();
+      expect(screen.getByTestId("TryItOut_Response")).toHaveTextContent("Object (empty)");
+    });
+
+    it("should render error after failed request", async () => {
+      api.mockReset();
+      api.mockImplementationOnce(
+        jest.fn(() => {
+          return {
+            body: null,
+            headers: [],
+            ok: false,
+            status: 400,
+            statusText: "Bad Request",
+          };
+        }),
+      );
+
+      await act(async () => {
+        fireEvent.click(screen.getByTestId("TryItOut_SubmitButton"));
+      });
+
+      expect(screen.getByTestId("TryItOut_Response")).toBeInTheDocument();
+      expect(screen.getByTestId("TryItOut_Response")).toHaveTextContent("400 Bad Request");
     });
   });
 });

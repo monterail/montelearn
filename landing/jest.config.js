@@ -9,5 +9,6 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: ["./src/**/*"],
+  coveragePathIgnorePatterns: ["./src/pages", ".*__snapshots__/.*"],
   setupFilesAfterEnv: ["./jest.setup.js"],
 };

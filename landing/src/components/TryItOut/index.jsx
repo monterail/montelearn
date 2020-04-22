@@ -17,14 +17,14 @@ import RecursiveReveal from "./RecursiveReveal";
 export default function TryItOut({ endpoints }) {
   const [endpointIndex, setEndpointIndex] = useState(0);
   const [params, setParams] = useState(JSON.stringify({}, null, 2));
-  const [request, setRequest] = useState({});
+  const [result, setResult] = useState({});
 
   const onChangeEndpoint = useCallback(
     (evt) => {
       setEndpointIndex(parseInt(evt.target.value, 10));
-      setRequest({});
+      setResult({});
     },
-    [setEndpointIndex, setRequest],
+    [setEndpointIndex, setResult],
   );
 
   const onParamsChange = useCallback(
@@ -46,7 +46,7 @@ export default function TryItOut({ endpoints }) {
 
         const response = await sendRequest(method, url, body);
 
-        setRequest({
+        setResult({
           response,
           request: { body, method, url },
         });
@@ -147,7 +147,7 @@ export default function TryItOut({ endpoints }) {
           value={params}
         />
       </form>
-      {request.response && (
+      {result && result.response && (
         <div
           css={{
             backgroundColor: COLOR_WHITE,
@@ -161,12 +161,13 @@ export default function TryItOut({ endpoints }) {
             padding: rem(5, 10),
             whiteSpace: "nowrap",
           }}
+          data-testid="TryItOut_Response"
         >
-          {request.response.ok ? (
-            <RecursiveReveal id="root" value={request.response.body} />
+          {result.response.ok ? (
+            <RecursiveReveal id="root" value={result.response.body} />
           ) : (
-            <span css={{ color: COLOR_MILANO_RED }}>
-              {request.response.status} {request.response.statusText}
+            <span data-testid="TryItOut_ResponseError" css={{ color: COLOR_MILANO_RED }}>
+              {result.response.status} {result.response.statusText}
             </span>
           )}
         </div>
