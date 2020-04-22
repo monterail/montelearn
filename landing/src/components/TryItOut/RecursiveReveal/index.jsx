@@ -10,8 +10,8 @@ import RevealButton from "./RevealButton";
 const Context = createContext();
 
 function ValueReveal({ id, value }) {
-  const { isActive, toggle } = useContext(Context);
-  const expanded = isActive(id);
+  const { getIsExpanded, toggle } = useContext(Context);
+  const isExpanded = getIsExpanded(id);
 
   if (value === null) {
     return <span data-testid="RecursiveReveal_Null">NULL</span>;
@@ -37,7 +37,7 @@ function ValueReveal({ id, value }) {
             />
           )}
         </span>
-        {expanded && (
+        {isExpanded && (
           <div data-testid="RecursiveReveal_ArrayProperties" css={{ marginLeft: "1em" }}>
             {value.map((el, idx) => (
               <div data-testid="RecursiveReveal_ArrayProperty" key={idx}>
@@ -74,7 +74,7 @@ function ValueReveal({ id, value }) {
             />
           )}
         </span>
-        {expanded && (
+        {isExpanded && (
           <div data-testid="RecursiveReveal_ObjectProperties" css={{ marginLeft: "1em" }}>
             {keys.map((key) => (
               <div data-testid="RecursiveReveal_ObjectProperty" key={key}>
@@ -88,16 +88,12 @@ function ValueReveal({ id, value }) {
     );
   }
 
+  // If a value looks like URL, render it as an anchor tag.
   if (typeof value === "string" && isUrlLike(value)) {
     return (
       <a
+        css={{ color: "inherit", ":not(:hover)": { textDecoration: "none" } }}
         data-testid="RecursiveReveal_Link"
-        css={{
-          color: "inherit",
-          ":not(:hover)": {
-            textDecoration: "none",
-          },
-        }}
         href={value}
         rel="noopener noreferrer"
         target="_blank"
@@ -107,32 +103,35 @@ function ValueReveal({ id, value }) {
     );
   }
 
-  // It's important to stringify the value, so strings are rendered with quotes..
+  // It's important to stringify the value, so strings are rendered with quotes.
   return <span data-testid="RecursiveReveal_Primitive">{JSON.stringify(value)}</span>;
 }
 
 export default function RecursiveReveal(props) {
-  const [actives, setActives] = useState({});
+  const [expandedIds, setExpandedIds] = useState({});
 
   const toggle = useCallback(
     (id) => {
-      const newActives = { ...actives };
-      newActives[id] = !actives[id];
+      const newExpandedIds = { ...expandedIds };
+      newExpandedIds[id] = !expandedIds[id];
 
-      setActives(newActives);
+      setExpandedIds(newExpandedIds);
     },
-    [actives],
+    [expandedIds],
   );
 
-  const isActive = useCallback(
+  /**
+   * Check if node with specified id is expanded.
+   */
+  const getIsExpanded = useCallback(
     (id) => {
-      return !!actives[id];
+      return !!expandedIds[id];
     },
-    [actives],
+    [expandedIds],
   );
 
   return (
-    <Context.Provider value={{ isActive, toggle }}>
+    <Context.Provider value={{ getIsExpanded, toggle }}>
       <ValueReveal {...props} />
     </Context.Provider>
   );

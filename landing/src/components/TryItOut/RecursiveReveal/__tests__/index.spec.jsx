@@ -67,25 +67,25 @@ describe("RecursiveReveal", () => {
     expect(element.textContent).toMatch(/^Object \(empty\)/);
   });
 
-  describe("complex value", () => {
-    const obj = {
-      a: 1,
-      b: [2, { c: 3 }],
+  describe("with interactions", () => {
+    const val = {
+      url: "http://url.com",
+      array: [0, { nested: "object" }],
     };
 
     it("should not render nested properties by default", () => {
-      render(<RecursiveReveal value={obj} />);
+      render(<RecursiveReveal value={val} />);
       expect(screen.queryByTestId("RecursiveReveal_ObjectProperties")).not.toBeInTheDocument();
     });
 
     it("should reveal nested properties on click", () => {
-      render(<RecursiveReveal value={obj} />);
+      render(<RecursiveReveal value={val} />);
       fireEvent.click(screen.getByTestId("RecursiveReveal_ObjectReveal"));
       expect(screen.queryByTestId("RecursiveReveal_ObjectProperties")).toBeInTheDocument();
     });
 
     it("should reveal and hide nested properties on clicks", () => {
-      render(<RecursiveReveal value={obj} />);
+      render(<RecursiveReveal value={val} />);
 
       const element = screen.getByTestId("RecursiveReveal_ObjectReveal");
 
@@ -94,6 +94,25 @@ describe("RecursiveReveal", () => {
 
       fireEvent.click(element);
       expect(screen.queryByTestId("RecursiveReveal_ObjectProperties")).not.toBeInTheDocument();
+    });
+
+    it("should reveal whole tree", () => {
+      render(<RecursiveReveal value={val} />);
+
+      // Unfold the root object.
+      fireEvent.click(screen.getByTestId("RecursiveReveal_ObjectReveal"));
+
+      // Reval obj["b"] array
+      fireEvent.click(screen.getByTestId("RecursiveReveal_ArrayReveal"));
+
+      const nestedObjectReveal = screen.getAllByTestId("RecursiveReveal_ObjectReveal")[1];
+      fireEvent.click(nestedObjectReveal);
+
+      expect(screen.getAllByTestId("RecursiveReveal_ObjectProperties").length).toBe(2);
+      expect(screen.getAllByTestId("RecursiveReveal_ObjectProperty").length).toBe(3);
+
+      expect(screen.getAllByTestId("RecursiveReveal_ArrayProperties").length).toBe(1);
+      expect(screen.getAllByTestId("RecursiveReveal_ArrayProperty").length).toBe(2);
     });
   });
 });

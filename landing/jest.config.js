@@ -7,5 +7,7 @@ module.exports = {
   moduleNameMapper: {
     "^@/(.+)$": path.join(__dirname, "/src", "$1"),
   },
+  collectCoverage: true,
+  collectCoverageFrom: ["./src/**/*"],
   setupFilesAfterEnv: ["./jest.setup.js"],
 };
