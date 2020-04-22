@@ -39,6 +39,9 @@ jobs:
     - name: Install NPM packages
       run: yarn --frozen-lockfile
 
+    - name: Type checking
+      run: (cd landing && yarn tsc)
+
     - name: ESLint
       run: (cd landing && yarn lint)
 
