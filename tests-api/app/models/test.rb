@@ -5,6 +5,8 @@ class Test < ApplicationRecord
 
   serialize :choices, Array
 
-  validates :subject, :question, :choices, presence: true
+  validates :subject, :question, presence: true
   validates :question_type, inclusion: { in: QUESTION_TYPES }
+
+  validates_with ChoicesValidator, unless: -> (record) { record.errors[:question_type].any? }
 end
