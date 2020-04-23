@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import ProxyLessonListView, ProxyLessonDetailView
+from .views import ProxyLessonDetailView, ProxyLessonListView
 
 
 app_name = "proxy"
