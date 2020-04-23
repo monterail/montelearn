@@ -5,8 +5,9 @@ class TestPresenter < Presenter
     {
       uuid: @object.id,
       subject: @object.subject,
+      question_type: @object.question_type,
       question: @object.question,
-      answer: @object.answer,
+      choices: @object.choices,
     }
   end
 end

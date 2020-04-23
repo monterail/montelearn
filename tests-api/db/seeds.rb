@@ -1,9 +1,17 @@
 # frozen_string_literal: true
 
-10.times do
-  Test.create!(
-    subject: Faker::Lorem.word,
-    question: Faker::Lorem.question,
-    answer: Faker::Lorem.word,
-  )
-end
+Test.create!(
+  subject: "Science",
+  question_type: "binary",
+  question: "Is math related to science?",
+  choices: [
+    {
+      answer: "Yesn't",
+      correct: false,
+    },
+    {
+      answer: "Non't",
+      correct: true,
+    },
+  ],
+)

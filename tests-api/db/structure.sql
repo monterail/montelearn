@@ -54,9 +54,11 @@ CREATE TABLE public.schema_migrations (
 
 CREATE TABLE public.tests (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
+    lesson_id uuid,
+    question_type character varying NOT NULL,
     subject character varying NOT NULL,
-    question character varying NOT NULL,
-    answer character varying NOT NULL,
+    question text NOT NULL,
+    choices text NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
