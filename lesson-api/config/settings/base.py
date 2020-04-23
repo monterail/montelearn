@@ -153,6 +153,10 @@ REST_FRAMEWORK = {
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
+    "DEFAULT_PARSER_CLASSES": [
+        "rest_framework.parsers.JSONParser",
+        "rest_framework.parsers.MultiPartParser",
+    ],
     "DEFAULT_VERSIONING_CLASS": "rest_framework.versioning.AcceptHeaderVersioning",
     "DEFAULT_VERSION": "1.0",
 }
@@ -255,3 +259,5 @@ AWS_S3_ENCRYPTION = False
 AWS_S3_FILE_OVERWRITE = False
 AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="")
 AWS_S3_URL_PROTOCOL = env.str("AWS_S3_URL_PROTOCOL", default="https:")
+
+CORS_ORIGIN_WHITELIST = ["https://auth-api-test.herokuapp.com"]

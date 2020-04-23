@@ -1,0 +1,83 @@
+version: '3.4'
+
+x-environment: &common-environment
+  USE_DOCKER: "yes"
+  DJANGO_SETTINGS_MODULE: config.settings.local
+  DJANGO_SECRET_KEY: not_so_secret
+  DJANGO_DEFAULT_FILE_STORAGE: django.core.files.storage.FileSystemStorage
+
+services:
+  lesson-api:
+    build:
+      context: ./lesson-api
+      dockerfile: ./docker/local/django/Dockerfile
+    image: lesson_api_local
+    depends_on:
+        - postgres-lesson
+        - redis-lesson
+    volumes:
+      - ./lesson-api:/app
+    environment:
+      <<: *common-environment
+      DJANGO_ADMIN_URL: admin/
+      PORT: 8000
+      HOST: 0.0.0.0
+      DJANGO_DEBUG: "True"
+      DATABASE_URL: postgres://debug:debug@postgres-lesson:5432/debug
+      REDIS_CACHE_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+    ports:
+      - "8000:8000"
+    command: /start.sh
+
+  postgres-lesson:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres-lesson
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: debug
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+
+  redis-lesson:
+    image: "redis:alpine"
+    ports:
+      - "6379:6379"
+
+
+  auth-api:
+    build:
+      context: ./authentication-api
+      dockerfile: ./docker/local/django/Dockerfile 
+    image: auth_api_local
+    depends_on:
+      - postgres-auth
+      - redis-auth
+    volumes:
+      - ./authentication-api:/app
+    environment:
+      <<: *common-environment
+      DJANGO_ADMIN_URL: admin/
+      PORT: 8080
+      HOST: 0.0.0.0
+      DJANGO_DEBUG: "True"
+      DATABASE_URL: postgres://debug:debug@postgres-auth:5432/debug
+      REDIS_CACHE_URL: redis://redis:6379/0
+      CELERY_BROKER_URL: redis://redis:6379/1
+    ports:
+      - "8080:8080"
+    command: /start.sh
+
+  postgres-auth:
+    image: postgres
+    environment:
+      POSTGRES_HOST: postgres-auth
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: debug
+      POSTGRES_USER: debug
+      POSTGRES_PASSWORD: debug
+
+  redis-auth:
+    image: "redis:alpine"
+    ports:
+      - "6380:6379"

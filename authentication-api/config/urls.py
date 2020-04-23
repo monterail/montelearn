@@ -1,10 +1,7 @@
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.contrib.auth.views import (
-    PasswordResetCompleteView,
-    PasswordResetConfirmView,
-)
+from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetConfirmView
 from django.urls import include, path, re_path
 
 from auth.core.views import (
@@ -57,6 +54,7 @@ urlpatterns = [
     path("api/", include(email_auth_urls)),
     path("api/", include("auth.core.urls")),
     path("api/", include("auth.user.urls")),
+    path("api/", include("auth.proxy.urls")),
     re_path(
         r"^confirm-email/(?P<key>[-:\w]+)/$",
         ConfirmEmail.as_view(),
