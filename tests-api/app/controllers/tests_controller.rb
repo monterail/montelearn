@@ -17,11 +17,9 @@ class TestsController < ApplicationController
   def create
     test = Test.new(test_params)
 
-    if test.save
-      render_resource(test, :created)
-    else
-      render_validation_errors(test)
-    end
+    return render_validation_errors(test) unless test.save
+
+    render_resource(test, :created)
   end
 
   private
