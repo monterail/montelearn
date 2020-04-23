@@ -15,13 +15,13 @@ paths:
       - name: limit
         in: query
         type: integer
-        description: Number of results to return per page.
         required: false
+        description: Number of results to return per page.
       - name: offset
         in: query
         type: integer
-        description: The initial index from which to return the results.
         required: false
+        description: The initial index from which to return the results.
       responses:
         '200':
           description: success
@@ -31,10 +31,10 @@ paths:
               count:
                 type: integer
               next:
-                type: integer
+                type: string
                 nullable: true
               previous:
-                type: integer
+                type: string
                 nullable: true
               results:
                 type: array
@@ -43,12 +43,27 @@ paths:
                   properties:
                     uuid:
                       type: string
+                    question_type:
+                      type: string
                     subject:
                       type: string
                     question:
                       type: string
-                    answer:
-                      type: string
+                    choices:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          answer:
+                            type: string
+                          correct:
+                            type: boolean
+                  required:
+                  - uuid
+                  - subject
+                  - question_type
+                  - question
+                  - choices
             required:
             - count
             - next
@@ -60,10 +75,15 @@ paths:
               next: 
               previous: 
               results:
-              - uuid: b77eb326-efc1-41e1-a37e-c66bcff4f340
-                subject: Science
-                question: Is math related to science?
-                answer: Non't
+              - uuid: 40bc0a96-29d5-4326-b977-9dbd5b7bd567
+                subject: cupiditate
+                question_type: binary
+                question: Qui fuga dicta dolorum?
+                choices:
+                - answer: eligendi
+                  correct: true
+                - answer: et
+                  correct: false
   "/api/tests/{uuid}":
     get:
       summary: Retrieves a test
@@ -84,23 +104,38 @@ paths:
             properties:
               uuid:
                 type: string
+              question_type:
+                type: string
               subject:
                 type: string
               question:
                 type: string
-              answer:
-                type: string
+              choices:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    answer:
+                      type: string
+                    correct:
+                      type: boolean
             required:
             - uuid
             - subject
+            - question_type
             - question
-            - answer
+            - choices
           examples:
             application/json:
-              uuid: b77eb326-efc1-41e1-a37e-c66bcff4f340
-              subject: Science
-              question: Is math related to science?
-              answer: Non't
+              uuid: 81acc5bc-5312-45df-bd52-a84a6e8e84ed
+              subject: cupiditate
+              question_type: binary
+              question: Dolorum itaque ullam et?
+              choices:
+              - answer: culpa
+                correct: true
+              - answer: sit
+                correct: false
         '404':
           description: not_found
           schema:
@@ -108,6 +143,8 @@ paths:
             properties:
               detail:
                 type: string
+            required:
+            - detail
           examples:
             application/json:
               detail: Not found.
