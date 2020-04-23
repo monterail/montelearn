@@ -43,4 +43,27 @@ RSpec.describe "api/tests", type: :request do
       end
     end
   end
+
+  path "/api/tests/" do
+    post "Creates a test" do
+      tags "Tests"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :test, in: :body, schema: RswagHelper::RESOURCE_SCHEMA
+
+      response "201", :created do
+        schema RswagHelper::RESOURCE_SCHEMA
+        examples RswagHelper::RESOURCE_EXAMPLE
+        let(:test) { build(:test, :binary_question).as_json(except: %i(id created_at updated_at)) }
+        run_test!
+      end
+
+      response "400", "bad_request" do
+        schema RswagHelper::BAD_REQUEST_SCHEMA
+        examples RswagHelper::BAD_REQUEST_EXAMPLE
+        let(:test) { build(:test, :binary_question).as_json(except: %i(choices)) }
+        run_test!
+      end
+    end
+  end
 end

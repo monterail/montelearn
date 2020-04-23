@@ -64,4 +64,21 @@ module RswagHelper
       detail: "Not found.",
     },
   }.freeze
+
+  BAD_REQUEST_SCHEMA = {
+    type: :object,
+    properties: {
+      subject: { type: :array, items: { type: :string } },
+      lesson_id: { type: :array, items: { type: :string } },
+      question_type: { type: :array, items: { type: :string } },
+      question: { type: :array, items: { type: :string } },
+      choices: { type: :array, items: { type: :string } },
+    },
+  }.freeze
+
+  BAD_REQUEST_EXAMPLE = {
+    "application/json" => {
+      choices: ["size must be 2"],
+    },
+  }.freeze
 end
