@@ -4,6 +4,10 @@ import {
   Datagrid,
   TextField,
   ShowButton,
+  Show,
+  SimpleShowLayout,
+  UrlField,
+  TopToolbar,
 } from 'react-admin';
 
 const ListActions = ({ record, basePath, resource }) => (
@@ -18,4 +22,20 @@ export const LessonList = props => (
       <ListActions />
     </Datagrid>
   </List>
+);
+
+const ShowActions = ({ basePath, data, resource }) => (
+  <TopToolbar>
+  </TopToolbar>
+);
+
+export const LessonShow = props => (
+  <Show actions={<ShowActions />} {...props}>
+    <SimpleShowLayout>
+      <TextField source="name" />
+      <TextField source="description" />
+      <UrlField source="pdf_file" />
+      <UrlField source="url" />
+    </SimpleShowLayout>
+  </Show>
 );
