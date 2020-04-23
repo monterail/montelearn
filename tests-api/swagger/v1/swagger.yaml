@@ -75,15 +75,121 @@ paths:
               next: 
               previous: 
               results:
-              - uuid: 40bc0a96-29d5-4326-b977-9dbd5b7bd567
-                subject: cupiditate
+              - uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+                subject: veniam
                 question_type: binary
-                question: Qui fuga dicta dolorum?
+                question: Et dignissimos voluptate ab?
                 choices:
-                - answer: eligendi
+                - answer: numquam
                   correct: true
-                - answer: et
+                - answer: porro
                   correct: false
+    post:
+      summary: Creates a test
+      tags:
+      - Tests
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: test
+        in: body
+        schema:
+          type: object
+          properties:
+            uuid:
+              type: string
+            question_type:
+              type: string
+            subject:
+              type: string
+            question:
+              type: string
+            choices:
+              type: array
+              items:
+                type: object
+                properties:
+                  answer:
+                    type: string
+                  correct:
+                    type: boolean
+          required:
+          - uuid
+          - subject
+          - question_type
+          - question
+          - choices
+      responses:
+        '201':
+          description: created
+          schema:
+            type: object
+            properties:
+              uuid:
+                type: string
+              question_type:
+                type: string
+              subject:
+                type: string
+              question:
+                type: string
+              choices:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    answer:
+                      type: string
+                    correct:
+                      type: boolean
+            required:
+            - uuid
+            - subject
+            - question_type
+            - question
+            - choices
+          examples:
+            application/json:
+              uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
+              subject: accusantium
+              question_type: binary
+              question: Voluptate repellat ut deserunt?
+              choices:
+              - answer: totam
+                correct: true
+              - answer: est
+                correct: false
+        '400':
+          description: bad_request
+          schema:
+            type: object
+            properties:
+              subject:
+                type: array
+                items:
+                  type: string
+              lesson_id:
+                type: array
+                items:
+                  type: string
+              question_type:
+                type: array
+                items:
+                  type: string
+              question:
+                type: array
+                items:
+                  type: string
+              choices:
+                type: array
+                items:
+                  type: string
+          examples:
+            application/json:
+              choices:
+              - size must be 2
   "/api/tests/{uuid}":
     get:
       summary: Retrieves a test
@@ -127,14 +233,14 @@ paths:
             - choices
           examples:
             application/json:
-              uuid: 81acc5bc-5312-45df-bd52-a84a6e8e84ed
-              subject: cupiditate
+              uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
+              subject: accusantium
               question_type: binary
-              question: Dolorum itaque ullam et?
+              question: Voluptate repellat ut deserunt?
               choices:
-              - answer: culpa
+              - answer: totam
                 correct: true
-              - answer: sit
+              - answer: est
                 correct: false
         '404':
           description: not_found
