@@ -351,3 +351,5 @@ REST_PROXY = {
 
 LESSON_API_HOST = env.str("LESSON_API_HOST", default="")
 TEST_API_HOST = env.str("TEST_API_HOST", default="")
+
+CORS_ORIGIN_WHITELIST = ["https://montelearn-landing.herokuapp.com"]
