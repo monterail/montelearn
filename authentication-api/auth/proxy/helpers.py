@@ -11,20 +11,20 @@ from rest_framework_proxy.views import ProxyView
 class CustomStreamingMultipart(StreamingMultipart):
     # Override StreamingMultipart class to allow parsing multipart/form-data objects
     def generator(self):
-        for (k, v) in self.data.items():
-            yield ("%s\r\n\r\n" % self.build_multipart_header(k)).encode("utf-8")
-            yield ("%s\r\n" % str(v)).encode("utf-8")
+        for key, value in self.data.items():
+            header = self.build_multipart_header(key)
+            yield (f"{header}\r\n\r\n").encode("utf-8")
+            yield (f"{str(value)}\r\n").encode("utf-8")
 
-        for (k, v) in self.files.items():
-            content_type = mimetypes.guess_type(v.name)[0] or "application/octet-stream"
-            yield ("%s\r\n\r\n" % self.build_multipart_header(k, v.name, content_type)).encode(
-                "utf-8"
-            )
+        for key, value in self.files.items():
+            content_type = mimetypes.guess_type(value.name)[0] or "application/octet-stream"
+            header = self.build_multipart_header(key, value.name, content_type)
+            yield (f"{header}\r\n\r\n").encode("utf-8")
 
-            v.seek(0)
+            value.seek(0)
 
             while True:
-                data = v.read(self.chunk_size)
+                data = value.read(self.chunk_size)
                 if not data:
                     break
                 yield data
@@ -33,20 +33,20 @@ class CustomStreamingMultipart(StreamingMultipart):
 
     def build_multipart_header(self, name, filename=None, content_type=None):
         output = []
-        output.append("--%s" % self.boundary)
+        output.append(f"--{self.boundary}")
 
-        string = 'Content-Disposition: form-data; name="%s"' % name
+        name_header = f'Content-Disposition: form-data; name="{name}"'
         if filename:
-            string += '; filename="%s"' % filename
-        output.append(string)
+            name_header += f'; filename="{filename}"'
+        output.append(name_header)
 
         if content_type:
-            output.append("Content-Type: %s" % content_type)
+            output.append(f"Content-Type: {content_type}")
 
         return "\r\n".join(output)
 
     def build_multipart_footer(self):
-        return "--%s--\r\n" % self.boundary
+        return f"--{self.boundary}--\r\n"
 
 
 class CustomProxyView(ProxyView):
@@ -63,7 +63,7 @@ class CustomProxyView(ProxyView):
         try:
             if files:
                 boundary = generate_boundary()
-                headers["Content-Type"] = "multipart/form-data; boundary=%s" % boundary
+                headers["Content-Type"] = f"multipart/form-data; boundary={boundary}"
 
                 body = CustomStreamingMultipart(data, files, boundary)
 
@@ -96,7 +96,7 @@ class CustomProxyView(ProxyView):
         except (ConnectionError, SSLError):
             status = requests.status_codes.codes.bad_gateway
             return self.create_error_response({"code": status, "error": "Bad gateway"}, status)
-        except (Timeout):
+        except Timeout:
             status = requests.status_codes.codes.gateway_timeout
             return self.create_error_response(
                 {"code": status, "error": "Gateway timed out"}, status
