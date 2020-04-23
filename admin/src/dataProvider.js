@@ -1,4 +1,15 @@
+import { fetchUtils } from 'react-admin';
+
 const apiUrl = process.env.REACT_APP_API_URL;
+
+const httpClient = (url, options = {}) => {
+    if (!options.headers) {
+        options.headers = new Headers({ Accept: 'application/json' });
+    }
+    const token = localStorage.getItem('token');
+    options.headers.set('Authorization', `Bearer ${token}`);
+    return fetchUtils.fetchJson(url, options);
+};
 
 const dataProvider = {
   getList: (resource, params) => {
@@ -11,26 +22,19 @@ const dataProvider = {
     };
     const url = `${apiUrl}/${resource}?${JSON.stringify(query)}`;
 
-    return fetch(url).then((res) => {
-      return res.json();
-    })
-    .then((data) => ({
-      data: data.results.map(resource => ({ ...resource, id: resource.uuid })),
-      total: data.count,
+    return httpClient(url).then(({ json }) => ({
+      data: json.results.map(resource => ({ ...resource, id: resource.uuid })),
+      total: json.count,
     }));
   },
 
   getOne: (resource, params) =>
-    fetch(`${apiUrl}/${resource}/${params.id}`).then((res) => {
-      return res.json();
-    })
-    .then((data) => ({
+    httpClient(`${apiUrl}/${resource}/${params.id}`).then(({ json }) => ({
       data: {
-        ...data,
-        id: data.uuid,
+        ...json,
+        id: json.uuid,
       }
-    })
-  ),
+    })),
 
   // getMany: (resource, params) => {
   //   const query = {
