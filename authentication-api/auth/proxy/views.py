@@ -24,3 +24,15 @@ class ProxyLessonDetailView(PermissionClassesMixin, CustomProxyView):
     http_method_names = ["get", "put", "patch", "delete"]
     proxy_host = settings.LESSON_API_HOST
     source = "api/lesson/%(uuid)s/"
+
+
+class ProxyTestsListView(PermissionClassesMixin, CustomProxyView):
+    http_method_names = ["get", "post"]
+    proxy_host = settings.TESTS_API_HOST
+    source = "api/tests/"
+
+
+class ProxyTestsDetailView(PermissionClassesMixin, CustomProxyView):
+    http_method_names = ["get"]
+    proxy_host = settings.TESTS_API_HOST
+    source = "api/tests/%(uuid)s/"

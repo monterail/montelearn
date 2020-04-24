@@ -1,5 +1,8 @@
 LESSON_API_LIST_RESPONSE = """
 {
+    "count": 3,
+    "next": null,
+    "previous": null,
     "results": [
         {
             "uuid": "00981f5a-6685-4589-ad77-6a7e2a70ed9d",
@@ -33,5 +36,50 @@ LESSON_API_DETAIL_RESPONSE = """
     "description": "DNA",
     "pdf_file": "",
     "url": ""
+}
+"""
+
+TESTS_API_LIST_RESPONSE = """
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+     {
+      "uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
+      "subject": "Science",
+      "question_type": "binary",
+      "question": "Is math related to science?",
+      "choices": [
+        {
+          "answer": "Yesn't",
+          "correct": false
+        },
+        {
+          "answer": "Non't",
+          "correct": true
+        }
+      ]
+    }
+  ]
+}
+"""
+
+TESTS_API_DETAIL_RESPONSE = """
+{
+  "uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
+  "subject": "Science",
+  "question_type": "binary",
+  "question": "Is math related to science?",
+  "choices": [
+    {
+      "answer": "Yesn't",
+      "correct": false
+    },
+    {
+      "answer": "Non't",
+      "correct": true
+    }
+  ]
 }
 """

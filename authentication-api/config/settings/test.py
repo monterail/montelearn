@@ -12,3 +12,4 @@ EMAIL_BACKEND = "django.core.mail.backends.locmem.EmailBackend"
 REST_PROXY = {"RETURN_RAW": True}
 
 LESSON_API_HOST = "http://lesson-api:8000"
+TESTS_API_HOST = "http://tests-api:3000"
