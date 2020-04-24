@@ -21,7 +21,7 @@ jobs:
     - name: Make env file
       run: |
         cat > landing/.env << EOF
-        API_PLAYGROUND_URL=https://lesson-api-test.herokuapp.com
+        API_PLAYGROUND_URL=https://auth-api-test.herokuapp.com
         EOF
 
     - name: Build docker
