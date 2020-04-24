@@ -1,8 +1,11 @@
 import { act, render, screen, fireEvent } from "@testing-library/react";
 
+import * as jsUtils from "@/utils/js";
+
 import api from "../api";
 import Component from "../index";
 
+jest.mock("@/utils/js");
 jest.mock("../api");
 
 const endpoints = [
@@ -68,6 +71,19 @@ describe("TryItOut", () => {
       expect(mock).toBeCalledWith(method, url, JSON.parse(userInput));
     });
 
+    it("should submit form with empty textarea", async () => {
+      const userInput = "";
+
+      fireEvent.change(screen.getByTestId("TryItOut_ParamsInput"), createOnChangeEvt(userInput));
+      expect(screen.getByTestId("TryItOut_ParamsInput")).toHaveValue(userInput);
+
+      await act(async () => {
+        fireEvent.click(screen.getByTestId("TryItOut_SubmitButton"));
+      });
+
+      expect(mock).toHaveBeenCalledWith(expect.anything(), expect.anything(), {});
+    });
+
     it("should not submit form for invalid JSON params", async () => {
       // Make this input an invalid JSON.
       const userInput = "{ id: 1 }";
@@ -80,6 +96,24 @@ describe("TryItOut", () => {
       });
 
       expect(mock).not.toBeCalled();
+    });
+
+    it("should show alert when input params are invalid", async () => {
+      jsUtils.warnUser.mockImplementationOnce(mock);
+
+      // Make this input an invalid JSON.
+      const userInput = "{ id: 1 }";
+
+      fireEvent.change(screen.getByTestId("TryItOut_ParamsInput"), createOnChangeEvt(userInput));
+      expect(screen.getByTestId("TryItOut_ParamsInput")).toHaveValue(userInput);
+
+      await act(async () => {
+        fireEvent.click(screen.getByTestId("TryItOut_SubmitButton"));
+      });
+
+      expect(mock).toBeCalledWith(
+        "Cannot send request, because params are not defined as valid JSON object",
+      );
     });
 
     it("should render response after successful request", async () => {

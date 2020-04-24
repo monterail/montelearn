@@ -9,6 +9,7 @@ import {
   FONT_SANS_SERIF,
 } from "@/theming/const";
 import { rem } from "@/theming/utils";
+import { warnUser } from "@/utils/js";
 import { getLinesCount } from "@/utils/words";
 
 import sendRequest from "./api";
@@ -40,7 +41,7 @@ export default function TryItOut({ endpoints }) {
 
       try {
         const { url, method } = endpoints[endpointIndex];
-        const body = JSON.parse(params);
+        const body = JSON.parse(params || "{}");
 
         setParams(JSON.stringify(body, null, 2));
 
@@ -51,7 +52,7 @@ export default function TryItOut({ endpoints }) {
           request: { body, method, url },
         });
       } catch {
-        // Ignore JSON parsing error.
+        warnUser("Cannot send request, because params are not defined as valid JSON object");
       }
     },
     [params, endpoints, endpointIndex],
@@ -70,15 +71,35 @@ export default function TryItOut({ endpoints }) {
         css={{ display: "flex", flexDirection: "column" }}
         onSubmit={onSend}
       >
+        <p css={{ color: COLOR_GREEN, margin: rem(5, 0, 0, 10), fontSize: rem(11) }}>
+          Request body (as JSON)
+        </p>
+        <textarea
+          css={{
+            border: `1px solid ${COLOR_GREEN}`,
+            borderRadius: rem(4, 4, 0, 0),
+            fontFamily: FONT_MONOSPACE,
+            fontSize: rem(12),
+            height: rem(Math.min(10, getLinesCount(params)) * 16 + 25),
+            margin: rem(0),
+            outline: "none",
+            padding: rem(10),
+            resize: "vertical",
+          }}
+          data-testid="TryItOut_ParamsInput"
+          name="body"
+          onChange={onParamsChange}
+          value={params}
+        />
         <div
           css={{
             alignItems: "stretch",
             backgroundColor: COLOR_WHITE,
             border: `1px solid ${COLOR_GREEN}`,
-            borderBottom: "none",
-            borderRadius: rem(4, 4, 0, 0),
+            borderRadius: rem(0, 0, 4, 4),
             display: "flex",
             justifyContent: "space-between",
+            marginTop: rem(-1),
             padding: 0,
           }}
         >
@@ -113,14 +134,14 @@ export default function TryItOut({ endpoints }) {
               appearance: "none",
               backgroundColor: COLOR_GREEN,
               border: "none",
-              borderRadius: rem(4),
+              borderRadius: rem(0, 0, 4, 0),
               color: COLOR_WHITE,
               cursor: "pointer",
               fontFamily: FONT_SANS_SERIF,
               fontSize: rem(14),
               fontWeight: 700,
               height: rem(32),
-              margin: rem(5),
+              margin: 0,
               padding: 0,
               width: rem(80),
             }}
@@ -130,28 +151,12 @@ export default function TryItOut({ endpoints }) {
             Send
           </button>
         </div>
-        <textarea
-          css={{
-            border: `1px solid ${COLOR_GREEN}`,
-            borderRadius: rem(0, 0, 4, 4),
-            fontFamily: FONT_MONOSPACE,
-            fontSize: rem(12),
-            height: rem(Math.min(10, getLinesCount(params)) * 16 + 25),
-            margin: rem(0, 0, 10),
-            outline: "none",
-            padding: rem(10),
-          }}
-          data-testid="TryItOut_ParamsInput"
-          name="body"
-          onChange={onParamsChange}
-          value={params}
-        />
       </form>
       {result && result.response && (
         <div
           css={{
             backgroundColor: COLOR_WHITE,
-            border: `1px solid ${COLOR_GREEN}`,
+            border: `1px dashed ${COLOR_GREEN}`,
             borderRadius: rem(4),
             fontFamily: FONT_MONOSPACE,
             fontSize: rem(14),
