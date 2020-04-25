@@ -6,8 +6,8 @@ on:
     paths:
       - 'landing/**'
       - 'Dockerfile'
-      - '!landing/.eslintrc.js'
-      - '!landing/prettierrc'
+      - '!landing/eslint.config.js'
+      - '!landing/jest.*.js'
 
 jobs:
   build-and-deploy:

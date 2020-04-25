@@ -8,7 +8,7 @@
     "build": "next build",
     "export": "next export",
     "start": "next start",
-    "lint": "eslint '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js' '.*.js'",
+    "lint": "eslint --config eslint.config.js '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js'",
     "lint-and-fix": "yarn lint --fix",
     "tsc": "tsc --noEmit",
     "test": "jest"

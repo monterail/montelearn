@@ -23,15 +23,11 @@
     "target": "es5"
   },
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "src/**/*.spec.*"
   ],
   "include": [
     "next-env.d.ts",
-    "*.js",
-    ".*.js",
-    "**/*.ts",
-    "**/*.tsx",
-    "**/*.js",
-    "**/*.jsx"
+    "src",
   ]
 }

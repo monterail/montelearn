@@ -1,9 +1,23 @@
 const path = require("path");
+const fs = require("fs");
+
+const cwd = process.cwd();
+const tsconfigPaths = [path.join(cwd, "tsconfig.eslint.json"), path.join(cwd, "tsconfig.json")];
+
+function getTsconfigPath() {
+  for (const tsconfigPath of tsconfigPaths) {
+    if (fs.existsSync(tsconfigPath)) {
+      return tsconfigPath;
+    }
+  }
+
+  return undefined;
+}
 
 module.exports = {
   parser: "@typescript-eslint/parser",
   parserOptions: {
-    project: "./tsconfig.json",
+    project: getTsconfigPath(),
     ecmaVersion: 2018,
     sourceType: "module",
     ecmaFeatures: {
@@ -29,8 +43,8 @@ module.exports = {
     },
     "import/resolver": {
       alias: {
-        extensions: [".ts", ".tsx", ".js", ".jsx"],
-        map: [["@", path.join(__dirname, "src")]],
+        extensions: [".ts", ".tsx", ".js", ".jsx", ".json"],
+        map: [["@", path.join(cwd, "src")]],
       },
     },
   },
@@ -38,7 +52,17 @@ module.exports = {
     "@typescript-eslint/quotes": ["error", "double"],
     "import/prefer-default-export": "off",
     "no-restricted-syntax": "off",
-    "prettier/prettier": ["error"],
+    "prettier/prettier": [
+      "error",
+      {
+        printWidth: 100,
+        semi: true,
+        singleQuote: false,
+        tabWidth: 2,
+        trailingComma: "all",
+      },
+      { usePrettierrc: false },
+    ],
     "react/jsx-one-expression-per-line": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-array-index-key": "off",
