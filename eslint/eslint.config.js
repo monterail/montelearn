@@ -2,10 +2,11 @@ const path = require("path");
 const fs = require("fs");
 
 const cwd = process.cwd();
-const tsconfigPaths = [path.join(cwd, "tsconfig.eslint.json"), path.join(cwd, "tsconfig.json")];
 
 function getTsconfigPath() {
-  for (const tsconfigPath of tsconfigPaths) {
+  for (const filename of ["tsconfig.eslint.json", "tsconfig.json"]) {
+    const tsconfigPath = path.join(cwd, filename);
+
     if (fs.existsSync(tsconfigPath)) {
       return tsconfigPath;
     }
@@ -14,8 +15,11 @@ function getTsconfigPath() {
   return undefined;
 }
 
+const tsConfigPath = getTsconfigPath();
+const useTs = !!tsConfigPath;
+
 module.exports = {
-  parser: "@typescript-eslint/parser",
+  parser: useTs ? "@typescript-eslint/parser" : "babel-eslint",
   parserOptions: {
     project: getTsconfigPath(),
     ecmaVersion: 2018,
@@ -25,13 +29,13 @@ module.exports = {
     },
   },
   extends: [
-    "airbnb-typescript",
+    useTs ? "airbnb-typescript" : "airbnb",
     "prettier",
     "plugin:prettier/recommended",
     "prettier/react",
-    "prettier/@typescript-eslint",
-  ],
-  plugins: ["@typescript-eslint", "jest"],
+    useTs ? "prettier/@typescript-eslint" : undefined,
+  ].filter(Boolean),
+  plugins: useTs ? ["@typescript-eslint", "jest"] : ["jest"],
   env: {
     browser: true,
     node: true,
@@ -49,7 +53,6 @@ module.exports = {
     },
   },
   rules: {
-    "@typescript-eslint/quotes": ["error", "double"],
     "import/prefer-default-export": "off",
     "no-restricted-syntax": "off",
     "prettier/prettier": [

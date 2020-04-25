@@ -40,13 +40,13 @@ jobs:
       run: yarn --frozen-lockfile
 
     - name: Type checking
-      run: (cd landing && yarn tsc)
+      run: npx lerna run tsc
 
     - name: ESLint
-      run: (cd landing && yarn lint)
+      run: npx lerna run lint
 
     - name: Run unit tests
-      run: (cd landing && yarn test)
+      run: npx lerna run test
 
     - name: Build landing page
       env:
