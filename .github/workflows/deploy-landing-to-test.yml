@@ -6,7 +6,6 @@ on:
     paths:
       - 'landing/**'
       - 'Dockerfile'
-      - '!landing/eslint.config.js'
       - '!landing/jest.*.js'
 
 jobs:

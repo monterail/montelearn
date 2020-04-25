@@ -21,7 +21,7 @@ const useTs = !!tsConfigPath;
 module.exports = {
   parser: useTs ? "@typescript-eslint/parser" : "babel-eslint",
   parserOptions: {
-    project: getTsconfigPath(),
+    project: tsConfigPath,
     ecmaVersion: 2018,
     sourceType: "module",
     ecmaFeatures: {
