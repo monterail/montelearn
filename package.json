@@ -7,7 +7,7 @@
   "license": "MIT",
   "engines": {
     "yarn": ">=1.15.x",
-    "node": "12.8.1"
+    "node": "13.11.0"
   },
   "workspaces": {
     "packages": [
