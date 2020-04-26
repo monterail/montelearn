@@ -7,7 +7,7 @@
     "build": "next build && next export",
     "cleanup": "rimraf node_modules .next coverage out",
     "dev": "next dev",
-    "lint": "project-eslint '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js'",
+    "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "yarn tsc && lint-staged",
     "test": "project-jest",
     "tsc": "tsc --noEmit"

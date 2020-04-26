@@ -11,12 +11,9 @@ const eslintConfigPath = fs.existsSync(eslintConfigPathInContext)
   : path.join(__dirname, "eslint.config.js");
 
 try {
-  cps.execSync(
-    `npx eslint --no-error-on-unmatched-pattern --config '${eslintConfigPath}' ${args.join(" ")}`,
-    {
-      stdio: "inherit",
-    },
-  );
+  cps.execSync(`npx eslint --config '${eslintConfigPath}' ${args.join(" ")}`, {
+    stdio: "inherit",
+  });
 } catch {
   process.exit(1);
 }
