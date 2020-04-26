@@ -8,9 +8,9 @@
     "project-eslint": "./cli.js"
   },
   "scripts": {
+    "cleanup": "rimraf node_modules coverage",
     "lint": "./cli.js '*.js'",
-    "pre-commit": "lint-staged",
-    "cleanup": "rimraf node_modules coverage"
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "2.29.0",

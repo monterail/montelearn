@@ -8,9 +8,9 @@
     "project-jest": "./cli.js"
   },
   "scripts": {
+    "cleanup": "rimraf node_modules",
     "lint": "project-eslint '*.js'",
-    "pre-commit": "lint-staged",
-    "cleanup": "rimraf node_modules"
+    "pre-commit": "lint-staged"
   },
   "devDependencies": {
     "@project/eslint": "1.0.0",

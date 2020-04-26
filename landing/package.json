@@ -4,13 +4,13 @@
   "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev",
     "build": "next build && next export",
+    "cleanup": "rimraf node_modules .next coverage out",
+    "dev": "next dev",
     "lint": "project-eslint '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js'",
-    "tsc": "tsc --noEmit",
-    "test": "project-jest",
     "pre-commit": "yarn tsc && lint-staged",
-    "cleanup": "rimraf node_modules .next coverage out"
+    "test": "project-jest",
+    "tsc": "tsc --noEmit"
   },
   "dependencies": {
     "@emotion/babel-preset-css-prop": "10.0.27",
