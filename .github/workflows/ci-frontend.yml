@@ -10,7 +10,6 @@ on:
       - 'packages'
       - 'lerna.json'
       - 'package.json'
-
 jobs:
   lint-and-build:
     name: Lint and build
