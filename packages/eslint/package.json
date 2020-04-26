@@ -9,7 +9,8 @@
   },
   "scripts": {
     "lint": "./cli.js '*.js'",
-    "pre-commit": "lint-staged"
+    "pre-commit": "lint-staged",
+    "cleanup": "rimraf node_modules coverage"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "2.29.0",
@@ -27,7 +28,8 @@
     "eslint-plugin-react": "7.19.0",
     "eslint-plugin-react-hooks": "2.5",
     "lint-staged": "10.1.7",
-    "prettier": "2.0.4"
+    "prettier": "2.0.4",
+    "rimraf": "3.0.2"
   },
   "peerDependencies": {
     "@babel/core": ">=7.9.0",
