@@ -1,16 +1,14 @@
 {
-  "name": "@montelearn/landing",
+  "name": "@project/landing",
   "version": "1.0.0",
   "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
   "license": "MIT",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
-    "export": "next export",
-    "start": "next start",
+    "build": "next build && next export",
     "lint": "project-eslint '{src,env}/**/*.{ts,tsx,js,jsx}' '*.js'",
     "tsc": "tsc --noEmit",
-    "test": "jest",
+    "test": "project-jest",
     "pre-commit": "yarn tsc && lint-staged"
   },
   "dependencies": {
@@ -24,6 +22,7 @@
   },
   "devDependencies": {
     "@babel/core": "7.9.0",
+    "@project/jest": "1.0.0",
     "@project/eslint": "1.0.0",
     "@testing-library/jest-dom": "5.5.0",
     "@testing-library/react": "10.0.3",

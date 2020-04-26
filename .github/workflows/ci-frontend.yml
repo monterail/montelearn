@@ -5,6 +5,12 @@ on:
       - '**'
     tags-ignore:
       - '**'
+    paths:
+      - 'landing'
+      - 'packages'
+      - 'lerna.json'
+      - 'package.json'
+
 jobs:
   lint-and-build:
     name: Lint and build
@@ -54,4 +60,4 @@ jobs:
     - name: Build landing page
       env:
         API_PLAYGROUND_URL: http://localhost:8000
-      run: (cd landing && yarn build && yarn export)
+      run: (cd landing && yarn build)

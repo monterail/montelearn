@@ -1,11 +1,9 @@
 FROM node:13.11.0-alpine AS builder
 WORKDIR /usr/src/project
-COPY package.json yarn.lock landing/package.json ./
-RUN yarn --frozen-lockfile
 COPY . .
+RUN yarn --frozen-lockfile --ignore-optional
 WORKDIR /usr/src/project/landing
 RUN yarn build
-RUN yarn export
 
 FROM pagespeed/nginx-pagespeed:stable-alpine3.8 AS runner
 COPY --from=builder /usr/src/project/landing/out /usr/share/nginx/html

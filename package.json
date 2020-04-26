@@ -11,8 +11,8 @@
   },
   "workspaces": {
     "packages": [
-      "landing",
-      "eslint"
+      "packages/*",
+      "landing"
     ]
   },
   "dependencies": {

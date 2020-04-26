@@ -4,6 +4,7 @@
 !public
 !src
 !landing
+!packages
 **/node_modules
 **/*.md
 **/.next
