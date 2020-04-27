@@ -74,7 +74,7 @@ services:
       PSQL_HISTFILE: /app/log/.psql_history
       EDITOR: vi
     ports:
-      - "8081:3000"
+      - "3000:3000"
     command: /start.sh
 
   postgres-tests:
