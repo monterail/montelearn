@@ -1,0 +1,37 @@
+{
+  "name": "@project/eslint",
+  "version": "1.0.0",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "main": "eslint.config.js",
+  "bin": {
+    "project-eslint": "./cli.js"
+  },
+  "scripts": {
+    "cleanup": "rimraf node_modules coverage",
+    "lint": "./cli.js '*.js'",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "2.29.0",
+    "@typescript-eslint/parser": "2.29.0",
+    "babel-eslint": "10.1.0",
+    "eslint": "6.8.0",
+    "eslint-config-airbnb": "18.1.0",
+    "eslint-config-airbnb-typescript": "7.2.1",
+    "eslint-config-prettier": "6.10.1",
+    "eslint-import-resolver-alias": "1.1.2",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-jest": "23.8.2",
+    "eslint-plugin-jsx-a11y": "6.2.3",
+    "eslint-plugin-prettier": "3.1.3",
+    "eslint-plugin-react": "7.19.0",
+    "eslint-plugin-react-hooks": "2.5",
+    "lint-staged": "10.1.7",
+    "prettier": "2.0.4",
+    "rimraf": "3.0.2"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint --fix"
+  }
+}

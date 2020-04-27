@@ -6,9 +6,7 @@ on:
     paths:
       - 'landing/**'
       - 'Dockerfile'
-      - '!landing/.eslintrc.js'
-      - '!landing/prettierrc'
-
+      - '!landing/tsconfig.eslint.json'
 jobs:
   build-and-deploy:
     name: Deploy landing to Heroku

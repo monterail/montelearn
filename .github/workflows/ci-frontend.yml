@@ -11,8 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
+    - name: Use Node.js
+      uses: actions/setup-node@v1
+      with:
+        node-version: '13.11.0'
 
     - name: Get yarn cache dir
       id: yarn-cache-output
@@ -39,13 +42,16 @@ jobs:
     - name: Install NPM packages
       run: yarn --frozen-lockfile
 
+    - name: Type checking
+      run: npx lerna run tsc
+
     - name: ESLint
-      run: (cd landing && yarn lint)
+      run: npx lerna run lint
 
     - name: Run unit tests
-      run: (cd landing && yarn test)
+      run: npx lerna run test
 
     - name: Build landing page
       env:
         API_PLAYGROUND_URL: http://localhost:8000
-      run: (cd landing && yarn build && yarn export)
+      run: (cd landing && yarn build)

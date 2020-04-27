@@ -1,0 +1,26 @@
+{
+  "name": "@project/jest",
+  "version": "1.0.0",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "main": "jest.config.js",
+  "bin": {
+    "project-jest": "./cli.js"
+  },
+  "scripts": {
+    "cleanup": "rimraf node_modules",
+    "lint": "project-eslint '*.js'",
+    "pre-commit": "lint-staged"
+  },
+  "devDependencies": {
+    "@project/eslint": "1.0.0",
+    "@testing-library/jest-dom": "5.5.0",
+    "@testing-library/react": "10.0.3",
+    "jest": "25.4.0",
+    "lint-staged": "10.1.7",
+    "rimraf": "3.0.2"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint --fix"
+  }
+}

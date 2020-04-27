@@ -1,8 +1,13 @@
 const path = require("path");
-const env = require("./env");
+
+const { getCleanEnv } = require("./env");
 
 module.exports = {
-  env,
+  env: getCleanEnv(),
+  // We don't care about Typescript errors during development process.
+  typescript: {
+    ignoreDevErrors: true,
+  },
   webpack(config) {
     /* eslint-disable-next-line no-param-reassign */
     config.resolve.alias["@"] = path.join(__dirname, "src");

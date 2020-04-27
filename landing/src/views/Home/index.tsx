@@ -21,9 +21,9 @@ const endpoints = [
   },
 ];
 
-const EDITOR_ID = "try-it-out";
+const EDITOR_ID: string = "try-it-out";
 
-function scrollToEditor() {
+function scrollToEditor(): void {
   const editorElement = document.getElementById(EDITOR_ID);
 
   if (!editorElement) {
