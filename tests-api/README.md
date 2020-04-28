@@ -13,7 +13,7 @@ Check documentation at http://localhost:3000/swagger
 
 ## Development setup
 
-Based on [Ruby on Whales: Dockerizing Ruby and Rails development](https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development).
+Based on [Ruby on Whales: Dockerizing Ruby and Rails development](https://evilmartians.com/chronicles/ruby-on-whales-docker-for-ruby-rails-development), with the exception that exact versions of runtime dependencies are specified in Dockerfile.
 
 You need only docker to develop the application.
 
