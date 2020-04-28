@@ -3,7 +3,7 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # Needed for docker-compose-proxy.yml
+  # Needed for communicating wih authentication-api
   config.hosts << "tests-api"
 
   # In the development environment your application's code is reloaded on
