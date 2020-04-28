@@ -61,8 +61,4 @@ RUN gem update --system && \
 # Create a directory for the app code
 RUN mkdir -p /app
 
-COPY ./.dockerdev/start.sh /start.sh
-RUN sed -i 's/\r$//g' /start.sh
-RUN chmod +x /start.sh
-
 WORKDIR /app

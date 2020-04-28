@@ -75,7 +75,7 @@ services:
       EDITOR: vi
     ports:
       - "3000:3000"
-    command: /start.sh
+    command: /bin/bash -c "bin/setup && bundle exec puma --config config/puma.rb"
 
   postgres-tests:
     image: postgres:11.1
