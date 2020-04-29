@@ -1,0 +1,32 @@
+name: CD tests-api
+
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - 'tests-api/**'
+
+jobs:
+  build-and-deploy:
+    name: Deploy tests-api to Heroku
+    runs-on: ubuntu-latest
+    env: 
+      HEROKU_API_KEY: ${{ secrets.TESTS_API__HEROKU_TOKEN }}
+      HEROKU_EMAIL: ${{ secrets.TESTS_API__HEROKU_EMAIL }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Heroku login
+        run: heroku container:login
+    
+      - name: Setup Dockerfiles
+        run: cd tests-api/ && mv .dockerdev/Dockerfile ./
+      
+      - name: Heroku push container
+        run: cd tests-api/ && heroku container:push web --app tests-api-test
+      
+      - name: Heroku release container
+        run: cd tests-api/ && heroku container:release web --app tests-api-test
