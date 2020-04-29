@@ -132,4 +132,3 @@ volumes:
   redis-tests:
   bundle:
   rails_cache:
-      
