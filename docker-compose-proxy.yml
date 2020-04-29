@@ -48,12 +48,7 @@ services:
     build:
       context: ./tests-api
       dockerfile: ./.dockerdev/Dockerfile
-      args:
-        RUBY_VERSION: '2.7.0'
-        PG_MAJOR: '11'
-        NODE_MAJOR: '12'
-        YARN_VERSION: '1.13.0'
-        BUNDLER_VERSION: '2.0.2'
+      target: development
     image: tests-api:1.0.0
     tmpfs:
       - /tmp
@@ -75,7 +70,7 @@ services:
       EDITOR: vi
     ports:
       - "3000:3000"
-    command: /bin/bash -c "bin/setup && bundle exec puma --config config/puma.rb"
+    command: /bin/bash -c "bin/setup && bundle exec puma -C config/puma.rb"
 
   postgres-tests:
     image: postgres:11.1
@@ -136,6 +131,5 @@ volumes:
   postgres-tests:
   redis-tests:
   bundle:
-  node_modules:
   rails_cache:
       

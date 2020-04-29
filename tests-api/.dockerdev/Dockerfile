@@ -1,10 +1,9 @@
-ARG RUBY_VERSION
-FROM ruby:$RUBY_VERSION-slim-buster
+ARG RUBY_VERSION='2.7.0'
+FROM ruby:$RUBY_VERSION-slim-buster AS development
 
-ARG PG_MAJOR
-ARG NODE_MAJOR
-ARG BUNDLER_VERSION
-ARG YARN_VERSION
+ARG PG_MAJOR='12'
+ARG NODE_MAJOR='12'
+ARG BUNDLER_VERSION='2.0.2'
 
 # Common dependencies
 RUN apt-get update -qq \
@@ -23,21 +22,12 @@ RUN apt-get update -qq \
 RUN curl -sSL https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add - \
   && echo 'deb http://apt.postgresql.org/pub/repos/apt/ buster-pgdg main' $PG_MAJOR > /etc/apt/sources.list.d/pgdg.list
 
-# Add NodeJS to sources list
-RUN curl -sL https://deb.nodesource.com/setup_$NODE_MAJOR.x | bash -
-
-# Add Yarn to the sources list
-RUN curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
-  && echo 'deb http://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list
-
 # Install dependencies
 COPY .dockerdev/Aptfile /tmp/Aptfile
 RUN apt-get update -qq && DEBIAN_FRONTEND=noninteractive apt-get -yq dist-upgrade && \
   DEBIAN_FRONTEND=noninteractive apt-get install -yq --no-install-recommends \
     libpq-dev \
     postgresql-client-$PG_MAJOR \
-    nodejs \
-    yarn=$YARN_VERSION-1 \
     $(cat /tmp/Aptfile | xargs) && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* && \
@@ -62,3 +52,26 @@ RUN gem update --system && \
 RUN mkdir -p /app
 
 WORKDIR /app
+
+# Preparation for production release
+FROM development AS builder
+ENV BUNDLE_APP_CONFIG=.bundle \
+  RAILS_ENV=production
+COPY . /app
+RUN bundle config --local without development:test \
+  && bundle config --local deployment true \
+  && bundle config --local path vendor/bundle \
+  && bundle install
+RUN SECRET_KEY_BASE=secret \
+  REDIS_URL=redis://fake \
+  && rm -rf node_modules tmp \
+  && mkdir -p tmp/pids
+
+# Production image
+FROM development AS production
+ENV BUNDLE_APP_CONFIG=.bundle \
+  RAILS_ENV=production \
+  RAILS_LOG_TO_STDOUT=true
+
+COPY --from=builder /app .
+CMD bundle exec rails db:migrate; bundle exec puma --config config/puma.rb
