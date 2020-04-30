@@ -14,9 +14,33 @@ RSpec.describe "api/tests", type: :request do
 
       response "200", :success do
         schema RswagHelper::COLLECTION_SCHEMA
-        examples RswagHelper::COLLECTION_EXAMPLE
-        before { create(:test, :binary_question) }
+        examples "application/json" => RswagHelper::COLLECTION_EXAMPLE
+        before { create(:test, :with_binary_questions) }
 
+        run_test!
+      end
+    end
+
+    post "Creates a test" do
+      tags "Tests"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :payload, in: :body, schema: RswagHelper::POST_PAYLOAD_SCHEMA
+
+      response "201", :created do
+        schema RswagHelper::RESOURCE_SCHEMA
+        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+        let(:test) { build(:test, :with_binary_questions) }
+        let(:payload) { test.as_json(except: %i(id created_at updated_at)) }
+
+        run_test!
+      end
+
+      response "400", :bad_request do
+        schema RswagHelper::BAD_REQUEST_SCHEMA
+        examples "application/json" => RswagHelper::BAD_REQUEST_EXAMPLE
+        let(:test) { build(:test, :with_binary_questions) }
+        let(:payload) { test.as_json(except: %i(lesson_uuid)) }
         run_test!
       end
     end
@@ -30,38 +54,67 @@ RSpec.describe "api/tests", type: :request do
 
       response "200", :success do
         schema RswagHelper::RESOURCE_SCHEMA
-        examples RswagHelper::RESOURCE_EXAMPLE
-        let(:uuid) { create(:test, :binary_question).id }
+        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+        let(:uuid) { create(:test, :with_binary_questions).id }
         run_test!
       end
 
       response "404", :not_found do
         schema RswagHelper::NOT_FOUND_SCHEMA
-        examples RswagHelper::NOT_FOUND_EXAMPLE
+        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
         let(:uuid) { "invalid" }
         run_test!
       end
     end
-  end
 
-  path "/api/tests/" do
-    post "Creates a test" do
+    put "Updates a test" do
       tags "Tests"
       consumes "application/json"
       produces "application/json"
-      parameter name: :test, in: :body, schema: RswagHelper::RESOURCE_SCHEMA
+      parameter name: :uuid, in: :path, type: :string
+      parameter name: :payload, in: :body, schema: RswagHelper::PUT_PAYLOAD_SCHEMA
 
-      response "201", :created do
+      response "200", :success do
         schema RswagHelper::RESOURCE_SCHEMA
-        examples RswagHelper::RESOURCE_EXAMPLE
-        let(:test) { build(:test, :binary_question).as_json(except: %i(id created_at updated_at)) }
+        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+        let(:test) { create(:test, :with_binary_questions) }
+        let(:payload) { test.as_json(except: %i(created_at updated_at)) }
+        let(:uuid) { test.id }
         run_test!
       end
 
-      response "400", "bad_request" do
+      response "400", :bad_request do
         schema RswagHelper::BAD_REQUEST_SCHEMA
-        examples RswagHelper::BAD_REQUEST_EXAMPLE
-        let(:test) { build(:test, :binary_question).as_json(except: %i(choices)) }
+        examples "application/json" => RswagHelper::BAD_REQUEST_EXAMPLE
+        let(:test) { create(:test, :with_binary_questions) }
+        let(:payload) { { title: "" } }
+        let(:uuid) { test.id }
+        run_test!
+      end
+
+      response "404", :not_found do
+        schema RswagHelper::NOT_FOUND_SCHEMA
+        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
+        let(:payload) { {} }
+        let(:uuid) { "invalid" }
+        run_test!
+      end
+    end
+
+    delete "Destroys a test" do
+      tags "Tests"
+      produces "application/json"
+      parameter name: :uuid, in: :path, type: :string
+
+      response "204", :no_content do
+        let(:uuid) { create(:test, :with_binary_questions).id }
+        run_test!
+      end
+
+      response "404", :not_found do
+        schema RswagHelper::NOT_FOUND_SCHEMA
+        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
+        let(:uuid) { "invalid" }
         run_test!
       end
     end
