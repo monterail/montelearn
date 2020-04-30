@@ -1,12 +1,9 @@
 # frozen_string_literal: true
 
 class Test < ApplicationRecord
-  QUESTION_TYPES = %w(binary multiple-answer multiple-choice).freeze
+  has_many :questions, dependent: :destroy
 
-  serialize :choices, Array
+  validates :lesson_uuid, :title, presence: true
 
-  validates :subject, :question, presence: true
-  validates :question_type, inclusion: { in: QUESTION_TYPES }
-
-  validates_with ChoicesValidator, unless: -> (record) { record.errors[:question_type].any? }
+  accepts_nested_attributes_for :questions, allow_destroy: true, reject_if: :all_blank
 end
