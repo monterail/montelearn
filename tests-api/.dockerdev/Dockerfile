@@ -1,9 +1,9 @@
-ARG RUBY_VERSION='2.7.0'
+ARG RUBY_VERSION='2.7.1'
 FROM ruby:$RUBY_VERSION-slim-buster AS development
 
 ARG PG_MAJOR='12'
 ARG NODE_MAJOR='12'
-ARG BUNDLER_VERSION='2.0.2'
+ARG BUNDLER_VERSION='2.1.4'
 
 # Common dependencies
 RUN apt-get update -qq \

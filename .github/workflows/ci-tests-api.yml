@@ -1,0 +1,71 @@
+name: CI tests-api
+on:
+  push:
+    branches:
+      - '**'
+    tags-ignore:
+      - '**'
+jobs:
+  test:
+    runs-on: ubuntu-18.04
+
+    services:
+      db:
+        image: postgres:12.2-alpine
+        env:
+          POSTGRES_PASSWORD: password
+        ports: ['5432:5432']
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10ms
+          --health-timeout 500ms
+          --health-retries 15
+      redis:
+        image: redis:5
+        ports: ['6379:6379']
+        options: --entrypoint redis-server
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        
+      - name: Setup Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.7
+
+      - name: Ruby gem cache
+        uses: actions/cache@v1
+        with:
+          path: tests-api/vendor/bundle
+          key: ${{ runner.os }}-gems-v1-${{ hashFiles('**/Gemfile.lock') }}
+          restore-keys: |
+            ${{ runner.os }}-gems-v1-
+
+      - name: Install gems
+        run: |
+          cd tests-api
+          bundle config path vendor/bundle
+          bundle install --jobs 4 --retry 3
+
+      - name: Run linters
+        run: |
+          cd tests-api
+          bundle exec rubocop --parallel
+
+      - name: Run security checks
+        run: |
+          cd tests-api
+          bundle exec bundler-audit --update
+          bundle exec brakeman -q -w2
+          
+      - name: Build and run tests
+        env:
+          DATABASE_URL: postgres://postgres:password@localhost:5432/ci_tests_api
+          REDIS_URL: redis://localhost:6379/0
+          RAILS_ENV: test
+          RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        run: |
+          cd tests-api
+          bin/rails db:prepare
+          bundle exec rspec

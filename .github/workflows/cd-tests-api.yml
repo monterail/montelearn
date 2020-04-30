@@ -13,7 +13,6 @@ jobs:
     runs-on: ubuntu-latest
     env: 
       HEROKU_API_KEY: ${{ secrets.TESTS_API__HEROKU_TOKEN }}
-      HEROKU_EMAIL: ${{ secrets.TESTS_API__HEROKU_EMAIL }}
     
     steps:
       - name: Checkout
