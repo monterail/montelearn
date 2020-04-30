@@ -9,21 +9,27 @@ LESSON_API_LIST_RESPONSE = """
             "name": "Biology Lesson",
             "description": "DNA",
             "pdf_file": "",
-            "url": ""
+            "url": "",
+            "subject": "biology",
+            "grade": "eighth grade"
         },
         {
             "uuid": "544de826-3f04-45e0-a44a-6f548c7e0aba",
             "name": "Chemistry Lesson",
             "description": "Organic acids",
             "pdf_file": "",
-            "url": ""
+            "url": "",
+            "subject": "chemistry",
+            "grade": "eighth grade"
         },
         {
             "uuid": "e71433ab-ff0d-4e3b-8aa6-5e9fb7b96469",
             "name": "History",
             "description": "II World War",
             "pdf_file": "",
-            "url": ""
+            "url": "",
+            "subject": "history",
+            "grade": "eighth grade"
         }
     ]
 }
@@ -35,7 +41,9 @@ LESSON_API_DETAIL_RESPONSE = """
     "name": "Biology Lesson",
     "description": "DNA",
     "pdf_file": "",
-    "url": ""
+    "url": "",
+    "subject": "biology",
+    "grade": "eighth grade"
 }
 """
 

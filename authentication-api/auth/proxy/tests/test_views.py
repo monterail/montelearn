@@ -65,6 +65,8 @@ def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client
                 "description": "Test description",
                 "pdf_file": pdf_file,
                 "url": "https://some-url.com",
+                "subject": "biology",
+                "grade": "eighth grade",
             }
             mocked_request.post(
                 f"{settings.LESSON_API_HOST}/api/lesson/",
@@ -88,6 +90,8 @@ def test_proxy_lesson_create_view_not_permitted_for_student(authenticated_api_cl
             "description": "Test description",
             "pdf_file": pdf_file,
             "url": "https://some-url.com",
+            "subject": "biology",
+            "grade": "eighth grade",
         }
 
         response = authenticated_api_client.post(
@@ -107,6 +111,8 @@ def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client
                 "description": "New description",
                 "pdf_file": pdf_file,
                 "url": "https://some-url-new.com",
+                "subject": "biology",
+                "grade": "eighth grade",
             }
             mocked_request.put(
                 f"{settings.LESSON_API_HOST}/api/lesson/{lesson_uuid}/",
@@ -131,6 +137,8 @@ def test_proxy_lesson_update_view_not_permitted_for_student(authenticated_api_cl
             "description": "New description",
             "pdf_file": pdf_file,
             "url": "https://some-url-new.com",
+            "subject": "biology",
+            "grade": "eighth grade",
         }
 
         response = authenticated_api_client.put(

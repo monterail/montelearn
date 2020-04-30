@@ -22,4 +22,6 @@ def get_lesson_detail_expected_response(lesson):
         "description": lesson.description,
         "pdf_file": "http://testserver" + settings.MEDIA_URL + str(lesson.pdf_file),
         "url": lesson.url,
+        "subject": lesson.subject,
+        "grade": lesson.grade,
     }

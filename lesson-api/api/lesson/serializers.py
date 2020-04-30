@@ -10,6 +10,8 @@ class LessonSerializer(serializers.ModelSerializer):
             "uuid",
             "name",
             "description",
+            "subject",
+            "grade",
             "pdf_file",
             "url",
         )
