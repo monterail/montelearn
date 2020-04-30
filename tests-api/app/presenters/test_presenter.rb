@@ -4,10 +4,10 @@ class TestPresenter < Presenter
   def as_json(*)
     {
       uuid: @object.id,
-      subject: @object.subject,
-      question_type: @object.question_type,
-      question: @object.question,
-      choices: @object.choices,
+      lesson_uuid: @object.lesson_uuid,
+      title: @object.title,
+      description: @object.description,
+      questions: @object.questions.map { |q| QuestionPresenter.new(q).as_json },
     }
   end
 end
