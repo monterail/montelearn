@@ -1,4 +1,5 @@
 import { fetchUtils } from 'react-admin';
+import { stringify } from 'query-string';
 
 const apiUrl = process.env.REACT_APP_API_URL;
 
@@ -20,7 +21,7 @@ const dataProvider = {
         range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
         filter: JSON.stringify(params.filter),
     };
-    const url = `${apiUrl}/${resource}?${JSON.stringify(query)}`;
+    const url = `${apiUrl}/${resource}?${stringify(query)}`;
 
     return httpClient(url).then(({ json }) => ({
       data: json.results.map(resource => ({ ...resource, id: resource.uuid })),
