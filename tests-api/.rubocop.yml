@@ -158,3 +158,5 @@ RSpec/EmptyExampleGroup:
 Naming/FileName:
   Enabled: false
  
+RSpec/ExampleLength:
+  Enabled: false
