@@ -5,7 +5,6 @@ class ApplicationController < ActionController::API
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
-  rescue_from ActiveModel::UnknownAttributeError, with: :render_bad_request
 
   # Issue: https://github.com/rails/rails/issues/38285
   # Workaround: https://github.com/rails/rails/issues/34244#issuecomment-433365579

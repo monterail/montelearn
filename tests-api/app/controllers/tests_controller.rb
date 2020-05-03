@@ -35,31 +35,6 @@ class TestsController < ApplicationController
   private
 
   def test_params
-    @test_params ||=
-      params.permit(permitted_params).to_h.tap { |h| process_questions_attributes(h) }
-  end
-
-  def permitted_params
-    [
-      :uuid,
-      :lesson_uuid,
-      :title,
-      :description,
-      questions: [
-        :uuid,
-        :_destroy,
-        :question_type,
-        :content,
-        :question,
-        choices: %i(answer correct),
-      ],
-    ]
-  end
-
-  def process_questions_attributes(hash)
-    return unless hash[:questions]
-
-    hash[:questions].each { |h| h[:id] = h.delete(:uuid) }
-    hash[:questions_attributes] = hash.delete(:questions)
+    @test_params ||= TestsParametersObject.new(params).to_h
   end
 end
