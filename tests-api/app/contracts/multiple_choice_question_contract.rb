@@ -9,6 +9,6 @@ class MultipleChoiceQuestionContract < Dry::Validation::Contract
 
   rule(:choices) do
     correct = value.select { |h| h[:correct] }
-    key.failure("must have only one correct choice") if correct.size > 1
+    key.failure("must have only one correct choice") if correct.size != 1
   end
 end
