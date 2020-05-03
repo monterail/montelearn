@@ -24,7 +24,7 @@ paths:
         description: The initial index from which to return the results.
       responses:
         '200':
-          description: success
+          description: A list of tests.
           schema:
             type: object
             properties:
@@ -159,7 +159,7 @@ paths:
           - questions
       responses:
         '201':
-          description: created
+          description: Test created.
           schema:
             type: object
             properties:
@@ -221,7 +221,7 @@ paths:
                 - answer: est
                   correct: false
         '400':
-          description: bad_request
+          description: Validation failed.
           schema:
             type: object
             properties:
@@ -247,8 +247,8 @@ paths:
                   type: string
           examples:
             application/json:
-              choices:
-              - size must be 2
+              lesson_uuid:
+              - can't be blank
   "/api/tests/{uuid}":
     get:
       summary: Retrieves a test
@@ -263,7 +263,7 @@ paths:
         required: true
       responses:
         '200':
-          description: success
+          description: A Test object.
           schema:
             type: object
             properties:
@@ -325,7 +325,7 @@ paths:
                 - answer: est
                   correct: false
         '404':
-          description: not_found
+          description: Not found.
           schema:
             type: object
             properties:
@@ -384,7 +384,7 @@ paths:
                           type: boolean
       responses:
         '200':
-          description: success
+          description: Test updated.
           schema:
             type: object
             properties:
@@ -446,7 +446,7 @@ paths:
                 - answer: est
                   correct: false
         '400':
-          description: bad_request
+          description: Validation failed.
           schema:
             type: object
             properties:
@@ -472,10 +472,10 @@ paths:
                   type: string
           examples:
             application/json:
-              choices:
-              - size must be 2
+              lesson_uuid:
+              - can't be blank
         '404':
-          description: not_found
+          description: Not found.
           schema:
             type: object
             properties:
@@ -499,9 +499,9 @@ paths:
         required: true
       responses:
         '204':
-          description: no_content
+          description: Test deleted.
         '404':
-          description: not_found
+          description: Not found.
           schema:
             type: object
             properties:
