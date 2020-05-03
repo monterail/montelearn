@@ -12,9 +12,9 @@ RSpec.describe "api/tests", type: :request do
       parameter name: :offset, in: :query, type: :integer, required: false,
                 description: "The initial index from which to return the results."
 
-      response "200", :success do
-        schema RswagHelper::COLLECTION_SCHEMA
-        examples "application/json" => RswagHelper::COLLECTION_EXAMPLE
+      response "200", "A list of tests." do
+        schema Rswag::TestsHelper::COLLECTION_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::COLLECTION_EXAMPLE
         before { create(:test, :with_binary_questions) }
 
         run_test!
@@ -25,20 +25,19 @@ RSpec.describe "api/tests", type: :request do
       tags "Tests"
       consumes "application/json"
       produces "application/json"
-      parameter name: :payload, in: :body, schema: RswagHelper::POST_PAYLOAD_SCHEMA
+      parameter name: :payload, in: :body, schema: Rswag::TestsHelper::POST_PAYLOAD_SCHEMA
 
-      response "201", :created do
-        schema RswagHelper::RESOURCE_SCHEMA
-        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+      response "201", "Test created." do
+        schema Rswag::TestsHelper::RESOURCE_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::RESOURCE_EXAMPLE
         let(:test) { build(:test, :with_binary_questions) }
         let(:payload) { test.as_json(except: %i(id created_at updated_at)) }
-
         run_test!
       end
 
-      response "400", :bad_request do
-        schema RswagHelper::BAD_REQUEST_SCHEMA
-        examples "application/json" => RswagHelper::BAD_REQUEST_EXAMPLE
+      response "400", "Validation failed." do
+        schema Rswag::TestsHelper::VALIDATION_FAILED_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::VALIDATION_FAILED_EXAMPLE
         let(:test) { build(:test, :with_binary_questions) }
         let(:payload) { test.as_json(except: %i(lesson_uuid)) }
         run_test!
@@ -52,16 +51,16 @@ RSpec.describe "api/tests", type: :request do
       produces "application/json"
       parameter name: :uuid, in: :path, type: :string
 
-      response "200", :success do
-        schema RswagHelper::RESOURCE_SCHEMA
-        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+      response "200", "A Test object." do
+        schema Rswag::TestsHelper::RESOURCE_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::RESOURCE_EXAMPLE
         let(:uuid) { create(:test, :with_binary_questions).id }
         run_test!
       end
 
-      response "404", :not_found do
-        schema RswagHelper::NOT_FOUND_SCHEMA
-        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
+      response "404", "Not found." do
+        schema Rswag::TestsHelper::NOT_FOUND_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::NOT_FOUND_EXAMPLE
         let(:uuid) { "invalid" }
         run_test!
       end
@@ -72,29 +71,29 @@ RSpec.describe "api/tests", type: :request do
       consumes "application/json"
       produces "application/json"
       parameter name: :uuid, in: :path, type: :string
-      parameter name: :payload, in: :body, schema: RswagHelper::PUT_PAYLOAD_SCHEMA
+      parameter name: :payload, in: :body, schema: Rswag::TestsHelper::PUT_PAYLOAD_SCHEMA
 
-      response "200", :success do
-        schema RswagHelper::RESOURCE_SCHEMA
-        examples "application/json" => RswagHelper::RESOURCE_EXAMPLE
+      response "200", "Test updated." do
+        schema Rswag::TestsHelper::RESOURCE_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::RESOURCE_EXAMPLE
         let(:test) { create(:test, :with_binary_questions) }
         let(:payload) { test.as_json(except: %i(created_at updated_at)) }
         let(:uuid) { test.id }
         run_test!
       end
 
-      response "400", :bad_request do
-        schema RswagHelper::BAD_REQUEST_SCHEMA
-        examples "application/json" => RswagHelper::BAD_REQUEST_EXAMPLE
+      response "400", "Validation failed." do
+        schema Rswag::TestsHelper::VALIDATION_FAILED_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::VALIDATION_FAILED_EXAMPLE
         let(:test) { create(:test, :with_binary_questions) }
-        let(:payload) { { title: "" } }
+        let(:payload) { { lesson_uuid: "" } }
         let(:uuid) { test.id }
         run_test!
       end
 
-      response "404", :not_found do
-        schema RswagHelper::NOT_FOUND_SCHEMA
-        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
+      response "404", "Not found." do
+        schema Rswag::TestsHelper::NOT_FOUND_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::NOT_FOUND_EXAMPLE
         let(:payload) { {} }
         let(:uuid) { "invalid" }
         run_test!
@@ -106,14 +105,14 @@ RSpec.describe "api/tests", type: :request do
       produces "application/json"
       parameter name: :uuid, in: :path, type: :string
 
-      response "204", :no_content do
+      response "204", "Test deleted." do
         let(:uuid) { create(:test, :with_binary_questions).id }
         run_test!
       end
 
-      response "404", :not_found do
-        schema RswagHelper::NOT_FOUND_SCHEMA
-        examples "application/json" => RswagHelper::NOT_FOUND_EXAMPLE
+      response "404", "Not found." do
+        schema Rswag::TestsHelper::NOT_FOUND_SCHEMA
+        examples "application/json" => Rswag::TestsHelper::NOT_FOUND_EXAMPLE
         let(:uuid) { "invalid" }
         run_test!
       end
