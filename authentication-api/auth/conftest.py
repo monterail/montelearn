@@ -21,9 +21,9 @@ def authenticated_api_client():
 
 
 @pytest.fixture
-def authenticated_admin_client():
+def teacher_api_client():
     class AdminClient(APIClient):
-        user = UserFactory(is_staff=True)
+        user = UserFactory(is_teacher=True)
 
     client = AdminClient()
     client.force_authenticate(user=client.user)

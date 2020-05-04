@@ -60,7 +60,7 @@ def test_proxy_lesson_detail_view_unauthorized(api_client):
 
 
 @pytest.mark.django_db
-def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client):
+def test_proxy_lesson_create_view_success_for_teacher(teacher_api_client):
     with requests_mock.mock() as mocked_request:
         with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
             CREATE_LESSON_DATA["pdf_file"] = pdf_file
@@ -70,7 +70,7 @@ def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client
                 text=LESSON_API_DETAIL_RESPONSE,
             )
 
-            response = authenticated_admin_client.post(
+            response = teacher_api_client.post(
                 reverse("proxy:lesson-list"), data=CREATE_LESSON_DATA, format="multipart"
             )
 
@@ -91,7 +91,7 @@ def test_proxy_lesson_create_view_not_permitted_for_student(authenticated_api_cl
 
 
 @pytest.mark.django_db
-def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client):
+def test_proxy_lesson_update_view_success_for_teacher(teacher_api_client):
     lesson_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with requests_mock.mock() as mocked_request:
         with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
@@ -102,7 +102,7 @@ def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client
                 text=LESSON_API_DETAIL_RESPONSE,
             )
 
-            response = authenticated_admin_client.put(
+            response = teacher_api_client.put(
                 reverse("proxy:lesson-detail", args=(lesson_uuid,)),
                 data=UPDATE_LESSON_DATA,
                 format="multipart",
@@ -128,7 +128,7 @@ def test_proxy_lesson_update_view_not_permitted_for_student(authenticated_api_cl
 
 
 @pytest.mark.django_db
-def test_proxy_lesson_partial_update_view_success_for_teacher(authenticated_admin_client):
+def test_proxy_lesson_partial_update_view_success_for_teacher(teacher_api_client):
     lesson_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with requests_mock.mock() as mocked_request:
         data = {"name": "Test lesson new", "url": "https://some-url-new.com"}
@@ -138,7 +138,7 @@ def test_proxy_lesson_partial_update_view_success_for_teacher(authenticated_admi
             text=LESSON_API_DETAIL_RESPONSE,
         )
 
-        response = authenticated_admin_client.patch(
+        response = teacher_api_client.patch(
             reverse("proxy:lesson-detail", args=(lesson_uuid,)), data=data
         )
 
@@ -162,14 +162,14 @@ def test_proxy_lesson_partial_update_view_not_permitted_for_student(authenticate
 
 
 @pytest.mark.django_db
-def test_proxy_lesson_delete_view_success_for_teacher(authenticated_admin_client):
+def test_proxy_lesson_delete_view_success_for_teacher(teacher_api_client):
     lesson_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with requests_mock.mock() as mocked_request:
         mocked_request.delete(
             f"{settings.LESSON_API_HOST}/api/lesson/{lesson_uuid}/", status_code=204,
         )
 
-        response = authenticated_admin_client.delete(
+        response = teacher_api_client.delete(
             reverse("proxy:lesson-detail", args=(lesson_uuid,))
         )
 
@@ -228,7 +228,7 @@ def test_proxy_tests_detail_view_unauthorized(api_client):
 
 
 @pytest.mark.django_db
-def test_proxy_tests_create_view_success_for_teacher(authenticated_admin_client):
+def test_proxy_tests_create_view_success_for_teacher(teacher_api_client):
     with requests_mock.mock() as mocked_request:
         mocked_request.post(
             f"{settings.TESTS_API_HOST}/api/tests/",
@@ -236,7 +236,7 @@ def test_proxy_tests_create_view_success_for_teacher(authenticated_admin_client)
             text=TESTS_API_DETAIL_RESPONSE,
         )
 
-        response = authenticated_admin_client.post(
+        response = teacher_api_client.post(
             reverse("proxy:tests-list"), data=CREATE_TEST_DATA
         )
 

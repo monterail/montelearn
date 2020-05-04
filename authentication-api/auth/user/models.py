@@ -52,6 +52,7 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
             "Unselect this instead of deleting accounts."
         ),
     )
+    is_teacher = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["first_name", "last_name"]
