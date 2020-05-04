@@ -1,7 +1,8 @@
 from django.conf import settings
 
-from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 
+from ..core.permissions import IsTeacher
 from .helpers import CustomProxyView
 
 
@@ -10,7 +11,7 @@ class PermissionClassesMixin:
         if self.request.method == "GET":
             permission_classes = (IsAuthenticated,)
         else:
-            permission_classes = (IsAdminUser,)
+            permission_classes = (IsTeacher,)
         return [permission() for permission in permission_classes]
 
 
