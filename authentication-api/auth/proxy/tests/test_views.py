@@ -5,10 +5,13 @@ from django.conf import settings
 from django.urls import reverse
 
 from .helpers import (
+    CREATE_LESSON_DATA,
+    CREATE_TEST_DATA,
     LESSON_API_DETAIL_RESPONSE,
     LESSON_API_LIST_RESPONSE,
     TESTS_API_DETAIL_RESPONSE,
     TESTS_API_LIST_RESPONSE,
+    UPDATE_LESSON_DATA,
 )
 
 
@@ -60,14 +63,7 @@ def test_proxy_lesson_detail_view_unauthorized(api_client):
 def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client):
     with requests_mock.mock() as mocked_request:
         with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
-            data = {
-                "name": "Test lesson",
-                "description": "Test description",
-                "pdf_file": pdf_file,
-                "url": "https://some-url.com",
-                "subject": "biology",
-                "grade": "eighth grade",
-            }
+            CREATE_LESSON_DATA["pdf_file"] = pdf_file
             mocked_request.post(
                 f"{settings.LESSON_API_HOST}/api/lesson/",
                 status_code=201,
@@ -75,7 +71,7 @@ def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client
             )
 
             response = authenticated_admin_client.post(
-                reverse("proxy:lesson-list"), data=data, format="multipart"
+                reverse("proxy:lesson-list"), data=CREATE_LESSON_DATA, format="multipart"
             )
 
             assert response.content.decode("utf-8") == LESSON_API_DETAIL_RESPONSE
@@ -85,17 +81,10 @@ def test_proxy_lesson_create_view_success_for_teacher(authenticated_admin_client
 @pytest.mark.django_db
 def test_proxy_lesson_create_view_not_permitted_for_student(authenticated_api_client):
     with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
-        data = {
-            "name": "Test lesson",
-            "description": "Test description",
-            "pdf_file": pdf_file,
-            "url": "https://some-url.com",
-            "subject": "biology",
-            "grade": "eighth grade",
-        }
+        CREATE_LESSON_DATA["pdf_file"] = pdf_file
 
         response = authenticated_api_client.post(
-            reverse("proxy:lesson-list"), data=data, format="multipart"
+            reverse("proxy:lesson-list"), data=CREATE_LESSON_DATA, format="multipart"
         )
 
         assert response.status_code == 403
@@ -106,14 +95,7 @@ def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client
     lesson_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with requests_mock.mock() as mocked_request:
         with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
-            data = {
-                "name": "Test lesson new",
-                "description": "New description",
-                "pdf_file": pdf_file,
-                "url": "https://some-url-new.com",
-                "subject": "biology",
-                "grade": "eighth grade",
-            }
+            UPDATE_LESSON_DATA["pdf_file"] = pdf_file
             mocked_request.put(
                 f"{settings.LESSON_API_HOST}/api/lesson/{lesson_uuid}/",
                 status_code=200,
@@ -121,7 +103,9 @@ def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client
             )
 
             response = authenticated_admin_client.put(
-                reverse("proxy:lesson-detail", args=(lesson_uuid,)), data=data, format="multipart"
+                reverse("proxy:lesson-detail", args=(lesson_uuid,)),
+                data=UPDATE_LESSON_DATA,
+                format="multipart",
             )
 
             assert response.content.decode("utf-8") == LESSON_API_DETAIL_RESPONSE
@@ -132,17 +116,12 @@ def test_proxy_lesson_update_view_success_for_teacher(authenticated_admin_client
 def test_proxy_lesson_update_view_not_permitted_for_student(authenticated_api_client):
     lesson_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with open("auth/proxy/tests/pdf_test.pdf", "rb") as pdf_file:
-        data = {
-            "name": "Test lesson new",
-            "description": "New description",
-            "pdf_file": pdf_file,
-            "url": "https://some-url-new.com",
-            "subject": "biology",
-            "grade": "eighth grade",
-        }
+        UPDATE_LESSON_DATA["pdf_file"] = pdf_file
 
         response = authenticated_api_client.put(
-            reverse("proxy:lesson-detail", args=(lesson_uuid,)), data=data, format="multipart"
+            reverse("proxy:lesson-detail", args=(lesson_uuid,)),
+            data=UPDATE_LESSON_DATA,
+            format="multipart",
         )
 
         assert response.status_code == 403
@@ -251,19 +230,15 @@ def test_proxy_tests_detail_view_unauthorized(api_client):
 @pytest.mark.django_db
 def test_proxy_tests_create_view_success_for_teacher(authenticated_admin_client):
     with requests_mock.mock() as mocked_request:
-        data = {
-            "question_type": "binary",
-            "subject": "Biology",
-            "question": "Is DNA double helix?",
-            "choices": [{"answer": "yes", "correct": True}, {"answer": "no", "correct": False}],
-        }
         mocked_request.post(
             f"{settings.TESTS_API_HOST}/api/tests/",
             status_code=201,
             text=TESTS_API_DETAIL_RESPONSE,
         )
 
-        response = authenticated_admin_client.post(reverse("proxy:tests-list"), data=data)
+        response = authenticated_admin_client.post(
+            reverse("proxy:tests-list"), data=CREATE_TEST_DATA
+        )
 
         assert response.content.decode("utf-8") == TESTS_API_DETAIL_RESPONSE
         assert response.status_code == 201
@@ -271,13 +246,6 @@ def test_proxy_tests_create_view_success_for_teacher(authenticated_admin_client)
 
 @pytest.mark.django_db
 def test_proxy_tests_create_view_not_permitted_for_student(authenticated_api_client):
-    data = {
-        "question_type": "binary",
-        "subject": "Biology",
-        "question": "Is DNA double helix?",
-        "choices": [{"answer": "yes", "correct": True}, {"answer": "no", "correct": False}],
-    }
-
-    response = authenticated_api_client.post(reverse("proxy:tests-list"), data=data)
+    response = authenticated_api_client.post(reverse("proxy:tests-list"), data=CREATE_TEST_DATA)
 
     assert response.status_code == 403

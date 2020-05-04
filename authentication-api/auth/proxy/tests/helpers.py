@@ -91,3 +91,28 @@ TESTS_API_DETAIL_RESPONSE = """
   ]
 }
 """
+
+CREATE_LESSON_DATA = {
+    "name": "Test lesson",
+    "description": "Test description",
+    "pdf_file": "",
+    "url": "https://some-url.com",
+    "subject": "biology",
+    "grade": "eighth grade",
+}
+
+UPDATE_LESSON_DATA = {
+    "name": "Test lesson new",
+    "description": "New description",
+    "pdf_file": "",
+    "url": "https://some-url-new.com",
+    "subject": "biology",
+    "grade": "eighth grade",
+}
+
+CREATE_TEST_DATA = {
+    "question_type": "binary",
+    "subject": "Biology",
+    "question": "Is DNA double helix?",
+    "choices": [{"answer": "yes", "correct": True}, {"answer": "no", "correct": False}],
+}
