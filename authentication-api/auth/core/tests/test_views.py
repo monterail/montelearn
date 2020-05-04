@@ -334,3 +334,55 @@ def test_refresh_token_invalid(api_client):
 
     assert response.status_code == 400
     assert not response.data.get("token")
+
+
+@pytest.mark.django_db
+def test_admin_panel_login_success(api_client):
+    response = api_client.post(
+        reverse("rest_register"),
+        data={
+            "first_name": "user first name",
+            "last_name": "user last name",
+            "email": "user@example.com",
+            "password1": "1234example1234",
+            "password2": "1234example1234",
+        },
+    )
+
+    assert response.status_code == 201
+
+    user = User.objects.get(email="user@example.com")
+    user.is_teacher = True
+    user.save()
+
+    response = api_client.post(
+        reverse("admin_panel_login"),
+        data={"email": "user@example.com", "password": "1234example1234"},
+    )
+
+    assert "token" in response.data
+    assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_admin_panel_login_not_permitted(api_client):
+    response = api_client.post(
+        reverse("rest_register"),
+        data={
+            "first_name": "user first name",
+            "last_name": "user last name",
+            "email": "user@example.com",
+            "password1": "1234example1234",
+            "password2": "1234example1234",
+        },
+    )
+
+    assert response.status_code == 201
+
+    response = api_client.post(
+        reverse("admin_panel_login"),
+        data={"email": "user@example.com", "password": "1234example1234"},
+    )
+
+    assert response.data["details"] == "Only teacher is allowed to login."
+    assert response.status_code == 400

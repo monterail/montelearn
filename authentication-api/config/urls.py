@@ -15,6 +15,7 @@ from auth.core.views import (
     RefreshToken,
     VerifyEmail,
     VerifyToken,
+    AdminPanelLogin,
 )
 from .schema import schema_view
 
@@ -22,6 +23,7 @@ from .schema import schema_view
 # Here to enable top-level names for reverse in django-rest-auth
 email_auth_urls = [
     path("auth/email/login/", EmailLogin.as_view(), name="rest_login"),
+    path("auth/admin/login/", AdminPanelLogin.as_view(), name="admin_panel_login"),
     path("auth/logout/", Logout.as_view(), name="rest_logout"),
     path(
         "auth/email/password/change/",
