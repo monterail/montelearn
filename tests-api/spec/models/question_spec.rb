@@ -10,26 +10,31 @@ RSpec.describe Question, type: :model do
   end
 
   shared_examples "validates choices elements" do
-    it "validates choices elements have required keys" do
-      question.choices[0] = {}
-
+    before do
+      question.choices[0] = invalid_choice
       question.validate
-
-      expect(question.errors.messages).to include(
-        "choices.0.answer": ["is missing"],
-        "choices.0.correct": ["is missing"],
-      )
     end
 
-    it "validates choices elements have filled values" do
-      question.choices[0] = { correct: nil, answer: nil }
+    context "with empty choices" do
+      let(:invalid_choice) { {} }
 
-      question.validate
+      it "validates choices elements have required keys" do
+        expect(question.errors.messages).to include(
+          "choices.0.answer": ["is missing"],
+          "choices.0.correct": ["is missing"],
+        )
+      end
+    end
 
-      expect(question.errors.messages).to include(
-        "choices.0.answer": ["must be filled"],
-        "choices.0.correct": ["must be filled"],
-      )
+    context "with choices with empty values" do
+      let(:invalid_choice) { { correct: nil, answer: nil } }
+
+      it "validates choices elements have filled values" do
+        expect(question.errors.messages).to include(
+          "choices.0.answer": ["must be filled"],
+          "choices.0.correct": ["must be filled"],
+        )
+      end
     end
   end
 
