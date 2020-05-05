@@ -136,7 +136,7 @@ module Rswag
           },
         },
       },
-      required: %w(lesson_uuid title description questions),
+      required: %w(lesson_uuid title questions),
     }.freeze
 
     PUT_PAYLOAD_SCHEMA = {
