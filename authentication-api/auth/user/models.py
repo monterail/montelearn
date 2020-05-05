@@ -30,6 +30,7 @@ class CustomUserManager(UserManager):
         """Create and save a SuperUser with the given email and password."""
         extra_fields.setdefault("is_staff", True)
         extra_fields.setdefault("is_superuser", True)
+        extra_fields.setdefault("is_teacher", True)
 
         return self._create_user(email, password, **extra_fields)
 

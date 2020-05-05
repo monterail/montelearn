@@ -12,6 +12,8 @@ from rest_framework_jwt.views import RefreshJSONWebToken, VerifyJSONWebToken
 from django.urls import reverse
 
 from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.status import HTTP_400_BAD_REQUEST
 
 from .serializers import EmailLoginSerializer, EmailRegisterSerializer
 
@@ -59,3 +61,22 @@ class RefreshToken(RefreshJSONWebToken):
 
 class VerifyToken(VerifyJSONWebToken):
     permission_classes = (AllowAny,)
+
+
+class AdminPanelLogin(LoginView):
+    permission_classes = (AllowAny,)
+    serializer_class = EmailLoginSerializer
+
+    def post(self, request, *args, **kwargs):
+        # Login to React Admin Panel dedicated for teachers
+        self.request = request
+        self.serializer = self.get_serializer(data=self.request.data, context={"request": request})
+        self.serializer.is_valid(raise_exception=True)
+        self.user = self.serializer.validated_data["user"]
+        if not self.user.is_teacher:
+            return Response(
+                {"details": "Only teacher is allowed to login."}, status=HTTP_400_BAD_REQUEST
+            )
+
+        self.login()
+        return self.get_response()
