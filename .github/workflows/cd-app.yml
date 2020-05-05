@@ -4,10 +4,10 @@ on:
     branches:
       - master
       - 'chore/add-app-package'
-    paths:
-      - 'app'
-      - 'packages/core'
-      - 'Dockerfile'
+    # paths:
+    #   - 'app'
+    #   - 'packages/core'
+    #   - 'Dockerfile'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
