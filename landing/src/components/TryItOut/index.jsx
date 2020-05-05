@@ -7,9 +7,9 @@ import {
   COLOR_WHITE,
   FONT_MONOSPACE,
   FONT_SANS_SERIF,
-} from "@/theming/const";
-import { rem } from "@/theming/utils";
-import { getLinesCount } from "@/utils/words";
+} from "@project/core/lib/const/theming";
+import { getLinesCount } from "@project/core/lib/utils/words";
+import { rem } from "@project/core/lib/utils/theming";
 
 import sendRequest from "./api";
 import RecursiveReveal from "./RecursiveReveal";

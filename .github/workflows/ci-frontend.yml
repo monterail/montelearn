@@ -42,6 +42,9 @@ jobs:
     - name: Install NPM packages
       run: yarn --frozen-lockfile
 
+    - name: Build packages
+      run: npx lerna run lib
+
     - name: Type checking
       run: npx lerna run tsc
 

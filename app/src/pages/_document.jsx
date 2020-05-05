@@ -1,6 +1,8 @@
 import { css, Global } from "@emotion/core";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
+import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
+
 export default class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
 
@@ -12,6 +14,7 @@ export default class NextDocument extends Document {
             styles={css`
               body {
                 -webkit-font-smoothing: antialiased;
+                font-family: ${FONT_SANS_SERIF};
                 margin: 0;
               }
 

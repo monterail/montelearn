@@ -1,7 +1,7 @@
 import { css, Global } from "@emotion/core";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
-import { FONT_SANS_SERIF } from "@/theming/const";
+import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
 export default class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
