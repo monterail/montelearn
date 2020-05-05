@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-QUESTIONS_DATA = [
+questions_data = [
   {
     question_type: "binary",
     content: "Is math related to science?",
@@ -17,11 +17,11 @@ QUESTIONS_DATA = [
   },
 ].freeze
 
-TESTS_DATA = [
+tests_data = [
   {
     lesson_uuid: "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
-    questions_attributes: QUESTIONS_DATA,
+    questions_attributes: questions_data,
   },
 ].freeze
 
-TESTS = Test.create(TESTS_DATA)
+Test.create(tests_data)
