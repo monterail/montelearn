@@ -3,8 +3,6 @@
 class TestsParametersObject
   PERMITTED_PARAMS = [
     :lesson_uuid,
-    :title,
-    :description,
     questions: [
       :uuid,
       :_destroy,

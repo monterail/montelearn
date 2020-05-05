@@ -45,10 +45,6 @@ paths:
                       type: string
                     lesson_uuid:
                       type: string
-                    title:
-                      type: string
-                    description:
-                      type: string
                     questions:
                       type: array
                       items:
@@ -80,8 +76,6 @@ paths:
                   required:
                   - uuid
                   - lesson_uuid
-                  - title
-                  - description
                   - questions
             required:
             - count
@@ -96,8 +90,6 @@ paths:
               results:
               - uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
                 lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
-                title: Accusantium
-                description: Similique aliquam voluptas quia.
                 questions:
                 - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
                   question_type: binary
@@ -122,10 +114,6 @@ paths:
           type: object
           properties:
             lesson_uuid:
-              type: string
-            title:
-              type: string
-            description:
               type: string
             questions:
               type: array
@@ -154,8 +142,6 @@ paths:
                 - choices
           required:
           - lesson_uuid
-          - title
-          - description
           - questions
       responses:
         '201':
@@ -166,10 +152,6 @@ paths:
               uuid:
                 type: string
               lesson_uuid:
-                type: string
-              title:
-                type: string
-              description:
                 type: string
               questions:
                 type: array
@@ -202,15 +184,11 @@ paths:
             required:
             - uuid
             - lesson_uuid
-            - title
-            - description
             - questions
           examples:
             application/json:
               uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
               lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
-              title: Accusantium
-              description: Similique aliquam voluptas quia.
               questions:
               - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
                 question_type: binary
@@ -271,10 +249,6 @@ paths:
                 type: string
               lesson_uuid:
                 type: string
-              title:
-                type: string
-              description:
-                type: string
               questions:
                 type: array
                 items:
@@ -306,15 +280,11 @@ paths:
             required:
             - uuid
             - lesson_uuid
-            - title
-            - description
             - questions
           examples:
             application/json:
               uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
               lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
-              title: Accusantium
-              description: Similique aliquam voluptas quia.
               questions:
               - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
                 question_type: binary
@@ -356,10 +326,6 @@ paths:
           properties:
             lesson_uuid:
               type: string
-            title:
-              type: string
-            description:
-              type: string
             questions:
               type: array
               items:
@@ -392,10 +358,6 @@ paths:
                 type: string
               lesson_uuid:
                 type: string
-              title:
-                type: string
-              description:
-                type: string
               questions:
                 type: array
                 items:
@@ -427,15 +389,11 @@ paths:
             required:
             - uuid
             - lesson_uuid
-            - title
-            - description
             - questions
           examples:
             application/json:
               uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
               lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
-              title: Accusantium
-              description: Similique aliquam voluptas quia.
               questions:
               - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
                 question_type: binary

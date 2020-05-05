@@ -20,7 +20,6 @@ QUESTIONS_DATA = [
 TESTS_DATA = [
   {
     lesson_uuid: "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
-    title: "Test #1",
     questions_attributes: QUESTIONS_DATA,
   },
 ].freeze

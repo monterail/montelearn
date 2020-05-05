@@ -1,6 +1,5 @@
 # frozen_string_literal: true
 
-# rubocop:disable Metrics/ModuleLength
 module Rswag
   module TestsHelper
     RESOURCE_SCHEMA = {
@@ -8,8 +7,6 @@ module Rswag
       properties: {
         uuid: { type: :string },
         lesson_uuid: { type: :string },
-        title: { type: :string },
-        description: { type: :string },
         questions: {
           type: :array,
           items: {
@@ -34,7 +31,7 @@ module Rswag
           },
         },
       },
-      required: %w(uuid lesson_uuid title description questions),
+      required: %w(uuid lesson_uuid questions),
     }.freeze
 
     COLLECTION_SCHEMA = {
@@ -54,8 +51,6 @@ module Rswag
     RESOURCE_EXAMPLE = {
       uuid: "34fde577-2360-4dd9-8aa3-a0d32b799336",
       lesson_uuid: "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
-      title: "Accusantium",
-      description: "Similique aliquam voluptas quia.",
       questions: [
         {
           uuid: "95639f83-9600-4637-903a-c5b08d2f4e7c",
@@ -111,8 +106,6 @@ module Rswag
       type: :object,
       properties: {
         lesson_uuid: { type: :string },
-        title: { type: :string },
-        description: { type: :string },
         questions: {
           type: :array,
           items: {
@@ -136,15 +129,13 @@ module Rswag
           },
         },
       },
-      required: %w(lesson_uuid title questions),
+      required: %w(lesson_uuid questions),
     }.freeze
 
     PUT_PAYLOAD_SCHEMA = {
       type: :object,
       properties: {
         lesson_uuid: { type: :string },
-        title: { type: :string },
-        description: { type: :string },
         questions: {
           type: :array,
           items: {
@@ -171,4 +162,3 @@ module Rswag
     }.freeze
   end
 end
-# rubocop:enable Metrics/ModuleLength

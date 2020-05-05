@@ -3,8 +3,6 @@
 FactoryBot.define do
   factory :test do
     lesson_uuid { SecureRandom.uuid }
-    title { Faker::Lorem.word }
-    description { Faker::Lorem.sentence }
 
     trait :with_binary_questions do
       transient do

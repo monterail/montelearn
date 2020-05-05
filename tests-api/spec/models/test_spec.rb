@@ -14,7 +14,6 @@ RSpec.describe Test, type: :model do
   describe "validations" do
     it { is_expected.to validate_presence_of(:lesson_uuid) }
     it { is_expected.to validate_uniqueness_of(:lesson_uuid).case_insensitive }
-    it { is_expected.to validate_presence_of(:title) }
   end
 
   it { is_expected.to accept_nested_attributes_for(:questions).allow_destroy(true) }

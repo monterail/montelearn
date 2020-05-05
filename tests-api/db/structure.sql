@@ -25,8 +25,6 @@ COMMENT ON EXTENSION pgcrypto IS 'cryptographic functions';
 
 SET default_tablespace = '';
 
-SET default_with_oids = false;
-
 --
 -- Name: ar_internal_metadata; Type: TABLE; Schema: public; Owner: -
 --
@@ -70,8 +68,6 @@ CREATE TABLE public.schema_migrations (
 CREATE TABLE public.tests (
     id uuid DEFAULT public.gen_random_uuid() NOT NULL,
     lesson_uuid uuid NOT NULL,
-    title character varying NOT NULL,
-    description character varying DEFAULT ''::character varying NOT NULL,
     created_at timestamp(6) without time zone NOT NULL,
     updated_at timestamp(6) without time zone NOT NULL
 );
