@@ -4,6 +4,6 @@ Rails.application.routes.draw do
   mount Rswag::Ui::Engine => "/swagger"
   mount Rswag::Api::Engine => "/swagger"
   scope :api do
-    resources :tests, only: %i(index show create update destroy)
+    resources :tests
   end
 end
