@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require "securerandom"
-
 FactoryBot.define do
   factory :test do
     lesson_uuid { SecureRandom.uuid }
