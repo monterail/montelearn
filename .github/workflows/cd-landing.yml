@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - '.github/workflows/cd-landing.yml'
       - 'landing'
       - 'packages/core'
       - 'Dockerfile'
