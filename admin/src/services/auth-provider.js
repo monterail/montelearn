@@ -18,7 +18,8 @@ const authProvider = {
       });
   },
   logout: () => {
-    return localStorage.removeItem("token");
+    localStorage.removeItem("token");
+    return Promise.resolve();
   },
   checkAuth: () => {
     return localStorage.getItem("token") ? Promise.resolve() : Promise.reject();
