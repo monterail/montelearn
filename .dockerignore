@@ -1,8 +1,10 @@
 **/*
+!lerna.json
 !package.json
 !yarn.lock
 !public
 !src
+!app
 !landing
 !packages
 **/node_modules

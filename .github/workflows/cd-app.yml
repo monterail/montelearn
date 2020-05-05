@@ -1,15 +1,16 @@
-name: CD Landing Page (test)
+name: cd app
 on:
   push:
     branches:
       - master
+      - 'chore/add-app-package'
     paths:
-      - 'landing'
+      - 'app'
       - 'packages/core'
       - 'Dockerfile'
 jobs:
   build-and-deploy:
-    name: Deploy landing to Heroku
+    name: Deploy app to Heroku
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: 1
@@ -21,18 +22,18 @@ jobs:
 
     - name: Make env file
       run: |
-        cat > landing/.env << EOF
-        API_PLAYGROUND_URL=https://auth-api-test.herokuapp.com
+        cat > app/.env << EOF
+        API_URL=https://auth-api-test.herokuapp.com
         EOF
 
     - name: Build docker
-      run: docker build -t registry.heroku.com/montelearn-landing/web .
+      run: docker build -t registry.heroku.com/montelearn-app/web .
 
     - name: Login to Heroku Container registry
       run: heroku container:login
 
     - name: Push container
-      run: docker push registry.heroku.com/montelearn-landing/web
+      run: docker push registry.heroku.com/montelearn-app/web
 
     - name: Release container
-      run: heroku container:release web --app montelearn-landing
+      run: heroku container:release web --app montelearn-app
