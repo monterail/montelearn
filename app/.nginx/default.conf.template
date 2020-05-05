@@ -3,7 +3,7 @@ error_log /dev/stdout info;
 server {
   listen $PORT default_server;
   listen [::]:$PORT;
-  server_name landing;
+  server_name app;
 
   gzip on;
   gzip_vary on;
