@@ -27,7 +27,9 @@ jobs:
         EOF
 
     - name: Build docker
-      run: docker build -t registry.heroku.com/montelearn-app/web .
+      run: |
+        docker build -t registry.heroku.com/montelearn-app/web \
+        --target app-runner .
 
     - name: Login to Heroku Container registry
       run: heroku container:login
