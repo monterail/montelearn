@@ -9,6 +9,9 @@ jobs:
   lint-and-build:
     name: Lint and build
     runs-on: ubuntu-latest
+    env:
+      API_URL: http://localhost:8080
+      API_PLAYGROUND_URL: http://localhost:8080
 
     steps:
     - uses: actions/checkout@v2
@@ -54,12 +57,5 @@ jobs:
     - name: Run unit tests
       run: npx lerna run test
 
-    - name: Build app
-      env:
-        API_URL: http://localhost:8080
-      run: (cd app && yarn build)
-
-    - name: Build landing page
-      env:
-        API_PLAYGROUND_URL: http://localhost:8080
-      run: (cd landing && yarn build)
+    - name: Build apps
+      run: npx lerna run build
