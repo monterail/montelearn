@@ -5,8 +5,6 @@ require "rails_helper"
 RSpec.describe Question, type: :model do
   shared_context "with assigned choices" do
     before { question.assign_attributes(choices: choices) }
-
-    let(:choices) { question.choices }
   end
 
   shared_examples "validates choices elements" do
@@ -57,16 +55,22 @@ RSpec.describe Question, type: :model do
   shared_examples "validates correct choices" do
     include_context "with assigned choices"
 
-    let(:correct_choices) { question.choices.select { |c| c[:correct] } }
-
     context "with less than minimum correct choices" do
-      before { correct_choices.sample[:correct] = false }
+      let(:choices) do
+        question.choices.tap do |choices|
+          choices.find { |c| c[:correct] }[:correct] = false
+        end
+      end
 
       it { is_expected.to be_invalid }
     end
 
     context "with more than minimum correct choices" do
-      before { (question.choices - correct_choices).sample[:correct] = true }
+      let(:choices) do
+        question.choices.tap do |choices|
+          choices.find { |c| !c[:correct] }[:correct] = true
+        end
+      end
 
       it { expect(question.valid?).to eq(valid_with_more_than_minimum_correct_choices) }
     end
