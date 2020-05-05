@@ -264,7 +264,7 @@ DEPENDENCIES
   rubocop (~> 0.81.0)
   rubocop-rails (~> 2.4.1)
   rubocop-rspec (~> 1.38)
-  shoulda-matchers
+  shoulda-matchers (~> 4.3)
 
 RUBY VERSION
    ruby 2.7.1p83
