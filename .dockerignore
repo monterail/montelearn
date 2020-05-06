@@ -4,6 +4,7 @@
 !yarn.lock
 !public
 !src
+!admin
 !app
 !landing
 !packages

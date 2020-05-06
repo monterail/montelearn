@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - '.github/workflows/cd-landing.yml'
+      - '.dockerignore'
       - 'landing'
       - 'packages/core'
       - 'Dockerfile'

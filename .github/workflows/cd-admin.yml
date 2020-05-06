@@ -6,6 +6,7 @@ on:
       - 'chore/add-ci-and-cd-for-admin-app'
     paths:
       - '.github/workflows/cd-admin.yml'
+      - '.dockerignore'
       - 'admin'
       - 'packages/core'
       - 'Dockerfile'
