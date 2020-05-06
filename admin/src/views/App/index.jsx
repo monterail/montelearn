@@ -6,11 +6,12 @@ import dataProvider from "@/services/data-provider";
 
 import LessonsList from "./components/LessonsList";
 import ShowLesson from "./components/ShowLesson";
+import CreateLesson from "./components/CreateLesson";
 
 export default function App() {
   return (
     <Admin dataProvider={dataProvider} authProvider={authProvider}>
-      <Resource name="lesson" list={LessonsList} show={ShowLesson} />
+      <Resource name="lesson" list={LessonsList} show={ShowLesson} create={CreateLesson} />
     </Admin>
   );
 }
