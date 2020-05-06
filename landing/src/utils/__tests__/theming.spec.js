@@ -1,6 +1,6 @@
-import { getRGB, hexToRGBA, rem } from "../utils";
+import { getRGB, hexToRGBA, rem } from "../theming";
 
-describe("theming/utils", () => {
+describe("utils/theming", () => {
   describe("rem", () => {
     it("should return 0 for 0px", () => {
       expect(rem(0)).toBe("0");

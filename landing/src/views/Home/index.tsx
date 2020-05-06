@@ -1,17 +1,18 @@
 import Head from "next/head";
 
+import {
+  COLOR_DON_JUAN,
+  COLOR_GEYSER,
+  COLOR_GREEN,
+  COLOR_MILANO_RED,
+  COLOR_WHITE,
+  FONT_SERIF,
+} from "@project/core/lib/const/theming";
+import { rem } from "@project/core/lib/utils/theming";
+
 import Button from "@/components/Button";
 import ContentWidth from "@/components/ContentWidth";
 import TryItOut from "@/components/TryItOut";
-import {
-  COLOR_GREEN,
-  COLOR_WHITE,
-  FONT_SERIF,
-  COLOR_MILANO_RED,
-  COLOR_DON_JUAN,
-  COLOR_GEYSER,
-} from "@/theming/const";
-import { rem } from "@/theming/utils";
 
 const endpoints = [
   {

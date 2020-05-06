@@ -42,6 +42,9 @@ jobs:
     - name: Install NPM packages
       run: yarn --frozen-lockfile
 
+    - name: Build packages
+      run: npx lerna run lib
+
     - name: Type checking
       run: npx lerna run tsc
 
@@ -51,7 +54,12 @@ jobs:
     - name: Run unit tests
       run: npx lerna run test
 
+    - name: Build app
+      env:
+        API_URL: http://localhost:8080
+      run: (cd app && yarn build)
+
     - name: Build landing page
       env:
-        API_PLAYGROUND_URL: http://localhost:8000
+        API_PLAYGROUND_URL: http://localhost:8080
       run: (cd landing && yarn build)

@@ -1,7 +1,7 @@
 import { memo } from "react";
 
-import { COLOR_GREEN, COLOR_WHITE } from "@/theming/const";
-import { hexToRGBA, rem } from "@/theming/utils";
+import { COLOR_GREEN, COLOR_WHITE } from "@project/core/lib/const/theming";
+import { hexToRGBA, rem } from "@project/core/lib/utils/theming";
 
 function Button({ css = {}, palette, size, ...props }) {
   return (

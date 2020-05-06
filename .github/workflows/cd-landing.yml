@@ -4,14 +4,16 @@ on:
     branches:
       - master
     paths:
-      - 'landing/**'
+      - '.github/workflows/cd-landing.yml'
+      - 'landing'
+      - 'packages/core'
       - 'Dockerfile'
-      - '!landing/tsconfig.eslint.json'
 jobs:
   build-and-deploy:
     name: Deploy landing to Heroku
     runs-on: ubuntu-latest
     env:
+      DOCKER_BUILDKIT: 1
       HEROKU_API_KEY: ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
 
     steps:
@@ -21,11 +23,13 @@ jobs:
     - name: Make env file
       run: |
         cat > landing/.env << EOF
-        API_PLAYGROUND_URL=https://lesson-api-test.herokuapp.com
+        API_PLAYGROUND_URL=https://auth-api-test.herokuapp.com
         EOF
 
     - name: Build docker
-      run: docker build -t registry.heroku.com/montelearn-landing/web .
+      run: |
+        docker build -t registry.heroku.com/montelearn-landing/web \
+        --target landing-runner .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

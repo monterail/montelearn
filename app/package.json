@@ -1,12 +1,12 @@
 {
-  "name": "@project/landing",
+  "name": "@project/app",
   "version": "1.0.0",
   "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
   "license": "MIT",
   "scripts": {
     "build": "next build && next export",
     "cleanup": "rimraf node_modules .next coverage out",
-    "dev": "next -p 3000",
+    "dev": "next -p 3001",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
     "test": "project-jest",

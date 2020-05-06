@@ -1,9 +1,9 @@
 import { createContext, useCallback, useContext, useState } from "react";
 
-import { COLOR_DON_JUAN, COLOR_GREEN } from "@/theming/const";
-import { rem } from "@/theming/utils";
-import { isUrlLike } from "@/utils/paths";
-import { pluralize } from "@/utils/words";
+import { COLOR_DON_JUAN, COLOR_GREEN } from "@project/core/lib/const/theming";
+import { rem } from "@project/core/lib/utils/theming";
+import { isUrlLike } from "@project/core/lib/utils/paths";
+import { pluralize } from "@project/core/lib/utils/words";
 
 import RevealButton from "./RevealButton";
 
