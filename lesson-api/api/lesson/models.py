@@ -16,7 +16,7 @@ class Lesson(TimeStampedModel):
     name = models.CharField(max_length=50)
     description = models.TextField()
     pdf_file = models.FileField(
-        upload_to="lesson", blank=True, null=True, validators=[FileExtensionValidator(["pdf"])],
+        upload_to="lesson", validators=[FileExtensionValidator(["pdf"])],
     )
     url = models.URLField(("URL"), max_length=300, blank=True, default="")
     subject = models.CharField(max_length=50, choices=SUBJECTS_CHOICES, blank=True)
