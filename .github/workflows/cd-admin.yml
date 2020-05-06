@@ -3,14 +3,12 @@ on:
   push:
     branches:
       - master
-      - 'chore/add-ci-and-cd-for-admin-app'
-
     paths:
       - '.github/workflows/cd-admin.yml'
       - '.dockerignore'
+      - 'Dockerfile'
       - 'admin'
       - 'packages/core'
-      - 'Dockerfile'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
@@ -26,7 +24,7 @@ jobs:
     - name: Make env file
       run: |
         cat > admin/.env << EOF
-        API_URL=https://auth-api-test.herokuapp.com
+        API_URL=https://auth-api-test.herokuapp.com/api
         EOF
 
     - name: Build docker
