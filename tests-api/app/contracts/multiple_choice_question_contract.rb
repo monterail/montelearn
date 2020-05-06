@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
-require_relative "choices_schema"
+require_relative "choice_schema"
 
 class MultipleChoiceQuestionContract < Dry::Validation::Contract
-  params(ChoicesSchema) do
-    required(:choices).value(min_size?: 3)
+  params do
+    required(:choices).filled(:array, min_size?: 3).each(ChoiceSchema)
   end
 
   rule(:choices) do
     correct = value.select { |h| h[:correct] }
-    key.failure("must have one correct choice only") if correct.size > 1
+    key.failure("must have only one correct choice") if correct.size != 1
   end
 end

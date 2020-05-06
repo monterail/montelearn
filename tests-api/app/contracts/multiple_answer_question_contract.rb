@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative "choices_schema"
+require_relative "choice_schema"
 
 class MultipleAnswerQuestionContract < Dry::Validation::Contract
-  params(ChoicesSchema) do
-    required(:choices).value(min_size?: 3)
+  params do
+    required(:choices).filled(:array, min_size?: 3).each(ChoiceSchema)
   end
 
   rule(:choices) do

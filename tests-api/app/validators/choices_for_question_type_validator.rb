@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class ChoicesValidator < ActiveModel::Validator
+class ChoicesForQuestionTypeValidator < ActiveModel::Validator
   def validate(record)
     contract = contract_for(record.question_type)
     result   = contract.call(record.attributes)

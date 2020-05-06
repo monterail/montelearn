@@ -2,11 +2,6 @@
 
 Stateful microservice, with its own database, exposing a RESTish API for managing `Test` resource.
 
-Available endpoints:
-- GET `/api/tests/`
-- GET `/api/tests/{uuid}`
-- POST `/api/tests/`
-
 Documented with Swagger 2.0 using [`rswag`](https://github.com/rswag/rswag) gem.
 
 Check documentation at http://localhost:3000/swagger

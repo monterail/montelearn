@@ -7,7 +7,7 @@ class TestsController < ApplicationController
     render_collection(tests)
   end
 
-  # GET /tests/1
+  # GET /tests/:id
   def show
     test = Test.find(params[:id])
     render_resource(test)
@@ -15,22 +15,26 @@ class TestsController < ApplicationController
 
   # POST /tests/
   def create
-    test = Test.new(test_params)
-
-    return render_validation_errors(test) unless test.save
-
+    test = Test.create!(test_params)
     render_resource(test, :created)
+  end
+
+  # PUT /tests/:id
+  def update
+    test = Test.find(params[:id])
+    test.update!(test_params)
+    render_resource(test)
+  end
+
+  # DESTROY /tests/:id
+  def destroy
+    Test.find(params[:id]).destroy
+    head :no_content
   end
 
   private
 
   def test_params
-    params.permit(
-      :uuid,
-      :question_type,
-      :subject,
-      :question,
-      choices: %i(answer correct),
-    )
+    @test_params ||= TestsParametersObject.new(params).to_h
   end
 end

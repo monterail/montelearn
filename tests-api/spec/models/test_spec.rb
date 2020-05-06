@@ -3,39 +3,18 @@
 require "rails_helper"
 
 RSpec.describe Test, type: :model do
-  subject { test }
+  subject { build(:test) }
 
-  let(:test) { build(:test, trait) }
+  it { is_expected.to be_valid }
 
-  shared_examples "validates #choices according to question type contract" do
-    subject { test.attributes }
-
-    let(:contract) { "#{trait.to_s.classify}Contract".constantize }
-
-    it { is_expected.to be_valid_with_contract(contract) }
+  describe "associations" do
+    it { is_expected.to have_many(:questions).dependent(:destroy) }
   end
 
-  describe "multiple-choice question" do
-    let(:trait) { :multiple_choice_question }
-
-    it { is_expected.to be_valid }
-
-    it_behaves_like "validates #choices according to question type contract"
+  describe "validations" do
+    it { is_expected.to validate_presence_of(:lesson_uuid) }
+    it { is_expected.to validate_uniqueness_of(:lesson_uuid).case_insensitive }
   end
 
-  describe "multiple-answer question" do
-    let(:trait) { :multiple_answer_question }
-
-    it { is_expected.to be_valid }
-
-    it_behaves_like "validates #choices according to question type contract"
-  end
-
-  describe "binary question" do
-    let(:trait) { :binary_question }
-
-    it { is_expected.to be_valid }
-
-    it_behaves_like "validates #choices according to question type contract"
-  end
+  it { is_expected.to accept_nested_attributes_for(:questions).allow_destroy(true) }
 end

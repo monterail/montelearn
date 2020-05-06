@@ -24,7 +24,7 @@ paths:
         description: The initial index from which to return the results.
       responses:
         '200':
-          description: success
+          description: A list of tests.
           schema:
             type: object
             properties:
@@ -43,27 +43,40 @@ paths:
                   properties:
                     uuid:
                       type: string
-                    question_type:
+                    lesson_uuid:
                       type: string
-                    subject:
-                      type: string
-                    question:
-                      type: string
-                    choices:
+                    questions:
                       type: array
                       items:
                         type: object
                         properties:
-                          answer:
+                          uuid:
                             type: string
-                          correct:
-                            type: boolean
+                          question_type:
+                            type: string
+                          content:
+                            type: string
+                          choices:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                answer:
+                                  type: string
+                                correct:
+                                  type: boolean
+                              required:
+                              - answer
+                              - correct
+                        required:
+                        - uuid
+                        - question_type
+                        - content
+                        - choices
                   required:
                   - uuid
-                  - subject
-                  - question_type
-                  - question
-                  - choices
+                  - lesson_uuid
+                  - questions
             required:
             - count
             - next
@@ -75,15 +88,17 @@ paths:
               next: 
               previous: 
               results:
-              - uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
-                subject: veniam
-                question_type: binary
-                question: Et dignissimos voluptate ab?
-                choices:
-                - answer: numquam
-                  correct: true
-                - answer: porro
-                  correct: false
+              - uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
+                lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+                questions:
+                - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
+                  question_type: binary
+                  content: Voluptate repellat ut deserunt?
+                  choices:
+                  - answer: totam
+                    correct: true
+                  - answer: est
+                    correct: false
     post:
       summary: Creates a test
       tags:
@@ -93,76 +108,98 @@ paths:
       produces:
       - application/json
       parameters:
-      - name: test
+      - name: payload
         in: body
         schema:
           type: object
           properties:
-            uuid:
+            lesson_uuid:
               type: string
-            question_type:
-              type: string
-            subject:
-              type: string
-            question:
-              type: string
-            choices:
+            questions:
               type: array
               items:
                 type: object
                 properties:
-                  answer:
+                  question_type:
                     type: string
-                  correct:
-                    type: boolean
+                  content:
+                    type: string
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        answer:
+                          type: string
+                        correct:
+                          type: boolean
+                      required:
+                      - answer
+                      - correct
+                required:
+                - question_type
+                - content
+                - choices
           required:
-          - uuid
-          - subject
-          - question_type
-          - question
-          - choices
+          - lesson_uuid
+          - questions
       responses:
         '201':
-          description: created
+          description: Test created.
           schema:
             type: object
             properties:
               uuid:
                 type: string
-              question_type:
+              lesson_uuid:
                 type: string
-              subject:
-                type: string
-              question:
-                type: string
-              choices:
+              questions:
                 type: array
                 items:
                   type: object
                   properties:
-                    answer:
+                    uuid:
                       type: string
-                    correct:
-                      type: boolean
+                    question_type:
+                      type: string
+                    content:
+                      type: string
+                    choices:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          answer:
+                            type: string
+                          correct:
+                            type: boolean
+                        required:
+                        - answer
+                        - correct
+                  required:
+                  - uuid
+                  - question_type
+                  - content
+                  - choices
             required:
             - uuid
-            - subject
-            - question_type
-            - question
-            - choices
+            - lesson_uuid
+            - questions
           examples:
             application/json:
               uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
-              subject: accusantium
-              question_type: binary
-              question: Voluptate repellat ut deserunt?
-              choices:
-              - answer: totam
-                correct: true
-              - answer: est
-                correct: false
+              lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+              questions:
+              - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
+                question_type: binary
+                content: Voluptate repellat ut deserunt?
+                choices:
+                - answer: totam
+                  correct: true
+                - answer: est
+                  correct: false
         '400':
-          description: bad_request
+          description: Validation failed.
           schema:
             type: object
             properties:
@@ -170,7 +207,7 @@ paths:
                 type: array
                 items:
                   type: string
-              lesson_id:
+              lesson_uuid:
                 type: array
                 items:
                   type: string
@@ -188,8 +225,8 @@ paths:
                   type: string
           examples:
             application/json:
-              choices:
-              - size must be 2
+              lesson_uuid:
+              - can't be blank
   "/api/tests/{uuid}":
     get:
       summary: Retrieves a test
@@ -204,46 +241,225 @@ paths:
         required: true
       responses:
         '200':
-          description: success
+          description: A Test object.
           schema:
             type: object
             properties:
               uuid:
                 type: string
-              question_type:
+              lesson_uuid:
                 type: string
-              subject:
-                type: string
-              question:
-                type: string
-              choices:
+              questions:
                 type: array
                 items:
                   type: object
                   properties:
-                    answer:
+                    uuid:
                       type: string
-                    correct:
-                      type: boolean
+                    question_type:
+                      type: string
+                    content:
+                      type: string
+                    choices:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          answer:
+                            type: string
+                          correct:
+                            type: boolean
+                        required:
+                        - answer
+                        - correct
+                  required:
+                  - uuid
+                  - question_type
+                  - content
+                  - choices
             required:
             - uuid
-            - subject
-            - question_type
-            - question
-            - choices
+            - lesson_uuid
+            - questions
           examples:
             application/json:
               uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
-              subject: accusantium
-              question_type: binary
-              question: Voluptate repellat ut deserunt?
-              choices:
-              - answer: totam
-                correct: true
-              - answer: est
-                correct: false
+              lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+              questions:
+              - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
+                question_type: binary
+                content: Voluptate repellat ut deserunt?
+                choices:
+                - answer: totam
+                  correct: true
+                - answer: est
+                  correct: false
         '404':
-          description: not_found
+          description: Not found.
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+            required:
+            - detail
+          examples:
+            application/json:
+              detail: Not found.
+    put:
+      summary: Updates a test
+      tags:
+      - Tests
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uuid
+        in: path
+        type: string
+        required: true
+      - name: payload
+        in: body
+        schema:
+          type: object
+          properties:
+            lesson_uuid:
+              type: string
+            questions:
+              type: array
+              items:
+                type: object
+                properties:
+                  uuid:
+                    type: string
+                  _delete:
+                    type: boolean
+                  question_type:
+                    type: string
+                  content:
+                    type: string
+                  choices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        answer:
+                          type: string
+                        correct:
+                          type: boolean
+      responses:
+        '200':
+          description: Test updated.
+          schema:
+            type: object
+            properties:
+              uuid:
+                type: string
+              lesson_uuid:
+                type: string
+              questions:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    uuid:
+                      type: string
+                    question_type:
+                      type: string
+                    content:
+                      type: string
+                    choices:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          answer:
+                            type: string
+                          correct:
+                            type: boolean
+                        required:
+                        - answer
+                        - correct
+                  required:
+                  - uuid
+                  - question_type
+                  - content
+                  - choices
+            required:
+            - uuid
+            - lesson_uuid
+            - questions
+          examples:
+            application/json:
+              uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
+              lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+              questions:
+              - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
+                question_type: binary
+                content: Voluptate repellat ut deserunt?
+                choices:
+                - answer: totam
+                  correct: true
+                - answer: est
+                  correct: false
+        '400':
+          description: Validation failed.
+          schema:
+            type: object
+            properties:
+              subject:
+                type: array
+                items:
+                  type: string
+              lesson_uuid:
+                type: array
+                items:
+                  type: string
+              question_type:
+                type: array
+                items:
+                  type: string
+              question:
+                type: array
+                items:
+                  type: string
+              choices:
+                type: array
+                items:
+                  type: string
+          examples:
+            application/json:
+              lesson_uuid:
+              - can't be blank
+        '404':
+          description: Not found.
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+            required:
+            - detail
+          examples:
+            application/json:
+              detail: Not found.
+    delete:
+      summary: Destroys a test
+      tags:
+      - Tests
+      produces:
+      - application/json
+      parameters:
+      - name: uuid
+        in: path
+        type: string
+        required: true
+      responses:
+        '204':
+          description: Test deleted.
+        '404':
+          description: Not found.
           schema:
             type: object
             properties:

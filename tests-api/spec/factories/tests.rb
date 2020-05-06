@@ -2,67 +2,15 @@
 
 FactoryBot.define do
   factory :test do
-    subject { Faker::Lorem.word }
+    lesson_uuid { SecureRandom.uuid }
 
-    question { Faker::Lorem.question }
-
-    trait :multiple_choice_question do
-      question_type { "multiple-choice" }
-      choices do
-        [
-          {
-            answer: Faker::Lorem.word,
-            correct: true,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: false,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: false,
-          },
-        ]
+    trait :with_binary_questions do
+      transient do
+        questions_count { 1 }
       end
-    end
 
-    trait :multiple_answer_question do
-      question_type { "multiple-answer" }
-      choices do
-        [
-          {
-            answer: Faker::Lorem.word,
-            correct: true,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: true,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: false,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: false,
-          },
-        ]
-      end
-    end
-
-    trait :binary_question do
-      question_type { "binary" }
-      choices do
-        [
-          {
-            answer: Faker::Lorem.word,
-            correct: true,
-          },
-          {
-            answer: Faker::Lorem.word,
-            correct: false,
-          },
-        ]
+      after(:create) do |record, evaluator|
+        create_list(:binary_question, evaluator.questions_count, test: record)
       end
     end
   end
