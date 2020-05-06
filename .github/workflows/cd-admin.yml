@@ -1,17 +1,17 @@
-name: CD Landing Page (test)
+name: CD admin panel
 on:
   push:
     branches:
       - master
     paths:
-      - '.github/workflows/cd-landing.yml'
+      - '.github/workflows/cd-admin.yml'
       - '.dockerignore'
-      - 'landing'
-      - 'packages/core'
       - 'Dockerfile'
+      - 'admin'
+      - 'packages/core'
 jobs:
   build-and-deploy:
-    name: Deploy landing to Heroku
+    name: Deploy app to Heroku
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: 1
@@ -23,20 +23,20 @@ jobs:
 
     - name: Make env file
       run: |
-        cat > landing/.env << EOF
-        API_PLAYGROUND_URL=https://auth-api-test.herokuapp.com
+        cat > admin/.env << EOF
+        API_URL=https://auth-api-test.herokuapp.com/api
         EOF
 
     - name: Build docker
       run: |
-        docker build -t registry.heroku.com/montelearn-landing/web \
-        --target landing-runner .
+        docker build -t registry.heroku.com/montelearn-admin/web \
+        --target admin-runner .
 
     - name: Login to Heroku Container registry
       run: heroku container:login
 
     - name: Push container
-      run: docker push registry.heroku.com/montelearn-landing/web
+      run: docker push registry.heroku.com/montelearn-admin/web
 
     - name: Release container
-      run: heroku container:release web --app montelearn-landing
+      run: heroku container:release web --app montelearn-admin

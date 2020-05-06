@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - '.github/workflows/cd-app.yml'
+      - '.dockerignore'
       - 'app'
       - 'packages/core'
       - 'Dockerfile'
