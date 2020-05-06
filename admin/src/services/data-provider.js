@@ -1,20 +1,17 @@
 import { stringify } from "query-string";
 import { fetchUtils } from "react-admin";
 
-const { API_URL } = process.env;
-
+// NOTE:
+// Don't know why we have to mutate input options object
+// to make the request work.
 const httpClient = (url, options = {}) => {
-  const finalOptions = { ...options };
-
-  if (!finalOptions.headers) {
-    finalOptions.headers = new Headers({ Accept: "application/json" });
+  if (!options.headers) {
+    // eslint-disable-next-line no-param-reassign
+    options.headers = new Headers({ Accept: "application/json" });
   }
 
   const token = localStorage.getItem("token");
-
-  if (token) {
-    finalOptions.headers.set("Authorization", `Bearer ${token}`);
-  }
+  options.headers.set("Authorization", `Bearer ${token}`);
 
   return fetchUtils.fetchJson(url, options);
 };
@@ -29,7 +26,7 @@ const dataProvider = {
       filter: JSON.stringify(params.filter),
     };
 
-    const url = `${API_URL}/${resource}?${stringify(query)}`;
+    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
 
     const { json } = await httpClient(url);
 
@@ -41,7 +38,7 @@ const dataProvider = {
   },
 
   getOne: async (resource, params) => {
-    const { json } = await httpClient(`${API_URL}/${resource}/${params.id}`);
+    const { json } = await httpClient(`${process.env.API_URL}/${resource}/${params.id}`);
 
     return {
       data: {
