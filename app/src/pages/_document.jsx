@@ -3,6 +3,8 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
+import Breadcrumbs from "@/components/Breadcrumbs";
+
 export default class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
 
@@ -36,6 +38,7 @@ export default class NextDocument extends Document {
           <link rel="preconnect" href="//fonts.googleapis.com" />
         </Head>
         <body>
+          <Breadcrumbs />
           <Main />
           <NextScript />
           <script
