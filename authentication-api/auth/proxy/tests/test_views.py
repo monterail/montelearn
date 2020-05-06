@@ -12,6 +12,7 @@ from .helpers import (
     TESTS_API_DETAIL_RESPONSE,
     TESTS_API_LIST_RESPONSE,
     UPDATE_LESSON_DATA,
+    UPDATE_TEST_DATA,
 )
 
 
@@ -169,9 +170,7 @@ def test_proxy_lesson_delete_view_success_for_teacher(teacher_api_client):
             f"{settings.LESSON_API_HOST}/api/lesson/{lesson_uuid}/", status_code=204,
         )
 
-        response = teacher_api_client.delete(
-            reverse("proxy:lesson-detail", args=(lesson_uuid,))
-        )
+        response = teacher_api_client.delete(reverse("proxy:lesson-detail", args=(lesson_uuid,)))
 
         assert response.status_code == 204
 
@@ -236,9 +235,7 @@ def test_proxy_tests_create_view_success_for_teacher(teacher_api_client):
             text=TESTS_API_DETAIL_RESPONSE,
         )
 
-        response = teacher_api_client.post(
-            reverse("proxy:tests-list"), data=CREATE_TEST_DATA
-        )
+        response = teacher_api_client.post(reverse("proxy:tests-list"), data=CREATE_TEST_DATA)
 
         assert response.content.decode("utf-8") == TESTS_API_DETAIL_RESPONSE
         assert response.status_code == 201
@@ -248,4 +245,54 @@ def test_proxy_tests_create_view_success_for_teacher(teacher_api_client):
 def test_proxy_tests_create_view_not_permitted_for_student(authenticated_api_client):
     response = authenticated_api_client.post(reverse("proxy:tests-list"), data=CREATE_TEST_DATA)
 
+    assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_proxy_tests_update_view_success_for_teacher(teacher_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+    with requests_mock.mock() as mocked_request:
+        mocked_request.put(
+            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/",
+            status_code=200,
+            text=TESTS_API_DETAIL_RESPONSE,
+        )
+
+        response = teacher_api_client.put(
+            reverse("proxy:tests-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
+        )
+
+        assert response.content.decode("utf-8") == TESTS_API_DETAIL_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_tests_update_view_not_permitted_for_student(authenticated_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+
+    response = authenticated_api_client.put(
+        reverse("proxy:tests-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
+    )
+
+    assert response.status_code == 403
+
+
+@pytest.mark.django_db
+def test_proxy_tests_delete_view_success_for_teacher(teacher_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+    with requests_mock.mock() as mocked_request:
+        mocked_request.delete(
+            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/", status_code=204,
+        )
+
+        response = teacher_api_client.delete(reverse("proxy:tests-detail", args=(test_uuid,)))
+
+        assert response.status_code == 204
+
+
+@pytest.mark.django_db
+def test_proxy_tests_delete_view_not_permitted_for_student(authenticated_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+
+    response = authenticated_api_client.delete(reverse("proxy:tests-detail", args=(test_uuid,)))
     assert response.status_code == 403
