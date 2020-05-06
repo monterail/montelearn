@@ -1,0 +1,41 @@
+name: CD admin panel
+on:
+  push:
+    branches:
+      - master
+    paths:
+      - '.github/workflows/cd-admin.yml'
+      - 'admin'
+      - 'packages/core'
+      - 'Dockerfile'
+jobs:
+  build-and-deploy:
+    name: Deploy app to Heroku
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_BUILDKIT: 1
+      HEROKU_API_KEY: ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Make env file
+      run: |
+        cat > admin/.env << EOF
+        API_URL=https://auth-api-test.herokuapp.com
+        EOF
+
+    - name: Build docker
+      run: |
+        docker build -t registry.heroku.com/montelearn-admin/web \
+        --target admin-runner .
+
+    - name: Login to Heroku Container registry
+      run: heroku container:login
+
+    - name: Push container
+      run: docker push registry.heroku.com/montelearn-admin/web
+
+    - name: Release container
+      run: heroku container:release web --app montelearn-admin
