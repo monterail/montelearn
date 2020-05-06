@@ -30,7 +30,8 @@ jobs:
     - name: Build docker
       run: |
         docker build -t registry.heroku.com/montelearn-landing/web \
-        --target landing-runner .
+        --build-arg workspace=landing \
+        --target web-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

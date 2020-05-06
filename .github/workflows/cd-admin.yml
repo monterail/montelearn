@@ -30,7 +30,8 @@ jobs:
     - name: Build docker
       run: |
         docker build -t registry.heroku.com/montelearn-admin/web \
-        --target admin-runner .
+        --build-arg workspace=admin \
+        --target web-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

@@ -1,5 +1,5 @@
 {
-  "name": "monte-elearning",
+  "name": "montelearn",
   "private": true,
   "version": "1.0.0",
   "repository": "git@github.com:monterail/monterail-elearning.git",
@@ -7,7 +7,7 @@
   "license": "MIT",
   "engines": {
     "yarn": ">=1.15.x",
-    "node": "13.11.0"
+    "node": ">=13.11.0"
   },
   "workspaces": {
     "packages": [
