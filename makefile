@@ -12,6 +12,3 @@ auth_api_superuser:
 
 lesson_load_data:
 	docker-compose -f docker-compose-proxy.yml run lesson-api python manage.py loaddata lesson.json --app lesson.lesson
-
-build_landing:
-	DOCKER_BUILDKIT=1 docker build -t xyz --build-arg workspace=app --target web-server .
