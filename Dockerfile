@@ -8,7 +8,7 @@ FROM builder AS workspace-builder
 ARG workspace
 WORKDIR /usr/src/project/${workspace}
 RUN yarn build
-RUN npx project-setup-app-server \
+RUN npx project-setup-web-server \
   --http-server-name ${workspace} \
   --output-dir nginx
 

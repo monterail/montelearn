@@ -14,13 +14,13 @@ function compileAndCall(templateAbsolutePath, templateOptions = {}) {
 }
 
 program
-  .name("project-setup-app-server")
-  .description("Setup web app files in Docker container running Nginx")
+  .name("project-setup-web-server")
+  .description("Setup files for web server in Docker container running nginx")
   .requiredOption("--http-server-name <name>", "Server name to use for nginx config")
   .requiredOption("--output-dir <dir>", "Directory where output files will be placed")
   .action((command) => {
     const options = command.opts();
-    const configTemplateFilePath = path.join(__dirname, "templates/default.conf.hbs");
+    const configTemplateFilePath = path.join(__dirname, "templates/nginx.conf.hbs");
     const entrypointTemplateFilePath = path.join(__dirname, "templates/entrypoint.sh.hbs");
 
     const nginxConfig = compileAndCall(configTemplateFilePath, {
