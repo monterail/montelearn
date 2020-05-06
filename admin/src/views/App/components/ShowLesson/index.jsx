@@ -1,5 +1,6 @@
 import React from "react";
-import { Show, SimpleShowLayout, TextField, TopToolbar, UrlField } from "react-admin";
+import { Show, SimpleShowLayout, TextField, TopToolbar, UrlField, SelectField } from "react-admin";
+import { subjectChoices, gradeChoices } from "../../../../data/lessonChoices";
 
 export default function ShowLesson(props) {
   return (
@@ -9,6 +10,8 @@ export default function ShowLesson(props) {
         <TextField source="description" />
         <UrlField source="pdf_file" />
         <UrlField source="url" />
+        <SelectField source="subject" choices={subjectChoices} />
+        <SelectField source="grade" choices={gradeChoices} />
       </SimpleShowLayout>
     </Show>
   );
