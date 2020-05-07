@@ -6,9 +6,9 @@ on:
     paths:
       - '.github/workflows/cd-app.yml'
       - '.dockerignore'
-      - 'app'
-      - 'packages/core'
       - 'Dockerfile'
+      - 'app/**'
+      - 'packages/core/**'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
@@ -30,7 +30,8 @@ jobs:
     - name: Build docker
       run: |
         docker build -t registry.heroku.com/montelearn-app/web \
-        --target app-runner .
+        --build-arg workspace=app \
+        --target web-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

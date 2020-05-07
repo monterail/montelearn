@@ -16,6 +16,7 @@
     "@emotion/babel-preset-css-prop": "10.0.27",
     "@emotion/core": "10.0.28",
     "@project/core": "1.0.0",
+    "@project/setup": "1.0.0",
     "@svgr/webpack": "5.4.0",
     "autoprefixer": "9.7.6",
     "envalid": "6.0.1",

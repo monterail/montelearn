@@ -7,8 +7,8 @@ on:
       - '.github/workflows/cd-admin.yml'
       - '.dockerignore'
       - 'Dockerfile'
-      - 'admin'
-      - 'packages/core'
+      - 'admin/**'
+      - 'packages/core/**'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
@@ -30,7 +30,8 @@ jobs:
     - name: Build docker
       run: |
         docker build -t registry.heroku.com/montelearn-admin/web \
-        --target admin-runner .
+        --build-arg workspace=admin \
+        --target web-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

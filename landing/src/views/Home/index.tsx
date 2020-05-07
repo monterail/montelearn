@@ -66,10 +66,23 @@ export default function HomePage() {
           }}
         >
           <ContentWidth css={{ padding: rem(20) }}>
-            <h1 css={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>
+            <h1
+              css={{
+                margin: rem(30, 0),
+                fontFamily: FONT_SERIF,
+                fontSize: rem(36),
+              }}
+            >
               Build your own learning experience
             </h1>
-            <p css={{ maxWidth: rem(512), margin: rem(30, 0), fontSize: rem(18), lineHeight: 1.4 }}>
+            <p
+              css={{
+                maxWidth: rem(512),
+                margin: rem(30, 0),
+                fontSize: rem(18),
+                lineHeight: 1.4,
+              }}
+            >
               We provide a rich API for developers who can build custom learning software for
               students on every education level
             </p>
@@ -83,7 +96,13 @@ export default function HomePage() {
         <section css={{ backgroundColor: COLOR_GEYSER, padding: rem(40, 0) }}>
           <ContentWidth css={{ padding: rem(0, 20) }}>
             <h2 css={{ fontFamily: FONT_SERIF, fontSize: rem(32), margin: 0 }}>Try it out now!</h2>
-            <p css={{ color: COLOR_DON_JUAN, fontSize: rem(18), margin: rem(20, 0) }}>
+            <p
+              css={{
+                color: COLOR_DON_JUAN,
+                fontSize: rem(18),
+                margin: rem(20, 0),
+              }}
+            >
               We know how reading documentation can be a hassle.
               <br />
               That's why we created a simple section where you can play with data provided by our
@@ -91,14 +110,25 @@ export default function HomePage() {
             </p>
             <div
               id={EDITOR_ID}
-              css={{ margin: "0 auto", minHeight: rem(100), maxWidth: "100%", width: rem(600) }}
+              css={{
+                margin: "0 auto",
+                minHeight: rem(100),
+                maxWidth: "100%",
+                width: rem(600),
+              }}
             >
               <TryItOut endpoints={endpoints} />
             </div>
           </ContentWidth>
         </section>
       </main>
-      <footer css={{ backgroundColor: COLOR_WHITE, color: COLOR_DON_JUAN, padding: rem(20) }}>
+      <footer
+        css={{
+          backgroundColor: COLOR_WHITE,
+          color: COLOR_DON_JUAN,
+          padding: rem(20),
+        }}
+      >
         <ContentWidth css={{ fontSize: rem(14), textAlign: "right" }}>
           Developed with <span css={{ color: COLOR_MILANO_RED }}>&#9829;</span> by Monterail
         </ContentWidth>
