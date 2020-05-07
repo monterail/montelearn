@@ -31,6 +31,10 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
+const buildQueryForTestReference = (params) => (
+  { lesson_uuid: params.ids[0] }
+);
+
 const dataProvider = {
   getList: async (resource, params) => {
     const { page, perPage } = params.pagination;
@@ -82,6 +86,32 @@ const dataProvider = {
     }));
   },
 
+  getMany: (resource, params) => {
+    let query;
+
+    switch (resource) {
+      case "tests":
+        query = buildQueryForTestReference(params);
+        break;
+      default:
+        query = { filter: JSON.stringify({ id: params.ids }) }
+    };
+
+    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
+    return httpClient(url).then(({ json }) => {
+      let data;
+
+      switch (resource) {
+        case "tests":
+          data = json.results.map((resource) => ({ ...resource, id: resource.lesson_uuid }));
+          break;
+        default:
+          data = json.results.map((resource) => ({ ...resource, id: resource.uuid }));
+      };
+
+      return { data: data }
+    });
+  },
   // To add more methods see:
   // https://marmelab.com/react-admin/DataProviders.html#writing-your-own-data-provider
 };
