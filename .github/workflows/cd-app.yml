@@ -6,9 +6,9 @@ on:
     paths:
       - '.github/workflows/cd-app.yml'
       - '.dockerignore'
-      - 'app'
-      - 'packages/core'
       - 'Dockerfile'
+      - 'app/**'
+      - 'packages/core/**'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
