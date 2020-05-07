@@ -2,7 +2,7 @@ import React from "react";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import Banner from "@/components/MainPageBanner/Banner";
 import Content from "@/components/MainContent/Content";
-import { rem } from "@/theming/utils";
+import { rem } from "@project/core/lib/utils/theming";
 import StyledContainer from "@/components/Container/StyledContainer";
 
 const MainPage = () => {

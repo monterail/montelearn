@@ -1,6 +1,6 @@
 import React from "react";
-import { FONT_SANS_SERIF, COLOR_WHITE, COLOR_BLACK } from "@/theming/const";
-import { rem } from "@/theming/utils";
+import { FONT_SANS_SERIF, COLOR_WHITE, COLOR_BLACK } from "@project/core/lib/const/theming";
+import { rem } from "@project/core/lib/utils/theming";
 import StyledButton from "../StyledButton/StyledButton";
 
 const Card = ({ title, content }) => {

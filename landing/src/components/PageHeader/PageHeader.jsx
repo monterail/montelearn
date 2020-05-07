@@ -1,6 +1,6 @@
 import React from "react";
-import { COLOR_MILANO_RED, COLOR_RED, FONT_SANS_SERIF_MONO } from "@/theming/const";
-import { rem } from "@/theming/utils";
+import { COLOR_MILANO_RED, COLOR_RED, FONT_SANS_SERIF_MONO } from "@project/core/lib/const/theming";
+import { rem } from "@project/core/lib/utils/theming";
 import StyledFlexContainer from "../Container/StyledFlexContainer";
 
 const PageHeader = () => {

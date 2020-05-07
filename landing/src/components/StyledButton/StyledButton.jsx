@@ -1,5 +1,5 @@
 import React from "react";
-import { FONT_SANS_SERIF_MONO } from "@/theming/const";
+import { FONT_SANS_SERIF_MONO } from "@project/core/lib/const/theming";
 
 export default function StyledButton({ style = {}, ...props }) {
   return (

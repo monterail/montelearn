@@ -5,8 +5,8 @@ import {
   FONT_SANS_SERIF_MONO,
   COLOR_RED,
   COLOR_WHITE,
-} from "@/theming/const";
-import { rem } from "@/theming/utils";
+} from "@project/core/lib/const/theming";
+import { rem } from "@project/core/lib/utils/theming";
 import StyledButton from "../StyledButton/StyledButton";
 
 const Banner = () => {

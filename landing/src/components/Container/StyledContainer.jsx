@@ -1,4 +1,4 @@
-import { rem } from "@/theming/utils";
+import { rem } from "@project/core/lib/utils/theming";
 
 export default function StyledContainer({ style = {}, ...props }) {
   return (
