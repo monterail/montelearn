@@ -1,7 +1,7 @@
 ## Prerequisites
 
 - **Yarn** 1.15 or newer
-- **Node** 13.11.0 (you can use [NVM](https://github.com/nvm-sh/nvm) to manage Node versions)
+- **Node** 13.11 or newer (you can use [NVM](https://github.com/nvm-sh/nvm) to manage Node versions)
 
 _It's important to use Yarn instead of NPM, because we use Yarn Workspaces not supported by NPM._
 
