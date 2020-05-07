@@ -1,0 +1,30 @@
+{
+  "name": "@project/admin",
+  "version": "1.0.0",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "scripts": {
+    "build": "next build && next export",
+    "cleanup": "rimraf node_modules .next out",
+    "dev": "next -p 3002",
+    "lint": "project-eslint --ext '.js,.jsx' *.js env src",
+    "pre-commit": "lint-staged"
+  },
+  "dependencies": {
+    "envalid": "6.0.1",
+    "next": "9.3.5",
+    "query-string": "6.12.1",
+    "ra-data-drf": "2.0.0",
+    "react": "16.13.1",
+    "react-admin": "3.4.1",
+    "react-dom": "16.13.1"
+  },
+  "devDependencies": {
+    "@project/eslint": "1.0.0",
+    "lint-staged": "10.1.7",
+    "rimraf": "3.0.2"
+  },
+  "lint-staged": {
+    "*.{js,jsx}": "yarn lint --fix"
+  }
+}

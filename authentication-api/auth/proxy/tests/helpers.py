@@ -53,19 +53,24 @@ TESTS_API_LIST_RESPONSE = """
   "next": null,
   "previous": null,
   "results": [
-     {
-      "uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
-      "subject": "Science",
-      "question_type": "binary",
-      "question": "Is math related to science?",
-      "choices": [
+    {
+      "uuid": "34fde577-2360-4dd9-8aa3-a0d32b799336",
+      "lesson_uuid": "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
+      "questions": [
         {
-          "answer": "Yesn't",
-          "correct": false
-        },
-        {
-          "answer": "Non't",
-          "correct": true
+          "uuid": "95639f83-9600-4637-903a-c5b08d2f4e7c",
+          "question_type": "binary",
+          "content": "Voluptate repellat ut deserunt?",
+          "choices": [
+            {
+              "answer": "totam",
+              "correct": True
+            },
+            {
+              "answer": "est",
+              "correct": False
+            }
+          ]
         }
       ]
     }
@@ -75,18 +80,23 @@ TESTS_API_LIST_RESPONSE = """
 
 TESTS_API_DETAIL_RESPONSE = """
 {
-  "uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
-  "subject": "Science",
-  "question_type": "binary",
-  "question": "Is math related to science?",
-  "choices": [
+  "uuid": "34fde577-2360-4dd9-8aa3-a0d32b799336",
+  "lesson_uuid": "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
+  "questions": [
     {
-      "answer": "Yesn't",
-      "correct": false
-    },
-    {
-      "answer": "Non't",
-      "correct": true
+      "uuid": "95639f83-9600-4637-903a-c5b08d2f4e7c",
+      "question_type": "binary",
+      "content": "Voluptate repellat ut deserunt?",
+      "choices": [
+        {
+          "answer": "totam",
+          "correct": True
+        },
+        {
+          "answer": "est",
+          "correct": False
+        }
+      ]
     }
   ]
 }
@@ -111,8 +121,26 @@ UPDATE_LESSON_DATA = {
 }
 
 CREATE_TEST_DATA = {
-    "question_type": "binary",
-    "subject": "Biology",
-    "question": "Is DNA double helix?",
-    "choices": [{"answer": "yes", "correct": True}, {"answer": "no", "correct": False}],
+    "lesson_uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
+    "questions": [
+        {
+            "question_type": "binary",
+            "content": "Is DNA double helix?",
+            "choices": [{"answer": "yes", "correct": True}, {"answer": "no", "correct": False}],
+        },
+    ],
+}
+
+
+UPDATE_TEST_DATA = {
+    "lesson_uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4",
+    "questions": [
+        {
+            "uuid": "cd6ba3e0-edac-43ff-b9c9-a6ced23fedgh",
+            "_delete": False,
+            "question_type": "binary",
+            "content": "New question",
+            "choices": [{"answer": "Yes", "correct": True}, {"answer": "No", "correct": False}],
+        }
+    ],
 }
