@@ -1,12 +1,19 @@
 import Head from "next/head";
-import { ButtonWithArrow } from "@/components/ButtonWithArrow";
+import { useRouter } from "next/router";
 
-export default function LessonsPage() {
+import { ButtonWithArrow } from "@/components/ButtonWithArrow";
+import Breadcrumbs from "@/components/Breadcrumbs";
+
+export default function SubjectsPage() {
+  const router = useRouter();
+  const { slug } = router.query;
+
   return (
     <section className="px-2 mb-12">
       <Head>
         <title>Monterail e-learning app</title>
       </Head>
+      <Breadcrumbs options={["Subjects", String(slug)]} />
       <h1 className="text-title font-semibold font-eczar my-8 break-words">Chemistry basics</h1>
       <h2 className="text-xl font-roboto-mono my-8">
         Goddamit, chemistry is importane. Very very importane.

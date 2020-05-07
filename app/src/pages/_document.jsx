@@ -3,10 +3,9 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
-import Breadcrumbs from "@/components/Breadcrumbs";
 import Header from "@/components/Header";
 
-export default class NextDocument extends Document {
+class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
 
   render() {
@@ -41,7 +40,6 @@ export default class NextDocument extends Document {
         <body className="bg-gray-100 text-black">
           <div className="container mx-auto">
             <Header />
-            <Breadcrumbs />
             <Main />
           </div>
           <NextScript />
@@ -62,3 +60,5 @@ export default class NextDocument extends Document {
     );
   }
 }
+
+export default NextDocument;

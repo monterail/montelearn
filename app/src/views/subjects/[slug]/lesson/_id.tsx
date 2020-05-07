@@ -1,16 +1,19 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
+
 import { ButtonWithArrow } from "@/components/ButtonWithArrow";
+import Breadcrumbs from "@/components/Breadcrumbs";
 
 function LessonPage() {
   const router = useRouter();
-  const { id } = router.query;
+  const { id, slug } = router.query;
 
   return (
     <section className="px-2 mb-12">
       <Head>
         <title>Monterail e-learning app - Lesson {id}</title>
       </Head>
+      <Breadcrumbs options={["Subjects", String(slug), `Lesson ${String(id)}`]} />
       <div className="flex items-center justify-between w-full">
         <div className="my-8">
           <small className="text-xl font-bold text-red-300">Lesson {id}</small>
