@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
+import QuesitonLabel from "@/components/QuestionLabel";
 
 function LessonPage() {
   const router = useRouter();
@@ -70,8 +71,23 @@ function LessonPage() {
             Important information on the identity and hazards of a chemical material can be found on
             the container label:
           </h2>
-          <RadioButton>True</RadioButton>
-          <RadioButton>False</RadioButton>
+          <div className="mt-6 flex w-full items-center justify-around">
+            <RadioButton>True</RadioButton>
+            <RadioButton>False</RadioButton>
+            <QuesitonLabel isCorrect>Correct</QuesitonLabel>
+          </div>
+        </div>
+        <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
+          <Label className="text-sm">Question 2</Label>
+          <h2 className="text-2xl my-1 font-semibold">
+            Important information on the identity and hazards of a chemical material can be found on
+            the container label:
+          </h2>
+          <div className="mt-6 flex w-full items-center justify-around">
+            <RadioButton>True</RadioButton>
+            <RadioButton>False</RadioButton>
+            <QuesitonLabel isCorrect={false}>Wrong</QuesitonLabel>
+          </div>
         </div>
       </div>
     </section>
