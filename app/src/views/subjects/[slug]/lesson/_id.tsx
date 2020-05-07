@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Label from "@/components/Label";
+import Button from "@/components/Button";
 
 function LessonPage() {
   const router = useRouter();
@@ -22,16 +23,7 @@ function LessonPage() {
           <Label className="text-xl">Lesson {id}</Label>
           <Title>What are pictograms?</Title>
         </div>
-        <button
-          type="button"
-          className="
-            flex py-2 px-6 border-2 font-medium text-white
-            text-2xl bg-red-monterail rounded-full font-roboto-mono
-          "
-          onClick={() => window.alert("onklik lesson")}
-        >
-          Open lesson
-        </button>
+        <Button onClick={() => window.alert("siema")}>Open lesson</Button>
       </div>
       <h2 className="text-xl font-roboto-mono mb-8 max-w-screen-sm">
         The Hazard Communication Standard (HCS) requires pictograms on labels to alert users of the
@@ -65,7 +57,7 @@ function LessonPage() {
       <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
         <h2 className="font-eczar text-4xl font-semibold mb-8">Time to yest your konewledge</h2>
         <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
-          <strong className="text-red-300 text-sm">Question 1</strong>
+          <Label className="text-sm">Question 1</Label>
           <h2 className="text-2xl my-1 font-semibold">
             Important information on the identity and hazards of a chemical material can be found on
             the container label:{" "}
