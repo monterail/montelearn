@@ -75,7 +75,7 @@ class AdminPanelLogin(LoginView):
         self.user = self.serializer.validated_data["user"]
         if not self.user.is_teacher:
             return Response(
-                {"details": "Only teacher is allowed to login."}, status=HTTP_400_BAD_REQUEST
+                {"detail": "Only teacher is allowed to login."}, status=HTTP_400_BAD_REQUEST
             )
 
         self.login()
