@@ -1,0 +1,12 @@
+@startuml
+Teacher -> AuthorizationAPI: Authentication Request (is_teacher=True)
+AuthorizationAPI --> Teacher: Authentication Response with JWT token
+
+Teacher -> AuthorizationAPI: POST resource Request containing JWT token
+AuthorizationAPI -> Microservice: Proxied Request
+Microservice --> Teacher: Microservice Response
+
+Teacher -> AuthorizationAPI: POST resource Request without JWT token
+AuthorizationAPI -> Teacher: Not authorized Response
+
+@enduml
