@@ -1,6 +1,6 @@
 import React from "react";
 import { Show, SimpleShowLayout, TextField, TopToolbar, UrlField, SelectField } from "react-admin";
-import { subjectChoices, gradeChoices } from "../../../../data/lessonChoices";
+import { subjectChoices, gradeChoices } from "@/data/lessonChoices";
 
 export default function ShowLesson(props) {
   return (

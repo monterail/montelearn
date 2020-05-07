@@ -9,7 +9,7 @@ import {
   SelectInput,
 } from "react-admin";
 
-import { subjectChoices, gradeChoices } from "../../../../data/lessonChoices";
+import { subjectChoices, gradeChoices } from "@/data/lessonChoices";
 
 export default function CreateLesson(props) {
   return (
