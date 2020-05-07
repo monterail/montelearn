@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Title from "@/components/Title";
 
 export default function SubjectsPage() {
   return (
@@ -9,7 +10,7 @@ export default function SubjectsPage() {
         <title>Monterail e-learning app</title>
       </Head>
       <Breadcrumbs options={["Subjects"]} />
-      <h1 className="text-title font-semibold font-eczar my-8 break-words">Subjects page</h1>
+      <Title className="my-8">Subjects page</Title>
       <h2 className="text-xl font-roboto-mono my-8">
         It's a subject's list page. Nisi minim mollit duis fugiat nisi amet laboris nulla ea
         deserunt esse. Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis

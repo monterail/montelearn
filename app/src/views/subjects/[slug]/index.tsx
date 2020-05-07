@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Title from "@/components/Title";
 
 export default function SubjectsPage() {
   const router = useRouter();
@@ -14,7 +15,7 @@ export default function SubjectsPage() {
         <title>Monterail e-learning app</title>
       </Head>
       <Breadcrumbs options={["Subjects", String(slug)]} />
-      <h1 className="text-title font-semibold font-eczar my-8 break-words">Chemistry basics</h1>
+      <Title className="my-8">Chemistry basics</Title>
       <h2 className="text-xl font-roboto-mono my-8">
         Goddamit, chemistry is importane. Very very importane.
       </h2>

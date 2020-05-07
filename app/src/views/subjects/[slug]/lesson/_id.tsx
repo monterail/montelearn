@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
+import Title from "@/components/Title";
 
 function LessonPage() {
   const router = useRouter();
@@ -17,7 +18,7 @@ function LessonPage() {
       <div className="flex items-center justify-between w-full">
         <div className="my-8">
           <small className="text-xl font-bold text-red-300">Lesson {id}</small>
-          <h1 className="text-title font-semibold font-eczar break-words">What are pictograms?</h1>
+          <Title>What are pictograms?</Title>
         </div>
         <button
           type="button"
@@ -35,7 +36,7 @@ function LessonPage() {
         chemical hazards to which they may be exposed. In this lesson, you will learn more about
         chemistry pictograms.
       </h2>
-      <hr className="my-10 block border border-gray-200 h-0 opacity-50" />
+      <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
       <div className="flex flex-col items-center content-center">
         <div className="p-10 shadow-custom rounded-lg w-1/2 mb-8">
           <strong className="text-red-300 text-sm">Section 1</strong>
