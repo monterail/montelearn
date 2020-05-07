@@ -5,6 +5,7 @@ import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
+import Label from "@/components/Label";
 
 function LessonPage() {
   const router = useRouter();
@@ -18,7 +19,7 @@ function LessonPage() {
       <Breadcrumbs options={["Subjects", String(slug), `Lesson ${String(id)}`]} />
       <div className="flex items-center justify-between w-full">
         <div className="my-8">
-          <small className="text-xl font-bold text-red-300">Lesson {id}</small>
+          <Label className="text-xl">Lesson {id}</Label>
           <Title>What are pictograms?</Title>
         </div>
         <button
@@ -40,21 +41,21 @@ function LessonPage() {
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
       <div className="flex flex-col items-center content-center">
         <Card className="w-1/2 mb-8">
-          <strong className="text-red-300 text-sm">Section 1</strong>
+          <Label className="text-sm">Section 1</Label>
           <h2 className="text-4xl my-1 font-semibold">Intro</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
         </Card>
         <Card className="w-1/2 mb-8">
-          <strong className="text-red-300 text-sm">Section 2</strong>
+          <Label className="text-sm">Section 2</Label>
           <h2 className="text-4xl my-1 font-semibold">Exploding bomb</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
         </Card>
         <Card className="w-1/2 mb-8">
-          <strong className="text-red-300 text-sm">Section 3</strong>
+          <Label className="text-sm">Section 3</Label>
           <h2 className="text-4xl my-1 font-semibold">Environment</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!

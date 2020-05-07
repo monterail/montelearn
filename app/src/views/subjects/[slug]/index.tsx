@@ -5,6 +5,7 @@ import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
+import Label from "@/components/Label";
 
 export default function SubjectsPage() {
   const router = useRouter();
@@ -22,7 +23,7 @@ export default function SubjectsPage() {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
         <Card>
-          <strong className="text-red-300 text-sm">Lesson 1</strong>
+          <Label className="text-sm">Lesson 1</Label>
           <h2 className="text-4xl my-1 font-semibold">What are pictograms?</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             In ea ea mollit commodo esse dolore fugiat laborum dolore ex irure nostrud minim cillum.
@@ -35,7 +36,7 @@ export default function SubjectsPage() {
           </ButtonWithArrow>
         </Card>
         <Card>
-          <strong className="text-red-300 text-sm">Lesson 2</strong>
+          <Label className="text-sm">Lesson 2</Label>
           <h2 className="text-4xl my-1 font-semibold">Structure of an Atom</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             Commodo reprehenderit eiusmod consectetur ad commodo occaecat officia. Eiusmod non
@@ -49,7 +50,7 @@ export default function SubjectsPage() {
           </ButtonWithArrow>
         </Card>
         <Card>
-          <strong className="text-red-300 text-sm">Lesson 3</strong>
+          <Label className="text-sm">Lesson 3</Label>
           <h2 className="text-4xl my-1 font-semibold">What is cocaine</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             Velit in dolore in aliqua amet ea do sunt culpa. Proident deserunt laboris non labore.
