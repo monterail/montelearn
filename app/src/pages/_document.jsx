@@ -43,18 +43,6 @@ class NextDocument extends Document {
             <Main />
           </div>
           <NextScript />
-          <script
-            type="text/javascript"
-            dangerouslySetInnerHTML={{
-              __html: `
-                var proto = window.location.protocol;
-                var l = document.createElement('link');
-                l.rel = 'stylesheet';
-                l.href = proto + '//fonts.googleapis.com/css?family=Playfair+Display:400,600|Roboto:400,500,700|Roboto+Mono:400,500,700|Eczar:500&display=swap';
-                document.head.append(l);
-              `,
-            }}
-          />
         </body>
       </Html>
     );
