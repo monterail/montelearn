@@ -12,12 +12,19 @@ function LessonPage() {
   const router = useRouter();
   const { id, slug } = router.query;
 
+  const handleBackClick = () => {
+    router.push(`/subjects/${slug}`);
+  };
+
   return (
     <section className="px-2 mb-12">
       <Head>
         <title>Monterail e-learning app - Lesson {id}</title>
       </Head>
-      <Breadcrumbs options={["Subjects", String(slug), `Lesson ${String(id)}`]} />
+      <Breadcrumbs
+        handleBackClick={handleBackClick}
+        options={["Subjects", String(slug), `Lesson ${String(id)}`]}
+      />
       <div className="flex items-center justify-between w-full">
         <div className="my-8">
           <Label className="text-xl">Lesson {id}</Label>
@@ -60,7 +67,7 @@ function LessonPage() {
           <Label className="text-sm">Question 1</Label>
           <h2 className="text-2xl my-1 font-semibold">
             Important information on the identity and hazards of a chemical material can be found on
-            the container label:{" "}
+            the container label:
           </h2>
         </div>
       </div>

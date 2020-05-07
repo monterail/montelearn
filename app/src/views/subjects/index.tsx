@@ -9,7 +9,7 @@ export default function SubjectsPage() {
       <Head>
         <title>Monterail e-learning app</title>
       </Head>
-      <Breadcrumbs options={["Subjects"]} />
+      <Breadcrumbs back={false} options={["Subjects"]} />
       <Title className="my-8">Subjects page</Title>
       <h2 className="text-xl font-roboto-mono my-8">
         It's a subject's list page. Nisi minim mollit duis fugiat nisi amet laboris nulla ea
@@ -18,7 +18,7 @@ export default function SubjectsPage() {
         Laboris id ad anim duis.
       </h2>
       <Link href="/subjects/chemistry">
-        <a href="/subjects/chemistry" className="flex items-center">
+        <a href="/subjects/chemistry" className="link-button">
           Go to chemistry
         </a>
       </Link>

@@ -4,9 +4,11 @@ import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 
 type Props = {
   options: string[];
+  back?: boolean;
+  handleBackClick?: () => void;
 };
 
-const Breadcrumbs: FunctionComponent<Props> = ({ options }) => {
+const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick }) => {
   const isLastElement = (index: number, length: number) => {
     return index === length - 1;
   };
@@ -25,7 +27,11 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options }) => {
 
   return (
     <div className="p-6 bg-red-100 flex font-roboto-mono">
-      <ButtonWithArrow direction="left">Back</ButtonWithArrow>
+      {back && (
+        <ButtonWithArrow onClick={handleBackClick} direction="left">
+          Back
+        </ButtonWithArrow>
+      )}
       <ul className="flex items-center px-4 font-medium text-red-200">{renderElements()}</ul>
     </div>
   );
@@ -33,6 +39,7 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options }) => {
 
 Breadcrumbs.defaultProps = {
   options: [],
+  back: true,
 };
 
 export default Breadcrumbs;
