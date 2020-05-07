@@ -1,10 +1,7 @@
-import Head from "next/head";
-
 import {
   COLOR_DON_JUAN,
   COLOR_GEYSER,
   COLOR_GREEN,
-  COLOR_MILANO_RED,
   COLOR_WHITE,
   FONT_SERIF,
 } from "@project/core/lib/const/theming";
@@ -37,25 +34,7 @@ function scrollToEditor(): void {
 export default function HomePage() {
   return (
     <>
-      <Head>
-        <title>Monterail e-learning</title>
-        <meta name="description" content="REST API for building custom e-learning software" />
-      </Head>
-      <div css={{ backgroundColor: COLOR_GREEN }}>
-        <section css={{ color: COLOR_WHITE, margin: rem(0, 20) }}>
-          <ContentWidth
-            css={{
-              alignItems: "center",
-              borderBottom: `1px solid ${COLOR_WHITE}`,
-              display: "flex",
-              flexWrap: "wrap",
-              justifyContent: "space-between",
-              padding: rem(15, 0),
-            }}
-          >
-            <img css={{ flexShrink: 0 }} alt="Logo" height="27" src="/images/logo.svg" />
-          </ContentWidth>
-        </section>
+			<div css={{ backgroundColor: COLOR_GREEN }}>
         <section
           css={{
             minHeight: "60vh",
@@ -65,7 +44,7 @@ export default function HomePage() {
             justifyContent: "center",
           }}
         >
-          <ContentWidth css={{ padding: rem(20) }}>
+          <ContentWidth css={{ padding: rem(20), }}>
             <h1 css={{ margin: rem(30, 0), fontFamily: FONT_SERIF, fontSize: rem(36) }}>
               Build your own learning experience
             </h1>
@@ -98,11 +77,6 @@ export default function HomePage() {
           </ContentWidth>
         </section>
       </main>
-      <footer css={{ backgroundColor: COLOR_WHITE, color: COLOR_DON_JUAN, padding: rem(20) }}>
-        <ContentWidth css={{ fontSize: rem(14), textAlign: "right" }}>
-          Developed with <span css={{ color: COLOR_MILANO_RED }}>&#9829;</span> by Monterail
-        </ContentWidth>
-      </footer>
     </>
   );
 }
