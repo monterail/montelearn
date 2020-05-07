@@ -7,6 +7,7 @@ import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
+import RadioButton from "@/components/RadioButton";
 
 function LessonPage() {
   const router = useRouter();
@@ -69,6 +70,8 @@ function LessonPage() {
             Important information on the identity and hazards of a chemical material can be found on
             the container label:
           </h2>
+          <RadioButton>True</RadioButton>
+          <RadioButton>False</RadioButton>
         </div>
       </div>
     </section>
