@@ -9,6 +9,8 @@ The API is wrriten in Open API format and documented using Swagger.
 - To access resources, the user (student) has to be authenticated.
 - To add resources, the user (teacher) has to have is_teacher flag set to `is_teacher=True` in authentication-api.
 
+![Architecture](../diagrams/architecture-diagram.png)
+
 # Prerequisites
 - docker
 - docker-compose
@@ -34,12 +36,16 @@ Route each request to microservice through `authentication-api`.
 - Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
   Log in (via Swagger `http://localhost:8080/swagger/`) and use obtained credentials to GET lessons and tests.
 
+![Student diagram](../diagrams/student-diagram.png)
+
 # Create teacher account
 - Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
   Use developer account to login to developer admin page `http://localhost:8080/admin/`.
   Navigate to `Users`, choose the previously registered account and assign the teacher rights marking `is_teacher` as True.
   Log out and log in using teacher's credentials (via Swagger `http://localhost:8080/swagger`).
   Right now you are able to add/update lessons and tests.
+
+![Teacher diagram](../diagrams/teacher-diagram.png)
 
 # Cleanup docker containers
 - In the main directory `monterail-elearning` run `make cleanup`

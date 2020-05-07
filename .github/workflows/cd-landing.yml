@@ -6,9 +6,9 @@ on:
     paths:
       - '.github/workflows/cd-landing.yml'
       - '.dockerignore'
-      - 'landing'
-      - 'packages/core'
       - 'Dockerfile'
+      - 'landing/**'
+      - 'packages/core/**'
 jobs:
   build-and-deploy:
     name: Deploy landing to Heroku
@@ -30,7 +30,8 @@ jobs:
     - name: Build docker
       run: |
         docker build -t registry.heroku.com/montelearn-landing/web \
-        --target landing-runner .
+        --build-arg workspace=landing \
+        --target web-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

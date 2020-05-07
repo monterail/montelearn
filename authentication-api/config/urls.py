@@ -5,6 +5,7 @@ from django.contrib.auth.views import PasswordResetCompleteView, PasswordResetCo
 from django.urls import include, path, re_path
 
 from auth.core.views import (
+    AdminPanelLogin,
     ConfirmEmail,
     EmailLogin,
     EmailPasswordChange,
@@ -15,7 +16,6 @@ from auth.core.views import (
     RefreshToken,
     VerifyEmail,
     VerifyToken,
-    AdminPanelLogin,
 )
 from .schema import schema_view
 

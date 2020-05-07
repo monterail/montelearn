@@ -16,6 +16,21 @@ const httpClient = (url, options = {}) => {
   return fetchUtils.fetchJson(url, options);
 };
 
+const convertLessonParamsToFormData = (params) => {
+  const formData = new FormData();
+  const paramsData = params.data;
+
+  if ("pdf_file" in paramsData) {
+    paramsData.pdf_file = paramsData.pdf_file.rawFile;
+  }
+
+  const paramsEntries = Object.entries(paramsData);
+
+  paramsEntries.forEach(([key, value]) => formData.append(key, value));
+
+  return formData;
+};
+
 const dataProvider = {
   getList: async (resource, params) => {
     const { page, perPage } = params.pagination;
@@ -46,6 +61,25 @@ const dataProvider = {
         id: json.uuid,
       },
     };
+  },
+
+  create: (resource, params) => {
+    let payload;
+
+    switch (resource) {
+      case "lesson":
+        payload = convertLessonParamsToFormData(params);
+        break;
+      default:
+        payload = JSON.stringify(params.data);
+    }
+
+    return httpClient(`${process.env.API_URL}/${resource}/`, {
+      method: "POST",
+      body: payload,
+    }).then(({ json }) => ({
+      data: { id: json.uuid },
+    }));
   },
 
   // To add more methods see:

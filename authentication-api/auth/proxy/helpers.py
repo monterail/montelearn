@@ -7,6 +7,8 @@ from rest_framework_proxy.adapters import StreamingHTTPAdapter
 from rest_framework_proxy.utils import StreamingMultipart, generate_boundary
 from rest_framework_proxy.views import ProxyView
 
+from rest_framework.response import Response
+
 
 class CustomStreamingMultipart(StreamingMultipart):
     # Override StreamingMultipart class to allow parsing multipart/form-data objects
@@ -103,3 +105,12 @@ class CustomProxyView(ProxyView):
             )
 
         return self.create_response(response)
+
+    def create_response(self, response):
+        # Override create_response to add detail error message in response when status_code >= 400
+        status = response.status_code
+        if status >= 400:
+            body = {"code": status, "detail": response.json(), "error": response.reason}
+        else:
+            body = self.parse_proxy_response(response)
+        return Response(body, status)

@@ -1,0 +1,26 @@
+{
+  "name": "@project/setup",
+  "version": "1.0.0",
+  "author": "Monterail <hello@monterail.com> (https://github.com/monterail)",
+  "license": "MIT",
+  "bin": {
+    "project-setup-web-server": "./server/index.js"
+  },
+  "scripts": {
+    "cleanup": "rimraf node_modules",
+    "lint": "project-eslint --ext '.js' server",
+    "pre-commit": "lint-staged"
+  },
+  "dependencies": {
+    "commander": "5.1.0",
+    "handlebars": "4.7.6"
+  },
+  "devDependencies": {
+    "@project/eslint": "1.0.0",
+    "lint-staged": "10.1.7",
+    "rimraf": "3.0.2"
+  },
+  "lint-staged": {
+    "*.js": "yarn lint --fix"
+  }
+}

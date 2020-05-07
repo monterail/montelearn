@@ -3,6 +3,9 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
+import Breadcrumbs from "@/components/Breadcrumbs";
+import Header from "@/components/Header";
+
 export default class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
 
@@ -35,8 +38,12 @@ export default class NextDocument extends Document {
           <link rel="preconnect" href="//fonts.gstatic.com" />
           <link rel="preconnect" href="//fonts.googleapis.com" />
         </Head>
-        <body>
-          <Main />
+        <body className="bg-gray-100 text-black">
+          <div className="container mx-auto">
+            <Header />
+            <Breadcrumbs />
+            <Main />
+          </div>
           <NextScript />
           <script
             type="text/javascript"
@@ -45,7 +52,7 @@ export default class NextDocument extends Document {
                 var proto = window.location.protocol;
                 var l = document.createElement('link');
                 l.rel = 'stylesheet';
-                l.href = proto + '//fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400&display=swap';
+                l.href = proto + '//fonts.googleapis.com/css?family=Playfair+Display:400,600|Roboto:400,500,700|Roboto+Mono:400,500,700|Eczar:500&display=swap';
                 document.head.append(l);
               `,
             }}

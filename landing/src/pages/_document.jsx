@@ -45,7 +45,7 @@ export default class NextDocument extends Document {
                 var proto = window.location.protocol;
                 var l = document.createElement('link');
                 l.rel = 'stylesheet';
-                l.href = proto + '//fonts.googleapis.com/css?family=Playfair+Display:700|Roboto:400&display=swap';
+                l.href = proto + '//fonts.googleapis.com/css2?family=Eczar:wght@600&family=Playfair+Display:wght@700&family=Roboto&family=Roboto+Mono:wght@500&display=swap';
                 document.head.append(l);
               `,
             }}

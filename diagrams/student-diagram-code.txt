@@ -1,0 +1,12 @@
+@startuml
+Student -> AuthorizationAPI: Authentication Request
+AuthorizationAPI --> Student: Authentication Response with JWT token
+
+Student -> AuthorizationAPI: GET resource Request containing JWT token
+AuthorizationAPI -> Microservice: Proxied Request
+Microservice --> Student: Microservice Response
+
+Student -> AuthorizationAPI: GET resource Request without JWT token
+AuthorizationAPI -> Student: Not authorized Response
+
+@enduml
