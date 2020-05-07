@@ -3,7 +3,7 @@
 class TestsController < ApplicationController
   # GET /tests
   def index
-    tests = Test.all
+    tests = TestsQuery.new(params).all
     render_collection(tests)
   end
 
