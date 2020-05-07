@@ -1,0 +1,8 @@
+@startuml
+:Student: --> (Web Application) : Get lessons and tests
+:Teacher: --> (Admin Panel) : Add/update lessons and tests
+(Admin Panel) <--> (Authentication API)
+(Web Application) <--> (Authentication API)
+(Authentication API) <--> (Lesson API)
+(Authentication API) <--> (Tests API)
+@enduml
