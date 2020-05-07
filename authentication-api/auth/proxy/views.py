@@ -34,6 +34,6 @@ class ProxyTestsListView(PermissionClassesMixin, CustomProxyView):
 
 
 class ProxyTestsDetailView(PermissionClassesMixin, CustomProxyView):
-    http_method_names = ["get"]
+    http_method_names = ["get", "put", "delete"]
     proxy_host = settings.TESTS_API_HOST
     source = "api/tests/%(uuid)s/"
