@@ -1,17 +1,28 @@
-import React from "react";
+import React, { FunctionComponent } from "react";
 import SvgArrowLeft from "@/components/SvgArrowLeft";
 import SvgArrowRight from "@/components/SvgArrowRight";
 
 type Props = {
   direction: "left" | "right";
+  className?: string;
+  onClick?: () => void;
 };
 
-export const ButtonWithArrow = ({ direction }: Props) => {
+export const ButtonWithArrow: FunctionComponent<Props> = ({
+  direction,
+  children,
+  className,
+  onClick,
+}) => {
   const directionClass = direction.charAt(0);
   return (
-    <button type="button" className="flex py-2 px-6 border-2 border-black bg-red-100 rounded-full">
+    <button
+      onClick={onClick}
+      type="button"
+      className={`flex py-2 px-6 border-2 border-black bg-red-100 rounded-full font-roboto-mono ${className}`}
+    >
       {direction === "left" && <SvgArrowLeft />}
-      <span className={`p${directionClass}-4 font-medium`}>Back</span>
+      <span className={`p${directionClass}-4 font-medium`}>{children}</span>
       {direction === "right" && <SvgArrowRight />}
     </button>
   );
