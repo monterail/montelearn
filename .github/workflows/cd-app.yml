@@ -3,6 +3,7 @@ on:
   push:
     branches:
       - master
+      - 'chore/less-repetetive-configs'
     paths:
       - '.github/workflows/cd-app.yml'
       - '.dockerignore'
