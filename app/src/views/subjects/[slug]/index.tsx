@@ -52,7 +52,7 @@ export default function SubjectPage() {
           return (
             <Card key={index}>
               <Label className="text-sm">Lesson {index + 1}</Label>
-              <h2 className="text-4xl my-1 font-semibold">{lesson.title}</h2>
+              <h2 className="text-4xl my-1 font-semibold leading-tight">{lesson.title}</h2>
               <p className="text-lg leading-relaxed tracking-wide lesson-text">
                 {lesson.description}
               </p>
