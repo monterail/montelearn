@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
+import Card from "@/components/Card";
 
 function LessonPage() {
   const router = useRouter();
@@ -38,27 +39,27 @@ function LessonPage() {
       </h2>
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
       <div className="flex flex-col items-center content-center">
-        <div className="p-10 shadow-custom rounded-lg w-1/2 mb-8">
+        <Card className="w-1/2 mb-8">
           <strong className="text-red-300 text-sm">Section 1</strong>
           <h2 className="text-4xl my-1 font-semibold">Intro</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
-        </div>
-        <div className="p-10 shadow-custom rounded-lg w-1/2 mb-8">
+        </Card>
+        <Card className="w-1/2 mb-8">
           <strong className="text-red-300 text-sm">Section 2</strong>
           <h2 className="text-4xl my-1 font-semibold">Exploding bomb</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
-        </div>
-        <div className="p-10 shadow-custom rounded-lg w-1/2 mb-8">
+        </Card>
+        <Card className="w-1/2 mb-8">
           <strong className="text-red-300 text-sm">Section 3</strong>
           <h2 className="text-4xl my-1 font-semibold">Environment</h2>
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
-        </div>
+        </Card>
       </div>
       <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
         <h2 className="font-eczar text-4xl font-semibold mb-8">Time to yest your konewledge</h2>

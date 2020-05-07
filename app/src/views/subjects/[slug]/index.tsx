@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
+import Card from "@/components/Card";
 
 export default function SubjectsPage() {
   const router = useRouter();
@@ -20,7 +21,7 @@ export default function SubjectsPage() {
         Goddamit, chemistry is importane. Very very importane.
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
-        <div className="p-10 shadow-custom rounded-lg">
+        <Card>
           <strong className="text-red-300 text-sm">Lesson 1</strong>
           <h2 className="text-4xl my-1 font-semibold">What are pictograms?</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
@@ -32,8 +33,8 @@ export default function SubjectsPage() {
           <ButtonWithArrow direction="right" className="mt-8" onClick={() => window.alert("siema")}>
             Let's do it together!
           </ButtonWithArrow>
-        </div>
-        <div className="p-10 shadow-custom rounded-lg">
+        </Card>
+        <Card>
           <strong className="text-red-300 text-sm">Lesson 2</strong>
           <h2 className="text-4xl my-1 font-semibold">Structure of an Atom</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
@@ -46,8 +47,8 @@ export default function SubjectsPage() {
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
-        </div>
-        <div className="p-10 shadow-custom rounded-lg">
+        </Card>
+        <Card>
           <strong className="text-red-300 text-sm">Lesson 3</strong>
           <h2 className="text-4xl my-1 font-semibold">What is cocaine</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
@@ -61,7 +62,7 @@ export default function SubjectsPage() {
           <ButtonWithArrow direction="right" className="mt-8">
             Let's do it together!
           </ButtonWithArrow>
-        </div>
+        </Card>
       </div>
     </section>
   );
