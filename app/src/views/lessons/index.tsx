@@ -14,7 +14,7 @@ export default function LessonsPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
         <div className="p-10 shadow-custom rounded-lg">
           <strong className="text-red-300 text-sm">Lesson 1</strong>
-          <h1 className="text-4xl my-1 font-semibold">What are pictograms?</h1>
+          <h2 className="text-4xl my-1 font-semibold">What are pictograms?</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             In ea ea mollit commodo esse dolore fugiat laborum dolore ex irure nostrud minim cillum.
             Pariatur anim veniam ipsum esse consectetur nisi aliqua eu Lorem sit dolor sunt commodo.
@@ -27,7 +27,7 @@ export default function LessonsPage() {
         </div>
         <div className="p-10 shadow-custom rounded-lg">
           <strong className="text-red-300 text-sm">Lesson 2</strong>
-          <h1 className="text-4xl my-1 font-semibold">Structure of an Atom</h1>
+          <h2 className="text-4xl my-1 font-semibold">Structure of an Atom</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             Commodo reprehenderit eiusmod consectetur ad commodo occaecat officia. Eiusmod non
             proident dolore id quis esse dolor culpa minim dolor ut minim cillum sint. Incididunt
@@ -41,7 +41,7 @@ export default function LessonsPage() {
         </div>
         <div className="p-10 shadow-custom rounded-lg">
           <strong className="text-red-300 text-sm">Lesson 3</strong>
-          <h1 className="text-4xl my-1 font-semibold">What is cocaine</h1>
+          <h2 className="text-4xl my-1 font-semibold">What is cocaine</h2>
           <p className="text-lg leading-relaxed tracking-wide lesson-text">
             Velit in dolore in aliqua amet ea do sunt culpa. Proident deserunt laboris non labore.
             Voluptate ut ad aliqua nulla amet cupidatat cupidatat duis reprehenderit. Aliqua
