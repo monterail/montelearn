@@ -59,7 +59,7 @@ export default function SubjectPage() {
               <ButtonWithArrow
                 direction="right"
                 className="mt-8"
-                onClick={() => router.push(`/subjects/chemistry/lesson/${lesson.slug}`)}
+                onClick={() => router.push(`/subjects/${slug}/lesson/${lesson.slug}`)}
               >
                 Let's do it together!
               </ButtonWithArrow>

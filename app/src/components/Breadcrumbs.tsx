@@ -32,7 +32,9 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
           Back
         </ButtonWithArrow>
       )}
-      <ul className="flex items-center px-4 font-medium text-red-200">{renderElements()}</ul>
+      <ul className="flex items-center px-4 font-medium text-red-200 cursor-default">
+        {renderElements()}
+      </ul>
     </div>
   );
 };
