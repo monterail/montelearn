@@ -7,8 +7,8 @@ on:
       - '.github/workflows/cd-admin.yml'
       - '.dockerignore'
       - 'Dockerfile'
-      - 'admin'
-      - 'packages/core'
+      - 'admin/**'
+      - 'packages/core/**'
 jobs:
   build-and-deploy:
     name: Deploy app to Heroku
