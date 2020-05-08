@@ -1,24 +1,14 @@
 # frozen_string_literal: true
 
 class TestsQuery
-  FILTER_PARAMS = [
-    :lesson_uuid,
-  ].freeze
-
-  def initialize(params = {}, relation = Test.all)
-    @params = params
+  def initialize(filter_params = {}, relation = Test.all)
+    @filter_params = filter_params
     @relation = relation
   end
 
   def all
-    return @relation unless filter_params.any?
+    return @relation unless @filter_params.any?
 
-    @relation.where(filter_params)
-  end
-
-  private
-
-  def filter_params
-    @filter_params ||= @params.permit(FILTER_PARAMS).to_h
+    @relation.where(@filter_params)
   end
 end
