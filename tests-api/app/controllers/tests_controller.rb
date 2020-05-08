@@ -3,7 +3,7 @@
 class TestsController < ApplicationController
   # GET /tests
   def index
-    tests = Test.all
+    tests = TestsQuery.new(filter_params).all
     render_collection(tests)
   end
 
@@ -34,7 +34,30 @@ class TestsController < ApplicationController
 
   private
 
+  def filter_params
+    params.permit(
+      :lesson_uuid,
+    ).to_h
+  end
+
   def test_params
-    @test_params ||= TestsParametersObject.new(params).to_h
+    params.permit(
+      :lesson_uuid,
+      questions: [
+        :uuid,
+        :_destroy,
+        :question_type,
+        :content,
+        :question,
+        choices: %i(answer correct),
+      ],
+    ).to_h.tap do |hash|
+      process_questions_attributes!(hash) if hash.key?(:questions)
+    end
+  end
+
+  def process_questions_attributes!(hash)
+    hash[:questions].each { |h| h[:id] = h.delete(:uuid) }
+    hash[:questions_attributes] = hash.delete(:questions)
   end
 end

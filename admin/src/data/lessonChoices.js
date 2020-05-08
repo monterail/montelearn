@@ -14,7 +14,7 @@ export const subjectChoices = [
 export const gradeChoices = [
   { id: "preschool", name: "preschool" },
   { id: "kindergarden", name: "kindergarden" },
-  { id: "frist grade", name: "frist grade" },
+  { id: "first grade", name: "first grade" },
   { id: "second grade", name: "second grade" },
   { id: "third grade", name: "third grade" },
   { id: "fourth grade", name: "fourth grade" },

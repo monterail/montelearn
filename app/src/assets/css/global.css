@@ -1,0 +1,13 @@
+@import url("https://fonts.googleapis.com/css?family=Playfair+Display:400,600|Roboto:400,500,700|Roboto+Mono:400,500,700|Eczar:500&display=swap");
+
+.lesson-text {
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.link-button {
+  @apply py-2 px-6 border-2 rounded-full font-roboto-mono;
+}
