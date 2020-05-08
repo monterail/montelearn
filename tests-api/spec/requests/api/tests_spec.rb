@@ -11,6 +11,8 @@ RSpec.describe "api/tests", type: :request do
                 description: "Number of results to return per page."
       parameter name: :offset, in: :query, type: :integer, required: false,
                 description: "The initial index from which to return the results."
+      parameter name: :lesson_uuid, in: :query, type: :string, required: false,
+                description: "Filter results by lesson_uuid."
 
       response "200", "A list of tests." do
         schema Rswag::TestsHelper::COLLECTION_SCHEMA
