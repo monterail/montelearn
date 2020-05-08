@@ -4,7 +4,7 @@ require "rails_helper"
 
 RSpec.describe TestsQuery do
   describe "#all" do
-    subject { described_class.new(filter_params).all }
+    subject(:get_all) { described_class.new(filter_params).all }
 
     let!(:test_1) { create(:test) }
     let!(:test_2) { create(:test) }
@@ -13,7 +13,7 @@ RSpec.describe TestsQuery do
       let(:filter_params) { {} }
 
       it "returns all tests" do
-        expect(subject).to contain_exactly(test_1, test_2)
+        expect(get_all).to contain_exactly(test_1, test_2)
       end
     end
 
@@ -21,7 +21,7 @@ RSpec.describe TestsQuery do
       let(:filter_params) { { lesson_uuid: test_1.lesson_uuid } }
 
       it "returns filtered tests" do
-        expect(subject).to contain_exactly(test_1)
+        expect(get_all).to contain_exactly(test_1)
       end
     end
   end
