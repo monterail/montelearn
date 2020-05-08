@@ -9,7 +9,7 @@ RSpec.describe TestsQuery do
     let!(:test_1) { create(:test) }
     let!(:test_2) { create(:test) }
 
-    context "with filter params" do
+    context "without filter params" do
       let(:filter_params) { {} }
 
       it "returns all tests" do
@@ -17,7 +17,7 @@ RSpec.describe TestsQuery do
       end
     end
 
-    context "without filter params" do
+    context "with filter params" do
       let(:filter_params) { { lesson_uuid: test_1.lesson_uuid } }
 
       it "returns filtered tests" do
