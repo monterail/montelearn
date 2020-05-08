@@ -31,7 +31,7 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
-const buildQueryForTestReference = (params) => { lesson_uuid: params.ids[0] };
+const buildQueryForTestReference = (params) => ({ lesson_uuid: params.ids[0] });
 
 const dataProvider = {
   getList: async (resource, params) => {
@@ -109,7 +109,7 @@ const dataProvider = {
           data = json.results.map((resource) => ({ ...resource, id: resource.uuid }));
       }
 
-      return { data: data };
+      return { data };
     });
   },
   // To add more methods see:

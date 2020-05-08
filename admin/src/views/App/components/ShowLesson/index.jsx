@@ -16,6 +16,8 @@ import ShowTest from "../ShowTest";
 import AddNewTestButton from "../AddNewTestButton";
 
 export default function ShowLesson(props) {
+  const { id } = props;
+
   return (
     <Show actions={<TopToolbar />} {...props}>
       <TabbedShowLayout>
@@ -28,12 +30,12 @@ export default function ShowLesson(props) {
           <SelectField source="grade" choices={gradeChoices} />
         </Tab>
         <Tab label="test" path="test">
-          <ReferenceField addLabel={false} source="uuid" reference="tests" link={false} >
+          <ReferenceField addLabel={false} source="uuid" reference="tests" link={false}>
             <FunctionField render={(record) => <ShowTest record={record} />} />
           </ReferenceField>
-          <AddNewTestButton record={{ id: props.id }} />
+          <AddNewTestButton record={{ id }} />
         </Tab>
       </TabbedShowLayout>
-    </Show >
+    </Show>
   );
 }

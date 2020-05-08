@@ -16,12 +16,13 @@ import { questionTypeChoices } from "@/data/testChoices";
 
 // https://marmelab.com/blog/2018/07/09/react-admin-tutorials-form-for-related-records.html
 export default function CreateTest(props) {
-  const { lesson_uuid } = parse(props.location.search);
-  const redirect = `/lesson/${lesson_uuid}/show/test`;
+  const { location } = props;
+  const lessonUuid = parse(location.search).lesson_uuid;
+  const redirect = `/lesson/${lessonUuid}/show/test`;
 
   return (
     <Create {...props}>
-      <SimpleForm initialValues={{ lesson_uuid }} redirect={redirect}>
+      <SimpleForm initialValues={{ lessonUuid }} redirect={redirect}>
         <ArrayInput source="questions" validate={[required()]} label="QUESTIONS">
           <SimpleFormIterator>
             <SelectInput
