@@ -1,21 +1,27 @@
 import React, { useState } from "react";
 
-import { login, LoginInputs } from "@/services/auth";
+import { register, RegisterInputs } from "@/services/auth";
 import { rem } from "@project/core/lib/utils/theming";
 import { COLOR_GEYSER } from "@project/core/lib/const/theming";
 
 import StyledButton from "@/components/StyledButton/StyledButton";
 import StyledInput from "@/components/StyledInput";
 
-export default function Login() {
-  const initialValues: LoginInputs = { email: "", password: "" };
+export default function Register() {
+  const initialValues: RegisterInputs = {
+    email: "",
+    password1: "",
+    password2: "",
+    first_name: "",
+    last_name: "",
+  };
 
   const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState("");
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    return login(inputs).catch((err) => setError(err.message));
+    return register(inputs).catch((err) => setError(err.message));
   };
 
   const handleInputChange = (e: React.ChangeEvent<any>) => {
@@ -42,13 +48,45 @@ export default function Login() {
           />
         </div>
         <div>
-          <label htmlFor="password">Password</label>
+          <label htmlFor="password1">Password</label>
           <StyledInput
             type="password"
-            id="password"
-            name="password"
+            id="password1"
+            name="password1"
             onChange={handleInputChange}
-            value={inputs.password}
+            value={inputs.password1}
+          />
+        </div>
+        <div>
+          <label htmlFor="password2">Confirm Password</label>
+          <StyledInput
+            type="password"
+            id="password2"
+            name="password2"
+            onChange={handleInputChange}
+            value={inputs.password2}
+          />
+        </div>
+        <div>
+          <label htmlFor="first_name">
+            First name
+            <StyledInput
+              type="text"
+              id="first_name"
+              name="first_name"
+              onChange={handleInputChange}
+              value={inputs.first_name}
+            />
+          </label>
+        </div>
+        <div>
+          <label htmlFor="last_name">Last name</label>
+          <StyledInput
+            type="text"
+            id="last_name"
+            name="last_name"
+            onChange={handleInputChange}
+            value={inputs.last_name}
           />
         </div>
         <StyledButton
@@ -60,7 +98,7 @@ export default function Login() {
           onClick={handleSubmit}
           type="sumbit"
         >
-          Login
+          Register
         </StyledButton>
       </form>
     </div>

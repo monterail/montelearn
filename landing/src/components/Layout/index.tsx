@@ -1,15 +1,22 @@
-import React, { ReactNode } from 'react';
-import Navbar from "@/components/Layout/Navbar";
-import Footer from "@/components/Layout/Footer";
+import React, { ReactNode } from "react";
 import auth from "@/components/Auth";
+import PageHeader from "@/components/PageHeader/PageHeader";
+import PageFooter from "@/components/PageFooter/PageFooter";
+import { rem } from "@project/core/lib/utils/theming";
+import StyledContainer from "@/components/Container/StyledContainer";
 
-export default function Layout({ children } : { children: ReactNode }) {
-	const NavbarWithAuth = auth(Navbar);
-	return (
-		<>
-			<NavbarWithAuth redirect={false}/>
-			{children}
-			<Footer/>
-		</>
-	);
+export default function Layout({ children }: { children: ReactNode }) {
+  const PageHeaderWithAuth = auth(PageHeader);
+
+  return (
+    <div>
+      <StyledContainer>
+        <div css={{ margin: rem(8, 48) }}>
+          <PageHeaderWithAuth redirect={false} />
+          {children}
+          <PageFooter />
+        </div>
+      </StyledContainer>
+    </div>
+  );
 }

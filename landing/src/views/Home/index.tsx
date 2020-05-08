@@ -34,7 +34,7 @@ function scrollToEditor(): void {
 export default function HomePage() {
   return (
     <>
-			<div css={{ backgroundColor: COLOR_GREEN }}>
+      <div css={{ backgroundColor: COLOR_GREEN }}>
         <section
           css={{
             minHeight: "60vh",
@@ -101,7 +101,7 @@ export default function HomePage() {
           </ContentWidth>
         </section>
       </main>
-      <footer
+      {/* <footer
         css={{
           backgroundColor: COLOR_WHITE,
           color: COLOR_DON_JUAN,
@@ -111,7 +111,7 @@ export default function HomePage() {
         <ContentWidth css={{ fontSize: rem(14), textAlign: "right" }}>
           Developed with <span css={{ color: COLOR_MILANO_RED }}>&#9829;</span> by Monterail
         </ContentWidth>
-      </footer>
+      </footer> */}
     </>
   );
 }

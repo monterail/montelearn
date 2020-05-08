@@ -1,8 +1,10 @@
 import Layout from "@/components/Layout";
+import Register from "@/components/Register";
 
-export default function Login() {
-	return (
-		<Layout>
-		</Layout>
-	);
-};
+export default function RegisterPage() {
+  return (
+    <Layout>
+      <Register />
+    </Layout>
+  );
+}

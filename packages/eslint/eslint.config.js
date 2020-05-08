@@ -68,6 +68,16 @@ function createEslintConfig() {
         },
         { usePrettierrc: false },
       ],
+      "jsx-a11y/label-has-associated-control": [
+        2,
+        {
+          components: ["label"],
+          required: {
+            some: ["nesting", "id"],
+          },
+          allowChildren: false,
+        },
+      ],
       "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",
       "react/no-array-index-key": "off",
