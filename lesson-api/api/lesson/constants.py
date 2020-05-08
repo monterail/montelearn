@@ -15,7 +15,7 @@ SUBJECTS = [
 GRADES = [
     "preschool",
     "kindergarden",
-    "frist grade",
+    "first grade",
     "second grade",
     "third grade",
     "fourth grade",
