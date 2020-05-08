@@ -3,7 +3,7 @@
 class TestsController < ApplicationController
   # GET /tests
   def index
-    tests = TestsQuery.new(params).all
+    tests = TestsQuery.new(filter_params).all
     render_collection(tests)
   end
 
@@ -33,6 +33,12 @@ class TestsController < ApplicationController
   end
 
   private
+
+  def filter_params
+    params.permit(
+      :lesson_uuid,
+    ).to_h
+  end
 
   def test_params
     @test_params ||= TestsParametersObject.new(params).to_h
