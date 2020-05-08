@@ -18,6 +18,11 @@ module.exports = {
       colors: {
         gray: {
           "100": "var(--color-gray-100)",
+          "200": "var(--color-gray-200)",
+        },
+        green: {
+          "100": "var(--color-green-100)",
+          "200": "var(--color-green-200)",
         },
         white: {
           default: "var(--color-white)",
