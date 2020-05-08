@@ -31,9 +31,7 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
-const buildQueryForTestReference = (params) => (
-  { lesson_uuid: params.ids[0] }
-);
+const buildQueryForTestReference = (params) => { lesson_uuid: params.ids[0] };
 
 const dataProvider = {
   getList: async (resource, params) => {
@@ -94,8 +92,8 @@ const dataProvider = {
         query = buildQueryForTestReference(params);
         break;
       default:
-        query = { filter: JSON.stringify({ id: params.ids }) }
-    };
+        query = { filter: JSON.stringify({ id: params.ids }) };
+    }
 
     const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
     return httpClient(url).then(({ json }) => {
@@ -103,13 +101,15 @@ const dataProvider = {
 
       switch (resource) {
         case "tests":
+          // eslint-disable-next-line no-shadow
           data = json.results.map((resource) => ({ ...resource, id: resource.lesson_uuid }));
           break;
         default:
+          // eslint-disable-next-line no-shadow
           data = json.results.map((resource) => ({ ...resource, id: resource.uuid }));
-      };
+      }
 
-      return { data: data }
+      return { data: data };
     });
   },
   // To add more methods see:
