@@ -34,7 +34,7 @@ export default function SubjectsPage() {
       </h2>
       {subjects.map((el, index) => {
         return (
-          <Link href={`/subjects/${el.id}`}>
+          <Link key={el.id} href={`/subjects/${el.id}`}>
             <a href={`/subjects/${el.id}`}>
               <Card className="my-4 hover:opacity-75 transition-opacity duration-200" key={index}>
                 <h2 className="text-4xl my-1 font-semibold capitalize">{el.name}</h2>

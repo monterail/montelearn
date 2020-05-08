@@ -1,4 +1,4 @@
-name: cd app
+name: CD app
 on:
   push:
     branches:
@@ -31,7 +31,7 @@ jobs:
       run: |
         docker build -t registry.heroku.com/montelearn-app/web \
         --build-arg workspace=app \
-        --target web-server .
+        --target node-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login
