@@ -21,9 +21,8 @@ module Rswag
                   type: :object,
                   properties: {
                     answer: { type: :string },
-                    correct: { type: :boolean },
                   },
-                  required: %w(answer correct),
+                  required: %w(answer),
                 },
               },
             },
@@ -57,10 +56,8 @@ module Rswag
           question_type: "binary",
           content: "Voluptate repellat ut deserunt?",
           choices: [
-            { answer: "totam",
-              correct: true },
-            { answer: "est",
-              correct: false },
+            { answer: "totam" },
+            { answer: "est" },
           ],
         },
       ],
@@ -85,80 +82,6 @@ module Rswag
 
     NOT_FOUND_EXAMPLE = {
       detail: "Not found.",
-    }.freeze
-
-    VALIDATION_FAILED_SCHEMA = {
-      type: :object,
-      properties: {
-        subject: { type: :array, items: { type: :string } },
-        lesson_uuid: { type: :array, items: { type: :string } },
-        question_type: { type: :array, items: { type: :string } },
-        question: { type: :array, items: { type: :string } },
-        choices: { type: :array, items: { type: :string } },
-      },
-    }.freeze
-
-    VALIDATION_FAILED_EXAMPLE = {
-      lesson_uuid: ["can't be blank"],
-    }.freeze
-
-    POST_PAYLOAD_SCHEMA = {
-      type: :object,
-      properties: {
-        lesson_uuid: { type: :string },
-        questions: {
-          type: :array,
-          items: {
-            type: :object,
-            properties: {
-              question_type: { type: :string },
-              content: { type: :string },
-              choices: {
-                type: :array,
-                items: {
-                  type: :object,
-                  properties: {
-                    answer: { type: :string },
-                    correct: { type: :boolean },
-                  },
-                  required: %w(answer correct),
-                },
-              },
-            },
-            required: %w(question_type content choices),
-          },
-        },
-      },
-      required: %w(lesson_uuid questions),
-    }.freeze
-
-    PUT_PAYLOAD_SCHEMA = {
-      type: :object,
-      properties: {
-        lesson_uuid: { type: :string },
-        questions: {
-          type: :array,
-          items: {
-            type: :object,
-            properties: {
-              uuid: { type: :string },
-              _delete: { type: :boolean },
-              question_type: { type: :string },
-              content: { type: :string },
-              choices: {
-                type: :array,
-                items: {
-                  type: :object,
-                  properties: {
-                    answer: { type: :string },
-                    correct: { type: :boolean },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
     }.freeze
   end
 end
