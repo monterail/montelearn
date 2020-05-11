@@ -1,7 +1,6 @@
 """
 Base settings to build other settings files upon.
 """
-import datetime
 import os
 
 import environ
@@ -82,8 +81,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount.providers.google",
     "rest_framework",
     "rest_framework.authtoken",
-    "rest_auth",
-    "rest_auth.registration",
+    "dj_rest_auth",
+    "dj_rest_auth.registration",
     "celery",
 ]
 
@@ -184,7 +183,7 @@ REST_FRAMEWORK = {
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": env.int("DJANGO_PAGINATION_LIMIT", default=10),
     "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework_jwt.authentication.JSONWebTokenAuthentication",
+        "dj_rest_auth.utils.JWTCookieAuthentication",
     ],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
@@ -312,32 +311,7 @@ ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_UNIQUE_EMAIL = True
 
 REST_USE_JWT = True
-
-# JWT settings
-JWT_AUTH = {
-    "JWT_ENCODE_HANDLER": "rest_framework_jwt.utils.jwt_encode_handler",
-    "JWT_DECODE_HANDLER": "rest_framework_jwt.utils.jwt_decode_handler",
-    "JWT_PAYLOAD_HANDLER": "rest_framework_jwt.utils.jwt_payload_handler",
-    "JWT_PAYLOAD_GET_USER_ID_HANDLER": (
-        "rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler"
-    ),
-    "JWT_RESPONSE_PAYLOAD_HANDLER": "rest_framework_jwt.utils.jwt_response_payload_handler",
-    "JWT_SECRET_KEY": SECRET_KEY,
-    "JWT_GET_USER_SECRET_KEY": None,
-    "JWT_PUBLIC_KEY": None,
-    "JWT_PRIVATE_KEY": None,
-    "JWT_ALGORITHM": "HS256",
-    "JWT_VERIFY": True,
-    "JWT_VERIFY_EXPIRATION": True,
-    "JWT_LEEWAY": 0,
-    "JWT_EXPIRATION_DELTA": datetime.timedelta(hours=1),
-    "JWT_AUDIENCE": None,
-    "JWT_ISSUER": None,
-    "JWT_ALLOW_REFRESH": True,
-    "JWT_REFRESH_EXPIRATION_DELTA": datetime.timedelta(days=1),
-    "JWT_AUTH_HEADER_PREFIX": "Bearer",
-    "JWT_AUTH_COOKIE": None,
-}
+JWT_AUTH_COOKIE = "jwt_token"
 
 REST_AUTH_SERIALIZERS = {
     "USER_DETAILS_SERIALIZER": "auth.user.serializers.UserSerializer",
