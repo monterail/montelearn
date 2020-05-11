@@ -1,13 +1,13 @@
 from allauth.account.views import ConfirmEmailView
-from rest_auth.registration.views import RegisterView, VerifyEmailView
-from rest_auth.views import (
+from dj_rest_auth.registration.views import RegisterView, VerifyEmailView
+from dj_rest_auth.views import (
     LoginView,
     LogoutView,
     PasswordChangeView,
     PasswordResetConfirmView,
     PasswordResetView,
 )
-from rest_framework_jwt.views import RefreshJSONWebToken, VerifyJSONWebToken
+from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
 
 from django.urls import reverse
 
@@ -55,11 +55,11 @@ class ConfirmEmail(ConfirmEmailView):
         return reverse("account_confirm_email", kwargs={"key": self.kwargs["key"]})
 
 
-class RefreshToken(RefreshJSONWebToken):
+class RefreshToken(TokenRefreshView):
     permission_classes = (AllowAny,)
 
 
-class VerifyToken(VerifyJSONWebToken):
+class VerifyToken(TokenVerifyView):
     permission_classes = (AllowAny,)
 
 

@@ -9,7 +9,7 @@ django-filter
 django-model-utils
 django-redis
 drf_yasg
-django-rest-auth[with_social]
+dj-rest-auth[with_social]
 whitenoise
 packaging
 python-dateutil
@@ -19,6 +19,5 @@ boto3
 celery[redis]
 pyjwt
 cryptography
-djangorestframework-jwt
-djangorestframework-jsonapi
 django-rest-framework-proxy
+djangorestframework-simplejwt

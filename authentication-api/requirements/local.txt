@@ -26,19 +26,19 @@ coverage==4.5.4           # via codecov, pytest-cov
 cryptography==2.8         # via -r requirements/././base.in, -r requirements/./base.in
 decorator==4.4.0          # via ipython, traitlets
 defusedxml==0.6.0         # via python3-openid
-django-allauth==0.40.0    # via django-rest-auth
+dj-rest-auth[with_social]==1.0.5  # via -r requirements/././base.in, -r requirements/./base.in
+django-allauth==0.40.0    # via dj-rest-auth
 django-cors-headers==3.1.0  # via -r requirements/././base.in, -r requirements/./base.in
 django-environ==0.4.5     # via -r requirements/././base.in, -r requirements/./base.in
 django-filter==2.2.0      # via -r requirements/././base.in, -r requirements/./base.in
 django-model-utils==3.2.0  # via -r requirements/././base.in, -r requirements/./base.in
 django-redis==4.11.0      # via -r requirements/././base.in, -r requirements/./base.in
-django-rest-auth[with_social]==0.9.5  # via -r requirements/././base.in, -r requirements/./base.in
 django-rest-framework-proxy==1.6.0  # via -r requirements/././base.in, -r requirements/./base.in
 django-storages==1.8      # via -r requirements/././base.in, -r requirements/./base.in
-django==2.2.10            # via -r requirements/././base.in, -r requirements/./base.in, django-allauth, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, djangorestframework-jsonapi, drf-yasg
-djangorestframework-jsonapi==3.1.0  # via -r requirements/././base.in, -r requirements/./base.in
+django==2.2.10            # via -r requirements/././base.in, -r requirements/./base.in, dj-rest-auth, django-allauth, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-framework-proxy, django-storages, djangorestframework-simplejwt, drf-yasg
 djangorestframework-jwt==1.11.0  # via -r requirements/././base.in, -r requirements/./base.in
-djangorestframework==3.10.2  # via -r requirements/././base.in, -r requirements/./base.in, django-rest-auth, drf-yasg
+djangorestframework-simplejwt==4.4.0  # via -r requirements/././base.in, -r requirements/./base.in
+djangorestframework==3.10.2  # via -r requirements/././base.in, -r requirements/./base.in, dj-rest-auth, django-rest-framework-proxy, djangorestframework-simplejwt, drf-yasg
 docutils==0.15.2          # via botocore
 drf-yasg==1.16.1          # via -r requirements/././base.in, -r requirements/./base.in
 entrypoints==0.3          # via flake8
@@ -82,7 +82,7 @@ pycodestyle==2.5.0        # via flake8
 pycparser==2.19           # via cffi
 pyflakes==2.1.1           # via flake8
 pygments==2.4.2           # via ipython
-pyjwt==1.7.1              # via -r requirements/././base.in, -r requirements/./base.in, djangorestframework-jwt
+pyjwt==1.7.1              # via -r requirements/././base.in, -r requirements/./base.in, djangorestframework-jwt, djangorestframework-simplejwt
 pyparsing==2.4.2          # via packaging
 pytest-cov==2.7.1         # via -r requirements/./test.in
 pytest-django==3.5.1      # via -r requirements/./test.in
@@ -102,7 +102,7 @@ rsa==4.0                  # via google-auth
 ruamel.yaml.clib==0.1.2   # via ruamel.yaml
 ruamel.yaml==0.16.5       # via drf-yasg
 s3transfer==0.2.1         # via boto3
-six==1.12.0               # via argon2-cffi, cryptography, django-rest-auth, drf-yasg, faker, freezegun, google-api-python-client, google-auth, packaging, pip-tools, prompt-toolkit, pytest-xdist, python-dateutil, requests-mock, traitlets
+six==1.12.0               # via argon2-cffi, cryptography, drf-yasg, faker, freezegun, google-api-python-client, google-auth, packaging, pip-tools, prompt-toolkit, pytest-xdist, python-dateutil, requests-mock, traitlets
 sqlparse==0.3.0           # via django
 termcolor==1.1.0          # via pytest-sugar
 text-unidecode==1.2       # via faker
