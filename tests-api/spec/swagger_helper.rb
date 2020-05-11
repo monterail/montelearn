@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 require "rails_helper"
-Dir[Rails.root.join("spec/rswag/**/*.rb")].sort.each { |f| require f }
 
 RSpec.configure do |config|
   # Specify a root folder where Swagger JSON files are generated
@@ -41,9 +40,4 @@ RSpec.configure do |config|
   # the key, this may want to be changed to avoid putting yaml in json files.
   # Defaults to json. Accepts ':json' and ':yaml'.
   config.swagger_format = :yaml
-
-  config.include(
-    Rswag::Admin::TestsHelper,
-    Rswag::TestsHelper,
-  )
 end
