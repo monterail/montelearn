@@ -29,7 +29,7 @@ module Admin
 
     # DESTROY /admin/tests/:id
     def destroy
-      Test.find(params[:id]).destroy
+      Test.destroy(params[:id])
       head :no_content
     end
 
