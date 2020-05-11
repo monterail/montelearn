@@ -78,3 +78,23 @@ def test_lesson_delete_view_success(api_client):
 
     response = api_client.delete(reverse("lesson:lesson-detail", args=[lesson.uuid]))
     assert response.status_code == 204
+
+
+@pytest.mark.django_db
+@pytest.mark.parametrize(
+    "subject_filter,options,expected",
+    [
+        ("biology", ("biology", "physics"), 1),
+        ("biology,physics", ("biology", "physics"), 2),
+        ("history", ("biology", "physics"), 0),
+    ],
+)
+def test_lesson_filter_by_subject(api_client, subject_filter, options, expected):
+    [LessonFactory(subject=option) for option in options]
+
+    response = api_client.get(reverse("lesson:lesson-list"), {"subject__in": subject_filter})
+
+    results = response.json()["results"]
+
+    assert response.status_code == 200
+    assert len(results) == expected
