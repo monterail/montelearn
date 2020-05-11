@@ -1,6 +1,16 @@
 import Head from "next/head";
 import Link from "next/link";
 import Title from "@/components/Title";
+import apiClient from "@/services/api-client/apiClient";
+
+const fetchTest = async () => {
+  try {
+    const response = await apiClient.get("/employees");
+    console.log(response);
+  } catch (error) {
+    console.error(error);
+  }
+};
 
 export default function HomePage() {
   return (
@@ -14,6 +24,9 @@ export default function HomePage() {
           Go to subjects
         </a>
       </Link>
+      <button type="button" onClick={() => fetchTest()}>
+        Fetch
+      </button>
     </section>
   );
 }
