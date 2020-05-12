@@ -4,6 +4,7 @@ import Link from "next/link";
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
+import SubTitle from "@/components/SubTitle";
 
 const subjects = [
   { id: "biology", name: "biology" },
@@ -37,8 +38,8 @@ export default function SubjectsPage() {
           <Link key={el.id} href={`/subjects/${el.id}`}>
             <a href={`/subjects/${el.id}`}>
               <Card className="my-4 hover:opacity-75 transition-opacity duration-200" key={index}>
-                <h2 className="text-4xl my-1 font-semibold capitalize">{el.name}</h2>
-                <p className="text-lg leading-relaxed tracking-wide lesson-text mb-4">
+                <SubTitle>{el.name}</SubTitle>
+                <p className="text-lg leading-relaxed tracking-wide ml-text-truncate mb-4">
                   Mollit quis cupidatat nisi nulla exercitation minim occaecat elit id culpa commodo
                   Lorem proident esse. Minim nostrud do quis consectetur velit ad magna labore est
                   occaecat consectetur officia deserunt. Amet non esse aliqua Lorem et ex

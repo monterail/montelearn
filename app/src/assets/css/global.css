@@ -17,7 +17,7 @@
   --color-monterail: #ed1116;
 }
 
-.lesson-text {
+.ml-text-truncate {
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
@@ -27,4 +27,8 @@
 
 .link-button {
   @apply py-2 px-6 border-2 rounded-full font-roboto-mono;
+}
+
+.hero-card {
+  min-height: 75vh;
 }

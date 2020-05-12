@@ -6,6 +6,7 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Label from "@/components/Label";
+import SubTitle from "@/components/SubTitle";
 
 const lessons = [
   {
@@ -52,8 +53,8 @@ export default function SubjectPage() {
           return (
             <Card key={lesson.slug}>
               <Label className="text-sm">Lesson {index + 1}</Label>
-              <h2 className="text-4xl my-1 font-semibold leading-tight">{lesson.title}</h2>
-              <p className="text-lg leading-relaxed tracking-wide lesson-text">
+              <SubTitle>{lesson.title}</SubTitle>
+              <p className="text-lg leading-relaxed tracking-wide ml-text-truncate">
                 {lesson.description}
               </p>
               <ButtonWithArrow

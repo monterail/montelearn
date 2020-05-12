@@ -26,13 +26,17 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
     });
 
   return (
-    <div className="p-6 bg-red-100 flex font-roboto-mono">
+    <div className="p-6 bg-red-100 flex flex-col sm:flex-row font-roboto-mono">
       {back && (
-        <ButtonWithArrow onClick={handleBackClick} direction="left">
+        <ButtonWithArrow
+          onClick={handleBackClick}
+          direction="left"
+          // className="mr-auto"
+        >
           Back
         </ButtonWithArrow>
       )}
-      <ul className="flex items-center px-4 font-medium text-red-200 cursor-default">
+      <ul className="flex items-center px-4 font-medium text-red-200 cursor-default my-4">
         {renderElements()}
       </ul>
     </div>
