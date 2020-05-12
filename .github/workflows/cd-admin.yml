@@ -1,4 +1,4 @@
-name: CD admin panel
+name: CD admin
 on:
   push:
     branches:
@@ -31,7 +31,7 @@ jobs:
       run: |
         docker build -t registry.heroku.com/montelearn-admin/web \
         --build-arg workspace=admin \
-        --target web-server .
+        --target node-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

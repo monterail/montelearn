@@ -1,4 +1,4 @@
-name: CD Landing Page (test)
+name: CD landing
 on:
   push:
     branches:
@@ -31,7 +31,7 @@ jobs:
       run: |
         docker build -t registry.heroku.com/montelearn-landing/web \
         --build-arg workspace=landing \
-        --target web-server .
+        --target nginx-server .
 
     - name: Login to Heroku Container registry
       run: heroku container:login

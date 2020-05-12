@@ -9,6 +9,7 @@
     "dev": "next -p 3001",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
+    "start": "next start -p $PORT",
     "test": "project-jest",
     "tsc": "tsc --noEmit"
   },

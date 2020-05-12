@@ -9,6 +9,4 @@ export const COLOR_BLACK: string = "#000";
 
 export const FONT_SANS_SERIF: string = "Roboto, sans-serif";
 export const FONT_SANS_SERIF_MONO: string = "Roboto Mono, sans-serif";
-export const FONT_SERIF: string = "'Playfair Display', serif";
-export const FONT_MONOSPACE: string = "'Fira Code', monospace";
 export const FONT_ECZAR: string = "'Eczar', monospace";
