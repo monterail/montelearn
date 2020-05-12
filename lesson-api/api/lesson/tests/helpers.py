@@ -22,6 +22,25 @@ def get_lesson_detail_expected_response(lesson):
         "description": lesson.description,
         "pdf_file": "http://testserver" + settings.MEDIA_URL + str(lesson.pdf_file),
         "url": lesson.url,
-        "subject": lesson.subject,
-        "grade": lesson.grade,
+        "subject": lesson.subject.name,
+        "grade": lesson.grade.name,
+    }
+
+
+def get_subject_or_grade_list_expected_response(items, response):
+    expected_response = defaultdict(list)
+    for item in items:
+        expected_response["results"].append(get_subject_or_grade_detail_expected_response(item))
+
+    expected_response["count"] = len(items)
+    expected_response["next"] = None
+    expected_response["previous"] = None
+
+    return expected_response
+
+
+def get_subject_or_grade_detail_expected_response(item):
+    return {
+        "uuid": str(item.uuid),
+        "name": item.name,
     }
