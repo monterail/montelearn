@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const apiClient = axios.create({
-  baseURL: `http://dummy.restapiexample.com/api/v1`,
+  baseURL: process.env.API_URL || "http://localhost:8080",
   responseType: "json",
   timeout: 5000,
   headers: {
