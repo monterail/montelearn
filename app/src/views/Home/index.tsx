@@ -1,8 +1,9 @@
 import Head from "next/head";
 import Link from "next/link";
-import SubTitle from "@/components/SubTitle";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
+import SubTitle from "@/components/SubTitle";
+import Text from "@/components/Text";
 
 import heroImage from "./hero.png";
 
@@ -15,10 +16,10 @@ export default function HomePage() {
       <Card className="bg-red-100 relative grid grid-cols-3 hero-card">
         <div className="z-10 col-span-3 lg:col-span-2">
           <Title className="my-8 leading-none">Build your own learning experience</Title>
-          <p className="text-xl font-roboto-mono my-8 w-full lg:w-2/3">
+          <Text className="font-roboto-mono my-8 w-full lg:w-2/3">
             We provide a rich API for developers who can build custom learning software for students
             on every education level
-          </p>
+          </Text>
           <div className="inline-flex font-roboto-mono font-medium text-xl text-white bg-red-400 rounded-full">
             <Link href="/subjects">
               <a href="/subjects" className="inline-flex px-10 py-5">
@@ -34,12 +35,12 @@ export default function HomePage() {
       </Card>
       <div className="flex flex-col lg:flex-row mt-12">
         <Card className="flex-1 flex flex-col">
-          <SubTitle>Students</SubTitle>
-          <p className="text-lg leading-relaxed tracking-wide flex-1">
+          <SubTitle className="mb-4">Students</SubTitle>
+          <Text className="flex-1">
             Exercitation Lorem exercitation excepteur anim velit nisi eu velit quis do elit. Officia
             sit ea adipisicing aliqua magna ad. Eiusmod pariatur aliquip ullamco consequat cupidatat
             excepteur ipsum sit fugiat irure sunt.
-          </p>
+          </Text>
           <Link href="/users/login">
             <a
               href="/users/login"
@@ -50,13 +51,13 @@ export default function HomePage() {
           </Link>
         </Card>
         <Card className="flex-1 flex flex-col">
-          <SubTitle>Teachers</SubTitle>
-          <p className="text-lg leading-relaxed tracking-wide flex-1">
+          <SubTitle className="mb-4">Teachers</SubTitle>
+          <Text className="flex-1">
             Cupidatat aliquip reprehenderit consectetur eiusmod sit qui incididunt cillum id minim
             aliquip in. Non eu commodo adipisicing nisi sit sit. Sunt reprehenderit culpa id aliqua
             est veniam eu eiusmod laboris amet ex. Quis elit amet nostrud ullamco officia proident
             cupidatat id ipsum ullamco.
-          </p>
+          </Text>
           <Link href="/users/login">
             <a
               href="/users/login"
@@ -67,12 +68,12 @@ export default function HomePage() {
           </Link>
         </Card>
         <Card className="flex-1 flex flex-col">
-          <SubTitle>API Developers</SubTitle>
-          <p className="text-lg leading-relaxed tracking-wide flex-1">
+          <SubTitle className="mb-4">API Developers</SubTitle>
+          <Text className="flex-1">
             Tempor aute irure consectetur reprehenderit ut enim officia consectetur. Pariatur
             proident aliquip nisi excepteur. Adipisicing magna tempor laborum incididunt
             reprehenderit.
-          </p>
+          </Text>
           <Link href="/users/login">
             <a
               href="/users/login"
