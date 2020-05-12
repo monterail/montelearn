@@ -27,14 +27,28 @@ class ProxyLessonDetailView(PermissionClassesMixin, CustomProxyView):
     source = "api/lesson/%(uuid)s/"
 
 
-class ProxyTestsListView(PermissionClassesMixin, CustomProxyView):
+class ProxyTestsAdminListView(CustomProxyView):
     http_method_names = ["get", "post"]
+    proxy_host = settings.TESTS_API_HOST
+    source = "api/admin/tests/"
+    permission_classes = (IsTeacher,)
+
+
+class ProxyTestsAdminDetailView(CustomProxyView):
+    http_method_names = ["get", "put", "delete"]
+    proxy_host = settings.TESTS_API_HOST
+    source = "api/admin/tests/%(uuid)s/"
+    permission_classes = (IsTeacher,)
+
+
+class ProxyTestsListView(CustomProxyView):
+    http_method_names = ["get"]
     proxy_host = settings.TESTS_API_HOST
     source = "api/tests/"
 
 
-class ProxyTestsDetailView(PermissionClassesMixin, CustomProxyView):
-    http_method_names = ["get", "put", "delete"]
+class ProxyTestsDetailView(CustomProxyView):
+    http_method_names = ["get"]
     proxy_host = settings.TESTS_API_HOST
     source = "api/tests/%(uuid)s/"
 

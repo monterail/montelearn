@@ -14,7 +14,8 @@ from .helpers import (
     SUBJECT_DETAIL_RESPONSE,
     SUBJECT_LIST_RESPONSE,
     TESTS_API_DETAIL_RESPONSE,
-    TESTS_API_LIST_RESPONSE,
+    TESTS_STUDENT_DETAIL_RESPONSE,
+    TESTS_STUDENT_LIST_RESPONSE,
     UPDATE_LESSON_DATA,
     UPDATE_TEST_DATA,
 )
@@ -200,102 +201,58 @@ def test_proxy_lesson_delete_view_not_permitted_for_student(authenticated_api_cl
 
 
 @pytest.mark.django_db
-def test_proxy_tests_list_view(authenticated_api_client):
-    with requests_mock.mock() as mocked_request:
-        mocked_request.get(
-            f"{settings.TESTS_API_HOST}/api/tests/",
-            status_code=200,
-            headers={"Content-type": "application/json"},
-            json=TESTS_API_LIST_RESPONSE,
-        )
-        response = authenticated_api_client.get(reverse("proxy:tests-list"))
-
-        assert response.json() == TESTS_API_LIST_RESPONSE
-        assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_proxy_tests_list_view_unauthorized(api_client):
-    response = api_client.get(reverse("proxy:tests-list"))
-
-    assert response.status_code == 401
-    assert response.json()["detail"] == "Authentication credentials were not provided."
-
-
-@pytest.mark.django_db
-def test_proxy_tests_detail_view(authenticated_api_client):
-    tests_uuid = "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4"
-    with requests_mock.mock() as mocked_request:
-        mocked_request.get(
-            f"{settings.TESTS_API_HOST}/api/tests/{tests_uuid}/",
-            status_code=200,
-            headers={"Content-type": "application/json"},
-            json=TESTS_API_DETAIL_RESPONSE,
-        )
-        response = authenticated_api_client.get(reverse("proxy:tests-detail", args=(tests_uuid,)))
-
-        assert response.json() == TESTS_API_DETAIL_RESPONSE
-        assert response.status_code == 200
-
-
-@pytest.mark.django_db
-def test_proxy_tests_detail_view_unauthorized(api_client):
-    tests_uuid = "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4"
-    response = api_client.get(reverse("proxy:tests-detail", args=(tests_uuid,)))
-
-    assert response.status_code == 401
-    assert response.json()["detail"] == "Authentication credentials were not provided."
-
-
-@pytest.mark.django_db
-def test_proxy_tests_create_view_success_for_teacher(teacher_api_client):
-    with requests_mock.mock() as mocked_request:
-        mocked_request.post(
-            f"{settings.TESTS_API_HOST}/api/tests/",
-            status_code=201,
-            headers={"Content-type": "application/json"},
-            json=TESTS_API_DETAIL_RESPONSE,
-        )
-
-        response = teacher_api_client.post(reverse("proxy:tests-list"), data=CREATE_TEST_DATA)
-
-        assert response.json() == TESTS_API_DETAIL_RESPONSE
-        assert response.status_code == 201
-
-
-@pytest.mark.django_db
-def test_proxy_tests_create_view_not_permitted_for_student(authenticated_api_client):
-    response = authenticated_api_client.post(reverse("proxy:tests-list"), data=CREATE_TEST_DATA)
+def test_proxy_tests_admin_list_view_not_permitted(authenticated_api_client):
+    response = authenticated_api_client.get(reverse("proxy:tests-admin-list"))
 
     assert response.status_code == 403
     assert response.json()["detail"] == "Only teacher is allowed to perform this action."
 
 
 @pytest.mark.django_db
-def test_proxy_tests_update_view_success_for_teacher(teacher_api_client):
-    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+def test_proxy_tests_admin_detail_view(teacher_api_client):
+    tests_uuid = "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4"
     with requests_mock.mock() as mocked_request:
-        mocked_request.put(
-            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/",
+        mocked_request.get(
+            f"{settings.TESTS_API_HOST}/api/admin/tests/{tests_uuid}/",
             status_code=200,
             headers={"Content-type": "application/json"},
             json=TESTS_API_DETAIL_RESPONSE,
         )
-
-        response = teacher_api_client.put(
-            reverse("proxy:tests-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
-        )
+        response = teacher_api_client.get(reverse("proxy:tests-admin-detail", args=(tests_uuid,)))
 
         assert response.json() == TESTS_API_DETAIL_RESPONSE
         assert response.status_code == 200
 
 
 @pytest.mark.django_db
-def test_proxy_tests_update_view_not_permitted_for_student(authenticated_api_client):
-    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+def test_proxy_tests_detail_view_not_permitted(authenticated_api_client):
+    tests_uuid = "cd6ba3e0-edac-43ff-b9c9-a6ced23fedc4"
+    response = authenticated_api_client.get(reverse("proxy:tests-admin-detail", args=(tests_uuid,)))
 
-    response = authenticated_api_client.put(
-        reverse("proxy:tests-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Only teacher is allowed to perform this action."
+
+
+@pytest.mark.django_db
+def test_proxy_tests_admin_create_view_success_for_teacher(teacher_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.post(
+            f"{settings.TESTS_API_HOST}/api/admin/tests/",
+            status_code=201,
+            headers={"Content-type": "application/json"},
+            json=TESTS_API_DETAIL_RESPONSE,
+        )
+
+        response = teacher_api_client.post(reverse("proxy:tests-admin-list"), data=CREATE_TEST_DATA)
+
+        assert response.json() == TESTS_API_DETAIL_RESPONSE
+        assert response.status_code == 201
+
+
+@pytest.mark.django_db
+def test_proxy_tests_admin_create_view_not_permitted_for_student(authenticated_api_client):
+    response = authenticated_api_client.post(
+        reverse("proxy:tests-admin-list"), data=CREATE_TEST_DATA
     )
 
     assert response.status_code == 403
@@ -303,23 +260,56 @@ def test_proxy_tests_update_view_not_permitted_for_student(authenticated_api_cli
 
 
 @pytest.mark.django_db
-def test_proxy_tests_delete_view_success_for_teacher(teacher_api_client):
+def test_proxy_tests_admin_update_view_success_for_teacher(teacher_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+    with requests_mock.mock() as mocked_request:
+        mocked_request.put(
+            f"{settings.TESTS_API_HOST}/api/admin/tests/{test_uuid}/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=TESTS_API_DETAIL_RESPONSE,
+        )
+
+        response = teacher_api_client.put(
+            reverse("proxy:tests-admin-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
+        )
+
+        assert response.json() == TESTS_API_DETAIL_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_tests_admin_update_view_not_permitted_for_student(authenticated_api_client):
+    test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
+
+    response = authenticated_api_client.put(
+        reverse("proxy:tests-admin-detail", args=(test_uuid,)), data=UPDATE_TEST_DATA,
+    )
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Only teacher is allowed to perform this action."
+
+
+@pytest.mark.django_db
+def test_proxy_tests_admin_delete_view_success_for_teacher(teacher_api_client):
     test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
     with requests_mock.mock() as mocked_request:
         mocked_request.delete(
-            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/", status_code=204,
+            f"{settings.TESTS_API_HOST}/api/admin/tests/{test_uuid}/", status_code=204,
         )
 
-        response = teacher_api_client.delete(reverse("proxy:tests-detail", args=(test_uuid,)))
+        response = teacher_api_client.delete(reverse("proxy:tests-admin-detail", args=(test_uuid,)))
 
         assert response.status_code == 204
 
 
 @pytest.mark.django_db
-def test_proxy_tests_delete_view_not_permitted_for_student(authenticated_api_client):
+def test_proxy_tests_admin_delete_view_not_permitted_for_student(authenticated_api_client):
     test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
 
-    response = authenticated_api_client.delete(reverse("proxy:tests-detail", args=(test_uuid,)))
+    response = authenticated_api_client.delete(
+        reverse("proxy:tests-admin-detail", args=(test_uuid,))
+    )
     assert response.status_code == 403
     assert response.json()["detail"] == "Only teacher is allowed to perform this action."
 
@@ -422,3 +412,51 @@ def test_proxy_grade_create_view_not_permitted_for_student(authenticated_api_cli
 
     assert response.status_code == 403
     assert response.json()["detail"] == "Only teacher is allowed to perform this action."
+
+
+@pytest.mark.django_db
+def test_proxy_tests_student_list_view(authenticated_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.get(
+            f"{settings.TESTS_API_HOST}/api/tests/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=TESTS_STUDENT_LIST_RESPONSE,
+        )
+        response = authenticated_api_client.get(reverse("proxy:tests-list"))
+
+        assert response.json() == TESTS_STUDENT_LIST_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_tests_student_list_view_unauthorized(api_client):
+    response = api_client.get(reverse("proxy:tests-list"))
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Authentication credentials were not provided."
+
+
+@pytest.mark.django_db
+def test_proxy_tests_student_detail_view(authenticated_api_client):
+    test_uuid = "some_uuid"
+    with requests_mock.mock() as mocked_request:
+        mocked_request.get(
+            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=TESTS_STUDENT_DETAIL_RESPONSE,
+         )
+        response = authenticated_api_client.get(reverse("proxy:tests-detail", args=(test_uuid,)))
+
+        assert response.json() == TESTS_STUDENT_DETAIL_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_tests_student_detail_view_unauthorized(api_client):
+    test_uuid = "some_uuid"
+    response = api_client.get(reverse("proxy:tests-detail", args=(test_uuid,)))
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Authentication credentials were not provided."
