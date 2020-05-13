@@ -7,7 +7,7 @@ from dj_rest_auth.views import (
     PasswordResetConfirmView,
     PasswordResetView,
 )
-from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenRefreshView, TokenVerifyView
 
 from django.urls import reverse
 

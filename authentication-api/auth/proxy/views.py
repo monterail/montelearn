@@ -37,3 +37,15 @@ class ProxyTestsDetailView(PermissionClassesMixin, CustomProxyView):
     http_method_names = ["get", "put", "delete"]
     proxy_host = settings.TESTS_API_HOST
     source = "api/tests/%(uuid)s/"
+
+
+class ProxyGradeListView(PermissionClassesMixin, CustomProxyView):
+    http_method_names = ["get", "post"]
+    proxy_host = settings.LESSON_API_HOST
+    source = "api/grade/"
+
+
+class ProxySubjectListView(PermissionClassesMixin, CustomProxyView):
+    http_method_names = ["get", "post"]
+    proxy_host = settings.LESSON_API_HOST
+    source = "api/subject/"
