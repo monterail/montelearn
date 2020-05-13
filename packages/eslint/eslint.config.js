@@ -57,6 +57,7 @@ function createEslintConfig() {
     rules: {
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
+      "@typescript-eslint/camelcase": "off",
       "prettier/prettier": [
         "error",
         {

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 
 import { login, LoginInputs } from "@/services/auth";
 import { rem } from "@project/core/lib/utils/theming";
@@ -13,12 +13,12 @@ export default function Login() {
   const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
-    return login(inputs).catch((err) => setError(err.message));
+    login(inputs).catch((err) => setError(err.message));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<any>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
     setInputs({
       ...inputs,

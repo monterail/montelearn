@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { ChangeEvent, FormEvent, useState } from "react";
 
 import { register, RegisterInputs } from "@/services/auth";
 import { rem } from "@project/core/lib/utils/theming";
@@ -7,24 +7,24 @@ import { COLOR_GEYSER } from "@project/core/lib/const/theming";
 import StyledButton from "@/components/StyledButton/StyledButton";
 import StyledInput from "@/components/StyledInput";
 
-export default function Register() {
-  const initialValues: RegisterInputs = {
-    email: "",
-    password1: "",
-    password2: "",
-    first_name: "",
-    last_name: "",
-  };
+const initialValues: RegisterInputs = {
+  email: "",
+  password: "",
+  confirmPassword: "",
+  firstName: "",
+  lastName: "",
+};
 
+export default function Register() {
   const [inputs, setInputs] = useState(initialValues);
   const [error, setError] = useState("");
 
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     return register(inputs).catch((err) => setError(err.message));
   };
 
-  const handleInputChange = (e: React.ChangeEvent<any>) => {
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     e.persist();
     setInputs({
       ...inputs,
@@ -48,45 +48,45 @@ export default function Register() {
           />
         </div>
         <div>
-          <label htmlFor="password1">Password</label>
+          <label htmlFor="password">Password</label>
           <StyledInput
             type="password"
-            id="password1"
-            name="password1"
+            id="password"
+            name="password"
             onChange={handleInputChange}
-            value={inputs.password1}
+            value={inputs.password}
           />
         </div>
         <div>
-          <label htmlFor="password2">Confirm Password</label>
+          <label htmlFor="confirmPassword">Confirm Password</label>
           <StyledInput
             type="password"
-            id="password2"
-            name="password2"
+            id="confirmPassword"
+            name="confirmPassword"
             onChange={handleInputChange}
-            value={inputs.password2}
+            value={inputs.confirmPassword}
           />
         </div>
         <div>
-          <label htmlFor="first_name">
+          <label htmlFor="firstName">
             First name
             <StyledInput
               type="text"
-              id="first_name"
-              name="first_name"
+              id="firstName"
+              name="firstName"
               onChange={handleInputChange}
-              value={inputs.first_name}
+              value={inputs.firstName}
             />
           </label>
         </div>
         <div>
-          <label htmlFor="last_name">Last name</label>
+          <label htmlFor="lastName">Last name</label>
           <StyledInput
             type="text"
-            id="last_name"
-            name="last_name"
+            id="lastName"
+            name="lastName"
             onChange={handleInputChange}
-            value={inputs.last_name}
+            value={inputs.lastName}
           />
         </div>
         <StyledButton

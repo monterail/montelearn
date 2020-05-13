@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import Router from "next/router";
 import Link from "next/link";
 import Head from "next/head";
@@ -11,49 +11,56 @@ import { COOKIES } from "@/constants";
 import StyledFlexContainer from "../Container/StyledFlexContainer";
 import StyledButton from "../StyledButton/StyledButton";
 
-const UserLogout = () => (
-  <div>
-    <span css={{ marginRight: rem(20) }}>Hi, {Cookie.get(COOKIES.firstName) || "User"}</span>
-    <StyledButton
-      css={{
-        border: `${rem(2)} solid ${COLOR_BLACK}`,
-        fontSize: rem(18),
-        padding: rem(10, 20),
-      }}
-      onClick={logout}
-    >
-      Logout
-    </StyledButton>
-  </div>
-);
+function UserLogout() {
+  return (
+    <div>
+      <span css={{ marginRight: rem(20) }}>Hi, {Cookie.get(COOKIES.firstName) || "User"}</span>
+      <StyledButton
+        css={{
+          border: `${rem(2)} solid ${COLOR_BLACK}`,
+          fontSize: rem(18),
+          padding: rem(10, 20),
+        }}
+        onClick={logout}
+      >
+        Logout
+      </StyledButton>
+    </div>
+  );
+}
 
-const LoginRegister = () => (
-  <div>
-    <StyledButton
-      css={{
-        border: `${rem(2)} solid ${COLOR_BLACK}`,
-        fontSize: rem(18),
-        padding: rem(10, 20),
-      }}
-      onClick={() => Router.push("/login")}
-    >
-      Login
-    </StyledButton>
-    <StyledButton
-      css={{
-        border: `${rem(2)} solid ${COLOR_BLACK}`,
-        fontSize: rem(18),
-        padding: rem(10, 20),
-        marginLeft: rem(20),
-      }}
-      onClick={() => Router.push("/register")}
-    >
-      Register
-    </StyledButton>
-  </div>
-);
+function LoginRegister() {
+  const redirectToLogin = useCallback(() => Router.push("/login"), []);
+  const redirectToRegister = useCallback(() => Router.push("/register"), []);
 
-const PageHeader = ({ token }: { token: string }) => {
+  return (
+    <div>
+      <StyledButton
+        css={{
+          border: `${rem(2)} solid ${COLOR_BLACK}`,
+          fontSize: rem(18),
+          padding: rem(10, 20),
+        }}
+        onClick={redirectToLogin}
+      >
+        Login
+      </StyledButton>
+      <StyledButton
+        css={{
+          border: `${rem(2)} solid ${COLOR_BLACK}`,
+          fontSize: rem(18),
+          padding: rem(10, 20),
+          marginLeft: rem(20),
+        }}
+        onClick={redirectToRegister}
+      >
+        Register
+      </StyledButton>
+    </div>
+  );
+}
+
+function PageHeader({ token }: { token?: string }) {
   return (
     <StyledFlexContainer css={{ justifyContent: "space-between", alignItems: "center" }}>
       <Head>
@@ -72,6 +79,6 @@ const PageHeader = ({ token }: { token: string }) => {
       {token ? <UserLogout /> : <LoginRegister />}
     </StyledFlexContainer>
   );
-};
+}
 
 export default PageHeader;

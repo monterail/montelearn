@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build && next export",
     "cleanup": "rimraf node_modules .next coverage out",
-    "dev": "next -p 3001",
+    "dev": "next -p 3003",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
     "test": "project-jest",
