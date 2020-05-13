@@ -44,44 +44,17 @@ paths:
               results:
                 type: array
                 items:
-                  type: object
-                  properties:
-                    uuid:
-                      type: string
-                    lesson_uuid:
-                      type: string
-                    questions:
-                      type: array
-                      items:
-                        type: object
-                        properties:
-                          uuid:
-                            type: string
-                          question_type:
-                            type: string
-                          content:
-                            type: string
-                          choices:
-                            type: array
-                            items:
-                              type: object
-                              properties:
-                                answer:
-                                  type: string
-                                correct:
-                                  type: boolean
-                              required:
-                              - answer
-                              - correct
-                        required:
-                        - uuid
-                        - question_type
-                        - content
-                        - choices
-                  required:
-                  - uuid
-                  - lesson_uuid
-                  - questions
+                  uuid: 34fde577-2360-4dd9-8aa3-a0d32b799336
+                  lesson_uuid: cf48df3b-ae86-464e-acd7-6cdca498fa8a
+                  questions:
+                  - uuid: 95639f83-9600-4637-903a-c5b08d2f4e7c
+                    question_type: binary
+                    content: Voluptate repellat ut deserunt?
+                    choices:
+                    - answer: totam
+                      correct: true
+                    - answer: est
+                      correct: false
             required:
             - count
             - next
@@ -89,7 +62,7 @@ paths:
             - results
           examples:
             application/json:
-              count: 10
+              count: 1
               next: 
               previous: 
               results:
@@ -557,7 +530,7 @@ paths:
             - results
           examples:
             application/json:
-              count: 10
+              count: 1
               next: 
               previous: 
               results:
@@ -644,6 +617,97 @@ paths:
           examples:
             application/json:
               detail: Not found.
+  "/api/tests/{uuid}/scores":
+    post:
+      summary: Creates a score for a test
+      tags:
+      - Tests
+      consumes:
+      - application/json
+      produces:
+      - application/json
+      parameters:
+      - name: uuid
+        in: path
+        type: string
+        required: true
+      - name: payload
+        in: body
+        schema:
+          type: object
+          properties:
+            answers:
+              type: array
+              items:
+                type: object
+                properties:
+                  question_uuid:
+                    type: string
+                  selected_choices:
+                    type: array
+                    items:
+                      type: string
+                required:
+                - question_uuid
+                - selected_choices
+          required:
+          - answers
+      responses:
+        '201':
+          description: Score created
+          schema:
+            type: object
+            properties:
+              score:
+                type: string
+              results:
+                type: array
+                items:
+                  type: object
+                  properties:
+                    question_uuid:
+                      type: string
+                    correct:
+                      type: boolean
+                  required:
+                  - question_uuid
+                  - correct
+            required:
+            - score
+            - results
+          examples:
+            application/json:
+              score: 0/1
+              results:
+              - question_uuid: 0f99f648-72ab-4726-abb7-c7f4bba59925
+                correct: false
+        '404':
+          description: Not found.
+          schema:
+            type: object
+            properties:
+              detail:
+                type: string
+            required:
+            - detail
+          examples:
+            application/json:
+              detail: Not found.
+        '400':
+          description: Validation failed.
+          schema:
+            type: object
+            properties:
+              answers:
+                type: array
+                items:
+                  type: string
+            required:
+            - answers
+          examples:
+            application/json:
+              answers:
+              - is missing
 servers:
 - url: https://{defaultHost}
   variables:
