@@ -1,3 +1,14 @@
-import HomePage from "@/views/Home";
+import React from "react";
+import Banner from "@/components/MainPageBanner/Banner";
+import Content from "@/components/MainContent/Content";
 
-export default HomePage;
+const MainPage = () => {
+  return (
+    <>
+      <Banner />
+      <Content />
+    </>
+  );
+};
+
+export default MainPage;
