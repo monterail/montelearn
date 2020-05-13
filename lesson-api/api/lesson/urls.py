@@ -1,11 +1,13 @@
 from rest_framework.routers import DefaultRouter
 
-from .views import LessonViewSet
+from .views import GradeViewSet, LessonViewSet, SubjectViewSet
 
 
 app_name = "lesson"
 
-lesson_router = DefaultRouter()
-lesson_router.register("lesson", LessonViewSet, "lesson")
+router = DefaultRouter()
+router.register("lesson", LessonViewSet, "lesson")
+router.register("grade", GradeViewSet, "grade")
+router.register("subject", SubjectViewSet, "subject")
 
-urlpatterns = lesson_router.urls
+urlpatterns = router.urls

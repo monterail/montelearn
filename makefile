@@ -1,5 +1,5 @@
 run:
-	docker-compose -f docker-compose-proxy.yml up -d
+	docker-compose -f docker-compose-proxy.yml up
 
 cleanup:
 	docker-compose -f docker-compose-proxy.yml down

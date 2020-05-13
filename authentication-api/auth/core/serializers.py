@@ -1,5 +1,5 @@
-from rest_auth.registration.serializers import RegisterSerializer
-from rest_auth.serializers import LoginSerializer
+from dj_rest_auth.registration.serializers import RegisterSerializer
+from dj_rest_auth.serializers import LoginSerializer
 
 from rest_framework import serializers
 

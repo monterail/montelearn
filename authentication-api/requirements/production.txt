@@ -18,20 +18,19 @@ coreapi==2.3.3            # via drf-yasg
 coreschema==0.0.4         # via coreapi, drf-yasg
 cryptography==2.8         # via -r requirements/./base.in
 defusedxml==0.6.0         # via python3-openid
-django-allauth==0.40.0    # via django-rest-auth
+dj-rest-auth[with_social]==1.0.5  # via -r requirements/./base.in
+django-allauth==0.40.0    # via dj-rest-auth
 django-anymail[mailgun]==6.1.0  # via -r requirements/production.in
 django-cors-headers==3.1.0  # via -r requirements/./base.in
 django-environ==0.4.5     # via -r requirements/./base.in
 django-filter==2.2.0      # via -r requirements/./base.in
 django-model-utils==3.2.0  # via -r requirements/./base.in
 django-redis==4.11.0      # via -r requirements/./base.in
-django-rest-auth[with_social]==0.9.5  # via -r requirements/./base.in
 django-rest-framework-proxy==1.6.0  # via -r requirements/./base.in
 django-storages==1.8      # via -r requirements/./base.in
-django==2.2.10            # via -r requirements/./base.in, django-allauth, django-anymail, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, djangorestframework-jsonapi, drf-yasg
-djangorestframework-jsonapi==3.1.0  # via -r requirements/./base.in
-djangorestframework-jwt==1.11.0  # via -r requirements/./base.in
-djangorestframework==3.10.2  # via -r requirements/./base.in, django-rest-auth, drf-yasg
+django==2.2.10            # via -r requirements/./base.in, dj-rest-auth, django-allauth, django-anymail, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-framework-proxy, django-storages, djangorestframework-simplejwt, drf-yasg
+djangorestframework-simplejwt==4.4.0  # via -r requirements/./base.in
+djangorestframework==3.11.0  # via -r requirements/./base.in, dj-rest-auth, django-rest-framework-proxy, djangorestframework-simplejwt, drf-yasg
 docutils==0.15.2          # via botocore
 drf-yasg==1.16.1          # via -r requirements/./base.in
 google-api-python-client==1.7.11  # via -r requirements/./base.in
@@ -54,7 +53,7 @@ psycopg2==2.8.3           # via -r requirements/./base.in
 pyasn1-modules==0.2.7     # via google-auth
 pyasn1==0.4.8             # via pyasn1-modules, rsa
 pycparser==2.19           # via cffi
-pyjwt==1.7.1              # via -r requirements/./base.in, djangorestframework-jwt
+pyjwt==1.7.1              # via -r requirements/./base.in, djangorestframework-jwt, djangorestframework-simplejwt
 pyparsing==2.4.5          # via packaging
 python-dateutil==2.8.0    # via -r requirements/./base.in, botocore
 python3-openid==3.1.0     # via django-allauth
@@ -67,7 +66,7 @@ ruamel.yaml.clib==0.1.2   # via ruamel.yaml
 ruamel.yaml==0.16.5       # via drf-yasg
 s3transfer==0.2.1         # via boto3
 sentry-sdk==0.11.1        # via -r requirements/production.in
-six==1.12.0               # via argon2-cffi, cryptography, django-anymail, django-rest-auth, drf-yasg, google-api-python-client, google-auth, packaging, python-dateutil
+six==1.12.0               # via argon2-cffi, cryptography, django-anymail, drf-yasg, google-api-python-client, google-auth, packaging, python-dateutil
 sqlparse==0.3.0           # via django
 uritemplate==3.0.0        # via coreapi, drf-yasg, google-api-python-client
 urllib3==1.25.3           # via botocore, requests, sentry-sdk

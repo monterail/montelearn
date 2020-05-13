@@ -50,7 +50,7 @@ export default function SubjectPage() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
         {lessons.map((lesson, index) => {
           return (
-            <Card key={index}>
+            <Card key={lesson.slug}>
               <Label className="text-sm">Lesson {index + 1}</Label>
               <h2 className="text-4xl my-1 font-semibold leading-tight">{lesson.title}</h2>
               <p className="text-lg leading-relaxed tracking-wide lesson-text">

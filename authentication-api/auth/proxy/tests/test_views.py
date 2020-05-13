@@ -7,8 +7,12 @@ from django.urls import reverse
 from .helpers import (
     CREATE_LESSON_DATA,
     CREATE_TEST_DATA,
+    GRADE_DETAIL_RESPONSE,
+    GRADE_LIST_RESPONSE,
     LESSON_API_DETAIL_RESPONSE,
     LESSON_API_LIST_RESPONSE,
+    SUBJECT_DETAIL_RESPONSE,
+    SUBJECT_LIST_RESPONSE,
     TESTS_API_DETAIL_RESPONSE,
     TESTS_API_LIST_RESPONSE,
     UPDATE_LESSON_DATA,
@@ -316,5 +320,105 @@ def test_proxy_tests_delete_view_not_permitted_for_student(authenticated_api_cli
     test_uuid = "00981f5a-6685-4589-ad77-6a7e2a70ed9d"
 
     response = authenticated_api_client.delete(reverse("proxy:tests-detail", args=(test_uuid,)))
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Only teacher is allowed to perform this action."
+
+
+@pytest.mark.django_db
+def test_proxy_subject_list_view(authenticated_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.get(
+            f"{settings.LESSON_API_HOST}/api/subject/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=SUBJECT_LIST_RESPONSE,
+        )
+        response = authenticated_api_client.get(reverse("proxy:subject-list"))
+
+        assert response.json() == SUBJECT_LIST_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_subject_list_view_unauthaorized(api_client):
+    response = api_client.get(reverse("proxy:subject-list"))
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Authentication credentials were not provided."
+
+
+@pytest.mark.django_db
+def test_proxy_subject_create_view_success_for_teacher(teacher_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.post(
+            f"{settings.LESSON_API_HOST}/api/subject/",
+            status_code=201,
+            headers={"Content-type": "application/json"},
+            json=SUBJECT_DETAIL_RESPONSE,
+        )
+
+        response = teacher_api_client.post(reverse("proxy:subject-list"), data={"name": "biology"})
+
+        assert response.json() == SUBJECT_DETAIL_RESPONSE
+        assert response.status_code == 201
+
+
+@pytest.mark.django_db
+def test_proxy_subject_create_view_not_permitted_for_student(authenticated_api_client):
+    response = authenticated_api_client.post(
+        reverse("proxy:subject-list"), data={"name": "biology"}
+    )
+
+    assert response.status_code == 403
+    assert response.json()["detail"] == "Only teacher is allowed to perform this action."
+
+
+@pytest.mark.django_db
+def test_proxy_grade_list_view(authenticated_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.get(
+            f"{settings.LESSON_API_HOST}/api/grade/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=GRADE_LIST_RESPONSE,
+        )
+        response = authenticated_api_client.get(reverse("proxy:grade-list"))
+
+        assert response.json() == GRADE_LIST_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_grade_list_view_unauthorized(api_client):
+    response = api_client.get(reverse("proxy:grade-list"))
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Authentication credentials were not provided."
+
+
+@pytest.mark.django_db
+def test_proxy_grade_create_view_success_for_teacher(teacher_api_client):
+    with requests_mock.mock() as mocked_request:
+        mocked_request.post(
+            f"{settings.LESSON_API_HOST}/api/grade/",
+            status_code=201,
+            headers={"Content-type": "application/json"},
+            json=GRADE_DETAIL_RESPONSE,
+        )
+
+        response = teacher_api_client.post(
+            reverse("proxy:grade-list"), data={"name": "first grade"}
+        )
+
+        assert response.json() == GRADE_DETAIL_RESPONSE
+        assert response.status_code == 201
+
+
+@pytest.mark.django_db
+def test_proxy_grade_create_view_not_permitted_for_student(authenticated_api_client):
+    response = authenticated_api_client.post(
+        reverse("proxy:grade-list"), data={"name": "first grade"}
+    )
+
     assert response.status_code == 403
     assert response.json()["detail"] == "Only teacher is allowed to perform this action."

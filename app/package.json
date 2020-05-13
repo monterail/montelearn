@@ -9,6 +9,7 @@
     "dev": "next -p 3001",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
+    "start": "next start -p $PORT",
     "test": "project-jest",
     "tsc": "tsc --noEmit"
   },
@@ -19,6 +20,7 @@
     "@project/setup": "1.0.0",
     "@svgr/webpack": "5.4.0",
     "autoprefixer": "9.7.6",
+    "axios": "0.19.2",
     "envalid": "6.0.1",
     "isomorphic-unfetch": "3.0.0",
     "next": "9.3.5",

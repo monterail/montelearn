@@ -40,6 +40,9 @@ class ApplicationController < ActionController::API
   end
 
   def present(resource)
-    "#{resource.class}Presenter".constantize.new(resource).as_json
+    namespace = self.class.name.deconstantize
+    presenter = "#{resource.class}Presenter"
+    presenter = "#{namespace}::#{presenter}" unless namespace.empty?
+    presenter.constantize.new(resource).as_json
   end
 end
