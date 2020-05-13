@@ -12,6 +12,5 @@ class Question < ApplicationRecord
     in: QUESTION_TYPES,
     message: "is not included in the list: #{QUESTION_TYPES.join(", ")}.",
   }
-  validates_with ChoicesForQuestionTypeValidator,
-                 unless: -> (record) { record.errors[:question_type].any? }
+  validates_with ChoicesForQuestionTypeValidator, if: -> (record) { record.errors.empty? }
 end
