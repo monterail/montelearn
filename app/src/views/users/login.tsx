@@ -8,7 +8,7 @@ import InputWithLabel from "@/components/InputWithLabel";
 
 export default function UsersLoginPage() {
   return (
-    <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-2/3">
+    <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-1/2">
       <Head>
         <title>montelearn / login</title>
       </Head>
@@ -28,7 +28,7 @@ export default function UsersLoginPage() {
             id="password"
             label="Password"
             type="password"
-            placeholder="e.g. Mys3creTP@ssVV0rD"
+            placeholder="e.g. My$3creTP@ssVV0rD"
           />
           <ul className="flex font-roboto-mono mt-10">
             <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
