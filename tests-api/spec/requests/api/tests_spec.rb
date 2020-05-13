@@ -50,6 +50,16 @@ RSpec.describe "api/tests", type: :request do
     ],
   }
 
+  not_found_schema = {
+    type: :object,
+    properties: {
+      detail: { type: :string },
+    },
+    required: %w(detail),
+  }
+
+  not_found_example = { detail: "Not found." }
+
   path "/api/tests/" do
     get "Retrieves tests" do
       collection_schema = {
@@ -95,16 +105,6 @@ RSpec.describe "api/tests", type: :request do
   end
 
   path "/api/tests/{uuid}" do
-    not_found_schema = {
-      type: :object,
-      properties: {
-        detail: { type: :string },
-      },
-      required: %w(detail),
-    }
-
-    not_found_example = { detail: "Not found." }
-
     get "Retrieves a test" do
       tags "Tests"
       produces "application/json"
@@ -121,6 +121,113 @@ RSpec.describe "api/tests", type: :request do
         schema not_found_schema
         examples "application/json" => not_found_example
         let(:uuid) { "invalid" }
+        run_test!
+      end
+    end
+  end
+
+  path "/api/tests/{uuid}/scores" do
+    post "Creates a score for a test" do
+      post_payload_schema = {
+        type: :object,
+        properties: {
+          answers: {
+            type: :array,
+            items: {
+              type: :object,
+              properties: {
+                question_uuid: { type: :string },
+                selected_choices: {
+                  type: :array,
+                  items: { type: :string },
+                },
+              },
+              required: %w(question_uuid selected_choices),
+            },
+          },
+        },
+        required: %w(answers),
+      }
+
+      tags "Tests"
+      consumes "application/json"
+      produces "application/json"
+      parameter name: :uuid, in: :path, type: :string
+      parameter name: :payload, in: :body, schema: post_payload_schema
+
+      response "201", "Score created" do
+        resource_schema = {
+          type: :object,
+          properties: {
+            score: { type: :string },
+            results: {
+              type: :array,
+              items: {
+                type: :object,
+                properties: {
+                  question_uuid: { type: :string },
+                  correct: { type: :boolean },
+                },
+                required: %w(question_uuid correct),
+              },
+            },
+          },
+          required: %w(score results),
+        }
+
+        resource_example = {
+          score: "0/1",
+          results: [
+            {
+              question_uuid: "0f99f648-72ab-4726-abb7-c7f4bba59925",
+              correct: false,
+            },
+          ],
+        }
+
+        schema resource_schema
+        examples "application/json" => resource_example
+        let(:test) { create(:test, :with_binary_questions) }
+        let(:uuid) { test.id }
+        let(:payload) do
+          {
+            answers: test.questions.map do |q|
+              {
+                question_uuid: q.id,
+                selected_choices: q.choices.select { |c| c[:correct] }.map { |c| c[:answer] },
+              }
+            end,
+          }
+        end
+        run_test!
+      end
+
+      response "404", "Not found." do
+        schema not_found_schema
+        examples "application/json" => not_found_example
+        let(:uuid) { "invalid" }
+        let(:payload) { {} }
+        run_test!
+      end
+
+      response "400", "Validation failed." do
+        validation_failed_schema = {
+          type: :object,
+          properties: {
+            answers: { type: :array, items: { type: :string } },
+          },
+          required: %w(answers),
+        }
+
+        validation_failed_example = {
+          answers: ["is missing"],
+        }
+
+        schema validation_failed_schema
+        examples "application/json" => validation_failed_example
+        let(:test) { create(:test, :with_binary_questions) }
+        let(:uuid) { test.id }
+        let(:payload) { {} }
         run_test!
       end
     end
