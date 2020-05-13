@@ -5,8 +5,6 @@ import Card from "@/components/Card";
 import SubTitle from "@/components/SubTitle";
 import Text from "@/components/Text";
 
-import heroImage from "./hero.png";
-
 export default function HomePage() {
   return (
     <section className="px-2 mb-12">
@@ -15,8 +13,10 @@ export default function HomePage() {
       </Head>
       <Card className="bg-red-100 relative grid grid-cols-3 hero-card">
         <div className="z-10 col-span-3 lg:col-span-2">
-          <Title className="my-8 leading-none">Build your own learning experience</Title>
-          <Text className="font-roboto-mono my-8 w-full lg:w-2/3">
+          <Title className="my-8 leading-none w-full sm:w-2/3">
+            Build your own learning experience
+          </Title>
+          <Text className="font-roboto-mono my-8 w-full sm:w-2/3">
             We provide a rich API for developers who can build custom learning software for students
             on every education level
           </Text>
@@ -29,8 +29,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        <div className="absolute bottom-0 right-0 z-0 opacity-25 lg:opacity-75">
-          <img src={heroImage} alt="Hero" />
+        <div className="absolute bottom-0 right-0 z-0">
+          <img src="/images/hero.png" alt="Hero" />
         </div>
       </Card>
       <div className="flex flex-col lg:flex-row mt-12">

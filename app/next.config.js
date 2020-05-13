@@ -1,9 +1,8 @@
 const path = require("path");
-const withImages = require("next-images");
 
 const { getCleanEnv } = require("./env");
 
-module.exports = withImages({
+module.exports = {
   env: getCleanEnv(),
   typescript: {
     // We don't care about Typescript errors during development process.
@@ -21,4 +20,4 @@ module.exports = withImages({
     });
     return config;
   },
-});
+};

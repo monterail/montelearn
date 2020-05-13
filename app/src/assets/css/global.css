@@ -8,6 +8,8 @@
 
   --color-gray-100: #fefefe;
   --color-gray-200: #d6d7d9;
+  --color-gray-300: #84868d;
+  --color-gray-athens: #f7f7f7;
 
   --color-green-100: rgba(111, 207, 151, 0.25);
   --color-green-200: #219653;
@@ -30,5 +32,5 @@
 }
 
 .hero-card {
-  min-height: 75vh;
+  min-height: 80vh;
 }

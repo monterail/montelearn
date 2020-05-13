@@ -28,11 +28,7 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
   return (
     <div className="p-6 bg-red-100 flex flex-col sm:flex-row font-roboto-mono">
       {back && (
-        <ButtonWithArrow
-          onClick={handleBackClick}
-          direction="left"
-          // className="mr-auto"
-        >
+        <ButtonWithArrow onClick={handleBackClick} direction="left" className="mr-auto">
           Back
         </ButtonWithArrow>
       )}
