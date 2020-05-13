@@ -32,15 +32,6 @@ export default function Header() {
           </li>
         </ul>
       </div>
-      <div className="flex font-roboto-mono text-base font-medium items-center">
-        <p className="uppercase">
-          Developed with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>{" "}
-          by Monterail
-        </p>
-      </div>
     </header>
   );
 }
