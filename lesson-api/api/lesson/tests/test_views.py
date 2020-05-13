@@ -38,7 +38,7 @@ def test_lesson_create_view_success(api_client):
             "description": "Test description",
             "pdf_file": pdf_file,
             "url": "https://some-url.com",
-            "subject": "bioloy",
+            "subject": "biology",
             "grade": "first grade",
         }
         response = api_client.post(reverse("lesson:lesson-list"), data=data, format="multipart")
