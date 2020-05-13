@@ -78,7 +78,7 @@ RSpec.describe "api/admin/tests", type: :request do
           previous: { type: :string, nullable: true },
           results: {
             type: :array,
-            items: resource_example,
+            items: resource_schema,
           },
         },
         required: %w(count next previous results),
