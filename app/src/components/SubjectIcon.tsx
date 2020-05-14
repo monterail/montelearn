@@ -51,4 +51,8 @@ const SubjectIcon: FunctionComponent<Props> = ({ className, icon }) => {
   );
 };
 
+SubjectIcon.defaultProps = {
+  className: "",
+};
+
 export default SubjectIcon;
