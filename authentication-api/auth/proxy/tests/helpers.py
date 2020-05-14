@@ -78,6 +78,35 @@ TESTS_API_LIST_RESPONSE = """
 }
 """
 
+TESTS_STUDENT_LIST_RESPONSE = """
+{
+  "count": 1,
+  "next": null,
+  "previous": null,
+  "results": [
+    {
+      "uuid": "34fde577-2360-4dd9-8aa3-a0d32b799336",
+      "lesson_uuid": "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
+      "questions": [
+        {
+          "uuid": "95639f83-9600-4637-903a-c5b08d2f4e7c",
+          "question_type": "binary",
+          "content": "Voluptate repellat ut deserunt?",
+          "choices": [
+            {
+              "answer": "totam"
+            },
+            {
+              "answer": "est"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
+"""
+
 TESTS_API_DETAIL_RESPONSE = """
 {
   "uuid": "34fde577-2360-4dd9-8aa3-a0d32b799336",
@@ -95,6 +124,28 @@ TESTS_API_DETAIL_RESPONSE = """
         {
           "answer": "est",
           "correct": False
+        }
+      ]
+    }
+  ]
+}
+"""
+
+TESTS_STUDENT_DETAIL_RESPONSE = """
+{
+  "uuid": "34fde577-2360-4dd9-8aa3-a0d32b799336",
+  "lesson_uuid": "cf48df3b-ae86-464e-acd7-6cdca498fa8a",
+  "questions": [
+    {
+      "uuid": "95639f83-9600-4637-903a-c5b08d2f4e7c",
+      "question_type": "binary",
+      "content": "Voluptate repellat ut deserunt?",
+      "choices": [
+        {
+          "answer": "totam"
+        },
+        {
+          "answer": "est"
         }
       ]
     }
