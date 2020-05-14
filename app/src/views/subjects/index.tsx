@@ -5,6 +5,7 @@ import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ButtonWithArrow from "@/components/ButtonWithArrow";
 import Title from "@/components/Title";
+import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
 
@@ -18,10 +19,20 @@ const subjects = [
   { id: "geography", name: "geography", level: "basics", icon: "weather" },
   { id: "history", name: "history", level: "basics", icon: "castle" },
   { id: "economics", name: "economics", level: "basics", icon: "babushka" },
-  { id: "business studies", name: "business studies", level: "basics", icon: "potion" },
+  {
+    id: "business studies",
+    name: "business studies",
+    level: "basics",
+    icon: "potion",
+  },
   { id: "art", name: "art", level: "basics", icon: "weather" },
   { id: "music", name: "music", level: "basics", icon: "castle" },
-  { id: "computer science", name: "computer science", level: "basics", icon: "nature" },
+  {
+    id: "computer science",
+    name: "computer science",
+    level: "basics",
+    icon: "nature",
+  },
 ];
 
 const renderSubjects = () =>
@@ -66,11 +77,11 @@ export default function SubjectsPage() {
       </Head>
       <Breadcrumbs back={false} options={["Subjects"]} />
       <Title className="my-8">Subjects page</Title>
-      <h2 className="text-xl font-roboto-mono my-8">
+      <Text className="font-roboto-mono my-8 text-xl">
         Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
         nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad anim
         duis.
-      </h2>
+      </Text>
       <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
     </section>
   );

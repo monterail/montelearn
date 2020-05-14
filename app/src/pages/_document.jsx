@@ -4,6 +4,7 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
 import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 class NextDocument extends Document {
   static getInitialProps = Document.getInitialProps;
@@ -41,6 +42,7 @@ class NextDocument extends Document {
           <div className="container mx-auto">
             <Header />
             <Main />
+            <Footer />
           </div>
           <NextScript />
         </body>

@@ -6,6 +6,8 @@ import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";
 import Label from "@/components/Label";
+import SubTitle from "@/components/SubTitle";
+import Text from "@/components/Text";
 
 const lessons = [
   {
@@ -44,18 +46,16 @@ export default function SubjectPage() {
       </Head>
       <Breadcrumbs handleBackClick={handleBackClick} options={["Subjects", String(slug)]} />
       <Title className="my-8">{slug} basics</Title>
-      <h2 className="text-xl font-roboto-mono my-8">
+      <Text className="text-xl font-roboto-mono my-8">
         Goddamit, {slug} is importane. Very very importane.
-      </h2>
+      </Text>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
         {lessons.map((lesson, index) => {
           return (
             <Card key={lesson.slug}>
               <Label className="text-sm">Lesson {index + 1}</Label>
-              <h2 className="text-4xl my-1 font-semibold leading-tight">{lesson.title}</h2>
-              <p className="text-lg leading-relaxed tracking-wide lesson-text">
-                {lesson.description}
-              </p>
+              <SubTitle>{lesson.title}</SubTitle>
+              <Text className="ml-text-truncate my-2">{lesson.description}</Text>
               <ButtonWithArrow
                 direction="right"
                 className="mt-8"

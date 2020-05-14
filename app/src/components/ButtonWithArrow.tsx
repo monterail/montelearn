@@ -15,10 +15,10 @@ const ButtonWithArrow: FunctionComponent<Props> = ({ direction, children, classN
     <button
       onClick={onClick}
       type="button"
-      className={`flex py-2 px-6 border-2 border-black bg-transparent rounded-full font-roboto-mono hover:opacity-50 transition-opacity duration-200 ${className}`}
+      className={`flex py-2 px-6 border-0 sm:border-2 border-black bg-transparent rounded-full font-roboto-mono hover:opacity-50 transition-opacity duration-200 ${className}`}
     >
       {direction === "left" && <SvgArrowLeft />}
-      <span className={`p${directionClass}-4 font-medium`}>{children}</span>
+      <span className={`p${directionClass}-4 font-medium hidden sm:block`}>{children}</span>
       {direction === "right" && <SvgArrowRight />}
     </button>
   );
