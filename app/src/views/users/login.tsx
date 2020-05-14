@@ -1,6 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Router from "next/router";
 
 import Card from "@/components/Card";
 import Text from "@/components/Text";
@@ -16,7 +17,12 @@ export default function UsersLoginPage() {
   // const [error, setError] = useState("");
 
   const handleLogin = async () => {
-    login(inputs); // .catch((err: Error) => setError(err.message));
+    try {
+      await login(inputs);
+      Router.push("/");
+    } catch (err) {
+      // setError(err.message)
+    }
   };
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {

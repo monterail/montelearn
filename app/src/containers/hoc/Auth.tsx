@@ -1,11 +1,21 @@
+import { useState, useEffect } from "react";
 import Router from "next/router";
 import Cookie from "js-cookie";
 
+import { COOKIES } from "@/constants";
+
 export default function auth(WrappedComponent: any) {
   return ({ redirect = true, ...props }: { redirect?: Boolean; props?: any }) => {
-    const token = Cookie.get("access_token");
-    if (!token && redirect) Router.push("/login");
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const accessToken = Cookie.get(COOKIES.accessToken);
 
-    return <WrappedComponent token={token} {...props} />;
+    useEffect(() => {
+      if (!accessToken && redirect) Router.push("/users/login");
+      else setIsLoggedIn(true);
+    });
+
+    return (
+      <div>{isLoggedIn ? <WrappedComponent accessToken={accessToken} {...props} /> : <div />}</div>
+    );
   };
 }

@@ -8,6 +8,7 @@ import Card from "@/components/Card";
 import Label from "@/components/Label";
 import SubTitle from "@/components/SubTitle";
 import Text from "@/components/Text";
+import auth from "@/containers/hoc/auth";
 
 const lessons = [
   {
@@ -31,7 +32,7 @@ const lessons = [
   },
 ];
 
-export default function SubjectPage() {
+function SubjectPage() {
   const router = useRouter();
   const { slug } = router.query;
 
@@ -70,3 +71,5 @@ export default function SubjectPage() {
     </section>
   );
 }
+
+export default auth(SubjectPage);

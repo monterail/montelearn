@@ -8,6 +8,7 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
+import auth from "@/containers/hoc/auth";
 
 import SubjectIconsType from "@/types/subjectIcons";
 
@@ -69,7 +70,7 @@ const renderSubjects = () =>
     );
   });
 
-export default function SubjectsPage() {
+function SubjectsPage() {
   return (
     <section className="px-2 mb-12">
       <Head>
@@ -86,3 +87,5 @@ export default function SubjectsPage() {
     </section>
   );
 }
+
+export default auth(SubjectsPage);

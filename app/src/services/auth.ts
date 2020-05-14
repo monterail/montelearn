@@ -61,7 +61,7 @@ export async function register({
     last_name: lastName,
   };
   const body = JSON.stringify(rawBody);
-  const url = `${process.env.API_PLAYGROUND_URL}/api/auth/email/register/`;
+  const url = `${process.env.API_URL}/api/auth/email/register/`;
   return authenticate({ body, url });
 }
 
