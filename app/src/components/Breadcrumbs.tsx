@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import { ButtonWithArrow } from "@/components/ButtonWithArrow";
+import ButtonWithArrow from "@/components/ButtonWithArrow";
 
 type Props = {
   options: string[];

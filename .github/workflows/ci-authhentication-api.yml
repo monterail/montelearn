@@ -9,6 +9,8 @@ jobs:
   test:
     name: CI authentication-api
     runs-on: ubuntu-latest
+    env:
+        CODECOV_REPO_TOKEN: ${{ secrets.CODECOV_REPO_TOKEN }}
 
     steps:
     - name: Checkout

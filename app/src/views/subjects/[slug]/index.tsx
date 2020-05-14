@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { ButtonWithArrow } from "@/components/ButtonWithArrow";
+import ButtonWithArrow from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Card from "@/components/Card";

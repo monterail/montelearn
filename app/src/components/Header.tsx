@@ -1,6 +1,5 @@
 import Link from "next/link";
-
-import SvgLogo from "@/components/SvgLogo";
+import SvgLogo from "@/components/svg/SvgLogo";
 
 export default function Header() {
   return (

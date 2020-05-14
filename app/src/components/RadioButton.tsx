@@ -1,5 +1,5 @@
 import React, { FunctionComponent, useState } from "react";
-import SvgCheckmark from "@/components/SvgCheckmark";
+import SvgCheckmark from "@/components/svg/SvgCheckmark";
 
 const RadioButton: FunctionComponent = ({ children }) => {
   const [checked, setChecked] = useState<boolean | "false" | "mixed" | "true" | undefined>(

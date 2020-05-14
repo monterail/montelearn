@@ -57,6 +57,7 @@ function createEslintConfig() {
     rules: {
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
+      "@typescript-eslint/camelcase": "off",
       "prettier/prettier": [
         "error",
         {
@@ -67,6 +68,16 @@ function createEslintConfig() {
           trailingComma: "all",
         },
         { usePrettierrc: false },
+      ],
+      "jsx-a11y/label-has-associated-control": [
+        2,
+        {
+          components: ["label"],
+          required: {
+            some: ["nesting", "id"],
+          },
+          allowChildren: false,
+        },
       ],
       "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",

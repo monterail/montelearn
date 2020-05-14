@@ -1,19 +1,15 @@
 import React, { FunctionComponent } from "react";
-import SvgArrowLeft from "@/components/SvgArrowLeft";
-import SvgArrowRight from "@/components/SvgArrowRight";
+
+import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
+import SvgArrowRight from "@/components/svg/SvgArrowRight";
 
 type Props = {
   direction: "left" | "right";
   className?: string;
-  onClick?: () => void;
+  onClick?: VoidFunction;
 };
 
-export const ButtonWithArrow: FunctionComponent<Props> = ({
-  direction,
-  children,
-  className,
-  onClick,
-}) => {
+const ButtonWithArrow: FunctionComponent<Props> = ({ direction, children, className, onClick }) => {
   const directionClass = direction.charAt(0);
   return (
     <button
@@ -27,3 +23,5 @@ export const ButtonWithArrow: FunctionComponent<Props> = ({
     </button>
   );
 };
+
+export default ButtonWithArrow;
