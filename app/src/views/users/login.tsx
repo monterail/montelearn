@@ -1,12 +1,32 @@
+import { useState, ChangeEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
 import Card from "@/components/Card";
 import Text from "@/components/Text";
 import Title from "@/components/Title";
+import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
+import { login, LoginInputs } from "@/services/auth";
 
 export default function UsersLoginPage() {
+  const initialValues: LoginInputs = { email: "", password: "" };
+
+  const [inputs, setInputs] = useState(initialValues);
+  // const [error, setError] = useState("");
+
+  const handleLogin = async () => {
+    login(inputs); // .catch((err: Error) => setError(err.message));
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.persist();
+    setInputs({
+      ...inputs,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   return (
     <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-1/2">
       <Head>
@@ -23,21 +43,19 @@ export default function UsersLoginPage() {
             label="Email"
             placeholder="e.g. james.wilson@mail.com"
             type="email"
+            onChange={handleInputChange}
           />
           <InputWithLabel
             id="password"
             label="Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
+            onChange={handleInputChange}
           />
           <ul className="flex font-roboto-mono mt-10">
-            <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
-              <Link href="/users/login">
-                <a href="/users/login" className="flex px-8 py-4">
-                  Login
-                </a>
-              </Link>
-            </li>
+            <Button className="mx-0 sm:mx-2 px-8 py-4" onClick={handleLogin}>
+              Login
+            </Button>
             <li className="mx-0 sm:mx-2 font-medium text-red-400">
               <Link href="/users/register">
                 <a href="/users/register" className="flex px-8 py-4">

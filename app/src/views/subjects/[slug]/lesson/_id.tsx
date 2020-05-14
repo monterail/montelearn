@@ -32,7 +32,7 @@ function LessonPage() {
           <Label className="text-xl">Lesson {id}</Label>
           <Title>What are pictograms?</Title>
         </div>
-        <Button>Open lesson</Button>
+        <Button className="py-5 px-10 text-2xl">Open lesson</Button>
       </div>
       <h2 className="text-xl font-roboto-mono mb-8 max-w-screen-sm">
         The Hazard Communication Standard (HCS) requires pictograms on labels to alert users of the

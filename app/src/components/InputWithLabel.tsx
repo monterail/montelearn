@@ -1,13 +1,14 @@
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, ChangeEvent } from "react";
 
 type Props = {
   label: string;
   placeholder?: string;
   type?: string;
   id: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
 };
 
-const InputWithLabel: FunctionComponent<Props> = ({ label, placeholder, type, id }) => {
+const InputWithLabel: FunctionComponent<Props> = ({ label, placeholder, type, id, onChange }) => {
   return (
     <div className="mb-6">
       {label && (
@@ -23,6 +24,7 @@ const InputWithLabel: FunctionComponent<Props> = ({ label, placeholder, type, id
         id={id}
         type={type}
         placeholder={placeholder}
+        onChange={onChange}
       />
     </div>
   );

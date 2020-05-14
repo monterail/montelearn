@@ -14,13 +14,12 @@ export type RegisterInputs = {
   lastName: string;
 };
 
-function setCookies({
-  access_token,
-  refresh_token,
-}: {
+type Cookies = {
   access_token: string;
   refresh_token: string;
-}): void {
+};
+
+function setCookies({ access_token, refresh_token }: Cookies): void {
   Cookie.set(COOKIES.accessToken, access_token);
   Cookie.set(COOKIES.refreshToken, refresh_token);
 }
@@ -43,12 +42,17 @@ async function authenticate({ body, url }: { body: string; url: string }) {
 
 export async function login(inputs: LoginInputs): Promise<string | void> {
   const body = JSON.stringify(inputs);
-  const url = `${process.env.API_PLAYGROUND_URL}/api/auth/email/login/`;
+  const url = `${process.env.API_URL}/api/auth/email/login/`;
   return authenticate({ body, url });
 }
 
-export async function register(inputs: RegisterInputs): Promise<string | void> {
-  const { email, password, confirmPassword, firstName, lastName } = inputs;
+export async function register({
+  email,
+  password,
+  confirmPassword,
+  firstName,
+  lastName,
+}: RegisterInputs): Promise<string | void> {
   const rawBody = {
     email,
     password1: password,
