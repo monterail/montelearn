@@ -21,6 +21,7 @@ services:
       PORT: 8000
       HOST: 0.0.0.0
       CODECOV_REPO_TOKEN: ${CODECOV_REPO_TOKEN}
+      GITHUB_COMMIT_SHA: ${GITHUB_COMMIT_SHA}
       REDIS_CACHE_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/1
 

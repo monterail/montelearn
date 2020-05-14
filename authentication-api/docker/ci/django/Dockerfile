@@ -10,6 +10,8 @@ RUN apt-get update \
   && apt-get install -y libffi-dev python-cffi \
   # Translations dependencies
   && apt-get install -y gettext \
+  # git for codecov
+  && apt-get install -y git \
   # https://docs.djangoproject.com/en/dev/ref/django-admin/#dbshell
   && apt-get install -y postgresql-client
  
