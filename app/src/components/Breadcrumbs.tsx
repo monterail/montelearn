@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import SvgArrowLeft from "./svg/SvgArrowLeft";
+import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
 
 type Props = {
   options: string[];
