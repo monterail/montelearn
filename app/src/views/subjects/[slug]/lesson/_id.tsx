@@ -26,6 +26,27 @@ const sections = [
   },
 ];
 
+const questions = [
+  {
+    id: "1",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: true,
+  },
+  {
+    id: "2",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: false,
+  },
+  {
+    id: "3",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: true,
+  },
+];
+
 function LessonPage() {
   const router = useRouter();
   const { id, slug } = router.query;
@@ -37,13 +58,33 @@ function LessonPage() {
   const renderSections = () =>
     sections.map((section) => {
       return (
-        <Card className="w-full md:w-1/2 mb-8">
+        <Card className="w-full md:w-1/2 mb-8" key={`section-${section.title}-no-${section.id}`}>
           <Label className="text-sm">Section {section.id}</Label>
           <h2 className="text-4xl my-1 font-semibold">{section.title}</h2>
           <ButtonWithArrow direction="right" className="mt-8">
-            Let's do it together!
+            Check this out!
           </ButtonWithArrow>
         </Card>
+      );
+    });
+
+  const renderQuestions = () =>
+    questions.map((question) => {
+      return (
+        <div
+          className="p-6 sm:p-10 bg-white rounded-lg w-4/5 lg:w-3/4 xl:w-1/2 mb-8"
+          key={`question-${question.title}-no-${question.id}`}
+        >
+          <Label className="text-sm">Question {question.id}</Label>
+          <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.title}</Text>
+          <div className="mt-6 flex flex-wrap w-full items-center justify-around">
+            <div className="flex flex-col sm:flex-row mb-4 md:mb-0">
+              <RadioButton className="mx-3 mb-4 sm:mb-0">True</RadioButton>
+              <RadioButton className="mx-3">False</RadioButton>
+            </div>
+            <QuesitonLabel className="lg:mt-3 xl:mt-0" isCorrect={question.correct} />
+          </div>
+        </div>
       );
     });
 
@@ -72,30 +113,7 @@ function LessonPage() {
       <div className="flex flex-col items-center content-center">{renderSections()}</div>
       <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
         <h2 className="font-eczar text-4xl font-semibold mb-8">Time to yest your konewledge</h2>
-        <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
-          <Label className="text-sm">Question 1</Label>
-          <h2 className="text-2xl my-1 font-semibold">
-            Important information on the identity and hazards of a chemical material can be found on
-            the container label:
-          </h2>
-          <div className="mt-6 flex w-full items-center justify-around">
-            <RadioButton>True</RadioButton>
-            <RadioButton>False</RadioButton>
-            <QuesitonLabel isCorrect>Correct</QuesitonLabel>
-          </div>
-        </div>
-        <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
-          <Label className="text-sm">Question 2</Label>
-          <h2 className="text-2xl my-1 font-semibold">
-            Important information on the identity and hazards of a chemical material can be found on
-            the container label:
-          </h2>
-          <div className="mt-6 flex w-full items-center justify-around">
-            <RadioButton>True</RadioButton>
-            <RadioButton>False</RadioButton>
-            <QuesitonLabel isCorrect={false}>Wrong</QuesitonLabel>
-          </div>
-        </div>
+        {renderQuestions()}
       </div>
     </section>
   );
