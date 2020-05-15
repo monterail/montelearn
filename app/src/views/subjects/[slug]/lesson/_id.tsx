@@ -97,23 +97,27 @@ function LessonPage() {
         handleBackClick={handleBackClick}
         options={["Subjects", String(slug), `Lesson ${String(id)}`]}
       />
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full">
-        <div className="my-8">
-          <Label className="text-xl">Lesson {id}</Label>
-          <Title>What are pictograms?</Title>
+      <div className="mx-3 sm:mx-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full">
+          <div className="my-8">
+            <Label className="text-xl">Lesson {id}</Label>
+            <Title>What are pictograms?</Title>
+          </div>
+          <Button className="mr-auto sm:mr-0">Open lesson</Button>
         </div>
-        <Button className="mr-auto sm:mr-0">Open lesson</Button>
-      </div>
-      <Text className="text-xl font-roboto-mono my-8">
-        The Hazard Communication Standard (HCS) requires pictograms on labels to alert users of the
-        chemical hazards to which they may be exposed. In this lesson, you will learn more about
-        chemistry pictograms.
-      </Text>
-      <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
-      <div className="flex flex-col items-center content-center">{renderSections()}</div>
-      <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
-        <h2 className="font-eczar text-4xl font-semibold mb-8">Time to yest your konewledge</h2>
-        {renderQuestions()}
+        <Text className="text-xl font-roboto-mono my-8">
+          The Hazard Communication Standard (HCS) requires pictograms on labels to alert users of
+          the chemical hazards to which they may be exposed. In this lesson, you will learn more
+          about chemistry pictograms.
+        </Text>
+        <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
+        <div className="flex flex-col items-center content-center">{renderSections()}</div>
+        <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
+          <h2 className="font-eczar text-center text-4xl font-semibold mb-8">
+            Time to yest your konewledge
+          </h2>
+          {renderQuestions()}
+        </div>
       </div>
     </section>
   );

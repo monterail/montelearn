@@ -45,27 +45,29 @@ export default function SubjectPage() {
         <title>Monterail e-learning app</title>
       </Head>
       <Breadcrumbs handleBackClick={handleBackClick} options={["Subjects", String(slug)]} />
-      <Title className="my-8">{slug} basics</Title>
-      <Text className="text-xl font-roboto-mono my-8">
-        Goddamit, {slug} is importane. Very very importane.
-      </Text>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
-        {lessons.map((lesson, index) => {
-          return (
-            <Card key={lesson.slug}>
-              <Label className="text-sm">Lesson {index + 1}</Label>
-              <SubTitle>{lesson.title}</SubTitle>
-              <Text className="ml-text-truncate my-2">{lesson.description}</Text>
-              <ButtonWithArrow
-                direction="right"
-                className="mt-8"
-                onClick={() => router.push(`/subjects/${slug}/lesson/${lesson.slug}`)}
-              >
-                Let's do it together!
-              </ButtonWithArrow>
-            </Card>
-          );
-        })}
+      <div className="mx-3 sm:mx-0">
+        <Title className="my-8">{slug} basics</Title>
+        <Text className="text-xl font-roboto-mono my-8">
+          Goddamit, {slug} is importane. Very very importane.
+        </Text>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8 mt-16">
+          {lessons.map((lesson, index) => {
+            return (
+              <Card key={lesson.slug}>
+                <Label className="text-sm">Lesson {index + 1}</Label>
+                <SubTitle>{lesson.title}</SubTitle>
+                <Text className="ml-text-truncate my-2">{lesson.description}</Text>
+                <ButtonWithArrow
+                  direction="right"
+                  className="mt-8"
+                  onClick={() => router.push(`/subjects/${slug}/lesson/${lesson.slug}`)}
+                >
+                  Dive right in!
+                </ButtonWithArrow>
+              </Card>
+            );
+          })}
+        </div>
       </div>
     </section>
   );

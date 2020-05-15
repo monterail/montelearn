@@ -76,13 +76,15 @@ export default function SubjectsPage() {
         <title>Monterail e-learning app</title>
       </Head>
       <Breadcrumbs back={false} options={["Subjects"]} />
-      <Title className="my-8">Subjects page</Title>
-      <Text className="font-roboto-mono my-8 text-xl">
-        Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
-        nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad anim
-        duis.
-      </Text>
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
+      <div className="mx-3 sm:mx-0">
+        <Title className="my-8">Subjects page</Title>
+        <Text className="font-roboto-mono my-8 text-xl">
+          Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
+          nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad
+          anim duis.
+        </Text>
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
+      </div>
     </section>
   );
 }
