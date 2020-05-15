@@ -1,7 +1,11 @@
 import React, { FunctionComponent, useState } from "react";
 import SvgCheckmark from "@/components/svg/SvgCheckmark";
 
-const RadioButton: FunctionComponent = ({ children }) => {
+type Props = {
+  className?: string;
+};
+
+const RadioButton: FunctionComponent<Props> = ({ children, className }) => {
   const [checked, setChecked] = useState<boolean | "false" | "mixed" | "true" | undefined>(
     undefined,
   );
@@ -19,7 +23,7 @@ const RadioButton: FunctionComponent = ({ children }) => {
 
   return (
     <div
-      className={`inline-flex cursor-pointer rounded-full items-center py-4 pl-4 pr-8 transition-colors duration-100 ${containerClass}`}
+      className={`inline-flex cursor-pointer rounded-full items-center py-4 pl-4 pr-8 transition-colors duration-100 ${containerClass} ${className}`}
       onClick={() => handleClick()}
       onKeyPress={(event) => (event.key === "Enter" ? handleClick() : null)}
       role="radio"
@@ -36,6 +40,10 @@ const RadioButton: FunctionComponent = ({ children }) => {
       </span>
     </div>
   );
+};
+
+RadioButton.defaultProps = {
+  className: "",
 };
 
 export default RadioButton;
