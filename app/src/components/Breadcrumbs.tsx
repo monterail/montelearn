@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import ButtonWithArrow from "@/components/ButtonWithArrow";
+import SvgArrowLeft from "./svg/SvgArrowLeft";
 
 type Props = {
   options: string[];
@@ -28,9 +28,14 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
   return (
     <div className="sm:p-6 bg-red-100 flex flex-row font-roboto-mono">
       {back && (
-        <ButtonWithArrow onClick={handleBackClick} direction="left">
-          Back
-        </ButtonWithArrow>
+        <button
+          onClick={handleBackClick}
+          type="button"
+          className="flex py-2 pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black bg-transparent rounded-full font-roboto-mono hover:opacity-50 transition-opacity duration-200 whitespace-no-wrap"
+        >
+          <SvgArrowLeft />
+          <span className="pl-4 font-medium hidden sm:block">Back</span>
+        </button>
       )}
       <ul className="flex items-center sm:px-4 font-medium text-red-200 cursor-default my-4">
         {renderElements()}
