@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from "react";
 
-import ButtonWithArrow from "@/components/ButtonWithArrow";
+import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
 
 type Props = {
   options: string[];
@@ -18,21 +18,25 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
       const isLast = isLastElement(index, options.length);
 
       return (
-        <li key={index} className={`capitalize ${isLast && "text-black"}`}>
+        <li key={index} className={`capitalize text-sm sm:text-base ${isLast ? "text-black" : ""}`}>
           {el}
-          {!isLast && <span className="px-4">/</span>}
+          {!isLast && <span className="px-1 sm:px-4">/</span>}
         </li>
       );
     });
 
   return (
-    <div className="p-6 bg-red-100 flex flex-row font-roboto-mono">
+    <div className="sm:p-6 bg-red-100 flex flex-row font-roboto-mono">
       {back && (
-        <ButtonWithArrow onClick={handleBackClick} direction="left">
-          Back
+        <ButtonWithArrow
+          onClick={handleBackClick}
+          direction={BUTTON_DIRECTIONS.LEFT}
+          withBorder={false}
+        >
+          <span className="pl-4 font-medium hidden sm:block">Back</span>
         </ButtonWithArrow>
       )}
-      <ul className="flex items-center px-4 font-medium text-red-200 cursor-default my-4">
+      <ul className="flex items-center sm:px-4 font-medium text-red-200 cursor-default my-4">
         {renderElements()}
       </ul>
     </div>

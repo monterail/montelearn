@@ -11,7 +11,7 @@ const Button: FunctionComponent<Props> = ({ children, className, onClick }) => {
       type="button"
       className={`
         flex py-5 px-10 font-medium text-white
-        text-2xl bg-red-monterail rounded-full font-roboto-mono ${className}
+        sm:text-2xl bg-red-monterail rounded-full font-roboto-mono whitespace-no-wrap ${className}
       `}
       onClick={() => onClick}
     >
