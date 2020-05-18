@@ -28,35 +28,32 @@ function setCookies({ access_token, refresh_token }: Cookies) {
 }
 
 async function authenticate({ body, url }: { body: string; url: string }) {
-  return apiClient
-    .post(url, body)
-    .then((response) => setCookies(response.data))
-    .catch((error) => {
-      if (
-        error.response &&
-        Object.values(error.response.data).every((e: any) => Array.isArray(e))
-      ) {
-        throw new InputError(error.message, error.response.data);
-      }
-      throw new InputError(error.message, {
-        non_field_errors: ["An unexpected error has occurred"],
-      });
+  try {
+    const response = await apiClient.post(url, body);
+    setCookies(response.data);
+  } catch (error) {
+    if (error.response && Object.values(error.response.data).every((e: any) => Array.isArray(e))) {
+      throw new InputError(error.message, error.response.data);
+    }
+    throw new InputError(error.message, {
+      non_field_errors: ["An unexpected error has occurred"],
     });
+  }
 }
 
-export async function login(inputs: LoginInputsType): Promise<string | void> {
+export function login(inputs: LoginInputsType): Promise<string | void> {
   const body = JSON.stringify(inputs);
   const url = `/auth/email/login/`;
   return authenticate({ body, url });
 }
 
-export async function register(inputs: RegisterInputsType): Promise<string | void> {
+export function register(inputs: RegisterInputsType): Promise<string | void> {
   const body = JSON.stringify(inputs);
   const url = `/auth/email/register/`;
   return authenticate({ body, url });
 }
 
-export async function logout() {
+export function logout() {
   Cookie.remove(COOKIES.accessToken);
   Cookie.remove(COOKIES.refreshToken);
 }

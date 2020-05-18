@@ -63,7 +63,7 @@ export default function UsersLoginPage() {
             onChange={handleInputChange}
             errors={errors.password}
           />
-          <InputErrors errorName="non_field_errors" errors={errors.non_field_errors} />
+          <InputErrors errors={errors.non_field_errors} />
           <ul className="flex font-roboto-mono mt-10">
             <Button className="mx-0 sm:mx-2 px-8 py-4" onClick={handleLogin}>
               Login

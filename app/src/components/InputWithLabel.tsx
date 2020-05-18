@@ -36,7 +36,7 @@ const InputWithLabel: FunctionComponent<Props> = ({
         placeholder={placeholder}
         onChange={onChange}
       />
-      {errors && <InputErrors errorName={id} errors={errors} />}
+      {errors && <InputErrors errors={errors} />}
     </div>
   );
 };

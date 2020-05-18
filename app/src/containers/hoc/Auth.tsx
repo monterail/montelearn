@@ -14,8 +14,6 @@ export default function auth(WrappedComponent: any) {
       else setIsLoggedIn(true);
     });
 
-    return (
-      <div>{isLoggedIn ? <WrappedComponent accessToken={accessToken} {...props} /> : <div />}</div>
-    );
+    return <div>{isLoggedIn && <WrappedComponent accessToken={accessToken} {...props} />}</div>;
   };
 }

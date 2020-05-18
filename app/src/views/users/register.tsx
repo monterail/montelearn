@@ -98,7 +98,7 @@ export default function UsersRegisterPage() {
             onChange={handleInputChange}
             errors={errors.password2}
           />
-          <InputErrors errorName="non_field_errors" errors={errors.non_field_errors} />
+          <InputErrors errors={errors.non_field_errors} />
           <ul className="flex font-roboto-mono mt-10">
             <Button className="px-8 py-4" onClick={handleLogin}>
               Register now
