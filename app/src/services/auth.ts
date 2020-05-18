@@ -1,17 +1,19 @@
 import Cookie from "js-cookie";
 import { COOKIES } from "@/constants";
+import { InputError } from "@/utils/errors";
+import apiClient, { setAuhtorizationToken } from "./apiClient";
 
-export type LoginInputs = {
+export type LoginInputsType = {
   email: string;
   password: string;
 };
 
-export type RegisterInputs = {
+export type RegisterInputsType = {
   email: string;
-  password: string;
-  confirmPassword: string;
-  firstName: string;
-  lastName: string;
+  password1: string;
+  password2: string;
+  first_name: string;
+  last_name: string;
 };
 
 type Cookies = {
@@ -19,49 +21,38 @@ type Cookies = {
   refresh_token: string;
 };
 
-function setCookies({ access_token, refresh_token }: Cookies): void {
+function setCookies({ access_token, refresh_token }: Cookies) {
   Cookie.set(COOKIES.accessToken, access_token);
   Cookie.set(COOKIES.refreshToken, refresh_token);
+  setAuhtorizationToken(access_token);
 }
 
 async function authenticate({ body, url }: { body: string; url: string }) {
-  const requestParams = {
-    method: "POST",
-    body,
-    headers: new Headers({ "Content-Type": "application/json" }),
-  };
-
-  const response = await fetch(url, requestParams);
-  if (response.status < 200 || response.status >= 300) {
-    throw new Error("Please provide correct email and password");
-  }
-
-  const responseData = await response.json();
-  setCookies(responseData);
+  return apiClient
+    .post(url, body)
+    .then((response) => setCookies(response.data))
+    .catch((error) => {
+      if (
+        error.response &&
+        Object.values(error.response.data).every((e: any) => Array.isArray(e))
+      ) {
+        throw new InputError(error.message, error.response.data);
+      }
+      throw new InputError(error.message, {
+        non_field_errors: ["An unexpected error has occurred"],
+      });
+    });
 }
 
-export async function login(inputs: LoginInputs): Promise<string | void> {
+export async function login(inputs: LoginInputsType): Promise<string | void> {
   const body = JSON.stringify(inputs);
-  const url = `${process.env.API_URL}/api/auth/email/login/`;
+  const url = `/auth/email/login/`;
   return authenticate({ body, url });
 }
 
-export async function register({
-  email,
-  password,
-  confirmPassword,
-  firstName,
-  lastName,
-}: RegisterInputs): Promise<string | void> {
-  const rawBody = {
-    email,
-    password1: password,
-    password2: confirmPassword,
-    first_name: firstName,
-    last_name: lastName,
-  };
-  const body = JSON.stringify(rawBody);
-  const url = `${process.env.API_URL}/api/auth/email/register/`;
+export async function register(inputs: RegisterInputsType): Promise<string | void> {
+  const body = JSON.stringify(inputs);
+  const url = `/auth/email/register/`;
   return authenticate({ body, url });
 }
 

@@ -1,14 +1,24 @@
 import React, { FunctionComponent, ChangeEvent } from "react";
 
+import InputErrors from "@/components/InputErrors";
+
 type Props = {
   label: string;
   placeholder?: string;
   type?: string;
   id: string;
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  errors?: string[];
 };
 
-const InputWithLabel: FunctionComponent<Props> = ({ label, placeholder, type, id, onChange }) => {
+const InputWithLabel: FunctionComponent<Props> = ({
+  label,
+  placeholder,
+  type,
+  id,
+  onChange,
+  errors,
+}) => {
   return (
     <div className="mb-6">
       {label && (
@@ -26,6 +36,7 @@ const InputWithLabel: FunctionComponent<Props> = ({ label, placeholder, type, id
         placeholder={placeholder}
         onChange={onChange}
       />
+      {errors && <InputErrors errorName={id} errors={errors} />}
     </div>
   );
 };

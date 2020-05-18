@@ -8,20 +8,23 @@ import Text from "@/components/Text";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
-import { login, LoginInputs } from "@/services/auth";
+import InputErrors from "@/components/InputErrors";
+import { login, LoginInputsType } from "@/services/auth";
+import { LoginErrorsType } from "@/utils/errors";
+
+const initialInputs: LoginInputsType = { email: "", password: "" };
+const initialErrors: LoginErrorsType = { email: [], password: [], non_field_errors: [] };
 
 export default function UsersLoginPage() {
-  const initialValues: LoginInputs = { email: "", password: "" };
-
-  const [inputs, setInputs] = useState(initialValues);
-  // const [error, setError] = useState("");
+  const [inputs, setInputs] = useState(initialInputs);
+  const [errors, setErrors] = useState(initialErrors);
 
   const handleLogin = async () => {
     try {
       await login(inputs);
       Router.push("/");
-    } catch (err) {
-      // setError(err.message)
+    } catch (newErrors) {
+      setErrors({ ...initialErrors, ...newErrors.data });
     }
   };
 
@@ -50,6 +53,7 @@ export default function UsersLoginPage() {
             placeholder="e.g. james.wilson@mail.com"
             type="email"
             onChange={handleInputChange}
+            errors={errors.email}
           />
           <InputWithLabel
             id="password"
@@ -57,7 +61,9 @@ export default function UsersLoginPage() {
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
             onChange={handleInputChange}
+            errors={errors.password}
           />
+          <InputErrors errorName="non_field_errors" errors={errors.non_field_errors} />
           <ul className="flex font-roboto-mono mt-10">
             <Button className="mx-0 sm:mx-2 px-8 py-4" onClick={handleLogin}>
               Login

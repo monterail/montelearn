@@ -8,26 +8,37 @@ import Card from "@/components/Card";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
-import { register, RegisterInputs } from "@/services/auth";
+import InputErrors from "@/components/InputErrors";
+import { register, RegisterInputsType } from "@/services/auth";
+import { RegisterErrorsType } from "@/utils/errors";
+
+const initialValues: RegisterInputsType = {
+  email: "",
+  password1: "",
+  password2: "",
+  first_name: "",
+  last_name: "",
+};
+
+const initialErrors: RegisterErrorsType = {
+  email: [],
+  password1: [],
+  password2: [],
+  first_name: [],
+  last_name: [],
+  non_field_errors: [],
+};
 
 export default function UsersRegisterPage() {
-  const initialValues: RegisterInputs = {
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-  };
-
   const [inputs, setInputs] = useState(initialValues);
-  // const [error, setError] = useState(""); // TBD in ME-106
+  const [errors, setErrors] = useState(initialErrors);
 
   const handleLogin = async () => {
     try {
       await register(inputs);
       Router.push("/");
-    } catch (err) {
-      // setError(err.message) // TBD in ME-106
+    } catch (newErrors) {
+      setErrors({ ...initialErrors, ...newErrors.data });
     }
   };
 
@@ -51,37 +62,43 @@ export default function UsersRegisterPage() {
       <div className="">
         <Card>
           <InputWithLabel
-            id="firstName"
+            id="first_name"
             label="First Name"
             placeholder="e.g. James"
             onChange={handleInputChange}
+            errors={errors.first_name}
           />
           <InputWithLabel
-            id="last_Name"
+            id="last_name"
             label="Last Name"
             placeholder="e.g. Wilson"
             onChange={handleInputChange}
+            errors={errors.last_name}
           />
           <InputWithLabel
             id="email"
             label="Email"
             placeholder="e.g. james.wilson@mail.com"
             onChange={handleInputChange}
+            errors={errors.email}
           />
           <InputWithLabel
-            id="password"
+            id="password1"
             label="Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
             onChange={handleInputChange}
+            errors={errors.password1}
           />
           <InputWithLabel
-            id="confirmPassword"
+            id="password2"
             label="Confirm Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
             onChange={handleInputChange}
+            errors={errors.password2}
           />
+          <InputErrors errorName="non_field_errors" errors={errors.non_field_errors} />
           <ul className="flex font-roboto-mono mt-10">
             <Button className="px-8 py-4" onClick={handleLogin}>
               Register now
