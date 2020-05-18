@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import ButtonWithArrow from "@/components/ButtonWithArrow";
+import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Text from "@/components/Text";
@@ -61,7 +61,7 @@ function LessonPage() {
         <Card className="w-full md:w-1/2 mb-8" key={`section-${section.title}-no-${section.id}`}>
           <Label className="text-sm">Section {section.id}</Label>
           <h2 className="text-4xl my-1 font-semibold">{section.title}</h2>
-          <ButtonWithArrow direction="right" className="mt-8">
+          <ButtonWithArrow direction={BUTTON_DIRECTIONS.RIGHT} className="mt-8">
             Check this out!
           </ButtonWithArrow>
         </Card>

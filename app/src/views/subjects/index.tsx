@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ButtonWithArrow from "@/components/ButtonWithArrow";
+import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
 import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
@@ -58,7 +58,7 @@ const renderSubjects = () =>
         <Link href={`/subjects/${subject.id}`}>
           <a href={`/subjects/${subject.id}`}>
             <ButtonWithArrow
-              direction="right"
+              direction={BUTTON_DIRECTIONS.RIGHT}
               className="mt-8 hover:opacity-75 transition-opacity duration-200"
             >
               Let's do it together!

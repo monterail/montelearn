@@ -5,7 +5,7 @@ type Props = {
   className?: string;
 };
 
-const RadioButton: FunctionComponent<Props> = ({ children, className }) => {
+const RadioButton: FunctionComponent<Props> = ({ children, className = "" }) => {
   const [checked, setChecked] = useState<boolean | "false" | "mixed" | "true" | undefined>(
     undefined,
   );
@@ -40,10 +40,6 @@ const RadioButton: FunctionComponent<Props> = ({ children, className }) => {
       </span>
     </div>
   );
-};
-
-RadioButton.defaultProps = {
-  className: "",
 };
 
 export default RadioButton;
