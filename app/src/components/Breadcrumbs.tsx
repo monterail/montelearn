@@ -32,9 +32,8 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
           onClick={handleBackClick}
           direction={BUTTON_DIRECTIONS.LEFT}
           withBorder={false}
-          withMobileText={false}
         >
-          Back
+          <span className="pl-4 font-medium hidden sm:block">Back</span>
         </ButtonWithArrow>
       )}
       <ul className="flex items-center sm:px-4 font-medium text-red-200 cursor-default my-4">

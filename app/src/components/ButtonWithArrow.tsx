@@ -3,8 +3,6 @@ import React, { FunctionComponent } from "react";
 import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
 import SvgArrowRight from "@/components/svg/SvgArrowRight";
 
-import { isMobile } from "@/utils/helpers/isMobile";
-
 export enum BUTTON_DIRECTIONS {
   LEFT = "left",
   RIGHT = "right",
@@ -14,16 +12,14 @@ type Props = {
   direction: BUTTON_DIRECTIONS;
   className?: string;
   withBorder?: boolean;
-  withMobileText?: boolean;
   onClick?: VoidFunction;
 };
 
 const ButtonWithArrow: FunctionComponent<Props> = ({
   direction,
   children,
-  className,
+  className = "",
   withBorder = true,
-  withMobileText = true,
   onClick,
 }) => {
   const directionClass = direction.charAt(0);
@@ -42,9 +38,7 @@ const ButtonWithArrow: FunctionComponent<Props> = ({
       `}
     >
       {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft />}
-      <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>
-        {isMobile() ? withMobileText && children : children}
-      </span>
+      <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>{children}</span>
       {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight />}
     </button>
   );
