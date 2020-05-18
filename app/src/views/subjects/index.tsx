@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ButtonWithArrow from "@/components/ButtonWithArrow";
+import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
 import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
@@ -59,7 +59,7 @@ const renderSubjects = () =>
         <Link href={`/subjects/${subject.id}`}>
           <a href={`/subjects/${subject.id}`}>
             <ButtonWithArrow
-              direction="right"
+              direction={BUTTON_DIRECTIONS.RIGHT}
               className="mt-8 hover:opacity-75 transition-opacity duration-200"
             >
               Let's do it together!
@@ -77,13 +77,15 @@ function SubjectsPage() {
         <title>Monterail e-learning app</title>
       </Head>
       <Breadcrumbs back={false} options={["Subjects"]} />
-      <Title className="my-8">Subjects page</Title>
-      <Text className="font-roboto-mono my-8 text-xl">
-        Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
-        nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad anim
-        duis.
-      </Text>
-      <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
+      <div className="mx-3 sm:mx-0">
+        <Title className="my-8">Subjects page</Title>
+        <Text className="font-roboto-mono my-8 text-xl">
+          Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
+          nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad
+          anim duis.
+        </Text>
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
+      </div>
     </section>
   );
 }
