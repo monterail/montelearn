@@ -9,7 +9,7 @@ import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
-import auth from "@/containers/hoc/auth";
+import auth from "@/containers/hoc/Auth";
 
 function LessonPage() {
   const router = useRouter();

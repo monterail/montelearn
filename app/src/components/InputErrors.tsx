@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 
 type Props = {
-  errorName: string;
-  errors: string[];
+  errorName?: string;
+  errors?: string[];
 };
 
 const InputErrors: FunctionComponent<Props> = ({ errorName = "", errors = [] }) => {

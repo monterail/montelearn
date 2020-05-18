@@ -8,7 +8,7 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
-import auth from "@/containers/hoc/auth";
+import auth from "@/containers/hoc/Auth";
 
 import SubjectIconsType from "@/types/subjectIcons";
 

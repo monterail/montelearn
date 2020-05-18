@@ -8,7 +8,7 @@ import Card from "@/components/Card";
 import Label from "@/components/Label";
 import SubTitle from "@/components/SubTitle";
 import Text from "@/components/Text";
-import auth from "@/containers/hoc/auth";
+import auth from "@/containers/hoc/Auth";
 
 const lessons = [
   {
