@@ -10,6 +10,7 @@ import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
+import auth from "@/containers/hoc/Auth";
 
 const sections = [
   {
@@ -123,4 +124,4 @@ function LessonPage() {
   );
 }
 
-export default LessonPage;
+export default auth(LessonPage);

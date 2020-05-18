@@ -1,12 +1,41 @@
+import { useState, ChangeEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
+import Router from "next/router";
 
 import Card from "@/components/Card";
 import Text from "@/components/Text";
 import Title from "@/components/Title";
+import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
+import InputErrors from "@/components/InputErrors";
+import { login, LoginInputsType } from "@/services/auth";
+import { LoginErrorsType } from "@/utils/errors";
+
+const initialInputs: LoginInputsType = { email: "", password: "" };
+const initialErrors: LoginErrorsType = { email: [], password: [], non_field_errors: [] };
 
 export default function UsersLoginPage() {
+  const [inputs, setInputs] = useState(initialInputs);
+  const [errors, setErrors] = useState(initialErrors);
+
+  const handleLogin = async () => {
+    try {
+      await login(inputs);
+      Router.push("/");
+    } catch (newErrors) {
+      setErrors({ ...initialErrors, ...newErrors.data });
+    }
+  };
+
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>): void => {
+    e.persist();
+    setInputs({
+      ...inputs,
+      [e.target.id]: e.target.value,
+    });
+  };
+
   return (
     <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-1/2">
       <Head>
@@ -23,21 +52,22 @@ export default function UsersLoginPage() {
             label="Email"
             placeholder="e.g. james.wilson@mail.com"
             type="email"
+            onChange={handleInputChange}
+            errors={errors.email}
           />
           <InputWithLabel
             id="password"
             label="Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
+            onChange={handleInputChange}
+            errors={errors.password}
           />
+          <InputErrors errors={errors.non_field_errors} />
           <ul className="flex font-roboto-mono mt-10">
-            <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
-              <Link href="/users/login">
-                <a href="/users/login" className="flex px-8 py-4">
-                  Login
-                </a>
-              </Link>
-            </li>
+            <Button className="mx-0 sm:mx-2 px-8 py-4" onClick={handleLogin}>
+              Login
+            </Button>
             <li className="mx-0 sm:mx-2 font-medium text-red-400">
               <Link href="/users/register">
                 <a href="/users/register" className="flex px-8 py-4">
