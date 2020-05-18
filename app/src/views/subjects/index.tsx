@@ -10,6 +10,8 @@ import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
 import auth from "@/containers/hoc/Auth";
 
+import useRequest from "@/utils/hooks/useRequest";
+
 import SubjectIconsType from "@/types/subjectIcons";
 
 const subjects = [
@@ -71,6 +73,11 @@ const renderSubjects = () =>
   });
 
 function SubjectsPage() {
+  const { data } = useRequest({
+    url: "/subject",
+  });
+
+  console.log(data);
   return (
     <section className="px-2 mb-12">
       <Head>
