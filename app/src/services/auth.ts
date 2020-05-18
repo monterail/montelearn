@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 import { COOKIES } from "@/constants";
 import { InputError } from "@/utils/errors";
-import apiClient, { setAuhtorizationToken } from "./apiClient";
+import apiClient from "./apiClient";
 
 export type LoginInputsType = {
   email: string;
@@ -24,7 +24,6 @@ type Cookies = {
 function setCookies({ access_token, refresh_token }: Cookies) {
   Cookie.set(COOKIES.accessToken, access_token);
   Cookie.set(COOKIES.refreshToken, refresh_token);
-  setAuhtorizationToken(access_token);
 }
 
 async function authenticate({ body, url }: { body: string; url: string }) {
