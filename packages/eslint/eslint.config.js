@@ -57,6 +57,7 @@ function createEslintConfig() {
     rules: {
       "no-param-reassign": "off",
       "no-underscore-dangle": "off",
+      "jsx-a11y/anchor-is-valid": "off",
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
       "@typescript-eslint/camelcase": "off",

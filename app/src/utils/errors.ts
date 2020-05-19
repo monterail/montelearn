@@ -13,6 +13,15 @@ export type RegisterErrorsType = {
   non_field_errors?: string[];
 };
 
+export type ForgotPasswordErrorsType = {
+  email?: string[];
+};
+
+export type ResetPasswordErrorsType = {
+  new_password1?: string[];
+  new_password2?: string[];
+};
+
 export class InputError extends Error {
   data: LoginErrorsType | RegisterErrorsType;
 

@@ -1,4 +1,6 @@
 import Cookie from "js-cookie";
+import { AxiosResponse } from "axios";
+
 import { COOKIES } from "@/constants";
 import { InputError } from "@/utils/errors";
 import apiClient from "./apiClient";
@@ -19,6 +21,16 @@ export type RegisterInputsType = {
 type Cookies = {
   access_token: string;
   refresh_token: string;
+};
+
+export type ChangePasswordInputs = {
+  new_password1: string;
+  new_password2: string;
+};
+
+export type ConfirmResetPasswordData = ChangePasswordInputs & {
+  uid: string;
+  token: string;
 };
 
 function setCookies({ access_token, refresh_token }: Cookies) {
@@ -50,6 +62,20 @@ export function register(inputs: RegisterInputsType): Promise<string | void> {
   const body = JSON.stringify(inputs);
   const url = `/auth/email/register/`;
   return authenticate({ body, url });
+}
+
+export function forgotPassword(email: string): Promise<AxiosResponse<{ detail: string }>> {
+  const url = `/auth/email/password/reset/`;
+  return apiClient.post(url, {
+    email,
+  });
+}
+
+export function resetPassword(
+  data: ConfirmResetPasswordData,
+): Promise<AxiosResponse<{ detail: string }>> {
+  const url = `/auth/email/password/reset/confirm/`;
+  return apiClient.post(url, data);
 }
 
 export function logout() {
