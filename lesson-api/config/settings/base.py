@@ -141,6 +141,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "baipw.middleware.BasicAuthIPWhitelistMiddleware",
 ]
 
 REST_FRAMEWORK = {
@@ -261,3 +262,9 @@ AWS_S3_REGION_NAME = env.str("AWS_S3_REGION_NAME", default="")
 AWS_S3_URL_PROTOCOL = env.str("AWS_S3_URL_PROTOCOL", default="https:")
 
 CORS_ORIGIN_WHITELIST = ["https://auth-api-test.herokuapp.com"]
+
+BASIC_AUTH_WHITELISTED_IP_NETWORKS = env.list("BASIC_AUTH_WHITELISTED_IP_NETWORKS", default="")
+BASIC_AUTH_WHITELISTED_HTTP_HOSTS = env.list("BASIC_AUTH_WHITELISTED_HTTP_HOSTS", default="")
+BASIC_AUTH_WHITELISTED_PATHS = env.list("BASIC_AUTH_WHITELISTED_PATHS", default="")
+BASIC_AUTH_LOGIN = env.str("BASIC_AUTH_LOGIN", default="")
+BASIC_AUTH_PASSWORD = env.str("BASIC_AUTH_PASSWORD", default="")
