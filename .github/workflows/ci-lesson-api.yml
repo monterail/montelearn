@@ -11,6 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
         CODECOV_REPO_TOKEN: ${{ secrets.CODECOV_REPO_TOKEN }}
+        GITHUB_COMMIT_SHA: ${{ github.sha }}
 
     steps:
     - name: Checkout
