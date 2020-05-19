@@ -19,3 +19,4 @@ boto3
 celery[redis]
 pyjwt
 cryptography
+django-basic-auth-ip-whitelist
