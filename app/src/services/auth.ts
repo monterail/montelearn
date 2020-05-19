@@ -43,10 +43,7 @@ async function authenticate({ body, url }: { body: string; url: string }) {
     const response = await apiClient.post(url, body);
     setCookies(response.data);
   } catch (error) {
-    if (
-      error.response &&
-      Object.values(error.response.data).every((e: any) => Array.isArray(e))
-    ) {
+    if (error.response && Object.values(error.response.data).every((e: any) => Array.isArray(e))) {
       throw new InputError(error.message, error.response.data);
     }
     throw new InputError(error.message, {
@@ -67,9 +64,7 @@ export function register(inputs: RegisterInputsType): Promise<string | void> {
   return authenticate({ body, url });
 }
 
-export function forgotPassword(
-  email: string
-): Promise<AxiosResponse<{ detail: string }>> {
+export function forgotPassword(email: string): Promise<AxiosResponse<{ detail: string }>> {
   const url = `/auth/email/password/reset/`;
   return apiClient.post(url, {
     email,
@@ -77,7 +72,7 @@ export function forgotPassword(
 }
 
 export function resetPassword(
-  data: ConfirmResetPasswordData
+  data: ConfirmResetPasswordData,
 ): Promise<AxiosResponse<{ detail: string }>> {
   const url = `/auth/email/password/reset/confirm/`;
   return apiClient.post(url, data);
