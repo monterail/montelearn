@@ -1,6 +1,8 @@
 import React, { FunctionComponent } from "react";
 
-import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
+import ButtonWithArrow from "@/components/ButtonWithArrow";
+
+import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
 
 type Props = {
   options: string[];
