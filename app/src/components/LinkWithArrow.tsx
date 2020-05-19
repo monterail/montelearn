@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from "react";
+import Link from "next/link";
 
 import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
 import SvgArrowRight from "@/components/svg/SvgArrowRight";
@@ -9,15 +10,17 @@ type Props = {
   direction: BUTTON_DIRECTIONS;
   className?: string;
   withBorder?: boolean;
-  onClick?: VoidFunction;
+  href: string;
+  as?: string;
 };
 
-const ButtonWithArrow: FunctionComponent<Props> = ({
+const LinkWithArrow: FunctionComponent<Props> = ({
+  href,
+  as,
   direction,
   children,
   className = "",
   withBorder = true,
-  onClick,
 }) => {
   const directionClass = direction.charAt(0);
   const borderClasses = withBorder
@@ -25,20 +28,24 @@ const ButtonWithArrow: FunctionComponent<Props> = ({
     : `pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black`;
 
   return (
-    <button
-      onClick={onClick}
-      type="button"
-      className={`
-        flex py-2 whitespace-no-wrap hover:opacity-50 transition-opacity
+    <Link href={href} as={as}>
+      <a
+        className={`
+        inline-block py-2 whitespace-no-wrap hover:opacity-50 transition-opacity
         duration-200 bg-transparent rounded-full font-roboto-mono
         ${borderClasses} ${className}
       `}
-    >
-      {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft />}
-      <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>{children}</span>
-      {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight />}
-    </button>
+      >
+        <div className="flex ">
+          {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft />}
+          <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>
+            {children}
+          </span>
+          {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight />}
+        </div>
+      </a>
+    </Link>
   );
 };
 
-export default ButtonWithArrow;
+export default LinkWithArrow;
