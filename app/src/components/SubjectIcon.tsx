@@ -1,7 +1,7 @@
 import React, { FunctionComponent } from "react";
 import dynamic from "next/dynamic";
 
-import SubjectIconsType from "@/types/subjectIcons";
+import { SUBJECT_ICONS } from "@/types/subject";
 
 const SvgPotion = dynamic(() => import("@/components/svg/SvgPotion"));
 const SvgNature = dynamic(() => import("@/components/svg/SvgNature"));
@@ -12,27 +12,27 @@ const SvgBabushka = dynamic(() => import("@/components/svg/SvgBabushka"));
 
 type Props = {
   className?: string;
-  icon: SubjectIconsType;
+  icon: SUBJECT_ICONS;
 };
 
-const renderIcon = (icon: SubjectIconsType) => {
+const renderIcon = (icon: SUBJECT_ICONS) => {
   switch (icon) {
-    case "potion": {
+    case SUBJECT_ICONS.POTION: {
       return <SvgPotion />;
     }
-    case "nature": {
+    case SUBJECT_ICONS.NATURE: {
       return <SvgNature />;
     }
-    case "atom": {
+    case SUBJECT_ICONS.ATOM: {
       return <SvgAtom />;
     }
-    case "weather": {
+    case SUBJECT_ICONS.WEATHER: {
       return <SvgWeather />;
     }
-    case "castle": {
+    case SUBJECT_ICONS.CASTLE: {
       return <SvgCastle />;
     }
-    case "babushka": {
+    case SUBJECT_ICONS.BABUSHKA: {
       return <SvgBabushka />;
     }
     default: {
