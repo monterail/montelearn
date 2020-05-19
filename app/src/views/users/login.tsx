@@ -13,7 +13,11 @@ import { login, LoginInputsType } from "@/services/auth";
 import { LoginErrorsType } from "@/utils/errors";
 
 const initialInputs: LoginInputsType = { email: "", password: "" };
-const initialErrors: LoginErrorsType = { email: [], password: [], non_field_errors: [] };
+const initialErrors: LoginErrorsType = {
+  email: [],
+  password: [],
+  non_field_errors: [],
+};
 
 export default function UsersLoginPage() {
   const [inputs, setInputs] = useState(initialInputs);
@@ -32,7 +36,7 @@ export default function UsersLoginPage() {
     e.persist();
     setInputs({
       ...inputs,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -49,17 +53,21 @@ export default function UsersLoginPage() {
         <Card>
           <InputWithLabel
             id="email"
+            name="email"
             label="Email"
             placeholder="e.g. james.wilson@mail.com"
             type="email"
+            value={inputs.email}
             onChange={handleInputChange}
             errors={errors.email}
           />
           <InputWithLabel
             id="password"
+            name="password"
             label="Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
+            value={inputs.password}
             onChange={handleInputChange}
             errors={errors.password}
           />
@@ -81,10 +89,8 @@ export default function UsersLoginPage() {
       <div className="my-6">
         <Text>
           Did you forget your password?{" "}
-          <Link href="/">
-            <a href="/" className="text-red-400 font-medium">
-              Reset it now
-            </a>
+          <Link href="/users/forgot-password">
+            <a className="text-red-400 font-medium">Reset it now</a>
           </Link>
         </Text>
       </div>

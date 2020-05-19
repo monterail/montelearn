@@ -46,7 +46,7 @@ export default function UsersRegisterPage() {
     e.persist();
     setInputs({
       ...inputs,
-      [e.target.id]: e.target.value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -63,38 +63,48 @@ export default function UsersRegisterPage() {
         <Card>
           <InputWithLabel
             id="first_name"
+            name="first_name"
             label="First Name"
             placeholder="e.g. James"
+            value={inputs.first_name}
             onChange={handleInputChange}
             errors={errors.first_name}
           />
           <InputWithLabel
             id="last_name"
+            name="last_name"
             label="Last Name"
             placeholder="e.g. Wilson"
+            value={inputs.last_name}
             onChange={handleInputChange}
             errors={errors.last_name}
           />
           <InputWithLabel
             id="email"
+            name="email"
             label="Email"
             placeholder="e.g. james.wilson@mail.com"
+            value={inputs.email}
             onChange={handleInputChange}
             errors={errors.email}
           />
           <InputWithLabel
             id="password1"
+            name="password1"
             label="Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
+            value={inputs.password1}
             onChange={handleInputChange}
             errors={errors.password1}
           />
           <InputWithLabel
             id="password2"
+            name="password2"
             label="Confirm Password"
             type="password"
             placeholder="e.g. My$3creTP@ssVV0rD"
+            value={inputs.password2}
             onChange={handleInputChange}
             errors={errors.password2}
           />
