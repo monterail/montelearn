@@ -38,15 +38,13 @@ function SubjectsPage() {
             consectetur officia deserunt. Amet non esse aliqua Lorem et ex consectetur incididunt
             consectetur. Incididunt sunt elit pariatur minim veniam quis exercitation laboris minim.
           </p>
-          <Link href={`/subjects/${subject.uuid}`}>
-            <a href={`/subjects/${subject.uuid}`}>
-              <ButtonWithArrow
-                direction={BUTTON_DIRECTIONS.RIGHT}
-                className="mt-8 hover:opacity-75 transition-opacity duration-200"
-              >
-                Let's do it together!
-              </ButtonWithArrow>
-            </a>
+          <Link href="/subjects/[slug]" as={`/subjects/${subject.uuid}`}>
+            <ButtonWithArrow
+              direction={BUTTON_DIRECTIONS.RIGHT}
+              className="mt-8 hover:opacity-75 transition-opacity duration-200"
+            >
+              Let's do it together!
+            </ButtonWithArrow>
           </Link>
         </Card>
       );
