@@ -65,6 +65,11 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       const refreshToken = Cookie.get(COOKIES.refreshToken);
+
+      if (!refreshToken) {
+        return Promise.reject(error);
+      }
+
       return new Promise((resolve, reject) => {
         apiClient
           .post("/auth/refresh-token/", { refresh: refreshToken })

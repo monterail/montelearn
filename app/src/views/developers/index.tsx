@@ -7,7 +7,7 @@ import Dropdown from "@/components/Dropdown";
 import Textarea from "@/components/Textarea";
 
 import { DropdownOption } from "@/types/Generic";
-import { useState, ChangeEvent, useEffect } from "react";
+import { useState, useEffect } from "react";
 
 import apiClient from "@/services/apiClient";
 
@@ -52,10 +52,6 @@ const DevelopersPage = () => {
     setEndpoint(option.value);
   };
 
-  const handleCodeChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setCode(e.target.value);
-  };
-
   return (
     <div>
       <Head>
@@ -79,14 +75,7 @@ const DevelopersPage = () => {
       </div>
       <div className="pt-12 pb-32 bg-red-cindirella">
         <div className="w-3/4 mx-auto">
-          <Textarea
-            id="code"
-            name="code"
-            label="Your code"
-            placeholder="Wait for it..."
-            value={code}
-            handleChange={handleCodeChange}
-          />
+          <Textarea label="Response" placeholder="Wait for it..." value={code} />
         </div>
       </div>
     </div>

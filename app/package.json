@@ -29,7 +29,8 @@
     "react": "16.13.1",
     "react-dom": "16.13.1",
     "swr": "0.2.0",
-    "react-onclickoutside": "^6.9.0",
+    "react-json-pretty": "2.2.0",
+    "react-onclickoutside": "6.9.0",
     "tailwindcss": "1.4.4"
   },
   "devDependencies": {
