@@ -29,15 +29,19 @@ function SubjectsPage() {
           <div className="flex items-start justify-between">
             <div>
               <Label className="text-sm">#basics #{subject.name}</Label>
-              <h2 className="text-4xl my-1 font-semibold capitalize">{subject.name}</h2>
+              <h2 className="text-4xl my-1 font-semibold capitalize">
+                {subject.name}
+              </h2>
             </div>
             <SubjectIcon icon={icon} />
           </div>
           <p className="text-lg leading-relaxed tracking-wide lesson-text mb-4">
-            Mollit quis cupidatat nisi nulla exercitation minim occaecat elit id culpa commodo Lorem
-            proident esse. Minim nostrud do quis consectetur velit ad magna labore est occaecat
-            consectetur officia deserunt. Amet non esse aliqua Lorem et ex consectetur incididunt
-            consectetur. Incididunt sunt elit pariatur minim veniam quis exercitation laboris minim.
+            Mollit quis cupidatat nisi nulla exercitation minim occaecat elit id
+            culpa commodo Lorem proident esse. Minim nostrud do quis consectetur
+            velit ad magna labore est occaecat consectetur officia deserunt.
+            Amet non esse aliqua Lorem et ex consectetur incididunt consectetur.
+            Incididunt sunt elit pariatur minim veniam quis exercitation laboris
+            minim.
           </p>
           <LinkWithArrow
             href="/subjects/[slug]"
@@ -60,11 +64,13 @@ function SubjectsPage() {
       <div className="mx-3 sm:mx-0">
         <Title className="my-8">Subjects page</Title>
         <Text className="font-roboto-mono my-8 text-xl">
-          Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
-          nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad
-          anim duis.
+          Consequat ex enim aute labore in esse proident laborum cillum aliquip.
+          Duis fugiat velit nulla sit ipsum duis ex aliquip nostrud pariatur non
+          sit nostrud veniam. Laboris id ad anim duis.
         </Text>
-        <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
+        <div className="grid gap-8 grid-cols-1 md:grid-cols-2">
+          {renderSubjects()}
+        </div>
       </div>
     </section>
   );

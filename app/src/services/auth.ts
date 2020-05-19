@@ -3,6 +3,7 @@ import { AxiosResponse } from "axios";
 
 import { COOKIES } from "@/constants";
 import { InputError } from "@/utils/errors";
+
 import apiClient from "./apiClient";
 
 export type LoginInputsType = {

@@ -38,6 +38,7 @@ module.exports = {
           "300": "var(--color-red-300)",
           "400": "var(--color-red-400)",
           monterail: "var(--color-monterail)",
+          cindirella: "var(--color-red-cindirella)",
         },
       },
     },

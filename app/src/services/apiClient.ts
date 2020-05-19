@@ -25,7 +25,6 @@ if (accessToken) {
   setApiClientAuthToken(accessToken);
 }
 
-// for multiple requests
 let isRefreshing = false;
 let failedQueue: any[] = [];
 
@@ -71,7 +70,6 @@ apiClient.interceptors.response.use(
           .post("/auth/refresh-token/", { refresh: refreshToken })
           .then(({ data: { access } }) => {
             Cookie.set(COOKIES.accessToken, access);
-            // TODO set refresh token as well
 
             setApiClientAuthToken(access);
             setOriginalRequestAuthToken(originalRequest, access);
@@ -82,6 +80,8 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
+            Cookie.remove(COOKIES.accessToken);
+            Cookie.remove(COOKIES.refreshToken);
             reject(err);
           })
           .then(() => {

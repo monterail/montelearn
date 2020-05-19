@@ -115,9 +115,7 @@ export default function UsersRegisterPage() {
             </Button>
             <li className="font-medium text-red-400">
               <Link href="/users/login">
-                <a href="/users/login" className="flex px-8 py-4">
-                  Login
-                </a>
+                <a className="flex px-8 py-4">Login</a>
               </Link>
             </li>
           </ul>
