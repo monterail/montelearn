@@ -78,9 +78,7 @@ export default function UsersLoginPage() {
             </Button>
             <li className="mx-0 sm:mx-2 font-medium text-red-400">
               <Link href="/users/register">
-                <a href="/users/register" className="flex px-8 py-4">
-                  Register
-                </a>
+                <a className="flex px-8 py-4">Register</a>
               </Link>
             </li>
           </ul>

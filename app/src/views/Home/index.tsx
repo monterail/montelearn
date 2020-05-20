@@ -22,9 +22,7 @@ export default function HomePage() {
           </Text>
           <div className="inline-flex font-roboto-mono font-medium text-xl text-white bg-red-400 rounded-full">
             <Link href="/subjects">
-              <a href="/subjects" className="inline-flex px-10 py-5">
-                Try it out
-              </a>
+              <a className="inline-flex px-10 py-5">Try it out</a>
             </Link>
           </div>
         </div>
@@ -42,10 +40,7 @@ export default function HomePage() {
             excepteur ipsum sit fugiat irure sunt.
           </Text>
           <Link href="/users/login">
-            <a
-              href="/users/login"
-              className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto"
-            >
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto">
               Try it out
             </a>
           </Link>
@@ -59,10 +54,7 @@ export default function HomePage() {
             cupidatat id ipsum ullamco.
           </Text>
           <Link href="/users/login">
-            <a
-              href="/users/login"
-              className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto"
-            >
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto">
               Try it out
             </a>
           </Link>
@@ -74,11 +66,8 @@ export default function HomePage() {
             proident aliquip nisi excepteur. Adipisicing magna tempor laborum incididunt
             reprehenderit.
           </Text>
-          <Link href="/users/login">
-            <a
-              href="/users/login"
-              className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto"
-            >
+          <Link href="/developers">
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 px-8 py-3 mr-auto">
               Try it out
             </a>
           </Link>
