@@ -35,10 +35,10 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
           direction={BUTTON_DIRECTIONS.LEFT}
           withBorder={false}
         >
-          <span className="pl-4 font-medium hidden sm:block">Back</span>
+          <span className="font-medium hidden sm:block">Back</span>
         </ButtonWithArrow>
       )}
-      <ul className="flex items-center sm:px-4 font-medium text-red-200 cursor-default my-4">
+      <ul className="flex items-center h-6 sm:px-4 font-medium text-red-200 cursor-default my-4">
         {renderElements()}
       </ul>
     </div>
