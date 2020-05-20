@@ -1,19 +1,16 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import Router from "next/router";
-import Cookie from "js-cookie";
 
-import { COOKIES } from "@/constants";
+import { isAuthenticated } from "@/utils/helpers/auth";
 
 export default function auth(WrappedComponent: any) {
   return ({ redirect = true, ...props }: { redirect?: Boolean; props?: any }) => {
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    const accessToken = Cookie.get(COOKIES.accessToken);
+    const isLoggedIn = isAuthenticated();
 
     useEffect(() => {
-      if (!accessToken && redirect) Router.push("/users/login");
-      else setIsLoggedIn(true);
-    });
+      if (!isLoggedIn && redirect) Router.push("/users/login");
+    }, []);
 
-    return <div>{isLoggedIn && <WrappedComponent accessToken={accessToken} {...props} />}</div>;
+    return isLoggedIn && <WrappedComponent {...props} />;
   };
 }

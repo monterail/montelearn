@@ -3,11 +3,11 @@ import Document, { Html, Head, Main, NextScript } from "next/document";
 
 import { FONT_SANS_SERIF } from "@project/core/lib/const/theming";
 
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-
 class NextDocument extends Document {
-  static getInitialProps = Document.getInitialProps;
+  static async getInitialProps(ctx) {
+    const initialProps = await Document.getInitialProps(ctx);
+    return { ...initialProps };
+  }
 
   render() {
     return (
@@ -16,7 +16,7 @@ class NextDocument extends Document {
           <Global
             styles={css`
               body {
-                -webkit-font-smoothing: antialiased;
+                -webkit-font-smoothing: anntialiased;
                 font-family: ${FONT_SANS_SERIF};
                 margin: 0;
               }
@@ -40,9 +40,7 @@ class NextDocument extends Document {
         </Head>
         <body className="bg-gray-100 text-black">
           <div className="container mx-auto">
-            <Header />
             <Main />
-            <Footer />
           </div>
           <NextScript />
         </body>

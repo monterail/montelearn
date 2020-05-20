@@ -1,7 +1,12 @@
 import axios from "axios";
-import Cookie from "js-cookie";
 
-import { COOKIES } from "@/constants";
+import {
+  getAccessToken,
+  getRefreshToken,
+  setAccessToken,
+  removeAccessToken,
+  removeRefreshToken,
+} from "@/utils/helpers/auth";
 
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api`,
@@ -12,15 +17,15 @@ const apiClient = axios.create({
   },
 });
 
-const setApiClientAuthToken = (value: string) => {
-  apiClient.defaults.headers.common.Authorization = `Bearer ${value}`;
+export const setApiClientAuthToken = (value: string) => {
+  apiClient.defaults.headers.common.Authorization = value && `Bearer ${value}`;
 };
 
 const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
-  originalRequest.headers.Authorization = `Bearer ${value}`;
+  originalRequest.headers.Authorization = value && `Bearer ${value}`;
 };
 
-const accessToken = Cookie.get(COOKIES.accessToken)?.toString() || "";
+const accessToken = getAccessToken();
 if (accessToken) {
   setApiClientAuthToken(accessToken);
 }
@@ -64,7 +69,7 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = Cookie.get(COOKIES.refreshToken);
+      const refreshToken = getRefreshToken();
 
       if (!refreshToken) {
         return Promise.reject(error);
@@ -74,7 +79,7 @@ apiClient.interceptors.response.use(
         apiClient
           .post("/auth/refresh-token/", { refresh: refreshToken })
           .then(({ data: { access } }) => {
-            Cookie.set(COOKIES.accessToken, access);
+            setAccessToken(access);
 
             setApiClientAuthToken(access);
             setOriginalRequestAuthToken(originalRequest, access);
@@ -85,8 +90,8 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
-            Cookie.remove(COOKIES.accessToken);
-            Cookie.remove(COOKIES.refreshToken);
+            removeAccessToken();
+            removeRefreshToken();
             reject(err);
           })
           .then(() => {
@@ -96,7 +101,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  },
+  }
 );
 
 export default apiClient;

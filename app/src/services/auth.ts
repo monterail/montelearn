@@ -1,10 +1,14 @@
-import Cookie from "js-cookie";
 import { AxiosResponse } from "axios";
 
-import { COOKIES } from "@/constants";
 import { InputError } from "@/utils/errors";
+import {
+  setAccessToken,
+  setRefreshToken,
+  removeAccessToken,
+  removeRefreshToken,
+} from "@/utils/helpers/auth";
 
-import apiClient from "./apiClient";
+import apiClient, { setApiClientAuthToken } from "./apiClient";
 
 export type LoginInputsType = {
   email: string;
@@ -34,17 +38,20 @@ export type ConfirmResetPasswordData = ChangePasswordInputs & {
   token: string;
 };
 
-function setCookies({ access_token, refresh_token }: Cookies) {
-  Cookie.set(COOKIES.accessToken, access_token);
-  Cookie.set(COOKIES.refreshToken, refresh_token);
+function setTokens({ access_token, refresh_token }: Cookies) {
+  setAccessToken(access_token);
+  setRefreshToken(refresh_token);
 }
 
 async function authenticate({ body, url }: { body: string; url: string }) {
   try {
     const response = await apiClient.post(url, body);
-    setCookies(response.data);
+    setTokens(response.data);
   } catch (error) {
-    if (error.response && Object.values(error.response.data).every((e: any) => Array.isArray(e))) {
+    if (
+      error.response &&
+      Object.values(error.response.data).every((e: any) => Array.isArray(e))
+    ) {
       throw new InputError(error.message, error.response.data);
     }
     throw new InputError(error.message, {
@@ -65,7 +72,9 @@ export function register(inputs: RegisterInputsType): Promise<string | void> {
   return authenticate({ body, url });
 }
 
-export function forgotPassword(email: string): Promise<AxiosResponse<{ detail: string }>> {
+export function forgotPassword(
+  email: string
+): Promise<AxiosResponse<{ detail: string }>> {
   const url = `/auth/email/password/reset/`;
   return apiClient.post(url, {
     email,
@@ -73,13 +82,14 @@ export function forgotPassword(email: string): Promise<AxiosResponse<{ detail: s
 }
 
 export function resetPassword(
-  data: ConfirmResetPasswordData,
+  data: ConfirmResetPasswordData
 ): Promise<AxiosResponse<{ detail: string }>> {
   const url = `/auth/email/password/reset/confirm/`;
   return apiClient.post(url, data);
 }
 
 export function logout() {
-  Cookie.remove(COOKIES.accessToken);
-  Cookie.remove(COOKIES.refreshToken);
+  removeAccessToken();
+  removeRefreshToken();
+  setApiClientAuthToken("");
 }
