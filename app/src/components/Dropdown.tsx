@@ -1,5 +1,6 @@
 import React, { FC, useState, MouseEvent } from "react";
 import onClickOutside from "react-onclickoutside";
+
 import { DropdownOption } from "@/types/Generic";
 
 type Props = {
@@ -44,7 +45,6 @@ const Dropdown: FC<Props> & {
           text-gray-300 leading-tight focus:outline-none
           placeholder-gray-300 font-roboto-mono cursor-pointer
         "
-        style={{ minHeight: "52px" }}
         onClick={showDropdown}
       >
         {selectedOption?.name || placeholder}

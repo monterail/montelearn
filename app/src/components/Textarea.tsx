@@ -11,7 +11,7 @@ const DEFAULT_CLASSES = `
   shadow-xs appearance-none rounded-lg w-full p-4
   text-gray-300 leading-tight focus:outline-none
   placeholder-gray-300 font-roboto-mono resize-none
-  bg-white
+  bg-white min-h-json
 `;
 
 const Textarea: FunctionComponent<Props> = ({ value, label, placeholder = "" }) => {
@@ -22,11 +22,7 @@ const Textarea: FunctionComponent<Props> = ({ value, label, placeholder = "" }) 
           {label}
         </label>
       )}
-      <JSONPretty
-        data={value || placeholder}
-        className={DEFAULT_CLASSES}
-        style={{ minHeight: "20rem" }}
-      />
+      <JSONPretty data={value || placeholder} className={DEFAULT_CLASSES} />
     </div>
   );
 };

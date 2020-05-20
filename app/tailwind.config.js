@@ -1,6 +1,9 @@
 module.exports = {
   purge: ["./src/**/*.jsx", "./src/**/*.tsx"],
   theme: {
+    minHeight: {
+      json: "20rem",
+    },
     extend: {
       boxShadow: {
         custom:
