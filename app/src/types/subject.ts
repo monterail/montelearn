@@ -8,13 +8,13 @@ export enum SUBJECT_ICONS {
 }
 
 export interface SubjectList {
-  count: Number;
-  next: any;
-  previous: any;
+  count: number;
+  next: string;
+  previous: string;
   results: Array<Subject>;
 }
 
 export type Subject = {
-  uuid: String;
-  name: String;
+  uuid: string;
+  name: string;
 };
