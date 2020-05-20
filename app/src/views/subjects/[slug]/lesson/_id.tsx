@@ -12,6 +12,9 @@ import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
 import auth from "@/containers/hoc/Auth";
 
+import useRequest from "@/utils/hooks/useRequest";
+
+import { Lesson } from "@/types/lesson";
 import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
 
 const sections = [
@@ -53,6 +56,12 @@ const questions = [
 function LessonPage() {
   const router = useRouter();
   const { id, slug } = router.query;
+
+  const { data } = useRequest<Lesson>({
+    url: `/lesson/${id}`,
+  });
+
+  console.log(data);
 
   const handleBackClick = () => {
     router.push(`/subjects/${slug}`);
