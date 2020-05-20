@@ -1,7 +1,20 @@
 import factory.fuzzy
 
-from ..constants import GRADES, SUBJECTS
-from ..models import Lesson
+from ..models import Grade, Lesson, Subject
+
+
+class GradeFactory(factory.django.DjangoModelFactory):
+    name = factory.fuzzy.FuzzyText(length=50)
+
+    class Meta:
+        model = Grade
+
+
+class SubjectFactory(factory.django.DjangoModelFactory):
+    name = factory.fuzzy.FuzzyText(length=50)
+
+    class Meta:
+        model = Subject
 
 
 class LessonFactory(factory.django.DjangoModelFactory):
@@ -9,8 +22,8 @@ class LessonFactory(factory.django.DjangoModelFactory):
     description = factory.fuzzy.FuzzyText()
     pdf_file = factory.django.FileField()
     url = factory.fuzzy.FuzzyText(length=300)
-    subject = factory.fuzzy.FuzzyChoice(SUBJECTS)
-    grade = factory.fuzzy.FuzzyChoice(GRADES)
+    subject = factory.SubFactory(SubjectFactory)
+    grade = factory.SubFactory(GradeFactory)
 
     class Meta:
         model = Lesson

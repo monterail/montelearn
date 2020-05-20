@@ -1,11 +1,11 @@
 # AUTHENTICATION API
 
-[![circle-ci-image]][circle-ci]
 [![codecov-image]][codecov]
 [![black-image]][black]
-[![gitflow-image]][gitflow]
 [![calver-image]][calver]
 [![cookiecutter-image]][cookiecutter]
+[![github-actions]][github-status]
+
 
 ## Setting up pre-commit hooks
 
@@ -42,6 +42,9 @@ These env vars need to be set in prod:
     WEB_CONCURRENCY=4
 
     SENTRY_DSN=
+
+    LESSON_API_HOST
+    TESTS_API_HOST =
 ```
 
 ## Create migrations
@@ -61,14 +64,15 @@ To run the tests and check your test coverage:
     make test 
 
 
-[codecov-image]: https://codecov.io/gh/monterail/auth/branch/master/graph/badge.svg?token=LIYZPH7H8p
-[codecov]: https://codecov.io/gh/monterail/auth
+[github-actions]: https://github.com/monterail/monterail-elearning/workflows/CD%20authentication-api/badge.svg
+[github-status]: https://github.com/monterail/monterail-elearning/actions
+
+[codecov-image]: https://codecov.io/gh/monterail/monterail-elearning/branch/master/graph/badge.svg?token=3MKHOIRYBY
+[codecov]: https://codecov.io/gh/monterail/monterail-elearning
 
 [black-image]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black]: https://github.com/psf/black
 
-[gitflow-image]: https://img.shields.io/badge/Branching%20strategy-gitflow-5FBB1C.svg
-[gitflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 [calver-image]: https://img.shields.io/badge/Versioning%20strategy-CalVer-5FBB1C.svg
 [calver]: https://calver.org

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "next build && next export",
     "cleanup": "rimraf node_modules .next coverage out",
-    "dev": "next -p 3000",
+    "dev": "next -p 3003",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
     "test": "project-jest",
@@ -19,6 +19,7 @@
     "@project/setup": "1.0.0",
     "envalid": "6.0.1",
     "isomorphic-unfetch": "3.0.0",
+    "js-cookie": "^2.2.1",
     "next": "9.3.5",
     "react": "16.13.1",
     "react-dom": "16.13.1"
@@ -27,6 +28,7 @@
     "@babel/core": "7.9.0",
     "@project/eslint": "1.0.0",
     "@project/jest": "1.0.0",
+    "@types/js-cookie": "^2.2.6",
     "@types/node": "13.13.2",
     "@types/react": "16.9.34",
     "babel-plugin-emotion": "10.0.33",

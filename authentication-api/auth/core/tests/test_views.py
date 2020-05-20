@@ -48,7 +48,8 @@ def test_email_registration(api_client):
     )
 
     assert response.status_code == 201
-    assert "token" in response.data
+    assert "access_token" in response.data
+    assert "refresh_token" in response.data
 
 
 @pytest.mark.django_db
@@ -102,7 +103,8 @@ def test_email_login(api_client):
         reverse("rest_login"), data={"email": "user@example.com", "password": "1234example1234"},
     )
 
-    assert "token" in response.data
+    assert "access_token" in response.data
+    assert "refresh_token" in response.data
     assert response.status_code == 200
 
 
@@ -142,8 +144,7 @@ def test_email_password_change(api_client):
     )
 
     assert response.status_code == 201
-    token = response.data["token"]
-
+    token = response.data["access_token"]
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
 
     new_password = "1234example1234-changed"
@@ -254,7 +255,7 @@ def test_user_email_logout(api_client):
         },
     )
 
-    token = response.data["token"]
+    token = response.data["access_token"]
     api_client.credentials(HTTP_AUTHORIZATION=f"Bearer {token}")
     response = api_client.post(reverse("rest_logout"))
 
@@ -277,20 +278,20 @@ def test_verify_token(api_client):
         },
     )
 
-    token = response.data["token"]
+    token = response.data["access_token"]
 
     response = api_client.post(reverse("rest_verify_token"), data={"token": token})
 
     assert response.status_code == 200
-    assert "token" in response.data
+    assert response.data == {}
 
 
 @pytest.mark.django_db
 def test_verify_token_invalid(api_client):
     response = api_client.post(reverse("rest_verify_token"), data={"token": "invalidtoken"})
 
-    assert response.status_code == 400
-    assert not response.data.get("token")
+    assert response.status_code == 401
+    assert not response.data.get("access_token")
 
 
 @pytest.mark.django_db
@@ -306,12 +307,13 @@ def test_refresh_token(api_client):
         },
     )
 
-    token = response.data["token"]
+    token = response.data["refresh_token"]
 
-    response = api_client.post(reverse("rest_refresh_token"), data={"token": token})
+    response = api_client.post(reverse("rest_refresh_token"), data={"refresh": token})
 
     assert response.status_code == 200
-    assert "token" in response.data
+    assert "access" in response.data
+    assert "refresh" in response.data
 
 
 @pytest.mark.django_db
@@ -319,7 +321,7 @@ def test_refresh_token_invalid(api_client):
     response = api_client.post(reverse("rest_refresh_token"), data={"token": "invalidtoken"})
 
     assert response.status_code == 400
-    assert not response.data.get("token")
+    assert not response.data.get("access")
 
 
 @pytest.mark.django_db
@@ -346,7 +348,7 @@ def test_admin_panel_login_success(api_client):
         data={"email": "user@example.com", "password": "1234example1234"},
     )
 
-    assert "token" in response.data
+    assert "access_token" in response.data
     assert response.status_code == 200
 
 

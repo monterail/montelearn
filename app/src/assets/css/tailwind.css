@@ -1,20 +1,3 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
-
-:root {
-  --color-red-100: #fef6f6;
-  --color-red-200: #f7a0a1;
-  --color-red-300: #f47073;
-  --color-red-400: #ec1915;
-
-  --color-gray-100: #fefefe;
-  --color-gray-200: #d6d7d9;
-
-  --color-green-100: rgba(111, 207, 151, 0.25);
-  --color-green-200: #219653;
-
-  --color-white: #fff;
-  --color-black: #343540;
-  --color-monterail: #ed1116;
-}

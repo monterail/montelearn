@@ -24,7 +24,7 @@ const Content = () => {
   return (
     <StyledFlexContainer css={{ justifyContent: "space-between" }}>
       {cards.map((el) => {
-        return <Card title={el.title} content={el.content} />;
+        return <Card key={el.title} title={el.title} content={el.content} />;
       })}
     </StyledFlexContainer>
   );

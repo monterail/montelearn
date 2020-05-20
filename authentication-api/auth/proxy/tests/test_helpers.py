@@ -33,12 +33,12 @@ def test_proxy_tests_create_response_error(teacher_api_client):
     error_msg = {"lesson_uuid": ["can't be blank"]}
     with requests_mock.mock() as mocked_request:
         mocked_request.post(
-            f"{settings.TESTS_API_HOST}/api/tests/",
+            f"{settings.TESTS_API_HOST}/api/admin/tests/",
             status_code=400,
             headers={"Content-type": "application-json"},
             json=error_msg,
         )
-        response = teacher_api_client.post(reverse("proxy:tests-list"))
+        response = teacher_api_client.post(reverse("proxy:tests-admin-list"))
 
         assert response.status_code == 400
         assert response.json()["detail"] == error_msg

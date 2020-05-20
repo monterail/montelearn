@@ -13,7 +13,7 @@ const Card = ({ title, content }) => {
           backgroundColor: COLOR_WHITE,
           color: COLOR_BLACK,
           height: rem(48),
-          border: `2px solid ${COLOR_BLACK}`,
+          border: `${rem(2)} solid ${COLOR_BLACK}`,
           padding: rem(15, 30),
         }}
       >

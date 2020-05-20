@@ -20,4 +20,15 @@ module.exports = {
     });
     return config;
   },
+  experimental: {
+    async redirects() {
+      return [
+        {
+          source: "/password-reset/:uid/:token/",
+          destination: "/users/reset-password?uid=:uid&token=:token",
+          statusCode: 302,
+        },
+      ];
+    },
+  },
 };
