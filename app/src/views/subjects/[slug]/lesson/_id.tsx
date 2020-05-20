@@ -10,12 +10,14 @@ import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
+
+import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
+
 import auth from "@/containers/hoc/Auth";
 
 import useRequest from "@/utils/hooks/useRequest";
 
 import { Lesson } from "@/types/lesson";
-import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
 
 const sections = [
   {

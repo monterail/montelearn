@@ -7,12 +7,14 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
+
 import auth from "@/containers/hoc/Auth";
 
-import useRequest from "@/utils/hooks/useRequest";
-
 import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
+
 import { SUBJECT_ICONS, SubjectList } from "@/types/subject";
+
+import useRequest from "@/utils/hooks/useRequest";
 
 function SubjectsPage() {
   const { data } = useRequest<SubjectList>({
@@ -20,8 +22,7 @@ function SubjectsPage() {
   });
 
   const renderSubjects = () =>
-    data &&
-    data.results.map((subject, index) => {
+    data?.results.map((subject, index) => {
       const icon: SUBJECT_ICONS = SUBJECT_ICONS.POTION;
       return (
         <Card className="my-4" key={`subject-${subject.uuid}-no${index}`}>

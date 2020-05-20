@@ -1,16 +1,16 @@
 export interface LessonList {
-  count: Number;
-  next: any;
-  previous: any;
+  count: number;
+  next: string;
+  previous: string;
   results: Array<Lesson>;
 }
 
 export type Lesson = {
-  description: String;
-  grade: String;
-  name: String;
-  pdf_file: null;
-  subject: String;
-  url: String;
-  uuid: String;
+  description: string;
+  grade: string;
+  name: string;
+  pdf_file?: string;
+  subject: string;
+  url: string;
+  uuid: string;
 };
