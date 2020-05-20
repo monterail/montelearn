@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import { logout } from "@/services/auth";
 
 const LogoutPage = () => {
+  const router = useRouter();
+
   useEffect(() => {
     logout();
-    Router.push("/");
+    router.push("/");
   }, []);
 
   return null;
