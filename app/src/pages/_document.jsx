@@ -16,7 +16,7 @@ class NextDocument extends Document {
           <Global
             styles={css`
               body {
-                -webkit-font-smoothing: anntialiased;
+                -webkit-font-smoothing: antialiased;
                 font-family: ${FONT_SANS_SERIF};
                 margin: 0;
               }
