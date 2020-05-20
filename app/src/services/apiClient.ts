@@ -92,6 +92,7 @@ apiClient.interceptors.response.use(
             processQueue(err, null);
             removeAccessToken();
             removeRefreshToken();
+            setApiClientAuthToken("");
             reject(err);
           })
           .then(() => {
@@ -101,7 +102,7 @@ apiClient.interceptors.response.use(
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 export default apiClient;
