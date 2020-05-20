@@ -8,12 +8,14 @@ import Card from "@/components/Card";
 import Label from "@/components/Label";
 import SubTitle from "@/components/SubTitle";
 import Text from "@/components/Text";
-import auth from "@/containers/hoc/Auth";
-
-import useRequest from "@/utils/hooks/useRequest";
 
 import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
+
+import auth from "@/containers/hoc/Auth";
+
 import { LessonList } from "@/types/lesson";
+
+import useRequest from "@/utils/hooks/useRequest";
 
 function SubjectPage() {
   const router = useRouter();
@@ -28,8 +30,7 @@ function SubjectPage() {
   };
 
   const renderLessons = () =>
-    data &&
-    data.results.map((lesson, index) => {
+    data?.results.map((lesson, index) => {
       return (
         <Card key={`lesson-${lesson.name}-no-${index}`}>
           <Label className="text-sm">Lesson {index + 1}</Label>
