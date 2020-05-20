@@ -1,18 +1,20 @@
 import Head from "next/head";
-import Link from "next/link";
 
 import Card from "@/components/Card";
 import Breadcrumbs from "@/components/Breadcrumbs";
-import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
+import LinkWithArrow from "@/components/LinkWithArrow";
 import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
+
+import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
+
 import auth from "@/containers/hoc/Auth";
 
-import useRequest from "@/utils/hooks/useRequest";
-
 import { SUBJECT_ICONS, SubjectList } from "@/types/subject";
+
+import useRequest from "@/utils/hooks/useRequest";
 
 function SubjectsPage() {
   const { data } = useRequest<SubjectList>({
@@ -20,8 +22,7 @@ function SubjectsPage() {
   });
 
   const renderSubjects = () =>
-    data &&
-    data.results.map((subject, index) => {
+    data?.results.map((subject, index) => {
       const icon: SUBJECT_ICONS = SUBJECT_ICONS.POTION;
       return (
         <Card className="my-4" key={`subject-${subject.uuid}-no${index}`}>
@@ -38,14 +39,14 @@ function SubjectsPage() {
             consectetur officia deserunt. Amet non esse aliqua Lorem et ex consectetur incididunt
             consectetur. Incididunt sunt elit pariatur minim veniam quis exercitation laboris minim.
           </p>
-          <Link href="/subjects/[slug]" as={`/subjects/${subject.uuid}`}>
-            <ButtonWithArrow
-              direction={BUTTON_DIRECTIONS.RIGHT}
-              className="mt-8 hover:opacity-75 transition-opacity duration-200"
-            >
-              Let's do it together!
-            </ButtonWithArrow>
-          </Link>
+          <LinkWithArrow
+            href="/subjects/[slug]"
+            as={`/subjects/${subject.name}`}
+            direction={BUTTON_DIRECTIONS.RIGHT}
+            className="mt-8 hover:opacity-75 transition-opacity duration-200"
+          >
+            Let's do it together!
+          </LinkWithArrow>
         </Card>
       );
     });

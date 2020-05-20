@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import ButtonWithArrow, { BUTTON_DIRECTIONS } from "@/components/ButtonWithArrow";
+import LinkWithArrow from "@/components/LinkWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
 import Text from "@/components/Text";
@@ -10,6 +10,9 @@ import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
+
+import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
+
 import auth from "@/containers/hoc/Auth";
 
 const sections = [
@@ -62,9 +65,9 @@ function LessonPage() {
         <Card className="w-full md:w-1/2 mb-8" key={`section-${section.title}-no-${section.id}`}>
           <Label className="text-sm">Section {section.id}</Label>
           <h2 className="text-4xl my-1 font-semibold">{section.title}</h2>
-          <ButtonWithArrow direction={BUTTON_DIRECTIONS.RIGHT} className="mt-8">
+          <LinkWithArrow href="/subjects" direction={BUTTON_DIRECTIONS.RIGHT} className="mt-8">
             Check this out!
-          </ButtonWithArrow>
+          </LinkWithArrow>
         </Card>
       );
     });
