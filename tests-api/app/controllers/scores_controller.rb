@@ -3,12 +3,12 @@
 class ScoresController < ApplicationController
   # POST /tests/:id/scores
   def create
-    score = Score.new(score_params)
+    use_case = CalculateScore.call(params: score_params)
 
-    if score.valid?
-      render_resource(score, :created)
+    if use_case.success?
+      render json: use_case.data, status: :created
     else
-      render_validation_errors(score)
+      render json: use_case.errors, status: :bad_request
     end
   end
 
