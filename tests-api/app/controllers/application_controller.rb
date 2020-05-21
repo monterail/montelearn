@@ -4,9 +4,7 @@ class ApplicationController < ActionController::API
   private
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
-  rescue_from ActiveRecord::RecordInvalid do |exception|
-    render_validation_errors(exception.record)
-  end
+  rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
 
   # Issue: https://github.com/rails/rails/issues/38285
   # Workaround: https://github.com/rails/rails/issues/34244#issuecomment-433365579
@@ -20,16 +18,14 @@ class ApplicationController < ActionController::API
     render json: { detail: exception.message }, status: :not_found
   end
 
-  def render_validation_errors(record)
-    render json: record.errors.messages, status: :bad_request
+  def render_validation_errors(exception)
+    render json: exception.record.errors.messages, status: :bad_request
   end
 
   def render_bad_request(exception)
     render json: { detail: exception.message }, status: :bad_request
   end
 
-  # TODO: next and previous functionallity. They come from Django Rest Framework
-  # conventions, which we are following as decided by BE team.
   def render_collection(relation)
     render json: {
       count: relation.size,
