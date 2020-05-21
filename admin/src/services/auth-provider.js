@@ -13,22 +13,22 @@ const authProvider = {
         }
         return response.json();
       })
-      .then(({ token }) => {
-        localStorage.setItem("token", token);
+      .then(({ access_token }) => {
+        localStorage.setItem("access_token", access_token);
       });
   },
   logout: () => {
-    localStorage.removeItem("token");
+    localStorage.removeItem("access_token");
     return Promise.resolve();
   },
   checkAuth: () => {
-    return localStorage.getItem("token") ? Promise.resolve() : Promise.reject();
+    return localStorage.getItem("access_token") ? Promise.resolve() : Promise.reject();
   },
   checkError: (error) => {
     const { status } = error;
 
     if (status === 401 || status === 403) {
-      localStorage.removeItem("token");
+      localStorage.removeItem("access_token");
       return Promise.reject();
     }
 
