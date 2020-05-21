@@ -2,6 +2,7 @@
 Base settings to build other settings files upon.
 """
 import os
+from datetime import timedelta
 
 import environ
 
@@ -329,4 +330,12 @@ TESTS_API_HOST = env.str("TESTS_API_HOST", default="")
 CORS_ORIGIN_WHITELIST = [
     "https://montelearn-landing.herokuapp.com",
     "https://montelearn-admin.herokuapp.com",
+    "https://montelearn-app.herokuapp.com",
 ]
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
+    'ROTATE_REFRESH_TOKENS': True,
+    'BLACKLIST_AFTER_ROTATION': True,
+}

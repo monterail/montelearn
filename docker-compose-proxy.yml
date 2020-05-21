@@ -70,7 +70,7 @@ services:
       EDITOR: vi
     ports:
       - "3000:3000"
-    command: /bin/bash -c "bin/setup && bundle exec puma -C config/puma.rb"
+    command: /bin/bash -c "rails db:drop; setup; puma -C config/puma.rb"
 
   postgres-tests:
     image: postgres:11.1

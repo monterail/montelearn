@@ -1,22 +1,72 @@
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { ButtonWithArrow } from "@/components/ButtonWithArrow";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import Title from "@/components/Title";
-import Card from "@/components/Card";
+import Text from "@/components/Text";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
 import RadioButton from "@/components/RadioButton";
 import QuesitonLabel from "@/components/QuestionLabel";
 
+import auth from "@/containers/hoc/Auth";
+
+import useRequest from "@/utils/hooks/useRequest";
+
+import { Lesson } from "@/types/lesson";
+
+const questions = [
+  {
+    id: "1",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: true,
+  },
+  {
+    id: "2",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: false,
+  },
+  {
+    id: "3",
+    title:
+      "Important information on the identity and hazards of a chemical material can be found on the container label",
+    correct: true,
+  },
+];
+
 function LessonPage() {
   const router = useRouter();
   const { id, slug } = router.query;
 
+  const { data: lesson } = useRequest<Lesson>({
+    url: `/lesson/${id}`,
+  });
+
   const handleBackClick = () => {
     router.push(`/subjects/${slug}`);
   };
+
+  const renderQuestions = () =>
+    questions.map((question) => {
+      return (
+        <div
+          className="p-6 sm:p-10 bg-white rounded-lg w-4/5 lg:w-3/4 xl:w-1/2 mb-8"
+          key={`question-${question.title}-no-${question.id}`}
+        >
+          <Label className="text-sm">Question {question.id}</Label>
+          <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.title}</Text>
+          <div className="mt-6 flex flex-wrap w-full items-center justify-around">
+            <div className="flex flex-col sm:flex-row mb-4 md:mb-0">
+              <RadioButton className="mx-3 mb-4 sm:mb-0">True</RadioButton>
+              <RadioButton className="mx-3">False</RadioButton>
+            </div>
+            <QuesitonLabel className="lg:mt-3 xl:mt-0" isCorrect={question.correct} />
+          </div>
+        </div>
+      );
+    });
 
   return (
     <section className="px-2 mb-12">
@@ -25,73 +75,31 @@ function LessonPage() {
       </Head>
       <Breadcrumbs
         handleBackClick={handleBackClick}
-        options={["Subjects", String(slug), `Lesson ${String(id)}`]}
+        options={["Subjects", String(slug), `${String(lesson?.name)}`]}
       />
-      <div className="flex items-center justify-between w-full">
-        <div className="my-8">
-          <Label className="text-xl">Lesson {id}</Label>
-          <Title>What are pictograms?</Title>
-        </div>
-        <Button>Open lesson</Button>
-      </div>
-      <h2 className="text-xl font-roboto-mono mb-8 max-w-screen-sm">
-        The Hazard Communication Standard (HCS) requires pictograms on labels to alert users of the
-        chemical hazards to which they may be exposed. In this lesson, you will learn more about
-        chemistry pictograms.
-      </h2>
-      <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
-      <div className="flex flex-col items-center content-center">
-        <Card className="w-1/2 mb-8">
-          <Label className="text-sm">Section 1</Label>
-          <h2 className="text-4xl my-1 font-semibold">Intro</h2>
-          <ButtonWithArrow direction="right" className="mt-8">
-            Let's do it together!
-          </ButtonWithArrow>
-        </Card>
-        <Card className="w-1/2 mb-8">
-          <Label className="text-sm">Section 2</Label>
-          <h2 className="text-4xl my-1 font-semibold">Exploding bomb</h2>
-          <ButtonWithArrow direction="right" className="mt-8">
-            Let's do it together!
-          </ButtonWithArrow>
-        </Card>
-        <Card className="w-1/2 mb-8">
-          <Label className="text-sm">Section 3</Label>
-          <h2 className="text-4xl my-1 font-semibold">Environment</h2>
-          <ButtonWithArrow direction="right" className="mt-8">
-            Let's do it together!
-          </ButtonWithArrow>
-        </Card>
-      </div>
-      <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
-        <h2 className="font-eczar text-4xl font-semibold mb-8">Time to yest your konewledge</h2>
-        <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
-          <Label className="text-sm">Question 1</Label>
-          <h2 className="text-2xl my-1 font-semibold">
-            Important information on the identity and hazards of a chemical material can be found on
-            the container label:
-          </h2>
-          <div className="mt-6 flex w-full items-center justify-around">
-            <RadioButton>True</RadioButton>
-            <RadioButton>False</RadioButton>
-            <QuesitonLabel isCorrect>Correct</QuesitonLabel>
+      <div className="mx-3 sm:mx-0">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full">
+          <div className="my-8">
+            <Label className="text-xl capitalize">{lesson?.grade}</Label>
+            <Title className="mt-2 sm:mt-4">{lesson?.name}</Title>
           </div>
+          <Button className="mr-auto mb-8 sm:mb-0 sm:mr-0 px-8 py-4 md:px-12 lg:py-6 lg:text-xl">
+            <a href={lesson?.pdf_file} target="_blank" rel="noopener noreferrer">
+              Open lesson
+            </a>
+          </Button>
         </div>
-        <div className="p-10 bg-white rounded-lg w-1/2 mb-8">
-          <Label className="text-sm">Question 2</Label>
-          <h2 className="text-2xl my-1 font-semibold">
-            Important information on the identity and hazards of a chemical material can be found on
-            the container label:
+        <Text className="text-xl font-roboto-mono mb-8">{lesson?.description}</Text>
+        <hr className="my-8 block border border-gray-200 h-0 opacity-50" />
+        <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
+          <h2 className="font-eczar text-center text-4xl font-semibold mb-8">
+            Time to yest your knowledge
           </h2>
-          <div className="mt-6 flex w-full items-center justify-around">
-            <RadioButton>True</RadioButton>
-            <RadioButton>False</RadioButton>
-            <QuesitonLabel isCorrect={false}>Wrong</QuesitonLabel>
-          </div>
+          {renderQuestions()}
         </div>
       </div>
     </section>
   );
 }
 
-export default LessonPage;
+export default auth(LessonPage);

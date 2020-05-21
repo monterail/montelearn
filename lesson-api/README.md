@@ -1,12 +1,10 @@
 # LESSON-API
 
-Template for Python APIs using Django Rest Framework
-
 [![codecov-image]][codecov]
 [![black-image]][black]
-[![gitflow-image]][gitflow]
 [![calver-image]][calver]
 [![cookiecutter-image]][cookiecutter]
+[![github-actions]][github-status]
 
 
 ## Setting up pre-commit hooks
@@ -62,17 +60,17 @@ To run the tests and check your test coverage:
 
     make test 
 
-[codecov-image]: https://codecov.io/gh/monterail/py-skeleton-api/branch/master/graph/badge.svg?token=LIYZPH7H8p
-[codecov]: https://codecov.io/gh/monterail/py-skeleton-api
+[github-actions]: https://github.com/monterail/monterail-elearning/workflows/CD%20lesson-api/badge.svg
+[github-status]: https://github.com/monterail/monterail-elearning/actions
+
+[codecov-image]: https://codecov.io/gh/monterail/monterail-elearning/branch/master/graph/badge.svg?token=3MKHOIRYBY
+[codecov]: https://codecov.io/gh/monterail/monterail-elearning
 
 [black-image]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black]: https://github.com/psf/black
-
-[gitflow-image]: https://img.shields.io/badge/Branching%20strategy-gitflow-5FBB1C.svg
-[gitflow]: https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow
 
 [calver-image]: https://img.shields.io/badge/Versioning%20strategy-CalVer-5FBB1C.svg
 [calver]: https://calver.org
 
 [cookiecutter-image]: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
-[cookiecutter]: https://github.com/monterail/py-skeleton-api
+[cookiecutter]: https://github.com/monterail/monterail-elearning

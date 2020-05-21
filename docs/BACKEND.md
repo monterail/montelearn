@@ -18,9 +18,9 @@ The API is wrriten in Open API format and documented using Swagger.
 # Run BE microservices
 In the main directory `monterail-elearning` run `make run` to start docker-compose.
 Microservices with API documenentation provided by Swagger can be found on: 
-- authentication-api: `http://localhost:8080/swagger/`
-- lesson-api: `http://localhost:8000/swagger/`
-- tests-api: `http://localhost:3000/swagger/`
+- authentication-api: `http://0.0.0.0:8080/swagger/`
+- lesson-api: `http://0.0.0.0:8000/swagger/`
+- tests-api: `http://0.0.0.0:3000/swagger/`
 
 Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
 Copy token and use it to authorize your request, using `Bearer <token>`
@@ -34,15 +34,15 @@ Route each request to microservice through `authentication-api`.
 
 # Create student account
 - Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
-  Log in (via Swagger `http://localhost:8080/swagger/`) and use obtained credentials to GET lessons and tests.
+  Log in (via Swagger `http://0.0.0.0:8080/swagger/`) and use obtained credentials to GET lessons and tests.
 
 ![Student diagram](../diagrams/student-diagram.png)
 
 # Create teacher account
 - Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
-  Use developer account to login to developer admin page `http://localhost:8080/admin/`.
+  Use developer account to login to developer admin page `http://0.0.0.0:8080/admin/`.
   Navigate to `Users`, choose the previously registered account and assign the teacher rights marking `is_teacher` as True.
-  Log out and log in using teacher's credentials (via Swagger `http://localhost:8080/swagger`).
+  Log out and log in using teacher's credentials (via Swagger `http://0.0.0.0:8080/swagger`).
   Right now you are able to add/update lessons and tests.
 
 ![Teacher diagram](../diagrams/teacher-diagram.png)

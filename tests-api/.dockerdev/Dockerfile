@@ -41,8 +41,8 @@ ENV LANG=C.UTF-8 \
 # Uncomment this line if you store Bundler settings in the project's root
 # ENV BUNDLE_APP_CONFIG=.bundle
 
-# Uncomment this line if you want to run binstubs without prefixing with `bin/` or `bundle exec`
-# ENV PATH /app/bin:$PATH
+# Run binstubs without prefixing with `bin/` or `bundle exec`
+ENV PATH /app/bin:$PATH
 
 # Upgrade RubyGems and install required Bundler version
 RUN gem update --system && \
@@ -50,6 +50,9 @@ RUN gem update --system && \
 
 # Create a directory for the app code
 RUN mkdir -p /app
+
+# Create a directory for the server.pid file
+RUN mkdir -p tmp/pids
 
 WORKDIR /app
 
@@ -74,4 +77,4 @@ ENV BUNDLE_APP_CONFIG=.bundle \
   RAILS_LOG_TO_STDOUT=true
 
 COPY --from=builder /app .
-CMD bundle exec rails db:migrate; bundle exec puma --config config/puma.rb
+CMD rails db:migrate; puma --config config/puma.rb

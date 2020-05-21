@@ -313,6 +313,7 @@ def test_refresh_token(api_client):
 
     assert response.status_code == 200
     assert "access" in response.data
+    assert "refresh" in response.data
 
 
 @pytest.mark.django_db

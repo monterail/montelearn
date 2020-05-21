@@ -1,6 +1,9 @@
 module.exports = {
   purge: ["./src/**/*.jsx", "./src/**/*.tsx"],
   theme: {
+    minHeight: {
+      json: "20rem",
+    },
     extend: {
       boxShadow: {
         custom:
@@ -19,6 +22,8 @@ module.exports = {
         gray: {
           "100": "var(--color-gray-100)",
           "200": "var(--color-gray-200)",
+          "300": "var(--color-gray-300)",
+          athens: "var(--color-gray-athens)",
         },
         green: {
           "100": "var(--color-green-100)",
@@ -36,6 +41,7 @@ module.exports = {
           "300": "var(--color-red-300)",
           "400": "var(--color-red-400)",
           monterail: "var(--color-monterail)",
+          cindirella: "var(--color-red-cindirella)",
         },
       },
     },

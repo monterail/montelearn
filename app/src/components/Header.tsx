@@ -1,11 +1,17 @@
+import { FC } from "react";
 import Link from "next/link";
-import SvgLogo from "@/components/SvgLogo";
 
-export default function Header() {
+import SvgLogo from "@/components/svg/SvgLogo";
+
+type Props = {
+  isLoggedIn: boolean;
+};
+
+const Header: FC<Props> = ({ isLoggedIn }) => {
   return (
     <header className="flex flex-col sm:flex-row items-center sm:justify-between my-4">
       <Link href="/">
-        <a href="/" className="flex items-center">
+        <a className="flex items-center">
           <SvgLogo />
           <p className="text-2xl">
             <strong className="text-red-monterail">monte</strong>
@@ -13,15 +19,32 @@ export default function Header() {
           </p>
         </a>
       </Link>
-      <div className="flex font-roboto-mono text-base font-medium items-center">
-        <p className="uppercase">
-          Developed with{" "}
-          <span role="img" aria-label="heart">
-            ❤️
-          </span>{" "}
-          by Monterail
-        </p>
+      <div className="flex-1">
+        <ul className="flex justify-end font-roboto-mono mx-0 md:mx-4 my-5">
+          {isLoggedIn ? (
+            <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
+              <Link href="/users/logout">
+                <a className="flex px-8 py-4">Logout</a>
+              </Link>
+            </li>
+          ) : (
+            <>
+              <li className="mx-0 sm:mx-2 font-medium text-red-400">
+                <Link href="/users/register">
+                  <a className="flex px-8 py-4">Register</a>
+                </Link>
+              </li>
+              <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
+                <Link href="/users/login">
+                  <a className="flex px-8 py-4">Login</a>
+                </Link>
+              </li>
+            </>
+          )}
+        </ul>
       </div>
     </header>
   );
-}
+};
+
+export default Header;

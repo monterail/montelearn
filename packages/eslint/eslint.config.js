@@ -55,8 +55,14 @@ function createEslintConfig() {
       },
     ],
     rules: {
+      "jsx-a11y/click-events-have-key-events": "off",
+      "jsx-a11y/no-static-element-interactions": "off",
+      "no-param-reassign": "off",
+      "no-underscore-dangle": "off",
+      "jsx-a11y/anchor-is-valid": "off",
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
+      "@typescript-eslint/camelcase": "off",
       "prettier/prettier": [
         "error",
         {
@@ -67,6 +73,16 @@ function createEslintConfig() {
           trailingComma: "all",
         },
         { usePrettierrc: false },
+      ],
+      "jsx-a11y/label-has-associated-control": [
+        2,
+        {
+          components: ["label"],
+          required: {
+            some: ["nesting", "id"],
+          },
+          allowChildren: false,
+        },
       ],
       "react/jsx-one-expression-per-line": "off",
       "react/jsx-props-no-spreading": "off",

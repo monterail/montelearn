@@ -10,7 +10,7 @@ const QuestionLabel: FunctionComponent<Props> = ({ isCorrect, className, childre
   return (
     <div className={`px-6 py-4 rounded-lg font-roboto-mono font-medium ${classes} ${className}`}>
       <span role="img" aria-label="emoji">
-        {isCorrect ? "🎉" : "💀"}
+        {isCorrect ? "🎉 Correct" : "💀 Wrong"}
       </span>
       {children}
     </div>
