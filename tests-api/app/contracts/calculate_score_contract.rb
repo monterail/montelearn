@@ -16,11 +16,10 @@ class CalculateScoreContract < Dry::Validation::Contract
   end
 
   rule(:answers) do
-    next if schema_error?(:test) || schema_error?(:answers)
-
-    test    = values.data[:test]
-    answers = values.data[:answers]
-    next if all_questions_answered?(test, answers)
+    next if all_questions_answered?(
+      values.data[:test],
+      values.data[:answers],
+    )
 
     key.failure("are required for all test questions")
   end
@@ -28,7 +27,7 @@ class CalculateScoreContract < Dry::Validation::Contract
   private
 
   def all_questions_answered?(test, answers)
-    test_questions_uuids    = test.questions.pluck(:id)
+    test_questions_uuids    = test.question_ids
     answers_questions_uuids = answers.map { |a| a[:question_uuid] }
     (test_questions_uuids - answers_questions_uuids).empty?
   end
