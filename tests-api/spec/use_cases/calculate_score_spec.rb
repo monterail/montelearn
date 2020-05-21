@@ -23,6 +23,19 @@ RSpec.describe CalculateScore do
   describe "#errors" do
     subject(:errors) { described_class.call(params: params).errors }
 
+    context "with empty params" do
+      let(:params) do
+        {}
+      end
+
+      it "validates answers and test keys" do
+        expect(errors).to include(
+          answers: ["is missing"],
+          test: ["is missing"],
+        )
+      end
+    end
+
     context "without test" do
       let(:params) do
         { test: nil }
@@ -30,7 +43,39 @@ RSpec.describe CalculateScore do
 
       it "validates answers elements have required keys" do
         expect(errors).to include(
-          test: ["can't be blank"],
+          test: ["must be filled"],
+        )
+      end
+    end
+
+    context "with wrong type for test" do
+      let(:params) do
+        { test: "Test.new" }
+      end
+
+      it "validates answers elements have required keys" do
+        expect(errors).to include(
+          test: ["must be a test"],
+        )
+      end
+    end
+
+    context "without answers" do
+      let(:answers) { nil }
+
+      it "validates answers elements have required keys" do
+        expect(errors).to include(
+          answers: ["must be filled"],
+        )
+      end
+    end
+
+    context "with wrong type for answers" do
+      let(:answers) { "[]" }
+
+      it "validates answers elements have required keys" do
+        expect(errors).to include(
+          answers: ["must be an array"],
         )
       end
     end
@@ -66,7 +111,7 @@ RSpec.describe CalculateScore do
 
       it "validates all questions included in answers" do
         expect(errors).to include(
-          answers: ["are required for all Test Questions"],
+          answers: ["are required for all test questions"],
         )
       end
     end

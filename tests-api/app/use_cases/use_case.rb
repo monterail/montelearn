@@ -26,12 +26,6 @@ class UseCase
 
   private
 
-  def step(method)
-    return unless success?
-
-    send(method)
-  end
-
   def add_error(attribute, message)
     @errors[attribute] ||= []
     @errors[attribute] << message
