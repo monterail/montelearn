@@ -1,39 +1,36 @@
-const authProvider = {
-  login: ({ username, password }) => {
-    const request = new Request(`${process.env.API_URL}/auth/admin/login/`, {
-      method: "POST",
-      body: JSON.stringify({ email: username, password }),
-      headers: new Headers({ "Content-Type": "application/json" }),
-    });
+import apiClient, { setTokens, removeTokens } from "./apiClient.ts";
 
-    return fetch(request)
-      .then((response) => {
-        if (response.status < 200 || response.status >= 300) {
-          throw new Error(response.statusText);
-        }
-        return response.json();
-      })
-      .then(({ access_token }) => {
-        localStorage.setItem("access_token", access_token);
-      });
-  },
-  logout: () => {
-    localStorage.removeItem("access_token");
+const authProvider = {
+  login: async ({ username, password }) => {
+    const response = await apiClient.post(`/auth/admin/login/`, {
+      email: username,
+      password,
+    });
+    setTokens(response.data);
     return Promise.resolve();
   },
+
+  logout: async () => {
+    await apiClient.post(`/auth/logout/`);
+    removeTokens();
+    return Promise.resolve();
+  },
+
   checkAuth: () => {
     return localStorage.getItem("access_token") ? Promise.resolve() : Promise.reject();
   },
+
   checkError: (error) => {
     const { status } = error;
 
     if (status === 401 || status === 403) {
-      localStorage.removeItem("access_token");
+      removeTokens();
       return Promise.reject();
     }
 
     return Promise.resolve();
   },
+
   getPermissions: () => Promise.resolve(),
 };
 

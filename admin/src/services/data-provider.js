@@ -1,20 +1,5 @@
 import { stringify } from "query-string";
-import { fetchUtils } from "react-admin";
-
-// NOTE:
-// Don't know why we have to mutate input options object
-// to make the request work.
-const httpClient = (url, options = {}) => {
-  if (!options.headers) {
-    // eslint-disable-next-line no-param-reassign
-    options.headers = new Headers({ Accept: "application/json" });
-  }
-
-  const access_token = localStorage.getItem("access_token");
-  options.headers.set("Authorization", `Bearer ${access_token}`);
-
-  return fetchUtils.fetchJson(url, options);
-};
+import apiClient from "./apiClient.ts";
 
 const convertLessonParamsToFormData = (params) => {
   const formData = new FormData();
@@ -43,24 +28,24 @@ const dataProvider = {
       filter: JSON.stringify(params.filter),
     };
 
-    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
+    const url = `/${resource}?${stringify(query)}`;
 
-    const { json } = await httpClient(url);
+    const { data } = await apiClient(url);
 
     return {
       // eslint-disable-next-line no-shadow
-      data: json.results.map((resource) => ({ ...resource, id: resource.uuid })),
-      total: json.count,
+      data: data.results.map((resource) => ({ ...resource, id: resource.uuid })),
+      total: data.count,
     };
   },
 
   getOne: async (resource, params) => {
-    const { json } = await httpClient(`${process.env.API_URL}/${resource}/${params.id}`);
+    const { data } = await apiClient(`/${resource}/${params.id}`);
 
     return {
       data: {
-        ...json,
-        id: json.uuid,
+        ...data,
+        id: data.uuid,
       },
     };
   },
@@ -76,11 +61,11 @@ const dataProvider = {
         payload = JSON.stringify(params.data);
     }
 
-    return httpClient(`${process.env.API_URL}/${resource}/`, {
+    return apiClient(`/${resource}/`, {
       method: "POST",
       body: payload,
-    }).then(({ json }) => ({
-      data: { id: json.uuid },
+    }).then(({ data }) => ({
+      data: { id: data.uuid },
     }));
   },
 
@@ -95,21 +80,20 @@ const dataProvider = {
         query = { filter: JSON.stringify({ id: params.ids }) };
     }
 
-    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => {
-      let data;
-
+    const url = `/${resource}?${stringify(query)}`;
+    return apiClient(url).then(({ data }) => {
       switch (resource) {
         case "tests":
           // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({ ...resource, id: resource.lesson_uuid }));
-          break;
+          return {
+            data: data.results.map((elem) => ({ ...elem, id: elem.lesson_uuid })),
+          };
         default:
           // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({ ...resource, id: resource.uuid }));
+          return {
+            data: data.results.map((elem) => ({ ...elem, id: elem.uuid })),
+          };
       }
-
-      return { data };
     });
   },
   // To add more methods see:
