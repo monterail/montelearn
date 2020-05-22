@@ -5,9 +5,9 @@
   "license": "MIT",
   "scripts": {
     "build": "next build && next export",
-    "cleanup": "rimraf node_modules .next out",
+    "cleanup": "rimraf node_modules .next coverage out",
     "dev": "next -p 3002",
-    "lint": "project-eslint --ext '.js,.jsx' *.js env src",
+    "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
     "start": "next start -p $PORT"
   },
@@ -19,7 +19,8 @@
     "ra-data-drf": "2.0.0",
     "react": "16.13.1",
     "react-admin": "3.4.1",
-    "react-dom": "16.13.1"
+    "react-dom": "16.13.1",
+    "react-router-dom": "^5.1.2"
   },
   "devDependencies": {
     "@project/eslint": "1.0.0",
@@ -27,6 +28,6 @@
     "rimraf": "3.0.2"
   },
   "lint-staged": {
-    "*.{js,jsx}": "yarn lint --fix"
+    "*.{ts,tsx,js,jsx}": "yarn lint --fix"
   }
 }

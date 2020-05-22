@@ -10,8 +10,8 @@ const httpClient = (url, options = {}) => {
     options.headers = new Headers({ Accept: "application/json" });
   }
 
-  const token = localStorage.getItem("token");
-  options.headers.set("Authorization", `Bearer ${token}`);
+  const access_token = localStorage.getItem("access_token");
+  options.headers.set("Authorization", `Bearer ${access_token}`);
 
   return fetchUtils.fetchJson(url, options);
 };
@@ -31,6 +31,8 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
+const buildQueryForTestReference = (params) => ({ lesson_uuid: params.ids[0] });
+
 const dataProvider = {
   getList: async (resource, params) => {
     const { page, perPage } = params.pagination;
@@ -47,7 +49,10 @@ const dataProvider = {
 
     return {
       // eslint-disable-next-line no-shadow
-      data: json.results.map((resource) => ({ ...resource, id: resource.uuid })),
+      data: json.results.map((resource) => ({
+        ...resource,
+        id: resource.uuid,
+      })),
       total: json.count,
     };
   },
@@ -82,6 +87,41 @@ const dataProvider = {
     }));
   },
 
+  getMany: (resource, params) => {
+    let query;
+    let resourceName = resource;
+    switch (resource) {
+      case "tests":
+        query = buildQueryForTestReference(params);
+        resourceName = `admin/tests`;
+        break;
+      default:
+        query = { filter: JSON.stringify({ id: params.ids }) };
+    }
+
+    const url = `${process.env.API_URL}/${resourceName}?${stringify(query)}`;
+    return httpClient(url).then(({ json }) => {
+      let data;
+
+      switch (resource) {
+        case "tests":
+          // eslint-disable-next-line no-shadow
+          data = json.results.map((resource) => ({
+            ...resource,
+            id: resource.lesson_uuid,
+          }));
+          break;
+        default:
+          // eslint-disable-next-line no-shadow
+          data = json.results.map((resource) => ({
+            ...resource,
+            id: resource.uuid,
+          }));
+      }
+
+      return { data };
+    });
+  },
   // To add more methods see:
   // https://marmelab.com/react-admin/DataProviders.html#writing-your-own-data-provider
 };
