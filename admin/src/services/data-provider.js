@@ -49,7 +49,10 @@ const dataProvider = {
 
     return {
       // eslint-disable-next-line no-shadow
-      data: json.results.map((resource) => ({ ...resource, id: resource.uuid })),
+      data: json.results.map((resource) => ({
+        ...resource,
+        id: resource.uuid,
+      })),
       total: json.count,
     };
   },
@@ -86,27 +89,34 @@ const dataProvider = {
 
   getMany: (resource, params) => {
     let query;
-
+    let resourceName = resource;
     switch (resource) {
       case "tests":
         query = buildQueryForTestReference(params);
+        resourceName = `admin/tests`;
         break;
       default:
         query = { filter: JSON.stringify({ id: params.ids }) };
     }
 
-    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
+    const url = `${process.env.API_URL}/${resourceName}?${stringify(query)}`;
     return httpClient(url).then(({ json }) => {
       let data;
 
       switch (resource) {
         case "tests":
           // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({ ...resource, id: resource.lesson_uuid }));
+          data = json.results.map((resource) => ({
+            ...resource,
+            id: resource.lesson_uuid,
+          }));
           break;
         default:
           // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({ ...resource, id: resource.uuid }));
+          data = json.results.map((resource) => ({
+            ...resource,
+            id: resource.uuid,
+          }));
       }
 
       return { data };
