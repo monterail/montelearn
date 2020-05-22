@@ -8,9 +8,9 @@ import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
 
-import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
-
 import auth from "@/containers/hoc/Auth";
+
+import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
 
 import { SUBJECT_ICONS, SubjectList } from "@/types/subject";
 

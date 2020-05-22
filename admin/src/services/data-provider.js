@@ -16,6 +16,15 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
+const buildUrlForGetMany = (resource, params) => {
+  if (resource === "tests") {
+    const query = stringify({ lesson_uuid: params.ids[0] });
+    return `/admin/tests?${query}`;
+  }
+  const query = stringify({ filter: JSON.stringify({ id: params.ids }) });
+  return `/${resource}?${query}`;
+};
+
 const dataProvider = {
   getList: async (resource, params) => {
     const { page, perPage } = params.pagination;
@@ -32,7 +41,10 @@ const dataProvider = {
 
     return {
       // eslint-disable-next-line no-shadow
-      data: data.results.map((resource) => ({ ...resource, id: resource.uuid })),
+      data: data.results.map((resource) => ({
+        ...resource,
+        id: resource.uuid,
+      })),
       total: data.count,
     };
   },
@@ -61,12 +73,8 @@ const dataProvider = {
   },
 
   getMany: (resource, params) => {
-    const query =
-      resource === "tests"
-        ? { lesson_uuid: params.ids[0] }
-        : { filter: JSON.stringify({ id: params.ids }) };
+    const url = buildUrlForGetMany(resource, params);
 
-    const url = `/${resource}?${stringify(query)}`;
     return apiClient(url).then(({ data }) => {
       if (resource === "tests") {
         return { data: data.results.map((elem) => ({ ...elem, id: elem.lesson_uuid })) };

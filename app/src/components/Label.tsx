@@ -4,7 +4,7 @@ type Props = {
   className?: string;
 };
 
-const Label: FunctionComponent<Props> = ({ className, children }) => {
+const Label: FunctionComponent<Props> = ({ className = "", children }) => {
   return <strong className={`font-bold text-red-300 ${className}`}>{children}</strong>;
 };
 

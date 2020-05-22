@@ -7,6 +7,10 @@ Rails.application.routes.draw do
     namespace :admin do
       resources :tests
     end
-    resources :tests, only: %i(index show)
+    resources :tests, only: %i(index show) do
+      member do
+        resources :scores, only: %i(create)
+      end
+    end
   end
 end

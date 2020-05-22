@@ -1,7 +1,7 @@
 import axios from "axios";
-import Cookie from "js-cookie";
+import Router from "next/router";
 
-import { COOKIES } from "@/constants";
+import { getAccessToken, getRefreshToken, setAccessToken, logout } from "@/utils/helpers/auth";
 
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api`,
@@ -12,20 +12,17 @@ const apiClient = axios.create({
   },
 });
 
-const setApiClientAuthToken = (value: string) => {
-  apiClient.defaults.headers.common.Authorization = `Bearer ${value}`;
+export const setApiClientAuthToken = (value: string) => {
+  apiClient.defaults.headers.common.Authorization = value && `Bearer ${value}`;
 };
 
 const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
-  originalRequest.headers.Authorization = `Bearer ${value}`;
+  originalRequest.headers.Authorization = value && `Bearer ${value}`;
 };
 
-const accessToken = Cookie.get(COOKIES.accessToken)?.toString() || "";
-if (accessToken) {
-  setApiClientAuthToken(accessToken);
-}
+const accessToken = getAccessToken();
+setApiClientAuthToken(accessToken);
 
-// for multiple requests
 let isRefreshing = false;
 let failedQueue: any[] = [];
 
@@ -65,13 +62,19 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = Cookie.get(COOKIES.refreshToken);
+      const refreshToken = getRefreshToken();
+
+      if (!refreshToken) {
+        return Promise.reject(error);
+      }
+
       return new Promise((resolve, reject) => {
-        apiClient
-          .post("/auth/refresh-token/", { refresh: refreshToken })
+        axios
+          .post(`${process.env.API_URL}/api/auth/refresh-token/`, {
+            refresh: refreshToken,
+          })
           .then(({ data: { access } }) => {
-            Cookie.set(COOKIES.accessToken, access);
-            // TODO set refresh token as well
+            setAccessToken(access);
 
             setApiClientAuthToken(access);
             setOriginalRequestAuthToken(originalRequest, access);
@@ -82,6 +85,9 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
+            logout();
+            setApiClientAuthToken("");
+            Router.push("/");
             reject(err);
           })
           .then(() => {

@@ -21,7 +21,7 @@ function SubjectPage() {
   const router = useRouter();
   const { slug } = router.query;
 
-  const { data } = useRequest<LessonList>({
+  const { data: lessonList } = useRequest<LessonList>({
     url: `/lesson/`,
   });
 
@@ -30,7 +30,7 @@ function SubjectPage() {
   };
 
   const renderLessons = () =>
-    data?.results.map((lesson, index) => {
+    lessonList?.results.map((lesson, index) => {
       return (
         <Card key={`lesson-${lesson.name}-no-${index}`}>
           <Label className="text-sm">Lesson {index + 1}</Label>
