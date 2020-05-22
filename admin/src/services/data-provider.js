@@ -16,8 +16,6 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
-const buildQueryForTestReference = (params) => ({ lesson_uuid: params.ids[0] });
-
 const dataProvider = {
   getList: async (resource, params) => {
     const { page, perPage } = params.pagination;
@@ -51,15 +49,8 @@ const dataProvider = {
   },
 
   create: (resource, params) => {
-    let payload;
-
-    switch (resource) {
-      case "lesson":
-        payload = convertLessonParamsToFormData(params);
-        break;
-      default:
-        payload = JSON.stringify(params.data);
-    }
+    const payload =
+      resource === "lesson" ? convertLessonParamsToFormData(params) : JSON.stringify(params.data);
 
     return apiClient(`/${resource}/`, {
       method: "POST",
@@ -70,30 +61,17 @@ const dataProvider = {
   },
 
   getMany: (resource, params) => {
-    let query;
-
-    switch (resource) {
-      case "tests":
-        query = buildQueryForTestReference(params);
-        break;
-      default:
-        query = { filter: JSON.stringify({ id: params.ids }) };
-    }
+    const query =
+      resource === "tests"
+        ? { lesson_uuid: params.ids[0] }
+        : { filter: JSON.stringify({ id: params.ids }) };
 
     const url = `/${resource}?${stringify(query)}`;
     return apiClient(url).then(({ data }) => {
-      switch (resource) {
-        case "tests":
-          // eslint-disable-next-line no-shadow
-          return {
-            data: data.results.map((elem) => ({ ...elem, id: elem.lesson_uuid })),
-          };
-        default:
-          // eslint-disable-next-line no-shadow
-          return {
-            data: data.results.map((elem) => ({ ...elem, id: elem.uuid })),
-          };
+      if (resource === "tests") {
+        return { data: data.results.map((elem) => ({ ...elem, id: elem.lesson_uuid })) };
       }
+      return { data: data.results.map((elem) => ({ ...elem, id: elem.uuid })) };
     });
   },
   // To add more methods see:
