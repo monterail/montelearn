@@ -14,27 +14,7 @@ import auth from "@/containers/hoc/Auth";
 import useRequest from "@/utils/hooks/useRequest";
 
 import { Lesson } from "@/types/lesson";
-
-const questions = [
-  {
-    id: "1",
-    title:
-      "Important information on the identity and hazards of a chemical material can be found on the container label",
-    correct: true,
-  },
-  {
-    id: "2",
-    title:
-      "Important information on the identity and hazards of a chemical material can be found on the container label",
-    correct: false,
-  },
-  {
-    id: "3",
-    title:
-      "Important information on the identity and hazards of a chemical material can be found on the container label",
-    correct: true,
-  },
-];
+import { TestList, Question } from "@/types/test";
 
 function LessonPage() {
   const router = useRouter();
@@ -44,25 +24,29 @@ function LessonPage() {
     url: `/lesson/${id}`,
   });
 
+  const { data: tests } = useRequest<TestList>({
+    url: `/tests/?lesson_uuid=${id}`,
+  });
+
   const handleBackClick = () => {
     router.push(`/subjects/${slug}`);
   };
 
-  const renderQuestions = () =>
-    questions.map((question) => {
+  const renderQuestions = (questions: Question[]) =>
+    questions.map((question, index) => {
       return (
-        <div
-          className="p-6 sm:p-10 bg-white rounded-lg w-4/5 lg:w-3/4 xl:w-1/2 mb-8"
-          key={`question-${question.title}-no-${question.id}`}
-        >
-          <Label className="text-sm">Question {question.id}</Label>
-          <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.title}</Text>
+        <div className="p-6 sm:p-10 bg-white rounded-lg w-full mb-8" key={question.uuid}>
+          <Label className="text-sm">Question {index + 1}</Label>
+          <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.content}</Text>
           <div className="mt-6 flex flex-wrap w-full items-center justify-around">
             <div className="flex flex-col sm:flex-row mb-4 md:mb-0">
-              <RadioButton className="mx-3 mb-4 sm:mb-0">True</RadioButton>
-              <RadioButton className="mx-3">False</RadioButton>
+              {question.choices.map((choice, i) => (
+                <RadioButton key={i} className="mx-3 mb-4 sm:mb-0">
+                  {choice.answer}
+                </RadioButton>
+              ))}
             </div>
-            <QuesitonLabel className="lg:mt-3 xl:mt-0" isCorrect={question.correct} />
+            <QuesitonLabel className="lg:mt-3 xl:mt-0" isCorrect={false} />
           </div>
         </div>
       );
@@ -95,7 +79,9 @@ function LessonPage() {
           <h2 className="font-eczar text-center text-4xl font-semibold mb-8">
             Time to yest your knowledge
           </h2>
-          {renderQuestions()}
+          {tests?.results.map((test) => (
+            <div key={test.uuid}>{renderQuestions(test.questions)}</div>
+          ))}
         </div>
       </div>
     </section>

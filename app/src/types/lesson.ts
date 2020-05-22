@@ -2,7 +2,7 @@ export interface LessonList {
   count: number;
   next: string;
   previous: string;
-  results: Array<Lesson>;
+  results: Lesson[];
 }
 
 export type Lesson = {
