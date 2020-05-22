@@ -28,24 +28,31 @@ const buildUrlForGetMany = (resource, params) => {
 
 const dataProvider = {
   getList: async (resource, params) => {
-    const { page, perPage } = params.pagination;
-    const { field, order } = params.sort;
+    const {
+      filter,
+      sort: { field, order },
+      pagination: { page },
+    } = params;
+    const perPage = 500;
     const query = {
+      limit: perPage,
+      offset: page === 1 ? 0 : page * perPage,
+      filter: JSON.stringify(filter),
       sort: JSON.stringify([field, order]),
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-      filter: JSON.stringify(params.filter),
     };
 
     const url = `/${resource}?${stringify(query)}`;
 
     const { data } = await apiClient(url);
+    const results = data.results.map((result) => ({
+      ...result,
+      id: result.uuid,
+    }));
 
     return {
-      // eslint-disable-next-line no-shadow
-      data: data.results.map((resource) => ({
-        ...resource,
-        id: resource.uuid,
-      })),
+      // Workaround for autocomplete to be able to create non-existing resource
+      data: filter.q ? [{ name: filter.q, id: filter.q }, ...results] : results,
       total: data.count,
     };
   },
@@ -62,13 +69,22 @@ const dataProvider = {
   },
 
   create: (resource, params) => {
-    const payload =
-      resource === "lesson" ? convertLessonParamsToFormData(params) : JSON.stringify(params.data);
+    let payload;
 
-    return apiClient(`/${resource}/`, {
-      method: "POST",
-      body: payload,
-    }).then(({ data }) => ({
+    let resourceName = resource;
+    switch (resource) {
+      case "lesson":
+        payload = convertLessonParamsToFormData(params);
+        break;
+      case "tests":
+        resourceName = "admin/tests";
+        payload = params.data;
+        break;
+      default:
+        payload = params.data;
+    }
+
+    return apiClient.post(`/${resourceName}/`, payload).then(({ data }) => ({
       data: { id: data.uuid },
     }));
   },

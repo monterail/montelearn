@@ -6,10 +6,9 @@ import {
   FileField,
   FileInput,
   required,
-  SelectInput,
+  ReferenceInput,
+  AutocompleteInput,
 } from "react-admin";
-
-import { subjectChoices, gradeChoices } from "@/data/lessonChoices";
 
 export default function CreateLesson(props) {
   return (
@@ -26,8 +25,12 @@ export default function CreateLesson(props) {
           <FileField source="src" title="title" />
         </FileInput>
         <TextInput source="url" />
-        <SelectInput source="subject" choices={subjectChoices} />
-        <SelectInput source="grade" choices={gradeChoices} />
+        <ReferenceInput label="Subject" source="subject" reference="subject">
+          <AutocompleteInput allowEmpty optionValue="name" />
+        </ReferenceInput>
+        <ReferenceInput label="Grade" source="grade" reference="grade">
+          <AutocompleteInput allowEmpty optionValue="name" />
+        </ReferenceInput>
       </SimpleForm>
     </Create>
   );
