@@ -1,4 +1,5 @@
 import axios from "axios";
+import Router from "next/router";
 
 export function setTokens({
   access_token,
@@ -25,8 +26,8 @@ const apiClient = axios.create({
   },
 });
 
-const setApiClientAuthToken = (value: string) => {
-  apiClient.defaults.headers.common.Authorization = `Bearer ${value}`;
+const setApiClientAuthToken = (token: string | null) => {
+  apiClient.defaults.headers.common.Authorization = `Bearer ${token}`;
 };
 
 const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
@@ -34,9 +35,7 @@ const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
 };
 
 const accessToken = localStorage.getItem("access_token");
-if (accessToken) {
-  setApiClientAuthToken(accessToken);
-}
+setApiClientAuthToken(accessToken);
 
 // for multiple requests
 let isRefreshing = false;
@@ -80,8 +79,10 @@ apiClient.interceptors.response.use(
 
       const refreshToken = localStorage.getItem("refresh_token");
       return new Promise((resolve, reject) => {
-        apiClient
-          .post("/auth/refresh-token/", { refresh: refreshToken })
+        axios
+          .post(`${process.env.API_URL}/api/auth/refresh-token/`, {
+            refresh: refreshToken,
+          })
           .then(({ data: { access, refresh } }) => {
             setTokens({ access_token: access, refresh_token: refresh });
 
@@ -94,6 +95,9 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
+            removeTokens();
+            setApiClientAuthToken("");
+            Router.push("/");
             reject(err);
           })
           .then(() => {
