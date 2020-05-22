@@ -35,24 +35,32 @@ const buildQueryForTestReference = (params) => ({ lesson_uuid: params.ids[0] });
 
 const dataProvider = {
   getList: async (resource, params) => {
-    const { page, perPage } = params.pagination;
-    const { field, order } = params.sort;
+    const {
+      filter,
+      sort: { field, order },
+      pagination: { page },
+    } = params;
+    const perPage = 500;
     const query = {
+      limit: perPage,
+      offset: page === 1 ? 0 : page * perPage,
+      filter: JSON.stringify(filter),
       sort: JSON.stringify([field, order]),
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
-      filter: JSON.stringify(params.filter),
     };
 
     const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
 
     const { json } = await httpClient(url);
+    const { results } = json;
+    const data = results.map((result) => ({
+      ...result,
+      id: result.uuid,
+    }));
 
     return {
-      // eslint-disable-next-line no-shadow
-      data: json.results.map((resource) => ({
-        ...resource,
-        id: resource.uuid,
-      })),
+      // Workaround for autocomplete to be able to create non-existing resource
+      data: filter.q ? [{ name: filter.q, id: filter.q }, ...data] : data,
       total: json.count,
     };
   },
@@ -71,15 +79,20 @@ const dataProvider = {
   create: (resource, params) => {
     let payload;
 
+    let resourceName = resource;
     switch (resource) {
       case "lesson":
         payload = convertLessonParamsToFormData(params);
+        break;
+      case "tests":
+        resourceName = "admin/tests";
+        payload = JSON.stringify(params.data);
         break;
       default:
         payload = JSON.stringify(params.data);
     }
 
-    return httpClient(`${process.env.API_URL}/${resource}/`, {
+    return httpClient(`${process.env.API_URL}/${resourceName}/`, {
       method: "POST",
       body: payload,
     }).then(({ json }) => ({
