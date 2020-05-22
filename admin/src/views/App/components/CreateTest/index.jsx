@@ -22,7 +22,7 @@ export default function CreateTest(props) {
 
   return (
     <Create {...props}>
-      <SimpleForm initialValues={{ lessonUuid }} redirect={redirect}>
+      <SimpleForm initialValues={{ lesson_uuid: lessonUuid }} redirect={redirect}>
         <ArrayInput source="questions" validate={[required()]} label="QUESTIONS">
           <SimpleFormIterator>
             <SelectInput

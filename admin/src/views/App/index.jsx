@@ -14,6 +14,8 @@ export default function App() {
     <Admin dataProvider={dataProvider} authProvider={authProvider}>
       <Resource name="lesson" list={LessonsList} show={ShowLesson} create={CreateLesson} />
       <Resource name="tests" create={CreateTest} />
+      <Resource name="subject" />
+      <Resource name="grade" />
     </Admin>
   );
 }
