@@ -1,12 +1,7 @@
 import axios from "axios";
+import Router from "next/router";
 
-import {
-  getAccessToken,
-  getRefreshToken,
-  setAccessToken,
-  removeAccessToken,
-  removeRefreshToken,
-} from "@/utils/helpers/auth";
+import { getAccessToken, getRefreshToken, setAccessToken, logout } from "@/utils/helpers/auth";
 
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api`,
@@ -26,9 +21,7 @@ const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
 };
 
 const accessToken = getAccessToken();
-if (accessToken) {
-  setApiClientAuthToken(accessToken);
-}
+setApiClientAuthToken(accessToken);
 
 let isRefreshing = false;
 let failedQueue: any[] = [];
@@ -76,8 +69,10 @@ apiClient.interceptors.response.use(
       }
 
       return new Promise((resolve, reject) => {
-        apiClient
-          .post("/auth/refresh-token/", { refresh: refreshToken })
+        axios
+          .post(`${process.env.API_URL}/api/auth/refresh-token/`, {
+            refresh: refreshToken,
+          })
           .then(({ data: { access } }) => {
             setAccessToken(access);
 
@@ -90,9 +85,9 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
-            removeAccessToken();
-            removeRefreshToken();
+            logout();
             setApiClientAuthToken("");
+            Router.push("/");
             reject(err);
           })
           .then(() => {

@@ -1,12 +1,7 @@
 import { AxiosResponse } from "axios";
 
 import { InputError } from "@/utils/errors";
-import {
-  setAccessToken,
-  setRefreshToken,
-  removeAccessToken,
-  removeRefreshToken,
-} from "@/utils/helpers/auth";
+import { setAccessToken, setRefreshToken } from "@/utils/helpers/auth";
 
 import apiClient, { setApiClientAuthToken } from "./apiClient";
 
@@ -41,6 +36,7 @@ export type ConfirmResetPasswordData = ChangePasswordInputs & {
 function setTokens({ access_token, refresh_token }: Cookies) {
   setAccessToken(access_token);
   setRefreshToken(refresh_token);
+  setApiClientAuthToken(access_token);
 }
 
 async function authenticate({ body, url }: { body: string; url: string }) {
@@ -81,10 +77,4 @@ export function resetPassword(
 ): Promise<AxiosResponse<{ detail: string }>> {
   const url = `/auth/email/password/reset/confirm/`;
   return apiClient.post(url, data);
-}
-
-export function logout() {
-  removeAccessToken();
-  removeRefreshToken();
-  setApiClientAuthToken("");
 }

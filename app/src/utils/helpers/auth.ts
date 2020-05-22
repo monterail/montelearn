@@ -35,3 +35,8 @@ export const removeRefreshToken = (): void => {
 export const isAuthenticated = (): boolean => {
   return !!getAccessToken();
 };
+
+export const logout = (): void => {
+  removeAccessToken();
+  removeRefreshToken();
+};
