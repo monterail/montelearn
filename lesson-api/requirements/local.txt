@@ -48,7 +48,7 @@ freezegun==0.3.12         # via -r requirements/./test.in
 google-api-python-client==1.7.11  # via -r requirements/././base.in, -r requirements/./base.in
 google-auth-httplib2==0.0.3  # via google-api-python-client
 google-auth==1.9.0        # via google-api-python-client, google-auth-httplib2
-httplib2==0.14.0          # via google-api-python-client, google-auth-httplib2
+httplib2==0.18.0          # via google-api-python-client, google-auth-httplib2
 idna==2.8                 # via requests
 importlib-metadata==0.21  # via kombu, pluggy, pytest
 inflection==0.3.1         # via drf-yasg
