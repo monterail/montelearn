@@ -1,3 +1,4 @@
+import json
 import mimetypes
 
 import requests
@@ -84,11 +85,12 @@ class CustomProxyView(ProxyView):
                     cookies=cookies,
                 )
             else:
+                headers = {"Content-Type": "application/json", "Accept": "application/json"}
                 response = requests.request(
                     request.method,
                     url,
                     params=params,
-                    data=data,
+                    data=json.dumps(data),
                     files=files,
                     headers=headers,
                     timeout=self.proxy_settings.TIMEOUT,
