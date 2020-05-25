@@ -1,13 +1,11 @@
 from django.conf import settings
 from django.conf.urls.static import static
-from django.contrib import admin
 from django.urls import include, path, re_path
 
 from .schema import schema_view
 
 
 urlpatterns = [
-    path(settings.ADMIN_URL, admin.site.urls),
     path("api/", include("api.lesson.urls")),
 ]
 
