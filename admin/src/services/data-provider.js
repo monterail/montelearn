@@ -21,12 +21,16 @@ const convertLessonParamsToFormData = (params) => {
   const paramsData = params.data;
 
   if ("pdf_file" in paramsData) {
-    paramsData.pdf_file = paramsData.pdf_file.rawFile;
+    paramsData.pdf_file = paramsData.pdf_file?.rawFile;
   }
 
   const paramsEntries = Object.entries(paramsData);
 
-  paramsEntries.forEach(([key, value]) => formData.append(key, value));
+  paramsEntries.forEach(([key, value]) => {
+    if (value) {
+      formData.append(key, value);
+    }
+  });
 
   return formData;
 };
@@ -100,6 +104,23 @@ const dataProvider = {
     }));
   },
 
+  update: (resource, params) => {
+    let payload;
+    switch (resource) {
+      case "lesson":
+        payload = convertLessonParamsToFormData(params);
+        break;
+      default:
+        payload = JSON.stringify(params.data);
+    }
+    return httpClient(`${process.env.API_URL}/${resource}/${params.id}/`, {
+      method: "PATCH",
+      body: payload,
+    }).then(({ json }) => ({
+      data: { id: json.uuid },
+    }));
+  },
+
   getMany: (resource, params) => {
     let query;
     let resourceName = resource;
@@ -135,8 +156,16 @@ const dataProvider = {
       return { data };
     });
   },
-  // To add more methods see:
-  // https://marmelab.com/react-admin/DataProviders.html#writing-your-own-data-provider
+  deleteMany: (resource, params) => {
+    const data = [];
+    for (let index = 0; index < params.ids.length; index++) {
+      httpClient(`${process.env.API_URL}/${resource}/${params.ids[index]}/`, {
+        method: "DELETE",
+        body: JSON.stringify(params.data),
+      });
+    }
+    return new Promise((resolve) => resolve({ data }));
+  },
 };
 
 export default dataProvider;

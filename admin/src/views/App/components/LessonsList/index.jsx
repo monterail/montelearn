@@ -1,5 +1,5 @@
 import React from "react";
-import { Datagrid, List, ShowButton, TextField } from "react-admin";
+import { Datagrid, List, ShowButton, TextField, EditButton } from "react-admin";
 
 export default function LessonList(props) {
   return (
@@ -8,6 +8,7 @@ export default function LessonList(props) {
         <TextField source="name" />
         <TextField source="description" />
         <ShowButton />
+        <EditButton />
       </Datagrid>
     </List>
   );
