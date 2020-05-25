@@ -1,6 +1,6 @@
 import React from "react";
 import {
-  Create,
+  Edit,
   SimpleForm,
   TextInput,
   FileField,
@@ -10,18 +10,15 @@ import {
   AutocompleteInput,
 } from "react-admin";
 
-export default function CreateLesson(props) {
+export default function EditLesson(props) {
+  const formatFile = (value) =>
+    typeof value === "string" ? { src: value, title: "Pdf file" } : value;
   return (
-    <Create {...props}>
-      <SimpleForm redirect="show">
+    <Edit {...props}>
+      <SimpleForm>
         <TextInput source="name" validate={[required()]} />
         <TextInput source="description" validate={[required()]} />
-        <FileInput
-          multiple={false}
-          source="pdf_file"
-          accept="application/pdf"
-          validate={[required()]}
-        >
+        <FileInput format={formatFile} multiple={false} source="pdf_file" accept="application/pdf">
           <FileField source="src" title="title" />
         </FileInput>
         <TextInput source="url" />
@@ -32,6 +29,6 @@ export default function CreateLesson(props) {
           <AutocompleteInput allowEmpty optionValue="name" />
         </ReferenceInput>
       </SimpleForm>
-    </Create>
+    </Edit>
   );
 }
