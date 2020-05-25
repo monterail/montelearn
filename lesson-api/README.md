@@ -42,6 +42,14 @@ These env vars need to be set in prod:
     WEB_CONCURRENCY=4
 
     SENTRY_DSN=
+
+    # IP whitelist
+    BASIC_AUTH_WHITELISTED_IP_NETWORKS=
+    BASIC_AUTH_WHITELISTED_HTTP_HOSTS=
+    BASIC_AUTH_WHITELISTED_PATHS=
+    BASIC_AUTH_LOGIN=
+    BASIC_AUTH_PASSWORD=
+
 ```
 
 ## Create migrations
