@@ -1,6 +1,5 @@
 from rest_framework.mixins import CreateModelMixin, ListModelMixin
 from rest_framework.pagination import LimitOffsetPagination
-from rest_framework.parsers import MultiPartParser
 from rest_framework.permissions import AllowAny
 from rest_framework.viewsets import GenericViewSet, ModelViewSet
 
@@ -15,7 +14,6 @@ class LessonViewSet(ModelViewSet):
     pagination_class = LimitOffsetPagination
     permission_classes = (AllowAny,)
     queryset = Lesson.objects.all()
-    parser_classes = (MultiPartParser,)
     filterset_class = LessonFilter
 
 
