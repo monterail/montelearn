@@ -106,6 +106,7 @@ const dataProvider = {
 
   update: (resource, params) => {
     let payload;
+
     switch (resource) {
       case "lesson":
         payload = convertLessonParamsToFormData(params);
@@ -119,6 +120,20 @@ const dataProvider = {
     }).then(({ json }) => ({
       data: { id: json.uuid },
     }));
+  },
+
+  updateTest: (params, callback) => {
+    const payload = JSON.stringify(params.data);
+
+    return httpClient(`${process.env.API_URL}/admin/tests/${params.id}/`, {
+      method: "PUT",
+      body: payload,
+    }).then(({ json }) => {
+      callback();
+      return {
+        data: { id: json.uuid },
+      };
+    });
   },
 
   getMany: (resource, params) => {
@@ -156,10 +171,11 @@ const dataProvider = {
       return { data };
     });
   },
-  delete: (resource, params) => {
+  delete: (resource, params, callback) => {
     return httpClient(`${process.env.API_URL}/${resource}/${params.id}/`, {
       method: "DELETE",
     }).then(() => {
+      if (callback) callback();
       return { data: [] };
     });
   },
