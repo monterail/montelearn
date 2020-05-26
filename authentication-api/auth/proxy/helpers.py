@@ -86,11 +86,14 @@ class CustomProxyView(ProxyView):
                 )
             else:
                 headers = {"Content-Type": "application/json", "Accept": "application/json"}
+                if not isinstance(data, str):
+                    data = json.dumps(data)
+
                 response = requests.request(
                     request.method,
                     url,
                     params=params,
-                    data=json.dumps(data),
+                    data=data,
                     files=files,
                     headers=headers,
                     timeout=self.proxy_settings.TIMEOUT,
