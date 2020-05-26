@@ -1,5 +1,6 @@
 import Head from "next/head";
 import Link from "next/link";
+
 import Title from "@/components/Title";
 import Card from "@/components/Card";
 import SubTitle from "@/components/SubTitle";

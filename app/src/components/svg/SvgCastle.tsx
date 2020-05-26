@@ -1,15 +1,6 @@
-import React from "react";
-
-const SvgAtom = (props: any) => {
+const SvgAtom = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M21.75 5.25H17.25V15.75H21.75V5.25Z"
         stroke="#F47073"

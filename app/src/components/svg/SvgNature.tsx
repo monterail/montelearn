@@ -1,15 +1,6 @@
-import React from "react";
-
-const SvgNature = (props: any) => {
+const SvgNature = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M15 12.326C15.168 12.34 15.3 12.34 15.375 12.34C16.0103 12.3345 16.6377 12.1985 17.2182 11.9404C17.7988 11.6824 18.3202 11.3079 18.75 10.84C19.3411 11.4093 20.0518 11.8394 20.8304 12.0989C21.6089 12.3584 22.4356 12.4408 23.25 12.34"
         stroke="#F47073"
