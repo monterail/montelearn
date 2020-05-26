@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import dynamic from "next/dynamic";
 
 import { SUBJECT_ICONS } from "@/types/subject";

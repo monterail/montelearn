@@ -11,10 +11,10 @@ import QuesitonLabel from "@/components/QuestionLabel";
 
 import auth from "@/containers/hoc/Auth";
 
-import useRequest from "@/utils/hooks/useRequest";
-
 import { Lesson } from "@/types/lesson";
 import { TestList, Question } from "@/types/test";
+
+import useRequest from "@/utils/hooks/useRequest";
 
 function LessonPage() {
   const router = useRouter();

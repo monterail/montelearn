@@ -4,12 +4,13 @@ import Link from "next/link";
 import Router from "next/router";
 
 import Card from "@/components/Card";
-// import Text from "@/components/Text";
 import Title from "@/components/Title";
 import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
 import InputErrors from "@/components/InputErrors";
+
 import { register, RegisterInputsType } from "@/services/auth";
+
 import { RegisterErrorsType } from "@/utils/errors";
 
 const initialValues: RegisterInputsType = {
