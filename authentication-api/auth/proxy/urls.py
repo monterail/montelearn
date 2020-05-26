@@ -9,6 +9,7 @@ from .views import (
     ProxyTestsAdminListView,
     ProxyTestsDetailView,
     ProxyTestsListView,
+    ProxyTestsScoreDetailView,
 )
 
 
@@ -21,6 +22,7 @@ urlpatterns = [
     path("admin/tests/<str:uuid>/", ProxyTestsAdminDetailView.as_view(), name="tests-admin-detail"),
     path("tests/", ProxyTestsListView.as_view(), name="tests-list"),
     path("tests/<str:uuid>/", ProxyTestsDetailView.as_view(), name="tests-detail"),
+    path("tests/<str:uuid>/scores/", ProxyTestsScoreDetailView.as_view(), name="tests-score"),
     path("subject/", ProxySubjectListView.as_view(), name="subject-list"),
     path("grade/", ProxyGradeListView.as_view(), name="grade-list"),
 ]
