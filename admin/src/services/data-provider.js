@@ -156,12 +156,18 @@ const dataProvider = {
       return { data };
     });
   },
+  delete: (resource, params) => {
+    return httpClient(`${process.env.API_URL}/${resource}/${params.id}/`, {
+      method: "DELETE",
+    }).then(() => {
+      return { data: [] };
+    });
+  },
   deleteMany: (resource, params) => {
     const data = [];
     for (let index = 0; index < params.ids.length; index++) {
       httpClient(`${process.env.API_URL}/${resource}/${params.ids[index]}/`, {
         method: "DELETE",
-        body: JSON.stringify(params.data),
       });
     }
     return new Promise((resolve) => resolve({ data }));
