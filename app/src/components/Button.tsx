@@ -5,7 +5,7 @@ type Props = {
   onClick?: VoidFunction;
 };
 
-const Button: FC<Props> = ({ children, className, onClick }) => (
+const Button: FC<Props> = ({ children, className = "", onClick }) => (
   <button
     type="button"
     className={`
