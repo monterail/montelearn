@@ -466,11 +466,11 @@ def test_proxy_tests_student_detail_view_unauthorized(api_client):
 
 @pytest.mark.django_db
 def test_proxy_tests_score_student_detail_view(authenticated_api_client):
-    test_uuid = "some_uuid"
+    test_uuid = "4f33c180-ba79-4742-be72-553b2866d31f"
     with requests_mock.mock() as mocked_request:
         mocked_request.post(
             f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/scores/",
-            status_code=200,
+            status_code=201,
             headers={"Content-type": "application/json"},
             json=TESTS_SCORE_RESPONSE,
         )
@@ -478,8 +478,11 @@ def test_proxy_tests_score_student_detail_view(authenticated_api_client):
             reverse("proxy:tests-score", args=(test_uuid,)), json=TESTS_SCORE_DATA
         )
 
+        authenticated_api_client.user.refresh_from_db()
+
+        assert str(authenticated_api_client.user.score_set.last().test_uuid) == test_uuid
         assert response.json() == TESTS_SCORE_RESPONSE
-        assert response.status_code == 200
+        assert response.status_code == 201
 
 
 @pytest.mark.django_db

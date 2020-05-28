@@ -3,6 +3,7 @@ from django.conf import settings
 from rest_framework.permissions import IsAuthenticated
 
 from ..core.permissions import IsTeacher
+from ..user.models import Score
 from .helpers import CustomProxyView
 
 
@@ -69,3 +70,16 @@ class ProxyTestsScoreDetailView(CustomProxyView):
     http_method_names = ["post"]
     proxy_host = settings.TESTS_API_HOST
     source = "api/tests/%(uuid)s/scores/"
+
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+
+        if response.status_code == 201:
+            score_list = response.data.get("score").split("/")
+            Score.objects.create(
+                score=score_list[0],
+                max_score=score_list[1],
+                test_uuid=kwargs["uuid"],
+                user=request.user,
+            )
+        return response

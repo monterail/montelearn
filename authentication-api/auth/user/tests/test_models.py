@@ -1,6 +1,6 @@
 import pytest
 
-from ..models import User
+from ..models import Score, User
 from .factories import UserFactory
 
 
@@ -31,3 +31,10 @@ def test_create_user_no_email():
     with pytest.raises(ValueError) as error:
         User.objects.create_user("", "password1234")
         assert error.value == "Email must be provided"
+
+
+@pytest.mark.django_db
+def test_score_model_str():
+    score = Score(test_uuid="4f33c180-ba79-4742-be72-553b2866d31f", score=1, max_score=10)
+
+    assert score.__str__() == f"{score.test_uuid} | {score.score}/{score.max_score}"

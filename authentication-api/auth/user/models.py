@@ -63,3 +63,13 @@ class User(AbstractBaseUser, PermissionsMixin, TimeStampedModel):
     @property
     def name(self):
         return f"{self.first_name} {self.last_name}"
+
+
+class Score(models.Model):
+    test_uuid = models.UUIDField()
+    score = models.PositiveIntegerField()
+    max_score = models.PositiveIntegerField()
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.test_uuid} | {self.score}/{self.max_score}"
