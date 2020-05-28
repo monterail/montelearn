@@ -22,17 +22,15 @@ function SubjectPage() {
   const { slug } = router.query;
 
   const { data: lessonList } = useRequest<LessonList>({
-    url: `/lesson/`,
+    url: `/lesson?subject__in=${slug}`,
   });
-
-  const lessons = lessonList?.results.filter((lesson) => lesson.subject === slug);
 
   const handleBackClick = () => {
     router.push("/subjects");
   };
 
   const renderLessons = () =>
-    lessons?.map((lesson, index) => {
+    lessonList?.results.map((lesson, index) => {
       return (
         <Card key={`lesson-${lesson.name}-no-${index}`}>
           <Label className="text-sm">Lesson {index + 1}</Label>
