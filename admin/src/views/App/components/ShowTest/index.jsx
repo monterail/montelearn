@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import {
   SimpleShowLayout,
@@ -14,9 +14,13 @@ import dataProvider from "@/services/data-provider";
 
 import EditTest from "../EditTest";
 
-export default function ShowTest({ record }) {
+export default function ShowTest({ record, handleShowAddButton }) {
   const [edit, setEdit] = useState(false);
   const router = useRouter();
+
+  useEffect(() => {
+    handleShowAddButton(false);
+  }, []);
 
   const toggleEdit = () => setEdit(!edit);
   const handleDelete = () => dataProvider.delete("admin/tests", { id: record.uuid }, router.reload);

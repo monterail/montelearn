@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Show,
   TextField,
@@ -15,6 +15,7 @@ import AddNewTestButton from "../AddNewTestButton";
 
 export default function ShowLesson(props) {
   const { id } = props;
+  const [showAddButton, setShowAddButton] = useState(true);
 
   return (
     <Show actions={<TopToolbar />} {...props}>
@@ -29,9 +30,13 @@ export default function ShowLesson(props) {
         </Tab>
         <Tab label="test" path="test">
           <ReferenceField addLabel={false} source="uuid" reference="tests" link={false}>
-            <FunctionField render={(record) => <ShowTest record={record} />} />
+            <FunctionField
+              render={(record) => (
+                <ShowTest handleShowAddButton={setShowAddButton} record={record} />
+              )}
+            />
           </ReferenceField>
-          <AddNewTestButton record={{ id }} />
+          {showAddButton && <AddNewTestButton record={{ id }} />}
         </Tab>
       </TabbedShowLayout>
     </Show>
