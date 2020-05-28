@@ -1,46 +1,59 @@
-import { FunctionComponent, useState } from "react";
-
 import SvgCheckmark from "@/components/svg/SvgCheckmark";
 
-type Props = {
+type Props<T> = {
   className?: string;
+  isLocked: boolean;
+  isSelected: (option: T) => boolean;
+  onClick: (option: T) => void;
+  optionKey: string;
+  options: T[];
 };
 
-const RadioButton: FunctionComponent<Props> = ({ children, className = "" }) => {
-  const [checked, setChecked] = useState<boolean | "false" | "mixed" | "true" | undefined>(
-    undefined,
-  );
-  const isNotSelected = () => checked === undefined;
-  const handleClick = () => {
-    if (isNotSelected()) {
-      setChecked(true);
-      return;
+function RadioButton<T extends Record<string, string | string[]>>({
+  className = "",
+  isLocked,
+  isSelected,
+  onClick,
+  optionKey,
+  options,
+}: Props<T>) {
+  const handleClick = (option: T) => (): void => {
+    if (!isLocked) {
+      onClick(option);
     }
-    setChecked(!checked);
   };
-  const containerClass = checked ? "bg-red-monterail" : "bg-red-100";
-  const textClass = checked ? "text-white" : "text-black";
-  const circleClass = isNotSelected() ? "border-red-monterail" : "border-red-200";
 
   return (
-    <div
-      className={`inline-flex cursor-pointer rounded-full items-center py-4 pl-4 pr-8 transition-colors duration-100 ${containerClass} ${className}`}
-      onClick={() => handleClick()}
-      onKeyPress={(event) => (event.key === "Enter" ? handleClick() : null)}
-      role="radio"
-      aria-checked={checked}
-      tabIndex={0}
-    >
-      <span
-        className={`flex items-center content-center bg-white border-2 mr-4 rounded-full p-1 w-6 h-6 ${circleClass}`}
-      >
-        {checked && <SvgCheckmark />}
-      </span>
-      <span className={`font-medium text-xl font-roboto-mono select-none ${textClass}`}>
-        {children}
-      </span>
-    </div>
+    <>
+      {options.map((option) => {
+        const textClass = isSelected(option) ? "text-white" : "text-black";
+        const containerClass = isSelected(option) ? "bg-red-monterail" : "bg-red-100";
+        const circleClass = isSelected(option) ? "border-red-monterail" : "border-red-200";
+
+        const cursorClass = isLocked ? "cursor-none" : "cursor-pointer";
+
+        return (
+          <div
+            className={`inline-flex ${cursorClass} rounded-full items-center py-4 pl-4 pr-8 transition-colors duration-100 ${containerClass} ${className}`}
+            onClick={handleClick(option)}
+            onKeyPress={(event) => (event.key === "Enter" ? handleClick(option) : null)}
+            role="radio"
+            aria-checked={isSelected(option)}
+            tabIndex={0}
+          >
+            <span
+              className={`flex items-center content-center bg-white border-2 mr-4 rounded-full p-1 w-6 h-6 ${circleClass}`}
+            >
+              {isSelected(option) && <SvgCheckmark />}
+            </span>
+            <span className={`font-medium text-xl font-roboto-mono select-none ${textClass}`}>
+              {option[optionKey]}
+            </span>
+          </div>
+        );
+      })}
+    </>
   );
-};
+}
 
 export default RadioButton;
