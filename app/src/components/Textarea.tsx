@@ -11,7 +11,7 @@ const DEFAULT_CLASSES = `
   shadow-xs appearance-none rounded-lg w-full p-4
   text-gray-300 leading-tight focus:outline-none
   placeholder-gray-300 font-roboto-mono resize-none
-  bg-white min-h-json
+  bg-white min-h-json overflow-auto
 `;
 
 const Textarea: FunctionComponent<Props> = ({ value, label, placeholder = "" }) => {
