@@ -40,8 +40,8 @@ export default function HomePage() {
             sit ea adipisicing aliqua magna ad. Eiusmod pariatur aliquip ullamco consequat cupidatat
             excepteur ipsum sit fugiat irure sunt.
           </Text>
-          <Link href="/users/login">
-            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto">
+          <Link href="/subjects">
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono px-8 py-3 mr-auto">
               Try it out
             </a>
           </Link>
@@ -55,7 +55,7 @@ export default function HomePage() {
             cupidatat id ipsum ullamco.
           </Text>
           <Link href="/users/login">
-            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none px-8 py-3 cursor-not-allowed mr-auto">
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none cursor-not-allowed px-8 py-3 cursor-not-allowed mr-auto">
               Try it out
             </a>
           </Link>
@@ -68,7 +68,7 @@ export default function HomePage() {
             reprehenderit.
           </Text>
           <Link href="/developers">
-            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 px-8 py-3 mr-auto">
+            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono px-8 py-3 mr-auto">
               Try it out
             </a>
           </Link>

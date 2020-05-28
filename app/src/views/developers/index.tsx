@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import Head from "next/head";
 
 import Breadcrumbs from "@/components/Breadcrumbs";
@@ -33,6 +34,7 @@ const options: DropdownOption[] = [
 const DevelopersPage = () => {
   const [endpoint, setEndpoint] = useState("");
   const [code, setCode] = useState("");
+  const router = useRouter();
 
   useEffect(() => {
     if (endpoint) {
@@ -48,6 +50,10 @@ const DevelopersPage = () => {
     }
   }, [endpoint]);
 
+  const handleBackClick = () => {
+    router.push("/");
+  };
+
   const handleEndpointChange = (option: DropdownOption) => {
     setEndpoint(option.value);
   };
@@ -57,7 +63,7 @@ const DevelopersPage = () => {
       <Head>
         <title>API developers page</title>
       </Head>
-      <Breadcrumbs options={["API developers"]} />
+      <Breadcrumbs handleBackClick={handleBackClick} options={["API developers"]} />
       <Title className="my-8">Select your URL</Title>
       <Text className="font-roboto-mono my-8 text-xl">Something Something</Text>
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
