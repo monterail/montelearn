@@ -1,4 +1,4 @@
-import apiClient, { setTokens, removeTokens } from "./apiClient.ts";
+import apiClient, { setTokens, removeTokens } from "./apiClient";
 
 const authProvider = {
   login: async ({ username, password }) => {

@@ -27,14 +27,14 @@ const apiClient = axios.create({
 });
 
 const setApiClientAuthToken = (token: string | null) => {
-  apiClient.defaults.headers.common.Authorization = `Bearer ${token}`;
+  apiClient.defaults.headers.common.Authorization = token && `Bearer ${token}`;
 };
 
 const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
   originalRequest.headers.Authorization = `Bearer ${value}`;
 };
 
-const accessToken = localStorage.getItem("access_token");
+const accessToken = localStorage.getItem("access_token") || "";
 setApiClientAuthToken(accessToken);
 
 // for multiple requests
@@ -78,6 +78,8 @@ apiClient.interceptors.response.use(
       isRefreshing = true;
 
       const refreshToken = localStorage.getItem("refresh_token");
+      if (!refreshToken) return Promise.reject(error);
+
       return new Promise((resolve, reject) => {
         axios
           .post(`${process.env.API_URL}/api/auth/refresh-token/`, {
