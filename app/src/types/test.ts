@@ -21,3 +21,18 @@ export interface TestList {
   previous: string;
   results: Test[];
 }
+
+export type QuestionAnswer = {
+  question_uuid: string;
+  selected_choices: string[];
+};
+
+export type QuestionScoreResult = {
+  question_uuid: string;
+  correct: boolean;
+};
+
+export type QuestionScore = {
+  score: string;
+  results: QuestionScoreResult[];
+};
