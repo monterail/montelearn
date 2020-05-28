@@ -11,7 +11,6 @@ const authProvider = {
   },
 
   logout: async () => {
-    await apiClient.post(`/auth/logout/`);
     removeTokens();
     return Promise.resolve();
   },
