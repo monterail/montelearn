@@ -7,10 +7,8 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Dropdown from "@/components/Dropdown";
 import Textarea from "@/components/Textarea";
-
 import { DropdownOption } from "@/types/Generic";
-
-import apiClient from "@/services/apiClient";
+import getMockedResponse from "./mocks";
 
 const options: DropdownOption[] = [
   {
@@ -37,17 +35,7 @@ const DevelopersPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (endpoint) {
-      const fetchData = async () => {
-        try {
-          const response = await apiClient.get(`/${endpoint}/`);
-          setCode(JSON.stringify(response.data.results));
-        } catch (e) {
-          setCode(JSON.stringify(e.response.data));
-        }
-      };
-      fetchData();
-    }
+    if (endpoint) setCode(getMockedResponse(endpoint));
   }, [endpoint]);
 
   const handleBackClick = () => {
