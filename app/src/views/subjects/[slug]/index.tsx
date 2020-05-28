@@ -22,7 +22,7 @@ function SubjectPage() {
   const { slug } = router.query;
 
   const { data: lessonList } = useRequest<LessonList>({
-    url: `/lesson/`,
+    url: `/lesson?subject__in=${slug}`,
   });
 
   const handleBackClick = () => {
