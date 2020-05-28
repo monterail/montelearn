@@ -14,6 +14,8 @@ from .helpers import (
     SUBJECT_DETAIL_RESPONSE,
     SUBJECT_LIST_RESPONSE,
     TESTS_API_DETAIL_RESPONSE,
+    TESTS_SCORE_DATA,
+    TESTS_SCORE_RESPONSE,
     TESTS_STUDENT_DETAIL_RESPONSE,
     TESTS_STUDENT_LIST_RESPONSE,
     UPDATE_LESSON_DATA,
@@ -446,7 +448,7 @@ def test_proxy_tests_student_detail_view(authenticated_api_client):
             status_code=200,
             headers={"Content-type": "application/json"},
             json=TESTS_STUDENT_DETAIL_RESPONSE,
-         )
+        )
         response = authenticated_api_client.get(reverse("proxy:tests-detail", args=(test_uuid,)))
 
         assert response.json() == TESTS_STUDENT_DETAIL_RESPONSE
@@ -457,6 +459,35 @@ def test_proxy_tests_student_detail_view(authenticated_api_client):
 def test_proxy_tests_student_detail_view_unauthorized(api_client):
     test_uuid = "some_uuid"
     response = api_client.get(reverse("proxy:tests-detail", args=(test_uuid,)))
+
+    assert response.status_code == 401
+    assert response.json()["detail"] == "Authentication credentials were not provided."
+
+
+@pytest.mark.django_db
+def test_proxy_tests_score_student_detail_view(authenticated_api_client):
+    test_uuid = "some_uuid"
+    with requests_mock.mock() as mocked_request:
+        mocked_request.post(
+            f"{settings.TESTS_API_HOST}/api/tests/{test_uuid}/scores/",
+            status_code=200,
+            headers={"Content-type": "application/json"},
+            json=TESTS_SCORE_RESPONSE,
+        )
+        response = authenticated_api_client.post(
+            reverse("proxy:tests-score", args=(test_uuid,)), json=TESTS_SCORE_DATA
+        )
+
+        assert response.json() == TESTS_SCORE_RESPONSE
+        assert response.status_code == 200
+
+
+@pytest.mark.django_db
+def test_proxy_tests_score_student_detail_view_unauthorized(api_client):
+    test_uuid = "some_uuid"
+    response = api_client.post(
+        reverse("proxy:tests-score", args=(test_uuid,)), json=TESTS_SCORE_DATA
+    )
 
     assert response.status_code == 401
     assert response.json()["detail"] == "Authentication credentials were not provided."

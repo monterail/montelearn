@@ -55,6 +55,12 @@ Each BE microservice can be run and tested separately, please refer to README.md
 
 # Deployment
 Changes to microservices are automatically deployed to Heroku (Github Actions) after a pull request is merged to `master` branch. It's worth pointing out that changes not related to particular microservice source code <u>does not trigger</u> a new deployment.
-- lesson-api: https://lesson-api-test.herokuapp.com/
-- tests-api: https://tests-api-test.herokuapp.com/
-- authentication-api: https://auth-api-test.herokuapp.com/
+
+
+# IP Whitelisting
+Lesson-api and tests-api have open, public APIs which can be hidden on production using IP whitelisting, which is currently implemented only in lesson-api.
+
+# Lesson-api IP whitelist
+In local environment all of the IPs are being allowed (`BASIC_AUTH_WHITELISTED_IP_NETWORKS=0.0.0.0/0`).
+To whitelist IP on production set up an environment variable `BASIC_AUTH_WHITELISTED_IP_NETWORKS` and assign it range of allowed IP addresses.
+To add multiple network ranges separate them by comma ex. ``BASIC_AUTH_WHITELISTED_IP_NETWORKS=127.0.0.0/8,10.0.0.0/8

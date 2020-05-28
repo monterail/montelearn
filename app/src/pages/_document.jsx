@@ -28,6 +28,10 @@ class NextDocument extends Document {
                 min-height: 100vh;
               }
 
+              #nprogress .bar {
+                background-color: var(--color-red-400) !important;
+              }
+
               *,
               *:before,
               *:after {

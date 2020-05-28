@@ -1,15 +1,6 @@
-import React from "react";
-
-const SvgArrowLeft = (props: any) => {
+const SvgArrowLeft = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0)">
         <path
           d="M0.75 11.503L23.25 11.503"

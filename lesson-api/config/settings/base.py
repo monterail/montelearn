@@ -46,9 +46,7 @@ LOCALE_PATHS = [ROOT_DIR.path("locale")]
 DATABASES = {"default": env.db("DATABASE_URL")}
 # https://docs.djangoproject.com/en/2.2/topics/db/transactions/#tying-transactions-to-http-requests
 # At scale having ATOMIC_REQUESTS enabled can impact performance
-DATABASES["default"]["ATOMIC_REQUESTS"] = env.bool(
-    "DATABASE_ATOMIC_REQUESTS", default=True
-)
+DATABASES["default"]["ATOMIC_REQUESTS"] = env.bool("DATABASE_ATOMIC_REQUESTS", default=True)
 # https://devcenter.heroku.com/articles/python-concurrency-and-database-connections#persistent-connections
 DATABASES["default"]["CONN_MAX_AGE"] = env.int("DATABASE_CONN_MAX_AGE", default=500)
 # URLS
@@ -149,9 +147,7 @@ REST_FRAMEWORK = {
     "DATETIME_FORMAT": "%Y-%m-%dT%H:%M:%S%z",
     "DEFAULT_PAGINATION_CLASS": "rest_framework.pagination.PageNumberPagination",
     "PAGE_SIZE": env.int("DJANGO_PAGINATION_LIMIT", default=10),
-    "DEFAULT_AUTHENTICATION_CLASSES": [
-        "rest_framework.authentication.BasicAuthentication"
-    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": ["rest_framework.authentication.BasicAuthentication"],
     "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     "DEFAULT_RENDERER_CLASSES": ["rest_framework.renderers.JSONRenderer"],
     "DEFAULT_PARSER_CLASSES": [
@@ -179,9 +175,7 @@ CSRF_COOKIE_HTTPONLY = True
 # https://docs.djangoproject.com/en/2.2/ref/settings/#default-from-email
 DEFAULT_FROM_EMAIL = env("DJANGO_DEFAULT_FROM_EMAIL", default="")
 # https://docs.djangoproject.com/en/dev/ref/settings/#email-backend
-EMAIL_BACKEND = env(
-    "DJANGO_EMAIL_BACKEND", default="anymail.backends.mailgun.EmailBackend"
-)
+EMAIL_BACKEND = env("DJANGO_EMAIL_BACKEND", default="anymail.backends.mailgun.EmailBackend")
 # https://docs.djangoproject.com/en/2.2/ref/settings/#email-timeout
 EMAIL_TIMEOUT = 5
 
@@ -204,11 +198,7 @@ LOGGING = {
         }
     },
     "handlers": {
-        "console": {
-            "level": "DEBUG",
-            "class": "logging.StreamHandler",
-            "formatter": "verbose",
-        }
+        "console": {"level": "DEBUG", "class": "logging.StreamHandler", "formatter": "verbose"}
     },
     "root": {"level": "INFO", "handlers": ["console"]},
 }
@@ -222,10 +212,7 @@ CACHES = {
         "LOCATION": env("REDIS_CACHE_URL", default=""),
         "OPTIONS": {
             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-            "CONNECTION_POOL_KWARGS": {
-                "max_connections": 100,
-                "retry_on_timeout": True,
-            },
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100, "retry_on_timeout": True},
         },
     }
 }
@@ -234,9 +221,7 @@ CACHES = {
 SWAGGER_ENABLED = env.bool("DJANGO_SWAGGER_ENABLED", default=False)
 SWAGGER_SETTINGS = {
     "USE_SESSION_AUTH": False,
-    "SECURITY_DEFINITIONS": {
-        "Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}
-    },
+    "SECURITY_DEFINITIONS": {"Bearer": {"type": "apiKey", "name": "Authorization", "in": "header"}},
 }
 
 # User uploads
@@ -263,7 +248,9 @@ AWS_S3_URL_PROTOCOL = env.str("AWS_S3_URL_PROTOCOL", default="https:")
 
 CORS_ORIGIN_WHITELIST = ["https://auth-api-test.herokuapp.com"]
 
-BASIC_AUTH_WHITELISTED_IP_NETWORKS = env.list("BASIC_AUTH_WHITELISTED_IP_NETWORKS", default="")
+BASIC_AUTH_WHITELISTED_IP_NETWORKS = env.list(
+    "BASIC_AUTH_WHITELISTED_IP_NETWORKS", default="0.0.0.0/0"
+)
 BASIC_AUTH_WHITELISTED_HTTP_HOSTS = env.list("BASIC_AUTH_WHITELISTED_HTTP_HOSTS", default="")
 BASIC_AUTH_WHITELISTED_PATHS = env.list("BASIC_AUTH_WHITELISTED_PATHS", default="")
 BASIC_AUTH_LOGIN = env.str("BASIC_AUTH_LOGIN", default="")

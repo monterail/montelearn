@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
 import SvgArrowRight from "@/components/svg/SvgArrowRight";
@@ -29,7 +29,7 @@ const ButtonWithArrow: FunctionComponent<Props> = ({
       onClick={onClick}
       type="button"
       className={`
-        flex py-2 whitespace-no-wrap hover:opacity-50 transition-opacity
+        flex items-center py-2 whitespace-no-wrap hover:opacity-50 transition-opacity
         duration-200 bg-transparent rounded-full font-roboto-mono
         ${borderClasses} ${className}
       `}

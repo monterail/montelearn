@@ -21,3 +21,4 @@ pyjwt
 cryptography
 django-rest-framework-proxy
 djangorestframework-simplejwt
+codecov

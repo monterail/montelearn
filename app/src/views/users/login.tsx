@@ -9,7 +9,9 @@ import Title from "@/components/Title";
 import Button from "@/components/Button";
 import InputWithLabel from "@/components/InputWithLabel";
 import InputErrors from "@/components/InputErrors";
+
 import { login, LoginInputsType } from "@/services/auth";
+
 import { LoginErrorsType } from "@/utils/errors";
 
 const initialInputs: LoginInputsType = { email: "", password: "" };

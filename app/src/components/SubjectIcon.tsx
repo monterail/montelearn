@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import dynamic from "next/dynamic";
 
 import { SUBJECT_ICONS } from "@/types/subject";
@@ -41,7 +41,7 @@ const renderIcon = (icon: SUBJECT_ICONS) => {
   }
 };
 
-const SubjectIcon: FunctionComponent<Props> = ({ className, icon }) => {
+const SubjectIcon: FunctionComponent<Props> = ({ className = "", icon }) => {
   return (
     <div
       className={`flex justify-center items-center rounded-full bg-red-100 h-12 w-12 ${className}`}

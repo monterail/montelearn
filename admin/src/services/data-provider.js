@@ -7,12 +7,16 @@ const convertLessonParamsToFormData = (params) => {
   const paramsData = params.data;
 
   if ("pdf_file" in paramsData) {
-    paramsData.pdf_file = paramsData.pdf_file.rawFile;
+    paramsData.pdf_file = paramsData.pdf_file?.rawFile;
   }
 
   const paramsEntries = Object.entries(paramsData);
 
-  paramsEntries.forEach(([key, value]) => formData.append(key, value));
+  paramsEntries.forEach(([key, value]) => {
+    if (value) {
+      formData.append(key, value);
+    }
+  });
 
   return formData;
 };
@@ -89,6 +93,32 @@ const dataProvider = {
     }));
   },
 
+  update: (resource, params) => {
+    let payload;
+
+    switch (resource) {
+      case "lesson":
+        payload = convertLessonParamsToFormData(params);
+        break;
+      default:
+        payload = JSON.stringify(params.data);
+    }
+    return apiClient.patch(`/${resource}/${params.id}/`, payload).then(({ data }) => ({
+      data: { id: data.uuid },
+    }));
+  },
+
+  updateTest: (params, callback) => {
+    const payload = JSON.stringify(params.data);
+
+    return apiClient.put(`/admin/tests/${params.id}/`, payload).then(({ data }) => {
+      callback();
+      return {
+        data: { id: data.uuid },
+      };
+    });
+  },
+
   getMany: (resource, params) => {
     const url = buildUrlForGetMany(resource, params);
 
@@ -99,8 +129,19 @@ const dataProvider = {
       return { data: data.results.map((elem) => ({ ...elem, id: elem.uuid })) };
     });
   },
-  // To add more methods see:
-  // https://marmelab.com/react-admin/DataProviders.html#writing-your-own-data-provider
+  delete: (resource, params, callback) => {
+    return apiClient.delete(`/${resource}/${params.id}/`).then(() => {
+      if (callback) callback();
+      return { data: [] };
+    });
+  },
+  deleteMany: (resource, params) => {
+    const data = [];
+    for (let index = 0; index < params.ids.length; index++) {
+      apiClient.delete(`/${resource}/${params.ids[index]}/`);
+    }
+    return new Promise((resolve) => resolve({ data }));
+  },
 };
 
 export default dataProvider;

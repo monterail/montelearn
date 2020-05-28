@@ -1,4 +1,4 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 import JSONPretty from "react-json-pretty";
 
 type Props = {

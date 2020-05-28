@@ -254,3 +254,21 @@ SUBJECT_DETAIL_RESPONSE = """
     "name": "biology"
 }
 """
+
+TESTS_SCORE_RESPONSE = """
+{
+  "score": "1/1",
+  "results": [
+    {
+      "question_uuid": "b3c17cb6-6196-4554-821b-702eb3e35c88",
+      "correct": true
+    }
+  ]
+}
+"""
+
+TESTS_SCORE_DATA = {
+    "answers": [
+        {"question_uuid": "b3c17cb6-6196-4554-821b-702eb3e35c88", "selected_choices": ["Non't"]}
+    ]
+}

@@ -63,3 +63,9 @@ class ProxySubjectListView(PermissionClassesMixin, CustomProxyView):
     http_method_names = ["get", "post"]
     proxy_host = settings.LESSON_API_HOST
     source = "api/subject/"
+
+
+class ProxyTestsScoreDetailView(CustomProxyView):
+    http_method_names = ["post"]
+    proxy_host = settings.TESTS_API_HOST
+    source = "api/tests/%(uuid)s/scores/"

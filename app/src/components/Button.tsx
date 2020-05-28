@@ -1,11 +1,11 @@
-import React, { FC } from "react";
+import { FC } from "react";
 
 type Props = {
   className?: string;
   onClick?: VoidFunction;
 };
 
-const Button: FC<Props> = ({ children, className, onClick }) => (
+const Button: FC<Props> = ({ children, className = "", onClick }) => (
   <button
     type="button"
     className={`

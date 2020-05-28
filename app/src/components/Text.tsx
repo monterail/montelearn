@@ -1,10 +1,10 @@
-import React, { FunctionComponent } from "react";
+import { FunctionComponent } from "react";
 
 type Props = {
   className?: string;
 };
 
-const Text: FunctionComponent<Props> = ({ className, children }) => {
+const Text: FunctionComponent<Props> = ({ className = "", children }) => {
   return (
     <p className={`text-base sm:text-lg leading-relaxed tracking-wide break-words ${className}`}>
       {children}

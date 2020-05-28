@@ -1,15 +1,6 @@
-import React from "react";
-
-const SvgAtom = (props: any) => {
+const SvgAtom = () => {
   return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      xmlns="http://www.w3.org/2000/svg"
-      {...props}
-    >
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
       <g clipPath="url(#clip0)">
         <path
           d="M12.009 14.259C13.2517 14.259 14.259 13.2516 14.259 12.009C14.259 10.7664 13.2517 9.759 12.009 9.759C10.7664 9.759 9.75903 10.7664 9.75903 12.009C9.75903 13.2516 10.7664 14.259 12.009 14.259Z"

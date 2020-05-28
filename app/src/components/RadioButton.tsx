@@ -1,4 +1,5 @@
-import React, { FunctionComponent, useState } from "react";
+import { FunctionComponent, useState } from "react";
+
 import SvgCheckmark from "@/components/svg/SvgCheckmark";
 
 type Props = {

@@ -1,4 +1,4 @@
-import React, { FC, useState, MouseEvent } from "react";
+import { FC, useState, MouseEvent } from "react";
 import onClickOutside from "react-onclickoutside";
 
 import { DropdownOption } from "@/types/Generic";
