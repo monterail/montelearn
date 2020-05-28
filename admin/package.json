@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@project/setup": "1.0.0",
+    "axios": "0.19.2",
     "envalid": "6.0.1",
     "next": "9.3.5",
     "query-string": "6.12.1",

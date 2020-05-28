@@ -1,20 +1,6 @@
 import { stringify } from "query-string";
-import { fetchUtils } from "react-admin";
 
-// NOTE:
-// Don't know why we have to mutate input options object
-// to make the request work.
-const httpClient = (url, options = {}) => {
-  if (!options.headers) {
-    // eslint-disable-next-line no-param-reassign
-    options.headers = new Headers({ Accept: "application/json" });
-  }
-
-  const access_token = localStorage.getItem("access_token");
-  options.headers.set("Authorization", `Bearer ${access_token}`);
-
-  return fetchUtils.fetchJson(url, options);
-};
+import apiClient from "./apiClient.ts";
 
 const convertLessonParamsToFormData = (params) => {
   const formData = new FormData();
@@ -35,7 +21,14 @@ const convertLessonParamsToFormData = (params) => {
   return formData;
 };
 
-const buildQueryForTestReference = (params) => ({ lesson_uuid: params.ids[0] });
+const buildUrlForGetMany = (resource, params) => {
+  if (resource === "tests") {
+    const query = stringify({ lesson_uuid: params.ids[0] });
+    return `/admin/tests?${query}`;
+  }
+  const query = stringify({ filter: JSON.stringify({ id: params.ids }) });
+  return `/${resource}?${query}`;
+};
 
 const dataProvider = {
   getList: async (resource, params) => {
@@ -53,29 +46,28 @@ const dataProvider = {
       range: JSON.stringify([(page - 1) * perPage, page * perPage - 1]),
     };
 
-    const url = `${process.env.API_URL}/${resource}?${stringify(query)}`;
+    const url = `/${resource}?${stringify(query)}`;
 
-    const { json } = await httpClient(url);
-    const { results } = json;
-    const data = results.map((result) => ({
+    const { data } = await apiClient(url);
+    const results = data.results.map((result) => ({
       ...result,
       id: result.uuid,
     }));
 
     return {
       // Workaround for autocomplete to be able to create non-existing resource
-      data: filter.q ? [{ name: filter.q, id: filter.q }, ...data] : data,
-      total: json.count,
+      data: filter.q ? [{ name: filter.q, id: filter.q }, ...results] : results,
+      total: data.count,
     };
   },
 
   getOne: async (resource, params) => {
-    const { json } = await httpClient(`${process.env.API_URL}/${resource}/${params.id}`);
+    const { data } = await apiClient(`/${resource}/${params.id}`);
 
     return {
       data: {
-        ...json,
-        id: json.uuid,
+        ...data,
+        id: data.uuid,
       },
     };
   },
@@ -90,17 +82,14 @@ const dataProvider = {
         break;
       case "tests":
         resourceName = "admin/tests";
-        payload = JSON.stringify(params.data);
+        payload = params.data;
         break;
       default:
-        payload = JSON.stringify(params.data);
+        payload = params.data;
     }
 
-    return httpClient(`${process.env.API_URL}/${resourceName}/`, {
-      method: "POST",
-      body: payload,
-    }).then(({ json }) => ({
-      data: { id: json.uuid },
+    return apiClient.post(`/${resourceName}/`, payload).then(({ data }) => ({
+      data: { id: data.uuid },
     }));
   },
 
@@ -114,67 +103,34 @@ const dataProvider = {
       default:
         payload = JSON.stringify(params.data);
     }
-    return httpClient(`${process.env.API_URL}/${resource}/${params.id}/`, {
-      method: "PATCH",
-      body: payload,
-    }).then(({ json }) => ({
-      data: { id: json.uuid },
+    return apiClient.patch(`/${resource}/${params.id}/`, payload).then(({ data }) => ({
+      data: { id: data.uuid },
     }));
   },
 
   updateTest: (params, callback) => {
     const payload = JSON.stringify(params.data);
 
-    return httpClient(`${process.env.API_URL}/admin/tests/${params.id}/`, {
-      method: "PUT",
-      body: payload,
-    }).then(({ json }) => {
+    return apiClient.put(`/admin/tests/${params.id}/`, payload).then(({ data }) => {
       callback();
       return {
-        data: { id: json.uuid },
+        data: { id: data.uuid },
       };
     });
   },
 
   getMany: (resource, params) => {
-    let query;
-    let resourceName = resource;
-    switch (resource) {
-      case "tests":
-        query = buildQueryForTestReference(params);
-        resourceName = `admin/tests`;
-        break;
-      default:
-        query = { filter: JSON.stringify({ id: params.ids }) };
-    }
+    const url = buildUrlForGetMany(resource, params);
 
-    const url = `${process.env.API_URL}/${resourceName}?${stringify(query)}`;
-    return httpClient(url).then(({ json }) => {
-      let data;
-
-      switch (resource) {
-        case "tests":
-          // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({
-            ...resource,
-            id: resource.lesson_uuid,
-          }));
-          break;
-        default:
-          // eslint-disable-next-line no-shadow
-          data = json.results.map((resource) => ({
-            ...resource,
-            id: resource.uuid,
-          }));
+    return apiClient(url).then(({ data }) => {
+      if (resource === "tests") {
+        return { data: data.results.map((elem) => ({ ...elem, id: elem.lesson_uuid })) };
       }
-
-      return { data };
+      return { data: data.results.map((elem) => ({ ...elem, id: elem.uuid })) };
     });
   },
   delete: (resource, params, callback) => {
-    return httpClient(`${process.env.API_URL}/${resource}/${params.id}/`, {
-      method: "DELETE",
-    }).then(() => {
+    return apiClient.delete(`/${resource}/${params.id}/`).then(() => {
       if (callback) callback();
       return { data: [] };
     });
@@ -182,9 +138,7 @@ const dataProvider = {
   deleteMany: (resource, params) => {
     const data = [];
     for (let index = 0; index < params.ids.length; index++) {
-      httpClient(`${process.env.API_URL}/${resource}/${params.ids[index]}/`, {
-        method: "DELETE",
-      });
+      apiClient.delete(`/${resource}/${params.ids[index]}/`);
     }
     return new Promise((resolve) => resolve({ data }));
   },
