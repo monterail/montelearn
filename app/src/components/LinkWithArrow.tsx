@@ -17,12 +17,12 @@ type Props = {
 const LinkWithArrow: FunctionComponent<Props> = ({
   href,
   as,
-  direction,
+  direction = BUTTON_DIRECTIONS.RIGHT,
   children,
   className = "",
   withBorder = true,
 }) => {
-  const directionClass = direction.charAt(0);
+  const directionClass = direction === BUTTON_DIRECTIONS.RIGHT ? "pr-4" : "pl-4";
   const borderClasses = withBorder
     ? `px-6 border-2 border-black`
     : `pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black`;
@@ -36,11 +36,9 @@ const LinkWithArrow: FunctionComponent<Props> = ({
         ${borderClasses} ${className}
       `}
       >
-        <div className="flex ">
+        <div className="flex">
           {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft />}
-          <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>
-            {children}
-          </span>
+          <span className={`${directionClass} text-sm sm:text-base font-medium`}>{children}</span>
           {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight />}
         </div>
       </a>
