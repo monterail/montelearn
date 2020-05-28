@@ -9,7 +9,7 @@ type Props<T> = {
   options: T[];
 };
 
-function RadioButton<T extends Record<string, string | string[]>>({
+function RadioGroup<T extends Record<string, string | string[]>>({
   className = "",
   isLocked,
   isSelected,
@@ -56,4 +56,4 @@ function RadioButton<T extends Record<string, string | string[]>>({
   );
 }
 
-export default RadioButton;
+export default RadioGroup;

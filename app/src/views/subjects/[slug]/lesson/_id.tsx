@@ -7,7 +7,7 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Label from "@/components/Label";
 import Button from "@/components/Button";
-import RadioButton from "@/components/RadioButton";
+import RadioGroup from "@/components/RadioGroup";
 import QuesitonLabel from "@/components/QuestionLabel";
 
 import auth from "@/containers/hoc/Auth";
@@ -76,11 +76,7 @@ function LessonPage() {
   const isSelected = (questionUuid: string) => (questionChoice: QuestionChoice): boolean => {
     const answer = getAnswer(questionUuid);
 
-    if (!answer) {
-      return false;
-    }
-
-    return answer.selected_choices.includes(questionChoice.answer);
+    return answer ? answer.selected_choices.includes(questionChoice.answer) : false;
   };
 
   const handleAnswerSubmit = (questionUuid: string) => (questionChoice: QuestionChoice): void => {
@@ -127,7 +123,7 @@ function LessonPage() {
           <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.content}</Text>
           <div className="mt-6 flex flex-wrap w-full items-center justify-around">
             <div className="flex flex-col sm:flex-row mb-4 md:mb-0">
-              <RadioButton<QuestionChoice>
+              <RadioGroup<QuestionChoice>
                 className="mx-3 mb-4 sm:mb-0"
                 isLocked={areAnswersSubmitted}
                 isSelected={isSelected(question.uuid)}
