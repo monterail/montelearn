@@ -14,6 +14,7 @@ def test_user_view_authenticated(authenticated_api_client):
         "first_name": user.first_name,
         "last_name": user.last_name,
         "is_teacher": False,
+        "scores": [],
     }
 
     assert response.status_code == 200
