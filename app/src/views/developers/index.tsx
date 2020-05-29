@@ -7,10 +7,8 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Dropdown from "@/components/Dropdown";
 import Textarea from "@/components/Textarea";
-
 import { DropdownOption } from "@/types/Generic";
-
-import apiClient from "@/services/apiClient";
+import { getMockedResponse } from "./mocks";
 
 const options: DropdownOption[] = [
   {
@@ -37,17 +35,7 @@ const DevelopersPage = () => {
   const router = useRouter();
 
   useEffect(() => {
-    if (endpoint) {
-      const fetchData = async () => {
-        try {
-          const response = await apiClient.get(`/${endpoint}/`);
-          setCode(JSON.stringify(response.data.results));
-        } catch (e) {
-          setCode(JSON.stringify(e.response.data));
-        }
-      };
-      fetchData();
-    }
+    if (endpoint) setCode(getMockedResponse(endpoint));
   }, [endpoint]);
 
   const handleBackClick = () => {
@@ -60,12 +48,16 @@ const DevelopersPage = () => {
 
   return (
     <div>
-      <Head>
-        <title>API developers page</title>
-      </Head>
-      <Breadcrumbs handleBackClick={handleBackClick} options={["API developers"]} />
-      <Title className="my-8">Select your URL</Title>
-      <Text className="font-roboto-mono my-8 text-xl">Something Something</Text>
+      <section className="px-2 mb-12">
+        <Head>
+          <title>API developers page</title>
+        </Head>
+        <Breadcrumbs handleBackClick={handleBackClick} options={["API developers"]} />
+        <div className="mx-3 sm:mx-0">
+          <Title className="my-8">Select your URL</Title>
+          <Text className="font-roboto-mono my-8 text-xl">Something Something</Text>
+        </div>
+      </section>
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
       <div className="mb-12">
         <div className="w-3/4 mx-auto">
