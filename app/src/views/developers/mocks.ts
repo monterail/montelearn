@@ -80,7 +80,7 @@ const grade = JSON.stringify([
   },
 ]);
 
-export default function getMockedResponse(endpoint: string) {
+export function getMockedResponse(endpoint: string) {
   switch (endpoint) {
     case "lesson":
       return lesson;

@@ -8,7 +8,7 @@ import Text from "@/components/Text";
 import Dropdown from "@/components/Dropdown";
 import Textarea from "@/components/Textarea";
 import { DropdownOption } from "@/types/Generic";
-import getMockedResponse from "./mocks";
+import { getMockedResponse } from "./mocks";
 
 const options: DropdownOption[] = [
   {
