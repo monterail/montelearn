@@ -175,7 +175,7 @@ function LessonPage() {
           ))}
           {error && <div className="mb-6 text-red-300">{error}</div>}
           {tests?.results?.length && (
-            <>
+            <div>
               {areAnswersSubmitted ? (
                 <div className=" flex font-medium text-black bg-white rounded-full font-roboto-mono mr-auto mb-8 sm:mb-0 sm:mr-0 px-8 py-4 md:px-12 lg:py-3 lg:text-xl">
                   {score} right! Well done
@@ -188,7 +188,7 @@ function LessonPage() {
                   Test now
                 </Button>
               )}
-            </>
+            </div>
           )}
         </div>
       </div>
