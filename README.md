@@ -1,5 +1,11 @@
 ![montelearn-logo](./docs/logo.png)
 
+[![codecov-image]][codecov]
+[![black-image]][black]
+[![calver-image]][calver]
+[![cookiecutter-image]][cookiecutter]
+[![github-actions]][github-status]
+
 # montelearn: headless e-learning platform
 
 Montelearn is a backend API that you can use to build a custom e-learning platform. Its main focus is on creating interactive lessons and tests, so it’s suitable for every kind of science or topic.
@@ -21,6 +27,7 @@ Montelearn will be helpful in any scenario where interactive, choice-based workf
 ## See it in action
 
 To see Montelearn in action visit [https://montelearn.monterail.com](https://montelearn.monterail.com).
+
 ![montelearn-screenshot](./docs/screenshot.png)
 
 ### White-labeling the demo
