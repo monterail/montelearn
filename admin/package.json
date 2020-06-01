@@ -9,22 +9,25 @@
     "dev": "next -p 3002",
     "lint": "project-eslint --ext '.js,.jsx,.ts,.tsx' *.js env src",
     "pre-commit": "lint-staged",
-    "start": "next start -p $PORT"
+    "start": "next start -p $PORT",
+    "test:e2e": "cypress open"
   },
   "dependencies": {
     "@project/setup": "1.0.0",
     "axios": "0.19.2",
     "envalid": "6.0.1",
+    "eslint-plugin-cypress": "^2.11.1",
     "next": "9.3.5",
     "query-string": "6.12.1",
     "ra-data-drf": "2.0.0",
     "react": "16.13.1",
     "react-admin": "3.4.1",
     "react-dom": "16.13.1",
-    "react-router-dom": "^5.1.2"
+    "react-router-dom": "5.1.2"
   },
   "devDependencies": {
     "@project/eslint": "1.0.0",
+    "cypress": "4.7.0",
     "lint-staged": "10.1.7",
     "rimraf": "3.0.2"
   },
