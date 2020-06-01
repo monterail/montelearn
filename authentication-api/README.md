@@ -43,8 +43,8 @@ These env vars need to be set in prod:
 
     SENTRY_DSN=
 
-    LESSON_API_HOST
-    TESTS_API_HOST =
+    LESSON_API_HOST=
+    TESTS_API_HOST=
 ```
 
 ## Create migrations

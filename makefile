@@ -4,9 +4,6 @@ run:
 cleanup:
 	docker-compose -f docker-compose-proxy.yml down
 
-lesson_api_superuser:
-	docker-compose -f docker-compose-proxy.yml run lesson-api python manage.py createsuperuser
-
 auth_api_superuser:
 	docker-compose -f docker-compose-proxy.yml run auth-api python manage.py createsuperuser
 
