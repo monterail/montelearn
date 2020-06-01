@@ -39,7 +39,7 @@ Javascript part of project is organised into separate packages. We use [**Yarn W
 
 The development server runs on port 3000 by default. You can change the port from the command line:
 
-``` bash
+```bash
 # Assuming you are in landing directory.
 > PORT=4000 yarn dev
 ```
@@ -140,4 +140,7 @@ Use `--exact` flag when doing `yarn add`, so the version of package is locked. T
 
 # Run unit tests.
 > yarn test
+
+# Run end-to-end tests (using Cypress).
+> yarn test:e2e
 ```
