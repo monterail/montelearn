@@ -68,11 +68,11 @@ To run the tests and check your test coverage:
 
     make test 
 
-[github-actions]: https://github.com/monterail/monterail-elearning/workflows/CD%20lesson-api/badge.svg
-[github-status]: https://github.com/monterail/monterail-elearning/actions
+[github-actions]: https://github.com/monterail/montelearn/workflows/CD%20lesson-api/badge.svg
+[github-status]: https://github.com/monterail/montelearn/actions
 
-[codecov-image]: https://codecov.io/gh/monterail/monterail-elearning/branch/master/graph/badge.svg?token=3MKHOIRYBY
-[codecov]: https://codecov.io/gh/monterail/monterail-elearning
+[codecov-image]: https://codecov.io/gh/monterail/montelearn/branch/master/graph/badge.svg?token=3MKHOIRYBY
+[codecov]: https://codecov.io/gh/monterail/montelearn
 
 [black-image]: https://img.shields.io/badge/code%20style-black-000000.svg
 [black]: https://github.com/psf/black
@@ -81,4 +81,4 @@ To run the tests and check your test coverage:
 [calver]: https://calver.org
 
 [cookiecutter-image]: https://img.shields.io/badge/built%20with-Cookiecutter%20Django-ff69b4.svg
-[cookiecutter]: https://github.com/monterail/monterail-elearning
+[cookiecutter]: https://github.com/monterail/montelearn
