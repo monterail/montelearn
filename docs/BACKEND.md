@@ -1,4 +1,4 @@
-﻿# monterail-elearning
+﻿# montelearn
 
 
 # BE architecture
@@ -16,7 +16,7 @@ The API is wrriten in Open API format and documented using Swagger.
 - docker-compose
 
 # Run BE microservices
-In the main directory `monterail-elearning` run `make run` to start docker-compose.
+In the main directory `montelearn` run `make run` to start docker-compose.
 Microservices with API documenentation provided by Swagger can be found on: 
 - authentication-api: `http://0.0.0.0:8080/swagger/`
 - lesson-api: `http://0.0.0.0:8000/swagger/`
@@ -27,10 +27,10 @@ Copy token and use it to authorize your request, using `Bearer <token>`
 Route each request to microservice through `authentication-api`.
 
 # Add lessons to database
-- In the main directory `monterail-elearning` run `make lesson_load_data`
+- In the main directory `montelearn` run `make lesson_load_data`
 
 # Create developer account
-- In the main directory `monterail-elearning` run `make auth_api_superuser`
+- In the main directory `montelearn` run `make auth_api_superuser`
 
 # Create student account
 - Register your email address using POST authentication-api endpoint `/auth/email/register/` via Swagger.
@@ -48,7 +48,7 @@ Route each request to microservice through `authentication-api`.
 ![Teacher diagram](../diagrams/teacher-diagram.png)
 
 # Cleanup docker containers
-- In the main directory `monterail-elearning` run `make cleanup`
+- In the main directory `montelearn` run `make cleanup`
 
 # Run and test microservices separately
 Each BE microservice can be run and tested separately, please refer to README.md in the microservice directory. 
