@@ -1,10 +1,48 @@
-# montelearn
-After the COVID-19 pandemic, our educational system should switch to the remote. We want to create a platform for building eLearning apps. Firstly we want to create API + Admin panel + Landing Page. Our product basically will be API mainly focused on lessons and tests.
+![montelearn-logo](./docs/logo.png)
 
-The landing page will be some kind of advertisement and documentation. We want to create high-end software using Microservices, this code will be elastic and highly customizable.
+[![codecov-image]][codecov]
+[![black-image]][black]
+[![calver-image]][calver]
+[![cookiecutter-image]][cookiecutter]
+[![github-actions]][github-status]
 
-We want to create a universal platform for every kind of science/topic. This tool could be base for web/mobile apps.
+# montelearn: headless e-learning platform
 
-Detailed documentation for Frontend and Backend can be found in docs/ directory. 
-- [Frontend documentation](docs/FRONTEND.md)
-- [Backend documentation](docs/BACKEND.md)
+Montelearn is a backend API that you can use to build a custom e-learning platform. Its main focus is on creating interactive lessons and tests, so it’s suitable for every kind of science or topic.
+
+We decided to develop Montelearn and make it publicly available due to the COVID-19 pandemic. The educational system will inevitably gravitate towards the remote paradigm. We believe that the ability to use free, open-source, and proven solutions will greatly benefit schools that often operate on a tight budget.
+
+Montelearn is a high-end software built on microservices. It’s elastic and highly customizable at its core. It can be made to fit virtually any frontend — see the documentation below.
+
+## Use cases
+
+Montelearn will be helpful in any scenario where interactive, choice-based workflows are needed. The use cases include, but are not limited to:
+
+- School tests
+- University courses
+- Quizzes
+- Research questionnaires
+- Knowledge retention tools
+
+## See it in action
+
+To see Montelearn in action visit [https://montelearn.monterail.com](https://montelearn.monterail.com).
+
+![montelearn-screenshot](./docs/screenshot.png)
+
+### White-labeling the demo
+
+To make the implementation of Montelearn easier, we’re also giving full access to the demo’s frontend. You can freely modify it and brand it in your own way.
+
+## Documentation — how to install
+
+### Backend and Frontend
+
+- [Backend documentation](./docs/BACKEND.md)
+- [Frontend documentation](./docs/FRONTEND.md)
+
+We welcome all contributors! If you want to jump in, simply do so and start creating pull requests.
+
+## License
+
+The Montelearn source code is completely free and released under the [MIT License](./LICENCE).
