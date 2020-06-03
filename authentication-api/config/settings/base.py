@@ -330,6 +330,7 @@ TESTS_API_HOST = env.str("TESTS_API_HOST", default="")
 CORS_ORIGIN_WHITELIST = [
     "https://montelearn-admin.herokuapp.com",
     "https://montelearn-app.herokuapp.com",
+    "https://montelearn.monterail.com"
 ]
 
 SIMPLE_JWT = {
