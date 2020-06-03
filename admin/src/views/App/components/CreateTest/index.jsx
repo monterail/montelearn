@@ -37,7 +37,9 @@ export default function CreateTest(props) {
               {({ scopedFormData, getSource }) => (
                 <ArrayInput source={getSource("choices")} validate={[required()]} label="CHOICES">
                   <SimpleFormIterator
-                    disableAdd={scopedFormData && scopedFormData.choices.length > 1}
+                    disableAdd={
+                      scopedFormData && scopedFormData.choices && scopedFormData.choices.length > 1
+                    }
                   >
                     <TextInput source="answer" validate={[required()]} label="Answer" />
                     <NullableBooleanInput
