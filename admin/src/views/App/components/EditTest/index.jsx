@@ -11,6 +11,7 @@ import {
   required,
   Toolbar,
   SaveButton,
+  FormDataConsumer,
 } from "react-admin";
 
 import { questionTypeChoices } from "@/data/testChoices";
@@ -46,12 +47,20 @@ export default function EditTest({ record }) {
             label="Question Type"
           />
           <TextInput source="content" validate={[required()]} label="Content" />
-          <ArrayInput source="choices" validate={[required()]} label="CHOICES">
-            <SimpleFormIterator>
-              <TextInput source="answer" validate={[required()]} label="Answer" />
-              <NullableBooleanInput source="correct" validate={[required()]} label="Correct" />
-            </SimpleFormIterator>
-          </ArrayInput>
+          <FormDataConsumer>
+            {({ scopedFormData, getSource }) => (
+              <ArrayInput source={getSource("choices")} validate={[required()]} label="CHOICES">
+                <SimpleFormIterator
+                  disableAdd={
+                    scopedFormData && scopedFormData.choices && scopedFormData.choices.length > 1
+                  }
+                >
+                  <TextInput source="answer" validate={[required()]} label="Answer" />
+                  <NullableBooleanInput source="correct" validate={[required()]} label="Correct" />
+                </SimpleFormIterator>
+              </ArrayInput>
+            )}
+          </FormDataConsumer>
         </SimpleFormIterator>
       </ArrayInput>
     </SimpleForm>
