@@ -5,8 +5,8 @@ export default function LessonList(props) {
   return (
     <List {...props}>
       <Datagrid>
-        <TextField source="name" />
-        <TextField source="description" />
+        <TextField source="name" sortable={false} />
+        <TextField source="description" sortable={false} />
         <ShowButton />
         <EditButton />
       </Datagrid>
