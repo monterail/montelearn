@@ -8,6 +8,7 @@ import {
   required,
   SelectInput,
   NullableBooleanInput,
+  FormDataConsumer,
 } from "react-admin";
 
 import { parse } from "query-string";
@@ -32,12 +33,22 @@ export default function CreateTest(props) {
               label="Question Type"
             />
             <TextInput source="content" validate={[required()]} label="Content" />
-            <ArrayInput source="choices" validate={[required()]} label="CHOICES">
-              <SimpleFormIterator>
-                <TextInput source="answer" validate={[required()]} label="Answer" />
-                <NullableBooleanInput source="correct" validate={[required()]} label="Correct" />
-              </SimpleFormIterator>
-            </ArrayInput>
+            <FormDataConsumer>
+              {({ scopedFormData, getSource }) => (
+                <ArrayInput source={getSource("choices")} validate={[required()]} label="CHOICES">
+                  <SimpleFormIterator
+                    disableAdd={scopedFormData && scopedFormData.choices.length > 1}
+                  >
+                    <TextInput source="answer" validate={[required()]} label="Answer" />
+                    <NullableBooleanInput
+                      source="correct"
+                      validate={[required()]}
+                      label="Correct"
+                    />
+                  </SimpleFormIterator>
+                </ArrayInput>
+              )}
+            </FormDataConsumer>
           </SimpleFormIterator>
         </ArrayInput>
       </SimpleForm>
