@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       DOCKER_BUILDKIT: 1
-      HEROKU_API_KEY: ${{ secrets.LANDING__HEROKU_OAUTH_TOKEN }}
+      HEROKU_API_KEY: ${{ secrets.HEROKU_OAUTH_TOKEN }}
 
     steps:
     - name: Checkout

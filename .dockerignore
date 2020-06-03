@@ -6,7 +6,6 @@
 !src
 !admin
 !app
-!landing
 !packages
 **/node_modules
 **/*.md
