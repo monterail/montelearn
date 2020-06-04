@@ -42,7 +42,7 @@ Javascript part of project is organised into separate packages. We use [**Yarn W
 The development server runs on port 3001 by default. You can change the port from the command line:
 
 ``` bash
-# Assuming you are in landing directory.
+# Assuming you are in app directory.
 > PORT=4000 yarn dev
 ```
 
@@ -53,7 +53,7 @@ The development server runs on port 3001 by default. You can change the port fro
 The development server runs on port 3002 by default. You can change the port from the command line:
 
 ``` bash
-# Assuming you are in landing directory.
+# Assuming you are in admin directory.
 > PORT=4000 yarn dev
 ```
 
