@@ -7,9 +7,10 @@ _It's important to use Yarn instead of NPM, because we use Yarn Workspaces not s
 
 ## Quick start
 
-If you want to quickly start introducing changes to landing page:
+The frontend side of the project consists of tho main applications: `app` and `admin`.
+If you want to quickly start introducing changes to the app:
 
-1. Create an `.env` file with environment variables inside `landing` directory (see `landing/.env.example` for required configuration and explanation).
+1. Create an `.env` file with environment variables inside `app` and `admin` directories (see `app/.env.example` and `admin/.env.example` for required configuration and explanation).
 
 2. Run set of commands from the root directory of the project.
 
@@ -23,24 +24,36 @@ If you want to quickly start introducing changes to landing page:
 # Run build process in packages that need compilation steps to work.
 > npx lerna run lib
 
-# Run landing page app in development mode.
-> (cd landing && yarn dev)
+# Run app and/or admin in development mode.
+> (cd app && yarn dev)
+> (cd admin && yarn dev)
 ```
 
 ## Overview
 
-The main technologies used are: **React**, **Next.js**, **Typescript** and [**Emotion**](https://www.npmjs.com/package/emotion) (as a styling library).
+The main technologies used are: **React**, **Next.js**, **Typescript** and [**Tailwind**](https://tailwindcss.com/docs/installation) (as a styling library).
 
 Javascript part of project is organised into separate packages. We use [**Yarn Workspaces**](https://classic.yarnpkg.com/en/docs/workspaces/) to enable code sharing between them. An example can be an ESLint package that is abstracted to a reusable module that can be used for linting source code enforcing identical rules for each part of the project.
 
-### `landing`
+### `app`
 
-> This is a simple Next.js app that serves landing page for the project. We build a static version of it, since we don't need Node.js runtime for now, and serve it via [Nginx](https://www.nginx.com) proxy that uses [`mod_pagespeed`](https://developers.google.com/speed/pagespeed/module) for on-the-fly assets optimisation.
+> This is a Next.js app that serves landing page, developers page, and students page for the project.
 
-The development server runs on port 3000 by default. You can change the port from the command line:
+The development server runs on port 3001 by default. You can change the port from the command line:
 
 ``` bash
-# Assuming you are in landing directory.
+# Assuming you are in app directory.
+> PORT=4000 yarn dev
+```
+
+### `admin`
+
+> This is a Next app powered by [**React Admin**](https://marmelab.com/react-admin/Readme.html) that serves the teachers page, also called admin page, for the project.
+
+The development server runs on port 3002 by default. You can change the port from the command line:
+
+``` bash
+# Assuming you are in admin directory.
 > PORT=4000 yarn dev
 ```
 
@@ -85,19 +98,13 @@ Always try to consider updating reusable config if the changes can be applied fo
 
 ## Deployment
 
-Changes to landing page are automatically [deployed to Heroku](https://montelearn-landing.herokuapp.com) after a pull request is merged to `master` branch. It's worth pointing out that changes not related to landing page source code (like updating API code) <u>does not trigger</u> a new deployment.
+Changes to app and admin project are automatically deployed to [Heroku App](https://montelearn-app.herokuapp.com) and [Heroku Admin](https://montelearn-admin.herokuapp.com) after a pull request is merged to `master` branch. It's worth pointing out that changes not related to the above-mentioned (like updating API code) <u>do not trigger</u> a new deployment.
 
 ### Build production locally
 
-You can build the production version of the landing page locally using [**Docker**](https://www.docker.com). It will use the `.env` file from `landing` directory, so make sure you update it accordingly. A thing to remember is that if you want to connect to production services (the deployed ones) you may encounter CORS issues.
-
-```bash
-# Build docker image for landing page.
-> docker build -t montelearn-landing .
-
-# Run the container using previously built image.
-> docker run --rm -p 3000:3000 montelearn-landing
-```
+You can create production build locally for both admin and app by running the
+`yarn build` script 
+in both of these directories
 
 ## Conventions
 
@@ -141,3 +148,15 @@ Use `--exact` flag when doing `yarn add`, so the version of package is locked. T
 # Run unit tests.
 > yarn test
 ```
+
+### Import order convention
+
+In the app we sort imports in the following order:
+- libraries
+- components
+- constants
+- containers
+- types
+- utils
+- relative paths
+
