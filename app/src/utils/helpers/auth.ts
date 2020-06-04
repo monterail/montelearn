@@ -1,7 +1,7 @@
 import Cookie from "js-cookie";
 import nextCookie from "next-cookies";
 
-import { COOKIES } from "@/constants";
+import { COOKIES } from "@/constants/cookies";
 
 export const getAccessTokenOnServer = (ctx: any): string => {
   const cookies = nextCookie(ctx);
