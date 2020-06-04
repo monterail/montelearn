@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   Show,
   TextField,
-  TopToolbar,
   UrlField,
   TabbedShowLayout,
   Tab,
@@ -18,12 +17,12 @@ export default function ShowLesson(props) {
   const [showAddButton, setShowAddButton] = useState(true);
 
   return (
-    <Show actions={<TopToolbar />} {...props}>
+    <Show {...props}>
       <TabbedShowLayout>
         <Tab label="lesson">
           <TextField source="name" />
           <TextField source="description" />
-          <UrlField source="pdf_file" />
+          <UrlField emptyText="No pdf file" source="pdf_file" />
           <UrlField source="url" />
           <TextField source="subject" />
           <TextField source="grade" />
