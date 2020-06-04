@@ -7,7 +7,11 @@ import Title from "@/components/Title";
 import Text from "@/components/Text";
 import Dropdown from "@/components/Dropdown";
 import Textarea from "@/components/Textarea";
+
+import { developersContent } from "@/constants/content";
+
 import { DropdownOption } from "@/types/Generic";
+
 import { getMockedResponse } from "./mocks";
 
 const options: DropdownOption[] = [
@@ -54,8 +58,8 @@ const DevelopersPage = () => {
         </Head>
         <Breadcrumbs handleBackClick={handleBackClick} options={["API developers"]} />
         <div className="mx-3 sm:mx-0">
-          <Title className="my-8">Select your URL</Title>
-          <Text className="font-roboto-mono my-8 text-xl">Something Something</Text>
+          <Title className="my-8">{developersContent.title}</Title>
+          <Text className="font-roboto-mono my-8 text-xl">{developersContent.subtitle}</Text>
         </div>
       </section>
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
