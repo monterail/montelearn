@@ -1,6 +1,6 @@
 ![montelearn-logo](./docs/logo.png)
 
-![Licence](https://img.shields.io/github/license/monterail/montelearn)
+![Licence](https://img.shields.io/github/license/monterail/montelearn?202006)
 ![CI Frontend](https://github.com/monterail/montelearn/workflows/CI%20Frontend/badge.svg)
 ![CI lesson-api](https://github.com/monterail/montelearn/workflows/CI%20lesson-api/badge.svg)
 ![CI authentication-api](https://github.com/monterail/montelearn/workflows/CI%20authentication-api/badge.svg)
