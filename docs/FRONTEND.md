@@ -112,7 +112,9 @@ Changes to app and admin project are automatically deployed to [Heroku App](http
 
 ### Build production locally
 
-todo
+You can create production build locally for both admin and app by running the
+`yarn build` script 
+in both of these directories
 
 ## Conventions
 
@@ -156,3 +158,15 @@ Use `--exact` flag when doing `yarn add`, so the version of package is locked. T
 # Run unit tests.
 > yarn test
 ```
+
+### Import order convention
+
+In the app we sort imports in the following order:
+- libraries
+- components
+- constants
+- containers
+- types
+- utils
+- relative paths
+
