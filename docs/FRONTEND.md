@@ -1,10 +1,3 @@
-![Licence](https://img.shields.io/github/license/monterail/montelearn)
-![CD app](https://github.com/monterail/montelearn/workflows/CD%20app/badge.svg)
-![CI lesson-api](https://github.com/monterail/montelearn/workflows/CI%20lesson-api/badge.svg)
-![CI Frontend](https://github.com/monterail/montelearn/workflows/CI%20Frontend/badge.svg)
-![CI authentication-api](https://github.com/monterail/montelearn/workflows/CI%20authentication-api/badge.svg)
-![CI tests-api](https://github.com/monterail/montelearn/workflows/CI%20tests-api/badge.svg)
-
 ## Prerequisites
 
 - **Yarn** 1.15 or newer
