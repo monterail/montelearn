@@ -1,3 +1,5 @@
+import { teachersVideos } from "./teachersVideos";
+
 export const landingContent = {
   title: "Build your own learning experience",
   subtitle:
@@ -22,4 +24,12 @@ export const developersContent = {
   title: "Select example endpoint",
   subtitle:
     "Take a look on example endpoints that our backend provides.The responses are mocked, to get more features set the app locally.",
+};
+
+export const teachersContent = {
+  title: "Instructional videos",
+  subtitle:
+    "To quickly understand how teachers' admin panel works, watch the instructional videos listed below",
+  content: "More content",
+  defaultVideo: teachersVideos[0],
 };

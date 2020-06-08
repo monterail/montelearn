@@ -42,8 +42,8 @@ export default function HomePage() {
         <Card className="flex-1 flex flex-col">
           <SubTitle className="mb-4">{landingContent.teachers.name}</SubTitle>
           <Text className="flex-1">{landingContent.teachers.content}</Text>
-          <Link href="/users/login">
-            <a className="inline-flex mt-4 font-medium border-2 rounded-full font-roboto-mono opacity-50 pointer-events-none cursor-not-allowed px-8 py-3 cursor-not-allowed mr-auto">
+          <Link href="/teachers">
+            <a className="inline-flex mt-4 font-medium border-black border-2 rounded-full font-roboto-mono px-8 py-3 mr-auto">
               Try it out
             </a>
           </Link>
