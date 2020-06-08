@@ -64,6 +64,7 @@ function createEslintConfig() {
       "import/prefer-default-export": "off",
       "no-restricted-syntax": "off",
       "@typescript-eslint/camelcase": "off",
+      "import/no-extraneous-dependencies": ["error", { devDependencies: true }],
       "import/extensions": "off", // Remove when all .js files will be migrated to .ts
       "prettier/prettier": [
         "error",
