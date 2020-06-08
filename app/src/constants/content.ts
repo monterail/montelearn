@@ -1,3 +1,5 @@
+import { teachersVideos } from "./teachersVideos";
+
 export const landingContent = {
   title: "Build your own learning experience",
   subtitle:
@@ -28,9 +30,5 @@ export const teachersContent = {
   title: "Instructional video",
   subtitle: "To quickly understand how teachers' admin panel works, watch the video below",
   content: "More content",
-  defaultVideo: {
-    value: "createLessom",
-    name: "Create lesson (to be recorded)",
-    url: "https://drive.google.com/file/d/1MMnEJEsVcTIbQKTT3UVk5UX4pyNdV6br/preview",
-  },
+  defaultVideo: teachersVideos[0],
 };
