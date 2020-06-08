@@ -23,3 +23,10 @@ export const developersContent = {
   subtitle:
     "Take a look on example endpoints that our backend provides.The responses are mocked, to get more features set the app locally.",
 };
+
+export const teachersContent = {
+  title: "Instructional video",
+  subtitle: "To quickly understand how teachers' admin panel works, watch the video below",
+  content: "More content",
+  video: "maybe video maybe url",
+};
