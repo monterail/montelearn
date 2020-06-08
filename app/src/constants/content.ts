@@ -28,5 +28,9 @@ export const teachersContent = {
   title: "Instructional video",
   subtitle: "To quickly understand how teachers' admin panel works, watch the video below",
   content: "More content",
-  video: "maybe video maybe url",
+  defaultVideo: {
+    value: "createLessom",
+    name: "Create lesson (to be recorded)",
+    url: "https://drive.google.com/file/d/1MMnEJEsVcTIbQKTT3UVk5UX4pyNdV6br/preview",
+  },
 };
