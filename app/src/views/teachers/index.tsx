@@ -48,7 +48,7 @@ const TeachersPage = () => {
         <div className="w-3/4 mx-auto">
           <Dropdown
             name="video"
-            label="Select URL"
+            label="Select video from the dropdown"
             value={selectedOption.value}
             options={teachersVideos}
             handleChange={handleVideoChange}

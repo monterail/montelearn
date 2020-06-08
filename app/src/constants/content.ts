@@ -27,8 +27,9 @@ export const developersContent = {
 };
 
 export const teachersContent = {
-  title: "Instructional video",
-  subtitle: "To quickly understand how teachers' admin panel works, watch the video below",
+  title: "Instructional videos",
+  subtitle:
+    "To quickly understand how teachers' admin panel works, watch the instructional videos listed below",
   content: "More content",
   defaultVideo: teachersVideos[0],
 };
