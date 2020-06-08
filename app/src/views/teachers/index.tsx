@@ -28,10 +28,10 @@ const TeachersPage = () => {
       </section>
       <hr className="my-12 block border border-gray-200 h-0 opacity-50" />
       <div className="mb-12">
-        <div className="w-3/4 mx-auto">wiecej kontenciku</div>
+        <div className="w-3/4 mx-auto">{teachersContent.content}</div>
       </div>
       <div className="pt-12 pb-32 bg-red-cindirella">
-        <div className="w-3/4 mx-auto">tu bedzie filmik</div>
+        <div className="w-3/4 mx-auto">{teachersContent.video}</div>
       </div>
     </div>
   );
