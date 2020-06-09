@@ -128,8 +128,9 @@ RSpec.describe CalculateScore do
     end
     let(:score) { "#{answers.size}/#{answers.size}" }
     let(:results) do
-      test.questions.map { |q| { question_uuid: q.id, correct: true } }
+      test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, correct: true } }
     end
+    let(:expected_answers) { answers.map { |answer| answer[:selected_choices][0] } }
 
     it { is_expected.to eq(expected_data) }
   end
