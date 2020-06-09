@@ -65,6 +65,9 @@ const TeachersPage = () => {
             title={selectedOption.name}
             className="iframe sm:rounded-sm"
             src={selectedVideo}
+            frameBorder="0"
+            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
           />
         </div>
       </div>
