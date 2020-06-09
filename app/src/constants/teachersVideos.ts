@@ -33,6 +33,6 @@ export const teachersVideos: VideoOption[] = [
   {
     value: "deleteTest",
     name: "Delete test",
-    url: "https://www.youtube.com/embed/fUTnB9jwykU",
+    url: "https://www.youtube.com/embed/1xIArl1VWk4",
   },
 ];
