@@ -23,12 +23,13 @@ describe("SubTitle", () => {
       expect(wrapper.find("h2").text()).toMatch(customText);
     });
     it("should render SubTitle with custom child paragraph", () => {
+      const customParagraph = `<p>${customText}</p>`;
       const wrapper = shallow(
         <SubTitle>
           <p>{customText}</p>
         </SubTitle>,
       );
-      expect(wrapper.find("h2").find("p").text()).toMatch(customText);
+      expect(wrapper.find("h2").find("p").html()).toEqual(customParagraph);
     });
   });
 });

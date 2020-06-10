@@ -23,12 +23,13 @@ describe("Text", () => {
       expect(wrapper.find("p").text()).toMatch(customText);
     });
     it("should render Text with custom child paragraph", () => {
+      const customParagraph = `<span>${customText}</span>`;
       const wrapper = shallow(
         <Text>
           <span>{customText}</span>
         </Text>,
       );
-      expect(wrapper.find("p").find("span").text()).toMatch(customText);
+      expect(wrapper.find("p").find("span").html()).toEqual(customParagraph);
     });
   });
 });
