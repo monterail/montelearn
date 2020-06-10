@@ -4,7 +4,7 @@ import { shallow } from "enzyme";
 import SubTitle from "./SubTitle";
 
 describe("SubTitle", () => {
-  describe("className tests", () => {
+  describe("className", () => {
     const customClass = "custom-class";
     it("should render SubTitle without custom class", () => {
       const wrapper = shallow(<SubTitle />);
@@ -16,7 +16,7 @@ describe("SubTitle", () => {
     });
   });
 
-  describe("children tests", () => {
+  describe("children", () => {
     const customText = "Custom text";
     it("should render SubTitle with custom text", () => {
       const wrapper = shallow(<SubTitle>{customText}</SubTitle>);

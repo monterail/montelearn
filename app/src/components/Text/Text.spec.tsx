@@ -4,7 +4,7 @@ import { shallow } from "enzyme";
 import Text from "./Text";
 
 describe("Text", () => {
-  describe("className tests", () => {
+  describe("className", () => {
     const customClass = "custom-class";
     it("should render Text without custom class", () => {
       const wrapper = shallow(<Text />);
@@ -16,7 +16,7 @@ describe("Text", () => {
     });
   });
 
-  describe("children tests", () => {
+  describe("children", () => {
     const customText = "Custom text";
     it("should render Text with custom text", () => {
       const wrapper = shallow(<Text>{customText}</Text>);
