@@ -7,14 +7,8 @@ import SvgArrowRight from "@/components/svg/SvgArrowRight";
 import ButtonWithArrow from "./ButtonWithArrow";
 
 describe("ButtonWithArrow", () => {
-  describe("is defined/matches snapshot", () => {
-    it("should be defined", () => {
-      expect(ButtonWithArrow).toBeDefined();
-    });
-    it("should render correctly", () => {
-      const tree = shallow(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
-      expect(tree).toMatchSnapshot();
-    });
+  it("should be defined", () => {
+    expect(ButtonWithArrow).toBeDefined();
   });
 
   describe("direction", () => {

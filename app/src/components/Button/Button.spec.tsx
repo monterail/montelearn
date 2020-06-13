@@ -4,14 +4,8 @@ import { shallow } from "enzyme";
 import Button from "./Button";
 
 describe("Button", () => {
-  describe("is defined/matches snapshot", () => {
-    it("should be defined", () => {
-      expect(Button).toBeDefined();
-    });
-    it("should render correctly", () => {
-      const tree = shallow(<Button />);
-      expect(tree).toMatchSnapshot();
-    });
+  it("should be defined", () => {
+    expect(Button).toBeDefined();
   });
 
   describe("className", () => {
