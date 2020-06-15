@@ -35,7 +35,6 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
     <div className="sm:p-6 bg-red-100 flex flex-row font-roboto-mono">
       {back && (
         <ButtonWithArrow
-          data-testid="arrow-btn"
           onClick={handleBackClick}
           direction={BUTTON_DIRECTIONS.LEFT}
           withBorder={false}

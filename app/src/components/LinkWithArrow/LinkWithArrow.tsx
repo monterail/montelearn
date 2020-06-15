@@ -28,7 +28,7 @@ const LinkWithArrow: FunctionComponent<Props> = ({
     : `pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black`;
 
   return (
-    <Link href={href} as={as}>
+    <Link data-testid="link" href={href} as={as}>
       <a
         className={`
         inline-block py-2 whitespace-no-wrap hover:opacity-50 transition-opacity
