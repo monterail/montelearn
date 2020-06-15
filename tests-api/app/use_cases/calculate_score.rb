@@ -37,7 +37,7 @@ class CalculateScore < UseCase
         correct_choices,
       )
 
-      @correct_questions += 1
+      @correct_questions += 1 if correct
 
       {
         question_uuid: answer[:question_uuid],
