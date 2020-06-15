@@ -127,18 +127,21 @@ RSpec.describe CalculateScore do
       }
     end
 
-    describe "when results includes correct submitted answers" do
-      let(:results) do
-        test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, correct: true } }
-      end
+    let(:results) do
+      test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, correct: correct } }
+    end
 
+    describe "when results includes correct submitted answers" do
+      let(:correct) { true }
       let(:expected_answers) { answers.map { |answer| answer[:selected_choices][0] } }
-      let(:score) { "#{answers.size}/#{answers.size}" }
+      let(:score) { "1/1" }
 
       it { is_expected.to eq(expected_data) }
     end
 
     describe "when results includes incorrect submitted answers" do
+      let(:correct) { false }
+
       let(:answers) do
         test.questions.map do |q|
           {
@@ -149,11 +152,7 @@ RSpec.describe CalculateScore do
       end
 
       let(:correct_answers) { test.questions.map { |q| q.choices.select { |c| c[:correct] }.map { |c| c[:answer] } } }
-
-      let(:results) do
-        test.questions.map { |q| { question_uuid: q.id, correct_answers: correct_answers[0], correct: false } }
-      end
-
+      let(:expected_answers) { correct_answers[0] }
       let(:score) { "0/1" }
 
       it { is_expected.to eq(expected_data) }

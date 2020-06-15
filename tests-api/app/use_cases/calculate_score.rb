@@ -32,17 +32,17 @@ class CalculateScore < UseCase
 
     answers.map do |answer|
       correct_choices = correct_choices(answer[:question_uuid])
-      correct = answered_correctly?(
-        answer[:selected_choices],
+      correct_answer = answered_correctly?(
         correct_choices,
+        answer[:selected_choices],
       )
 
-      @correct_questions += 1 if correct
+      @correct_questions += 1 if correct_answer
 
       {
         question_uuid: answer[:question_uuid],
         correct_answers: correct_choices,
-        correct: correct,
+        correct: correct_answer,
       }
     end
   end
@@ -52,7 +52,7 @@ class CalculateScore < UseCase
     question.choices.select { |c| c[:correct] }.map { |c| c[:answer] }
   end
 
-  def answered_correctly?(selected_choices, correct_choices)
+  def answered_correctly?(correct_choices, selected_choices)
     (correct_choices - selected_choices).empty?
   end
 
