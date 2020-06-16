@@ -4,7 +4,7 @@ import { render, cleanup } from "@testing-library/react";
 import Footer from "./Footer";
 
 describe("Footer", () => {
-  afterEach(() => cleanup());
+  afterEach(() => cleanup);
 
   it("renders correct message", () => {
     const { getByText } = render(<Footer />);
