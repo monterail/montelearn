@@ -172,7 +172,7 @@ RSpec.describe "api/tests", type: :request do
                   },
                   answered_correctly: { type: :boolean },
                 },
-                required: %w(question_uuid answered_correctly),
+                required: %w(question_uuid answered_correctly correct_answers),
               },
             },
           },

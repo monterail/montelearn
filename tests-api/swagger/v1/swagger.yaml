@@ -707,7 +707,7 @@ paths:
               score: 0/1
               results:
               - question_uuid: 0f99f648-72ab-4726-abb7-c7f4bba59925
-                correct_answer: [Non't]
+                correct_answer: [non't]
                 answered_correctly: false
         '404':
           description: Not found.
