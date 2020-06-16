@@ -128,7 +128,7 @@ RSpec.describe CalculateScore do
     end
 
     let(:results) do
-      test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, correct: correct } }
+      test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, answered_correctly: correct } }
     end
 
     describe "when results includes correct submitted answers" do
