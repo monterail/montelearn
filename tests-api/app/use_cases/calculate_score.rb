@@ -42,7 +42,7 @@ class CalculateScore < UseCase
       {
         question_uuid: answer[:question_uuid],
         correct_answers: correct_choices,
-        correct: correct_answer,
+        answered_correctly: correct_answer,
       }
     end
   end
