@@ -166,6 +166,10 @@ RSpec.describe "api/tests", type: :request do
                 type: :object,
                 properties: {
                   question_uuid: { type: :string },
+                  correct_answers: {
+                    type: :array,
+                    items: { type: :string },
+                  },
                   answered_correctly: { type: :boolean },
                 },
                 required: %w(question_uuid answered_correctly),
