@@ -185,6 +185,7 @@ RSpec.describe "api/tests", type: :request do
             {
               question_uuid: "0f99f648-72ab-4726-abb7-c7f4bba59925",
               answered_correctly: false,
+              correct_answers: ["non't"],
             },
           ],
         }
