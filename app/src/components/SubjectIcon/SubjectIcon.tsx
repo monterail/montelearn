@@ -44,6 +44,7 @@ const renderIcon = (icon: SUBJECT_ICONS) => {
 const SubjectIcon: FunctionComponent<Props> = ({ className = "", icon }) => {
   return (
     <div
+      data-testid="subject-icon"
       className={`flex justify-center items-center rounded-full bg-red-100 h-12 w-12 ${className}`}
     >
       {renderIcon(icon)}

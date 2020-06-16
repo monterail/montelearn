@@ -34,6 +34,7 @@ describe("dropdown", () => {
       beforeEach(() => {
         utils = render(
           <Dropdown
+            name="wrapper"
             label={label}
             options={options}
             value={value}
