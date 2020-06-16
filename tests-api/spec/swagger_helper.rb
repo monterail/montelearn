@@ -16,10 +16,10 @@ RSpec.configure do |config|
   # the root example_group in your specs, e.g. describe '...', swagger_doc: 'v2/swagger.json'
   config.swagger_docs = {
     "v1/swagger.yaml" => {
-      swagger: "2.0",
+      openapi: "3.0.1",
       info: {
-        title: "tests_api",
-        version: "v1.0",
+        title: "API V1",
+        version: "v1",
       },
       paths: {},
       servers: [
