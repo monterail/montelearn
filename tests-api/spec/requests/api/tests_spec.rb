@@ -166,9 +166,13 @@ RSpec.describe "api/tests", type: :request do
                 type: :object,
                 properties: {
                   question_uuid: { type: :string },
-                  correct: { type: :boolean },
+                  correct_answers: {
+                    type: :array,
+                    items: { type: :string },
+                  },
+                  answered_correctly: { type: :boolean },
                 },
-                required: %w(question_uuid correct),
+                required: %w(question_uuid answered_correctly correct_answers),
               },
             },
           },
@@ -180,7 +184,8 @@ RSpec.describe "api/tests", type: :request do
           results: [
             {
               question_uuid: "0f99f648-72ab-4726-abb7-c7f4bba59925",
-              correct: false,
+              answered_correctly: false,
+              correct_answers: ["non't"],
             },
           ],
         }
