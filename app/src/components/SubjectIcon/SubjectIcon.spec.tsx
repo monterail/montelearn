@@ -1,13 +1,17 @@
 import React from "react";
-import { render, cleanup } from "@testing-library/react";
+import { render, cleanup, act } from "@testing-library/react";
+import preloadAll from "jest-next-dynamic";
 
 import { SUBJECT_ICONS } from "@/types/subject";
 import SubjectIcon from "./SubjectIcon";
 
 describe("SubjectIcon", () => {
   let utils;
-  beforeEach(() => {
-    utils = render(<SubjectIcon icon={SUBJECT_ICONS.BABUSHKA} className="testClass" />);
+  beforeEach(async () => {
+    await act(async () => {
+      utils = render(<SubjectIcon icon={SUBJECT_ICONS.BABUSHKA} className="testClass" />);
+      await preloadAll();
+    });
   });
   afterEach(() => cleanup);
 
