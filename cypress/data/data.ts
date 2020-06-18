@@ -10,5 +10,8 @@ export const users = {
   monteStudent: {
     username: "student@test.com",
     password: "baeng3MeeB",
-  }
+  },
+};
+export const subjectName = {
+  Biology: "Biologia",
 };

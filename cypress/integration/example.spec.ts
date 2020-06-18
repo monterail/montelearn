@@ -1,8 +1,8 @@
 /// <reference types="cypress" />
 
-import { Example } from "../page-objects/example";
+import { Login } from "../page-objects/login";
 import { env, users } from "../data/data";
-const example = new Example();
+const example = new Login();
 
 describe("checking cypress setup", () => {
   it("Visiting site and logging in", () => {
