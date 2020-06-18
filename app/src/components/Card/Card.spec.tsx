@@ -1,6 +1,6 @@
 import React from "react";
-
 import { render, cleanup } from "@testing-library/react";
+
 import Card from "./Card";
 
 describe("Card", () => {
@@ -8,7 +8,6 @@ describe("Card", () => {
 
   describe("className", () => {
     const customClass = "custom-card-class";
-
     it(`should render with custom class`, async () => {
       const { findByTestId } = render(<Card className={customClass} />);
       const card = await findByTestId("card");
