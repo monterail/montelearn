@@ -47,11 +47,12 @@ describe("InputWithLabel", () => {
 
       it("has correct name prop", () => {
         const { input, container } = setupInputWithRequiredProps();
+        const foundName = container
+          .querySelector(`input[name="${name}"]`)
+          .attributes.getNamedItem("name").value;
 
         expect(input).toHaveAttribute("name");
-        expect(
-          container.querySelector(`input[name="${name}"]`).attributes.getNamedItem("name").value,
-        ).toEqual(name);
+        expect(foundName).toEqual(name);
       });
 
       it("has correct label prop", async () => {
@@ -101,11 +102,12 @@ describe("InputWithLabel", () => {
 
       it("has correct type prop", async () => {
         const { input, container } = setupInputWithOptionalProps();
+        const foundType = container
+          .querySelector(`input[type="${type}"]`)
+          .attributes.getNamedItem("type").value;
 
         expect(input).toHaveAttribute("type");
-        expect(
-          container.querySelector(`input[type="${type}"]`).attributes.getNamedItem("type").value,
-        ).toEqual(type);
+        expect(foundType).toEqual(type);
       });
 
       it("renders InputErrors when has error props", async () => {
