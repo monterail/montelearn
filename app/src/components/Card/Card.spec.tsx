@@ -8,7 +8,7 @@ describe("Card", () => {
 
   describe("className", () => {
     const customClass = "custom-card-class";
-    it(`should render with custom class`, async () => {
+    it("should render with custom class", async () => {
       const { findByTestId } = render(<Card className={customClass} />);
       const card = await findByTestId("card");
 
@@ -26,7 +26,7 @@ describe("Card", () => {
       expect(foundChildElement).toBeInTheDocument();
     });
 
-    it(`should render with child element`, () => {
+    it("should render with child element", () => {
       const childTestId = "cardChildElement";
       const childElement = <p data-testid={childTestId}>{customText}</p>;
       const { queryByTestId } = render(<Card>{childElement}</Card>);
