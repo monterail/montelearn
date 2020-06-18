@@ -1,6 +1,8 @@
 import { FunctionComponent } from "react";
 import JSONPretty from "react-json-pretty";
 
+import Label from "@/components/Label";
+
 type Props = {
   value: string;
   label?: string;
@@ -16,12 +18,8 @@ const DEFAULT_CLASSES = `
 
 const Textarea: FunctionComponent<Props> = ({ value, label, placeholder = "" }) => {
   return (
-    <div>
-      {label && (
-        <label className="block text-red-300 text-sm font-bold mb-2 cursor-pointer w-full lg:w-3/4">
-          {label}
-        </label>
-      )}
+    <div data-testid="textarea">
+      {label && <Label className="block text-sm mb-2">{label}</Label>}
       <JSONPretty data={value || placeholder} className={DEFAULT_CLASSES} />
     </div>
   );
