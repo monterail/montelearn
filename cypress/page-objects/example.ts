@@ -7,6 +7,15 @@ export class Example {
     cy.get("#email").type(username);
     cy.get("#password").type(password);
     cy.get(".mt-10 > .text-white").click();
-    cy.get(".mx-0 > .flex").should("include.text", "Logout");
+   
+  
   }
+  student(): void {
+    cy.get('.font-medium > .inline-flex');
+    cy.contains('Try it out').click();
+  
+  }
+   
+
+
 }

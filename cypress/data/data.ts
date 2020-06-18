@@ -7,4 +7,8 @@ export const users = {
     username: "teacher@test.com",
     password: "Eifi6eeChu",
   },
+  monteStudent: {
+    username: "student@test.com",
+    password: "baeng3MeeB",
+  }
 };
