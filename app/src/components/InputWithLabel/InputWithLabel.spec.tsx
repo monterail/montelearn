@@ -100,7 +100,7 @@ describe("InputWithLabel", () => {
         expect(getByPlaceholderText(placeholder)).toBeInTheDocument();
       });
 
-      it("has correct type prop", async () => {
+      it("has correct type prop", () => {
         const { input, container } = setupInputWithOptionalProps();
         const foundType = container
           .querySelector(`input[type="${type}"]`)
@@ -110,7 +110,7 @@ describe("InputWithLabel", () => {
         expect(foundType).toEqual(type);
       });
 
-      it("renders InputErrors when has error props", async () => {
+      it("renders InputErrors when has error props", () => {
         const { container } = setupInputWithOptionalProps();
 
         const foundErrors = within(container).getAllByText(/test error/);
