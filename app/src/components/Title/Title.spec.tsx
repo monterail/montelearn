@@ -1,35 +1,43 @@
-import React from "react";
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
 
 import Title from "./Title";
 
 describe("Title", () => {
   describe("className", () => {
     const customClass = "custom-class";
-    it("should render Title without custom class", () => {
-      const wrapper = shallow(<Title />);
-      expect(wrapper.find("h1").hasClass(customClass)).toBe(false);
+
+    it("should render without custom class", async () => {
+      const { findByTestId } = render(<Title />);
+      const title = await findByTestId("title-spec");
+
+      expect(title).toBeInTheDocument();
+      expect(title).not.toHaveClass(customClass);
     });
-    it("should render Title with custom class", () => {
-      const wrapper = shallow(<Title className={customClass} />);
-      expect(wrapper.find("h1").hasClass(customClass)).toBe(true);
+
+    it("should render with custom class", async () => {
+      const { findByTestId } = render(<Title className={customClass} />);
+      const title = await findByTestId("title-spec");
+
+      expect(title).toBeInTheDocument();
+      expect(title).toHaveClass(customClass);
     });
   });
-
   describe("children", () => {
-    const customText = "Custom text";
-    it("should render Title with custom text", () => {
-      const wrapper = shallow(<Title>{customText}</Title>);
-      expect(wrapper.find("h1").text()).toMatch(customText);
+    const customTitle = "Custom title";
+    it("should render with custom child text", () => {
+      const { queryByText } = render(<Title>{customTitle}</Title>);
+      const foundChildElement = queryByText(customTitle);
+
+      expect(foundChildElement).toBeInTheDocument();
     });
-    it("should render Title with custom child paragraph", () => {
-      const customParagraph = `<p>${customText}</p>`;
-      const wrapper = shallow(
-        <Title>
-          <p>{customText}</p>
-        </Title>,
-      );
-      expect(wrapper.find("h1").find("p").html()).toEqual(customParagraph);
+
+    it("should render with custom child element", () => {
+      const childTestId = "title-child-element";
+      const childElement = <p data-testid={childTestId}>{customTitle}</p>;
+      const { queryByTestId } = render(<Title>{childElement}</Title>);
+      const foundChildElement = queryByTestId(childTestId);
+
+      expect(foundChildElement).toBeInTheDocument();
     });
   });
 });
