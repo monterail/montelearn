@@ -1,6 +1,12 @@
 const SvgLogo = () => {
   return (
-    <svg className="w-12 h-12" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      data-testid="svg-logo"
+      className="w-12 h-12"
+      version="1.1"
+      viewBox="0 0 30 30"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g fill="none" fillRule="evenodd">
         <g fill="#F21A03">
           <g>
