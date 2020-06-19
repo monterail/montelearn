@@ -48,8 +48,8 @@ describe("dropdown", () => {
         expect(await utils.findByTestId("dropdown-opened")).toBeInTheDocument();
       });
 
-      it("renders the options correctly", async () => {
-        expect(await utils.queryAllByText(/option name/).length).toEqual(3);
+      it("renders the options correctly", () => {
+        expect(utils.queryAllByText(/option name/).length).toEqual(3);
       });
 
       describe("clicking on option", () => {
@@ -62,8 +62,8 @@ describe("dropdown", () => {
           expect(handleChangeMock).toHaveBeenCalledWith(options[0]);
         });
 
-        it("closes the dropdown", async () => {
-          expect(await utils.queryByTestId("dropdown-opened")).not.toBeInTheDocument();
+        it("closes the dropdown", () => {
+          expect(utils.queryByTestId("dropdown-opened")).not.toBeInTheDocument();
         });
       });
     });
