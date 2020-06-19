@@ -4,43 +4,33 @@ import { render, cleanup } from "@testing-library/react";
 import RadioGroup from "./RadioGroup";
 
 describe("RadioGroup", () => {
-  const customClass = "custom-class";
-  const isLocked = false;
-  const isSelected = (_option: any) => true;
-  const onClick = (_option: any) => {};
-  const optionKey = "answer";
-  const options = [{ answer: "Yes" }, { answer: "No" }];
+  const baseProps = {
+    className: "custom-class",
+    onClick: jest.fn().mockReturnValue({}),
+    optionKey: "answer",
+    options: [{ answer: "Yes" }, { answer: "No" }],
+  };
+  const isLocked = true;
+  const isNotLocked = false;
+  const isSelected = jest.fn().mockReturnValue(true);
+  const isNotSelected = jest.fn().mockReturnValue(false);
 
   afterEach(() => cleanup);
 
   describe("props", () => {
     it("should render with proper customClass", async () => {
       const { findAllByTestId } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={isLocked}
-          isSelected={isSelected}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isSelected} {...baseProps} />,
       );
       const radioGroup = await findAllByTestId("radio-group");
 
       expect(radioGroup[0]).toBeInTheDocument();
-      expect(radioGroup[0]).toHaveClass(customClass);
+      expect(radioGroup[0]).toHaveClass(baseProps.className);
     });
 
     it("should render proper coursor class with isLocked set to false", async () => {
       const { findAllByTestId } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={false}
-          isSelected={isSelected}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isNotLocked} isSelected={isSelected} {...baseProps} />,
       );
       const radioGroup = await findAllByTestId("radio-group");
 
@@ -50,14 +40,7 @@ describe("RadioGroup", () => {
 
     it("should render proper coursor class with isLocked set to true", async () => {
       const { findAllByTestId } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={true}
-          isSelected={isSelected}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isSelected} {...baseProps} />,
       );
       const radioGroup = await findAllByTestId("radio-group");
 
@@ -67,14 +50,7 @@ describe("RadioGroup", () => {
 
     it("should render proper container class when isSelected return true", async () => {
       const { findAllByTestId } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={false}
-          isSelected={(_option: any) => true}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isSelected} {...baseProps} />,
       );
       const radioGroup = await findAllByTestId("radio-group");
 
@@ -84,14 +60,7 @@ describe("RadioGroup", () => {
 
     it("should render proper container class when isSelected return false", async () => {
       const { findAllByTestId } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={false}
-          isSelected={(_option: any) => false}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isNotSelected} {...baseProps} />,
       );
       const radioGroup = await findAllByTestId("radio-group");
 
@@ -101,32 +70,18 @@ describe("RadioGroup", () => {
   });
 
   describe("children", () => {
-    it("should render span with proper circle class and children when isSelected return true", async () => {
+    it("should render span with proper circle class and children when isSelected return true", () => {
       const { container } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={isLocked}
-          isSelected={(_option: any) => true}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isSelected} {...baseProps} />,
       );
 
       expect(container.querySelector("span").hasChildNodes()).toBeTruthy();
       expect(container.querySelector("span")).toHaveClass("bg-white border-red-monterail");
     });
 
-    it("should render span with proper circle class and no children when isSelected return false", async () => {
+    it("should render span with proper circle class and no children when isSelected return false", () => {
       const { container } = render(
-        <RadioGroup
-          className={customClass}
-          isLocked={isLocked}
-          isSelected={(_option: any) => false}
-          onClick={onClick}
-          optionKey={optionKey}
-          options={options}
-        />,
+        <RadioGroup isLocked={isLocked} isSelected={isNotSelected} {...baseProps} />,
       );
 
       expect(container.querySelector("span").hasChildNodes()).toBeFalsy();
