@@ -1,4 +1,10 @@
-const SvgCheckmark = () => {
+import { FunctionComponent } from "react";
+
+type Props = {
+  isCorrect?: boolean;
+};
+
+const SvgCheckmark: FunctionComponent<Props> = ({ isCorrect }) => {
   return (
     <svg
       data-testid="svg-checkmark"
@@ -10,7 +16,7 @@ const SvgCheckmark = () => {
     >
       <path
         d="M3 6.68421L8.28125 13L16 3"
-        stroke="#EC1115"
+        stroke={isCorrect ? "#219653" : "#EC1115"}
         strokeWidth="5"
         strokeLinecap="round"
         strokeLinejoin="round"
