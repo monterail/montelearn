@@ -6,7 +6,10 @@ type Props = {
 
 const Text: FunctionComponent<Props> = ({ className = "", children }) => {
   return (
-    <p className={`text-base sm:text-lg leading-relaxed tracking-wide break-words ${className}`}>
+    <p
+      data-testid="text-spec"
+      className={`text-base sm:text-lg leading-relaxed tracking-wide break-words ${className}`}
+    >
       {children}
     </p>
   );
