@@ -34,7 +34,7 @@ describe("QuestionLabel", () => {
   });
 
   describe("children", () => {
-    it(`has child element`, async () => {
+    it(`has child element`, () => {
       const childElement = <p data-testid="childElement">Child element</p>;
       const { queryByTestId } = render(<QuestionLabel isCorrect>{childElement}</QuestionLabel>);
       expect(queryByTestId("childElement")).toBeInTheDocument();
