@@ -30,12 +30,12 @@ const Header: FC<Props> = ({ isLoggedIn }) => {
           ) : (
             <>
               <li className="mx-0 sm:mx-2 font-medium text-red-400">
-                <Link href="/users/register">
+                <Link data-testid="register" href="/users/register">
                   <a className="flex px-8 py-4">Register</a>
                 </Link>
               </li>
               <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
-                <Link href="/users/login">
+                <Link data-testid="login" href="/users/login">
                   <a className="flex px-8 py-4">Login</a>
                 </Link>
               </li>
