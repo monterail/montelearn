@@ -1,77 +1,63 @@
 import React from "react";
-import { shallow } from "enzyme";
+import { render, fireEvent, cleanup } from "@testing-library/react";
 
 import { BUTTON_DIRECTIONS } from "@/constants/buttonDirecitons";
-import SvgArrowLeft from "@/components/svg/SvgArrowLeft";
-import SvgArrowRight from "@/components/svg/SvgArrowRight";
 import ButtonWithArrow from "./ButtonWithArrow";
 
 describe("ButtonWithArrow", () => {
-  it("should be defined", () => {
-    expect(ButtonWithArrow).toBeDefined();
-  });
+  afterEach(() => cleanup);
 
   describe("direction", () => {
-    it("should render with SvgArrowLeft", () => {
-      const wrapper = shallow(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
-      expect(
-        wrapper
-          .find("button")
-          .children()
-          .contains(<SvgArrowLeft />),
-      ).toEqual(true);
+    it("should render with SvgArrowLeft", async () => {
+      const { getByTestId } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
+      expect(getByTestId("svg-arrow-left")).toBeInTheDocument();
     });
-    it("should render with SvgArrowRight", () => {
-      const wrapper = shallow(<ButtonWithArrow direction={BUTTON_DIRECTIONS.RIGHT} />);
-      expect(
-        wrapper
-          .find("button")
-          .children()
-          .contains(<SvgArrowRight />),
-      ).toEqual(true);
+    it("should render with SvgArrowRight", async () => {
+      const { getByTestId } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.RIGHT} />);
+      expect(getByTestId("svg-arrow-right")).toBeInTheDocument();
     });
   });
 
   describe("className", () => {
     const customClass = "custom-class";
-    it("should render without custom class", () => {
-      const wrapper = shallow(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
-      expect(wrapper.find("button").hasClass(customClass)).toBe(false);
+    it("should render without custom class", async () => {
+      const { getByRole } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
+      expect(getByRole("button")).not.toHaveClass(customClass);
     });
     it("should render with custom class", () => {
-      const wrapper = shallow(
+      const { getByRole } = render(
         <ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} className={customClass} />,
       );
-      expect(wrapper.find("button").hasClass(customClass)).toBe(true);
+      expect(getByRole("button")).toHaveClass(customClass);
     });
   });
 
   describe("withBorder", () => {
-    it("should render with (default) border", () => {
-      const wrapper = shallow(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
-      expect(wrapper.find("button").hasClass("px-6 border-2 border-black")).toBe(true);
-      expect(
-        wrapper.find("button").hasClass("pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black"),
-      ).toBe(false);
+    it("should render with (default) border", async () => {
+      const { getByRole } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
+      expect(getByRole("button")).toHaveClass("px-6 border-2 border-black");
+      expect(getByRole("button")).not.toHaveClass(
+        "pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black",
+      );
     });
     it("should render without border", () => {
-      const wrapper = shallow(
+      const { getByRole } = render(
         <ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} withBorder={false} />,
       );
-      expect(wrapper.find("button").hasClass("px-6 border-2 border-black")).toBe(false);
-      expect(
-        wrapper.find("button").hasClass("pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black"),
-      ).toBe(true);
+      expect(getByRole("button")).not.toHaveClass("px-6 border-2 border-black");
+      expect(getByRole("button")).toHaveClass(
+        "pr-2 pl-4 sm:px-4 border-0 sm:border-2 border-black",
+      );
     });
   });
 
   describe("onClick", () => {
     const mockOnClick = jest.fn();
     it("should call mock function when button is clicked", () => {
-      const wrapper = shallow(
+      const { getByRole } = render(
         <ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} onClick={mockOnClick} />,
       );
-      wrapper.simulate("click");
+      fireEvent.click(getByRole("button"));
       expect(mockOnClick).toHaveBeenCalled();
     });
   });
@@ -79,10 +65,10 @@ describe("ButtonWithArrow", () => {
   describe("children", () => {
     const buttonText = "ButtonWithArrow text";
     it("should render ButtonWithArrow with custom text", () => {
-      const wrapper = shallow(
+      const { getByRole } = render(
         <ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT}>{buttonText}</ButtonWithArrow>,
       );
-      expect(wrapper.find("button").text()).toMatch(buttonText);
+      expect(getByRole("button")).toHaveTextContent(buttonText);
     });
   });
 });
