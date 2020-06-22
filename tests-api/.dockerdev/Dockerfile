@@ -52,7 +52,7 @@ RUN gem update --system && \
 RUN mkdir -p /app
 
 # Create a directory for the server.pid file
-RUN mkdir -p tmp/pids
+RUN mkdir -p /tmp/pids
 
 WORKDIR /app
 

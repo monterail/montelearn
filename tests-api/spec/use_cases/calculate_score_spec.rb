@@ -126,11 +126,36 @@ RSpec.describe CalculateScore do
         results: results,
       }
     end
-    let(:score) { "#{answers.size}/#{answers.size}" }
+
     let(:results) do
-      test.questions.map { |q| { question_uuid: q.id, correct: true } }
+      test.questions.map { |q| { question_uuid: q.id, correct_answers: expected_answers, answered_correctly: correct } }
     end
 
-    it { is_expected.to eq(expected_data) }
+    describe "when results includes correct submitted answers" do
+      let(:correct) { true }
+      let(:expected_answers) { answers.map { |answer| answer[:selected_choices][0] } }
+      let(:score) { "1/1" }
+
+      it { is_expected.to eq(expected_data) }
+    end
+
+    describe "when results includes incorrect submitted answers" do
+      let(:correct) { false }
+
+      let(:answers) do
+        test.questions.map do |q|
+          {
+            question_uuid: q.id,
+            selected_choices: q.choices.reject { |c| c[:correct] }.map { |c| c[:answer] },
+          }
+        end
+      end
+
+      let(:correct_answers) { test.questions.map { |q| q.choices.select { |c| c[:correct] }.map { |c| c[:answer] } } }
+      let(:expected_answers) { correct_answers[0] }
+      let(:score) { "0/1" }
+
+      it { is_expected.to eq(expected_data) }
+    end
   end
 end

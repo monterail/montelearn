@@ -7,6 +7,7 @@ type Props = {
 const SubTitle: FunctionComponent<Props> = ({ className = "", children }) => {
   return (
     <h2
+      data-testid="subtitle-spec"
       className={`text-2xl sm:text-3xl lg:text-4xl font-semibold leading-tight break-words capitalize ${className}`}
     >
       {children}
