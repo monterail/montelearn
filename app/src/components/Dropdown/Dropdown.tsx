@@ -31,7 +31,7 @@ const Dropdown: FC<Props> & {
     hideDropdown();
   };
 
-  const selectedOption = options.find((option) => option.value === value);
+  const selectedOption = options?.find((option) => option.value === value);
 
   Dropdown.handleClickOutside = () => hideDropdown();
 
@@ -45,11 +45,16 @@ const Dropdown: FC<Props> & {
           text-gray-300 leading-tight focus:outline-none
           placeholder-gray-300 font-roboto-mono cursor-pointer
         "
+        data-testid="dropdown"
         onClick={showDropdown}
       >
         {selectedOption?.name || placeholder}
         {open && (
-          <div style={{ top: "52px" }} className="absolute left-0 right-0 bg-white z-50 shadow-xs">
+          <div
+            data-testid="dropdown-opened"
+            style={{ top: "52px" }}
+            className="absolute left-0 right-0 bg-white z-50 shadow-xs"
+          >
             {options.map((option) => (
               <div
                 key={option.value}
