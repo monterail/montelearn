@@ -1,45 +1,33 @@
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen, waitFor } from "@testing-library/react";
 
-import {
-  getAccessToken,
-  setAccessToken,
-  setRefreshToken,
-  removeAccessToken,
-  removeRefreshToken,
-  getRefreshToken,
-} from "../../../utils/helpers/auth";
+import { login, LoginInputsType } from "../../../services/auth";
 import Login from "../login";
 
+jest.mock("../../../services/auth");
+
+const fakeUserResponse = {
+  accessToken: "fake_access_user_token",
+  refreshToken: "fake_refresh_user_token",
+};
+
 describe("Login", () => {
-  const fakeUserResponse = {
-    accessToken: "fake_access_user_token",
-    refreshToken: "fake_refresh_user_token",
-  };
+  const inputs: LoginInputsType = {
+    email: 'maciekhnat@gmail.com',
+    password: 'haselkomaselko'
+  }
   it("allows users to login succesfully", async () => {
-    const { getByRole, getByLabelText } = render(<Login />);
+    render(<Login />);
 
-    fireEvent.change(getByLabelText(/email/i), {
-      target: { email: "chuck" },
-    });
-    fireEvent.change(getByLabelText(/password/i), {
-      target: { password: "norris" },
-    });
-    fireEvent.click(getByRole("button"));
-    setAccessToken(fakeUserResponse.accessToken);
-    setRefreshToken(fakeUserResponse.refreshToken);
+    await waitFor(() => fireEvent.change(screen.getByPlaceholderText("e.g. james.wilson@mail.com"), {
+      target: { value: inputs.email }
+    }));
 
-    expect(getAccessToken()).toEqual(fakeUserResponse.accessToken);
-    expect(getRefreshToken()).toEqual(fakeUserResponse.refreshToken);
-  });
+    await waitFor(() => fireEvent.change(screen.getByPlaceholderText("e.g. My$3creTP@ssVV0rD"), {
+      target: { value: inputs.password }
+    }));
 
-  it("allows users to logout succesfully", async () => {
-    const { getByRole } = render(<Login />);
+    await waitFor(() => fireEvent.click(screen.getByRole("button")))
 
-    fireEvent.click(getByRole("button"));
-    setAccessToken(fakeUserResponse.accessToken);
-    setRefreshToken(fakeUserResponse.refreshToken);
-
-    expect(removeAccessToken()).toBeNull();
-    expect(removeRefreshToken()).toBeNull();
+    expect(login).toHaveBeenCalledWith(inputs)
   });
 });
