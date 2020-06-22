@@ -1,35 +1,43 @@
-import React from "react";
-import { shallow } from "enzyme";
+import { render } from "@testing-library/react";
 
 import SubTitle from "./SubTitle";
 
 describe("SubTitle", () => {
   describe("className", () => {
     const customClass = "custom-class";
-    it("should render SubTitle without custom class", () => {
-      const wrapper = shallow(<SubTitle />);
-      expect(wrapper.find("h2").hasClass(customClass)).toBe(false);
+
+    it("should render without custom class", async () => {
+      const { findByTestId } = render(<SubTitle />);
+      const subtitle = await findByTestId("subtitle-spec");
+
+      expect(subtitle).toBeInTheDocument();
+      expect(subtitle).not.toHaveClass(customClass);
     });
-    it("should render SubTitle with custom class", () => {
-      const wrapper = shallow(<SubTitle className={customClass} />);
-      expect(wrapper.find("h2").hasClass(customClass)).toBe(true);
+
+    it("should render with custom class", async () => {
+      const { findByTestId } = render(<SubTitle className={customClass} />);
+      const subtitle = await findByTestId("subtitle-spec");
+
+      expect(subtitle).toBeInTheDocument();
+      expect(subtitle).toHaveClass(customClass);
     });
   });
-
   describe("children", () => {
-    const customText = "Custom text";
-    it("should render SubTitle with custom text", () => {
-      const wrapper = shallow(<SubTitle>{customText}</SubTitle>);
-      expect(wrapper.find("h2").text()).toMatch(customText);
+    const customSubtitle = "Custom subtitle";
+    it("should render with custom child text", () => {
+      const { queryByText } = render(<SubTitle>{customSubtitle}</SubTitle>);
+      const foundChildElement = queryByText(customSubtitle);
+
+      expect(foundChildElement).toBeInTheDocument();
     });
-    it("should render SubTitle with custom child paragraph", () => {
-      const customParagraph = `<p>${customText}</p>`;
-      const wrapper = shallow(
-        <SubTitle>
-          <p>{customText}</p>
-        </SubTitle>,
-      );
-      expect(wrapper.find("h2").find("p").html()).toEqual(customParagraph);
+
+    it("should render with custom child element", () => {
+      const childTestId = "subtitle-child-element";
+      const childElement = <p data-testid={childTestId}>{customSubtitle}</p>;
+      const { queryByTestId } = render(<SubTitle>{childElement}</SubTitle>);
+      const foundChildElement = queryByTestId(childTestId);
+
+      expect(foundChildElement).toBeInTheDocument();
     });
   });
 });

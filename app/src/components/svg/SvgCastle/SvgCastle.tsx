@@ -1,6 +1,13 @@
-const SvgAtom = () => {
+const SvgCastle = () => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      data-testid="svg-castle"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <path
         d="M21.75 5.25H17.25V15.75H21.75V5.25Z"
         stroke="#F47073"
@@ -103,4 +110,4 @@ const SvgAtom = () => {
   );
 };
 
-export default SvgAtom;
+export default SvgCastle;

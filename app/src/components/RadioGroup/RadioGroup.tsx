@@ -34,6 +34,7 @@ function RadioGroup<T extends Record<string, string | string[]>>({
         const cursorClass = isLocked ? "cursor-none" : "cursor-pointer";
         return (
           <div
+            data-testid="radio-group"
             className={`inline-flex ${cursorClass} rounded-full items-center py-4 pl-4 pr-8 transition-colors duration-100 ${containerClass} ${className}`}
             onClick={handleClick(option)}
             onKeyPress={(event) => (event.key === "Enter" ? handleClick(option) : null)}

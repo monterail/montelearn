@@ -20,7 +20,11 @@ const Breadcrumbs: FunctionComponent<Props> = ({ options, back, handleBackClick 
       const isLast = isLastElement(index, options.length);
 
       return (
-        <li key={index} className={`capitalize text-sm sm:text-base ${isLast ? "text-black" : ""}`}>
+        <li
+          key={index}
+          className={`capitalize text-sm sm:text-base ${isLast ? "text-black" : ""}`}
+          data-testid="element"
+        >
           {el}
           {!isLast && <span className="px-1 sm:px-4">/</span>}
         </li>

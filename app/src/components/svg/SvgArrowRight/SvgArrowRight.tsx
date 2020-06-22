@@ -1,6 +1,13 @@
-const SvgArrowLeft = () => {
+const SvgArrowRight = () => {
   return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      data-testid="svg-arrow-right"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <g clipPath="url(#clip0)">
         <path
           d="M0.75 11.503L23.25 11.503"
@@ -26,4 +33,4 @@ const SvgArrowLeft = () => {
   );
 };
 
-export default SvgArrowLeft;
+export default SvgArrowRight;
