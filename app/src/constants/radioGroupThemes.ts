@@ -1,12 +1,12 @@
-interface Theme {
+type Theme = {
   textClass: string;
   containerClass: string;
   circleClass: string;
-}
+};
 
-interface Themes {
+type Themes = {
   [key: string]: Theme;
-}
+};
 
 export const themes: Themes = {
   selectedCorrect: {

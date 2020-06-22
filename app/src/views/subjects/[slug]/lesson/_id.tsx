@@ -197,7 +197,9 @@ function LessonPage() {
                 </Button>
               )}
             </div>
-          ) : null}
+          ) : (
+            <p className="font-roboto-mono">There are no tests in this lesson.</p>
+          )}
         </div>
       </div>
     </section>
