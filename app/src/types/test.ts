@@ -29,7 +29,8 @@ export type QuestionAnswer = {
 
 export type QuestionScoreResult = {
   question_uuid: string;
-  correct: boolean;
+  answered_correctly: boolean;
+  correct_answers: string[];
 };
 
 export type QuestionScore = {
