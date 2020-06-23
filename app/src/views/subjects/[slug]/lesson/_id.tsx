@@ -73,9 +73,13 @@ function LessonPage() {
     return results.find((result) => result.question_uuid === questionUuid);
   };
 
+  const isCorrect = (questionUuid: string) => (questionChoice: QuestionChoice): boolean => {
+    const questionResult = results.find((result) => result.question_uuid === questionUuid);
+    return !!questionResult?.correct_answers.includes(questionChoice.answer);
+  };
+
   const isSelected = (questionUuid: string) => (questionChoice: QuestionChoice): boolean => {
     const answer = getAnswer(questionUuid);
-
     return answer ? answer.selected_choices.includes(questionChoice.answer) : false;
   };
 
@@ -118,7 +122,10 @@ function LessonPage() {
   const renderQuestions = (questions: Question[]) =>
     questions.map((question, index) => {
       return (
-        <div className="p-6 sm:p-10 bg-white rounded-lg w-full mb-8" key={question.uuid}>
+        <div
+          className="p-6 sm:p-10 bg-white rounded-lg w-full max-w-screen-md mb-8"
+          key={question.uuid}
+        >
           <Label className="text-sm">Question {index + 1}</Label>
           <Text className="my-1 md:text-xl xl:text-2xl font-semibold">{question.content}</Text>
           <div className="mt-6 flex flex-wrap w-full items-center justify-around">
@@ -126,6 +133,7 @@ function LessonPage() {
               <RadioGroup<QuestionChoice>
                 className="mx-3 mb-4 sm:mb-0"
                 isLocked={areAnswersSubmitted}
+                isCorrect={isCorrect(question.uuid)}
                 isSelected={isSelected(question.uuid)}
                 onClick={handleAnswerSubmit(question.uuid)}
                 optionKey="answer"
@@ -135,7 +143,7 @@ function LessonPage() {
             {areAnswersSubmitted && (
               <QuesitonLabel
                 className="lg:mt-3 xl:mt-0"
-                isCorrect={getResult(question.uuid)?.correct || false}
+                isCorrect={getResult(question.uuid)?.answered_correctly || false}
               />
             )}
           </div>
@@ -174,7 +182,7 @@ function LessonPage() {
             <div key={test.uuid}>{renderQuestions(test.questions)}</div>
           ))}
           {error && <div className="mb-6 text-red-300">{error}</div>}
-          {tests?.results?.length && (
+          {tests?.results?.length ? (
             <div>
               {areAnswersSubmitted ? (
                 <div className=" flex font-medium text-black bg-white rounded-full font-roboto-mono mr-auto mb-8 sm:mb-0 sm:mr-0 px-8 py-4 md:px-12 lg:py-3 lg:text-xl">
@@ -189,6 +197,8 @@ function LessonPage() {
                 </Button>
               )}
             </div>
+          ) : (
+            <p className="font-roboto-mono">There are no tests in this lesson.</p>
           )}
         </div>
       </div>

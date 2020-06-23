@@ -31,12 +31,16 @@ const Header: FC<Props> = ({ isLoggedIn }) => {
             <>
               <li className="mx-0 sm:mx-2 font-medium text-red-400">
                 <Link href="/users/register">
-                  <a className="flex px-8 py-4">Register</a>
+                  <a data-testid="register" className="flex px-8 py-4">
+                    Register
+                  </a>
                 </Link>
               </li>
               <li className="mx-0 sm:mx-2 font-medium text-white bg-red-400 rounded-full">
                 <Link href="/users/login">
-                  <a className="flex px-8 py-4">Login</a>
+                  <a data-testid="login" className="flex px-8 py-4">
+                    Login
+                  </a>
                 </Link>
               </li>
             </>

@@ -24,9 +24,12 @@ export default function HomePage() {
             </Link>
           </div>
         </div>
-
         <div className="absolute bottom-0 right-0 z-0">
-          <img src="/images/hero.png" alt="Hero" />
+          <picture>
+            <source media="(max-width: 480px)" srcSet="images/heroMobile.png" />
+            <source media="(min-width: 481px)" srcSet="images/hero.png" />
+            <img src="/images/heroMobile.png" alt="Hero" />
+          </picture>
         </div>
       </Card>
       <div className="flex flex-col lg:flex-row mt-12">

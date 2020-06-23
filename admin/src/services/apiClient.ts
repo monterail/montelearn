@@ -1,21 +1,12 @@
 import axios from "axios";
 import Router from "next/router";
 
-export function setTokens({
-  access_token,
-  refresh_token,
-}: {
-  access_token: string;
-  refresh_token: string;
-}) {
-  localStorage.setItem("access_token", access_token);
-  localStorage.setItem("refresh_token", refresh_token);
-}
-
-export function removeTokens() {
-  localStorage.removeItem("access_token");
-  localStorage.removeItem("refresh_token");
-}
+import {
+  getAuthAccessToken,
+  getAuthRefreshToken,
+  setAuthTokens,
+  removeAuthTokens,
+} from "./localStorage";
 
 const apiClient = axios.create({
   baseURL: `${process.env.API_URL}/api`,
@@ -34,7 +25,7 @@ const setOriginalRequestAuthToken = (originalRequest: any, value: string) => {
   originalRequest.headers.Authorization = `Bearer ${value}`;
 };
 
-const accessToken = localStorage.getItem("access_token") || "";
+const accessToken = getAuthAccessToken();
 setApiClientAuthToken(accessToken);
 
 // for multiple requests
@@ -60,7 +51,7 @@ apiClient.interceptors.response.use(
   (error) => {
     const originalRequest = error.config;
 
-    if (error.response.status === 401 && !originalRequest._retry) {
+    if (error.response && error.response.status === 401 && !originalRequest._retry) {
       if (isRefreshing) {
         return new Promise((resolve, reject) => {
           failedQueue.push({ resolve, reject });
@@ -77,7 +68,8 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
       isRefreshing = true;
 
-      const refreshToken = localStorage.getItem("refresh_token");
+      const refreshToken = getAuthRefreshToken();
+
       if (!refreshToken) return Promise.reject(error);
 
       return new Promise((resolve, reject) => {
@@ -86,7 +78,10 @@ apiClient.interceptors.response.use(
             refresh: refreshToken,
           })
           .then(({ data: { access, refresh } }) => {
-            setTokens({ access_token: access, refresh_token: refresh });
+            setAuthTokens({
+              access_token: access,
+              refresh_token: refresh,
+            });
 
             setApiClientAuthToken(access);
             setOriginalRequestAuthToken(originalRequest, access);
@@ -97,7 +92,7 @@ apiClient.interceptors.response.use(
           })
           .catch((err) => {
             processQueue(err, null);
-            removeTokens();
+            removeAuthTokens();
             setApiClientAuthToken("");
             Router.push("/");
             reject(err);
