@@ -8,7 +8,7 @@ describe("Button", () => {
 
   describe("className", () => {
     const customClass = "custom-class";
-    it("should render Title with custom class", async () => {
+    it("should render Title with custom class", () => {
       const { getByRole } = render(<Button className={customClass} />);
       expect(getByRole("button")).toHaveClass(customClass);
     });

@@ -8,11 +8,11 @@ describe("ButtonWithArrow", () => {
   afterEach(() => cleanup);
 
   describe("direction", () => {
-    it("should render with SvgArrowLeft", async () => {
+    it("should render with SvgArrowLeft", () => {
       const { getByTestId } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
       expect(getByTestId("svg-arrow-left")).toBeInTheDocument();
     });
-    it("should render with SvgArrowRight", async () => {
+    it("should render with SvgArrowRight", () => {
       const { getByTestId } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.RIGHT} />);
       expect(getByTestId("svg-arrow-right")).toBeInTheDocument();
     });
@@ -20,7 +20,7 @@ describe("ButtonWithArrow", () => {
 
   describe("className", () => {
     const customClass = "custom-class";
-    it("should render without custom class", async () => {
+    it("should render without custom class", () => {
       const { getByRole } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
       expect(getByRole("button")).not.toHaveClass(customClass);
     });
@@ -33,7 +33,7 @@ describe("ButtonWithArrow", () => {
   });
 
   describe("withBorder", () => {
-    it("should render with (default) border", async () => {
+    it("should render with (default) border", () => {
       const { getByRole } = render(<ButtonWithArrow direction={BUTTON_DIRECTIONS.LEFT} />);
       expect(getByRole("button")).toHaveClass("px-6 border-2 border-black");
       expect(getByRole("button")).not.toHaveClass(
