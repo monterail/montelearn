@@ -39,7 +39,7 @@ function setTokens({ access_token, refresh_token }: Cookies) {
   setApiClientAuthToken(access_token);
 }
 
-async function authenticate({ body, url }: { body: string; url: string }) {
+export async function authenticate({ body, url }: { body: string; url: string }) {
   try {
     const response = await apiClient.post(url, body);
     setTokens(response.data);

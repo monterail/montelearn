@@ -5,6 +5,6 @@ import Register from "../register";
 describe("Register", () => {
   it("renders correct correctly", async () => {
     const utils = render(<Register />);
-    console.log(utils);
+    await utils.findByTitle("Ahoy you!");
   });
 });

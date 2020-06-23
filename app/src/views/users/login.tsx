@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import Card from "@/components/Card";
 import Text from "@/components/Text";
@@ -24,11 +24,12 @@ const initialErrors: LoginErrorsType = {
 export default function UsersLoginPage() {
   const [inputs, setInputs] = useState(initialInputs);
   const [errors, setErrors] = useState(initialErrors);
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
       await login(inputs);
-      Router.push("/");
+      router.push("/");
     } catch (newErrors) {
       setErrors({ ...initialErrors, ...newErrors.data });
     }
