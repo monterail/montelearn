@@ -25,6 +25,7 @@ class EmailRegister(RegisterView):
 
 class VerifyEmail(VerifyEmailView):
     permission_classes = (AllowAny,)
+    template_name = "user/email_confirmation_message.html"
 
 
 class EmailLogin(LoginView):
