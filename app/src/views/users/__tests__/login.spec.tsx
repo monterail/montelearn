@@ -67,6 +67,7 @@ describe("Login", () => {
     await waitFor(() => fireEvent.click(screen.getByRole("button")));
 
     expect(auth.login).toHaveBeenCalledTimes(1);
+    expect(auth.login).toHaveBeenCalledWith(inputs);
     expect(push).toHaveBeenCalledWith("/");
   });
 });
