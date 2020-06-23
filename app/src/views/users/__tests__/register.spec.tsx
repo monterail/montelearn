@@ -3,8 +3,8 @@ import { render } from "@testing-library/react";
 import Register from "../register";
 
 describe("Register", () => {
-  it("renders correct correctly", async () => {
-    const utils = render(<Register />);
-    await utils.findByTitle("Ahoy you!");
+  it("renders register page correctly", async () => {
+    const { findByText } = render(<Register />);
+    await findByText("Email");
   });
 });
