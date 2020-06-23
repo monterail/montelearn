@@ -14,12 +14,10 @@ describe("Login", () => {
   afterEach(() => cleanup);
   it("renders login form", async () => {
     const { findByRole, findByLabelText } = render(<Login />);
-    const emailInputElement = await findByLabelText(/email/i);
-    const passwordInputElement = await findByLabelText(/password/i);
     const buttonElement = await findByRole("button");
 
-    expect(emailInputElement).toBeInTheDocument();
-    expect(passwordInputElement).toBeInTheDocument();
+    expect(await findByLabelText(/email/i)).toBeInTheDocument();
+    expect(await findByLabelText(/password/i)).toBeInTheDocument();
     expect(buttonElement).toBeInTheDocument();
     expect(buttonElement).toHaveTextContent(/login/i);
   });
