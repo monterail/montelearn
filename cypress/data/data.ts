@@ -5,13 +5,17 @@ export const env = {
 export const users = {
   monteTeacher: {
     username: "teacher@test.com",
-    password: "Eifi6eeChu",
+    password: "",
   },
   monteStudent: {
     username: "student@test.com",
-    password: "baeng3MeeB",
+    password: "",
+
+//password from 1password
   },
 };
 export const subjectName = {
-  Biology: "Biologia",
+  biology: "Biologia",
+  remoteWork: "Remote Work",
+  
 };
