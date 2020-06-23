@@ -15,6 +15,7 @@ import auth from "@/containers/hoc/Auth";
 import { SUBJECT_ICONS, SubjectList } from "@/types/subject";
 
 import useRequest from "@/utils/hooks/useRequest";
+import { determineSubjectDescription } from "@/utils/helpers/determineSubjectDescription";
 
 function SubjectsPage() {
   const { data } = useRequest<SubjectList>({
@@ -34,10 +35,7 @@ function SubjectsPage() {
             <SubjectIcon icon={icon} />
           </div>
           <p className="text-lg leading-relaxed tracking-wide lesson-text mb-4">
-            Mollit quis cupidatat nisi nulla exercitation minim occaecat elit id culpa commodo Lorem
-            proident esse. Minim nostrud do quis consectetur velit ad magna labore est occaecat
-            consectetur officia deserunt. Amet non esse aliqua Lorem et ex consectetur incididunt
-            consectetur. Incididunt sunt elit pariatur minim veniam quis exercitation laboris minim.
+            {determineSubjectDescription(subject.name)}
           </p>
           <LinkWithArrow
             href="/subjects/[slug]"
