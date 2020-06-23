@@ -24,7 +24,7 @@ describe("Login", () => {
     expect(buttonElement).toHaveTextContent(/login/i);
   });
 
-  it("renders register", async () => {
+  it("renders register link", async () => {
     const { findByText } = render(<Login />);
     const registerLink = await findByText(/register/i);
 
@@ -52,18 +52,15 @@ describe("Login", () => {
       password: "examplePassword",
     };
 
-    render(loginWithRouter);
+    const { findByLabelText } = render(loginWithRouter);
 
-    await waitFor(() =>
-      fireEvent.change(screen.getByPlaceholderText("e.g. james.wilson@mail.com"), {
-        target: { value: inputs.email },
-      }),
-    );
-    await waitFor(() =>
-      fireEvent.change(screen.getByPlaceholderText("e.g. My$3creTP@ssVV0rD"), {
-        target: { value: inputs.password },
-      }),
-    );
+    fireEvent.change(await findByLabelText(/email/i), {
+      target: { value: inputs.email },
+    });
+    fireEvent.change(await findByLabelText(/password/i), {
+      target: { value: inputs.password },
+    });
+
     await waitFor(() => fireEvent.click(screen.getByRole("button")));
 
     expect(auth.login).toHaveBeenCalledTimes(1);
