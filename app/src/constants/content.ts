@@ -22,7 +22,7 @@ export const landingContent = {
 
 export const subjectsContent = [
   {
-    name: "Biology",
+    name: "HR Tech",
     description:
       "HR technology solutions are revolutionizing the world of Human Resources. From recruiting the best talent and boosting employee engagement, to building personalized career paths — HR software can simplify each element of running a business.",
   },
