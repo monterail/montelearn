@@ -1,7 +1,7 @@
 import React from "react";
 import { Admin, Resource } from "react-admin";
 
-import authProvider from "@/services/auth-provider";
+import authProvider from "@/services/authProvider";
 import dataProvider from "@/services/data-provider";
 
 import LessonsList from "./components/LessonsList";

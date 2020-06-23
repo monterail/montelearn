@@ -1,10 +1,8 @@
 import Head from "next/head";
 
 import Card from "@/components/Card";
-import Breadcrumbs from "@/components/Breadcrumbs";
 import LinkWithArrow from "@/components/LinkWithArrow";
 import Title from "@/components/Title";
-import Text from "@/components/Text";
 import Label from "@/components/Label";
 import SubjectIcon from "@/components/SubjectIcon";
 
@@ -54,14 +52,8 @@ function SubjectsPage() {
       <Head>
         <title>Monterail e-learning app</title>
       </Head>
-      <Breadcrumbs back={false} options={["Subjects"]} />
       <div className="mx-3 sm:mx-0">
         <Title className="my-8">Subjects page</Title>
-        <Text className="font-roboto-mono my-8 text-xl">
-          Consequat ex enim aute labore in esse proident laborum cillum aliquip. Duis fugiat velit
-          nulla sit ipsum duis ex aliquip nostrud pariatur non sit nostrud veniam. Laboris id ad
-          anim duis.
-        </Text>
         <div className="grid gap-8 grid-cols-1 md:grid-cols-2">{renderSubjects()}</div>
       </div>
     </section>
