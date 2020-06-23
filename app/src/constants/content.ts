@@ -20,6 +20,29 @@ export const landingContent = {
   },
 };
 
+export const subjectsContent = [
+  {
+    name: "Biology",
+    description:
+      "HR technology solutions are revolutionizing the world of Human Resources. From recruiting the best talent and boosting employee engagement, to building personalized career paths — HR software can simplify each element of running a business.",
+  },
+  {
+    name: "Remote work",
+    description:
+      "With remote work rising in popularity, many companies want to adapt to a new reality quickly and effectively. Read our tips, suggested tools, and practices that can help you make a shift into a remote-friendly company.",
+  },
+  {
+    name: "Product Specification",
+    description:
+      "A good product specification gives enough specific information so that the vendor knows a project’s goals and priorities, but is flexible enough to leave some room for technical decisions and to test the vendor’s expertise. See how to prepare such a document.",
+  },
+  {
+    name: "Project Management",
+    description:
+      "Project management is a crucial aspect of any successful project. It involves several aspects including: team leadership, client relationships, planning, predicting future hang-ups, and more. Take a look at some of the lessons we have learned first-hand over our ten years of experience in the field.",
+  },
+];
+
 export const developersContent = {
   title: "Select example endpoint",
   subtitle:
