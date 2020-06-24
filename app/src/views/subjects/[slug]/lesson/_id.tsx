@@ -176,7 +176,7 @@ function LessonPage() {
         <hr className="my-8 block border border-gray-200 h-0 opacity-50" />
         <div className="flex flex-col items-center w-full bg-red-100 py-20 mt-10">
           <h2 className="font-eczar text-center text-4xl font-semibold mb-8">
-            Time to yest your knowledge
+            Time to test your knowledge
           </h2>
           {tests?.results.map((test: Test) => (
             <div key={test.uuid}>{renderQuestions(test.questions)}</div>
