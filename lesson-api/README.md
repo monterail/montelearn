@@ -66,7 +66,7 @@ To create an **superuser account**, use this command:
 
 To run the tests and check your test coverage:
 
-    make test 
+    make test
 
 [github-actions]: https://github.com/monterail/montelearn/workflows/CD%20lesson-api/badge.svg
 [github-status]: https://github.com/monterail/montelearn/actions

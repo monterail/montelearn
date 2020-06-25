@@ -1,10 +1,24 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::API
+  before_action :block_foreign_hosts
+
   private
 
   rescue_from ActiveRecord::RecordNotFound, with: :render_not_found
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
+
+  def whitelisted?(ip)
+    WHITELIST.include?(ip)
+  end
+
+  def block_foreign_hosts
+    whitelist_include if WHITELIST.any? && Rails.env.production?
+  end
+
+  def whitelist_include
+    head :unauthorized unless WHITELIST.include?(request.remote_ip)
+  end
 
   # Issue: https://github.com/rails/rails/issues/38285
   # Workaround: https://github.com/rails/rails/issues/34244#issuecomment-433365579
