@@ -4,5 +4,5 @@ module.exports = {
   },
   // defining only *.spec.* files to be regarded as tests files
   testMatch: ["**/__tests__/**/*.[jt]s?(x)", "**/?(*.)+(spec).[jt]s?(x)"],
-  setupFilesAfterEnv: ["<rootDir>/src/setupTests.ts"],
+  setupFilesAfterEnv: ["<rootDir>/src/tests/setupTests.ts"],
 };
