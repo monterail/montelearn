@@ -9,12 +9,14 @@ class ApplicationController < ActionController::API
   rescue_from ActiveRecord::RecordInvalid, with: :render_validation_errors
 
   def whitelisted?(ip)
-    return true if WHITELIST.include?(ip)
-
-    false
+    WHITELIST.include?(ip)
   end
 
   def block_foreign_hosts
+    whitelist_include? if WHITELIST.any? && Rails.env.production?
+  end
+
+  def whitelist_include?
     head :unauthorized unless WHITELIST.include?(request.remote_ip)
   end
 
