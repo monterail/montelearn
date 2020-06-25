@@ -1,25 +1,29 @@
 /// <reference types="cypress" />
-
 import { Login } from "../page-objects/login";
 import { env, users, subjectName } from "../data/data";
 import { StudentPath } from "../page-objects/student-path";
+
 const login = new Login();
 const studentPath = new StudentPath();
 
-describe("Cypress tests for eLearning app", () => {
+describe("Cypress tests for eLearning app - Student Path", () => {
     beforeEach("Login as a student", () => {
-      (login.login(users.monteStudent.username, users.monteStudent.password, env.heroku))
+      (login.login(users.monteStudent.username, 'rOvoJIVsLmnBSURAlWJq', env.heroku))
   });
-    it("Go to subject page and take a test", () => {
-     studentPath.goToSubjectPage()
-     studentPath.checkSubjectPage()
-     studentPath.selectSubject("Remote work")
-     studentPath.checkUrl()
-     studentPath.takeAtest()
-     studentPath.chooseAnswer1Yes()
-     studentPath.chooseAnswer2No()
-     studentPath.submitTest()
-     studentPath.checkScore()
-
-    
-  });
+  
+ // it("Go to subject page Remote Work and take a test with positive result", () => {
+ //   studentPath.goToSubjectPage()
+ //   studentPath.selectSubject(subjectName.remoteWork)
+ //   studentPath.checkUrl(env.heroku)
+ //   studentPath.takeATestWithPositiveResult()
+  //}
+  it("Got to subject page Remote Work and take a test with negative result", () => {
+    studentPath.goToSubjectPage()
+    studentPath.selectSubject(subjectName.remoteWork)
+    studentPath.checkUrl(env.heroku)
+    studentPath.takeATestWithNegativeResult()
+ 
+    })
+    )}
+)
+ 
