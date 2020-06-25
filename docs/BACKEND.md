@@ -3,7 +3,7 @@
 
 # BE architecture
 Backend architecture is constructed by microservices written in Django and Ruby on Rails.
-The entrypoint to each of them is authentication-api which provides authentication and proxy service. 
+The entrypoint to each of them is authentication-api which provides authentication and proxy service.
 The API is wrriten in Open API format and documented using Swagger.
 
 - To access resources, the user (student) has to be authenticated.
@@ -17,7 +17,7 @@ The API is wrriten in Open API format and documented using Swagger.
 
 # Run BE microservices
 In the main directory `montelearn` run `make run` to start docker-compose.
-Microservices with API documenentation provided by Swagger can be found on: 
+Microservices with API documenentation provided by Swagger can be found on:
 - authentication-api: `http://0.0.0.0:8080/swagger/`
 - lesson-api: `http://0.0.0.0:8000/swagger/`
 - tests-api: `http://0.0.0.0:3000/swagger/`
@@ -51,7 +51,7 @@ Route each request to microservice through `authentication-api`.
 - In the main directory `montelearn` run `make cleanup`
 
 # Run and test microservices separately
-Each BE microservice can be run and tested separately, please refer to README.md in the microservice directory. 
+Each BE microservice can be run and tested separately, please refer to README.md in the microservice directory.
 
 # Deployment
 Changes to microservices are automatically deployed to Heroku (Github Actions) after a pull request is merged to `master` branch. It's worth pointing out that changes not related to particular microservice source code <u>does not trigger</u> a new deployment.
@@ -64,3 +64,7 @@ Lesson-api and tests-api have open, public APIs which can be hidden on productio
 In local environment all of the IPs are being allowed (`BASIC_AUTH_WHITELISTED_IP_NETWORKS=0.0.0.0/0`).
 To whitelist IP on production set up an environment variable `BASIC_AUTH_WHITELISTED_IP_NETWORKS` and assign it range of allowed IP addresses.
 To add multiple network ranges separate them by comma ex. ``BASIC_AUTH_WHITELISTED_IP_NETWORKS=127.0.0.0/8,10.0.0.0/8
+
+# Tests-api IP whitelist
+In local environment all of the IPs are being allowed.
+To whitelist IP on production add IP addresses go to (../tests-api/config/initializers/whitelist.rb) in WHITELIST = [].freeze, add IP addresses as a String, for example: ``["1.1.1.1", "0.0.0.0"].

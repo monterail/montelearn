@@ -13,10 +13,10 @@ class ApplicationController < ActionController::API
   end
 
   def block_foreign_hosts
-    whitelist_include? if WHITELIST.any? && Rails.env.production?
+    whitelist_include if WHITELIST.any? && Rails.env.production?
   end
 
-  def whitelist_include?
+  def whitelist_include
     head :unauthorized unless WHITELIST.include?(request.remote_ip)
   end
 
