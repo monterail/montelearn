@@ -67,4 +67,4 @@ To add multiple network ranges separate them by comma ex. ``BASIC_AUTH_WHITELIST
 
 # Tests-api IP whitelist
 In local environment all of the IPs are being allowed.
-To whitelist IP on production add IP addresses go to '/tests-api/config/initializers/whitelist.rb' in 'WHITELIST = [].freeze,' add IP addresses as a  in the middle of [], separated by comma for example: '["1.1.1.1", "0.0.0.0"]'
+To whitelist IP on production add IP addresses go to `/tests-api/config/initializers/whitelist.rb` in `WHITELIST = [].freeze,` add IP addresses as a  in the middle of [], separated by comma for example: `["1.1.1.1", "0.0.0.0"]`
