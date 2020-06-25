@@ -34,9 +34,9 @@ const ButtonWithArrow: FunctionComponent<Props> = ({
         ${borderClasses} ${className}
       `}
     >
-      {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft />}
+      {direction === BUTTON_DIRECTIONS.LEFT && <SvgArrowLeft data-testid="svg-arrow-left" />}
       <span className={`p${directionClass}-4 text-sm sm:text-base font-medium`}>{children}</span>
-      {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight />}
+      {direction === BUTTON_DIRECTIONS.RIGHT && <SvgArrowRight data-testid="svg-arrow-right" />}
     </button>
   );
 };
