@@ -1,6 +1,6 @@
 import { FC, useState, ChangeEvent } from "react";
 import Head from "next/head";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import Button from "@/components/Button";
 import Card from "@/components/Card";
@@ -30,6 +30,7 @@ const UsersResetPasswordPage: FC<Props> = ({ uid, token }) => {
   const [inputs, setInputs] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
   const [successMessage, setSuccessMessage] = useState("");
+  const router = useRouter();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     setInputs({
@@ -49,7 +50,7 @@ const UsersResetPasswordPage: FC<Props> = ({ uid, token }) => {
       setErrors(initialErrors);
       setSuccessMessage(detail);
       setTimeout(() => {
-        Router.push("/users/login");
+        router.push("/users/login");
       }, 3000);
     } catch (e) {
       setSuccessMessage("");
