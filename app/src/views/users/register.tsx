@@ -1,7 +1,7 @@
 import { useState, ChangeEvent } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import Router from "next/router";
+import { useRouter } from "next/router";
 
 import Card from "@/components/Card";
 import Title from "@/components/Title";
@@ -33,11 +33,12 @@ const initialErrors: RegisterErrorsType = {
 export default function UsersRegisterPage() {
   const [inputs, setInputs] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
+  const router = useRouter();
 
   const handleLogin = async () => {
     try {
       await register(inputs);
-      Router.push("/");
+      router.push("/");
     } catch (newErrors) {
       setErrors({ ...initialErrors, ...newErrors.data });
     }
