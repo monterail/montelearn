@@ -29,5 +29,8 @@
     "hooks": {
       "pre-commit": "npx lerna run pre-commit"
     }
+  },
+  "devDependencies": {
+    "cypress": "^4.8.0"
   }
 }
