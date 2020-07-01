@@ -35,4 +35,6 @@ server {
   pagespeed EnableFilters inline_javascript;
   pagespeed EnableFilters in_place_optimize_for_browser;
   pagespeed EnableFilters extend_cache;
+
+  return 301 https://$host$request_uri;
 }
