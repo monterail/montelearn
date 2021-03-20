@@ -4,71 +4,179 @@
 #
 #    pip-compile requirements/base.in
 #
-amqp==2.5.2               # via kombu
-argon2-cffi==19.1.0       # via -r requirements/base.in
-billiard==3.6.1.0         # via celery
-boto3==1.10.41            # via -r requirements/base.in
-botocore==1.13.41         # via boto3, s3transfer
-cachetools==3.1.1         # via google-auth
-celery[redis]==4.4.0      # via -r requirements/base.in
-certifi==2019.6.16        # via requests
-cffi==1.12.3              # via argon2-cffi, cryptography
-chardet==3.0.4            # via requests
-coreapi==2.3.3            # via drf-yasg
-coreschema==0.0.4         # via coreapi, drf-yasg
-cryptography==2.8         # via -r requirements/base.in
-defusedxml==0.6.0         # via python3-openid
-django-allauth==0.40.0    # via django-rest-auth
-django-basic-auth-ip-whitelist==0.3.3  # via -r requirements/base.in
-django-cors-headers==3.1.0  # via -r requirements/base.in
-django-environ==0.4.5     # via -r requirements/base.in
-django-filter==2.2.0      # via -r requirements/base.in
-django-model-utils==3.2.0  # via -r requirements/base.in
-django-redis==4.11.0      # via -r requirements/base.in
-django-rest-auth[with_social]==0.9.5  # via -r requirements/base.in
-django-storages==1.8      # via -r requirements/base.in
-django==2.2.10            # via -r requirements/base.in, django-allauth, django-basic-auth-ip-whitelist, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, drf-yasg
-djangorestframework==3.10.2  # via -r requirements/base.in, django-rest-auth, drf-yasg
-docutils==0.15.2          # via botocore
-drf-yasg==1.16.1          # via -r requirements/base.in
-google-api-python-client==1.7.11  # via -r requirements/base.in
-google-auth-httplib2==0.0.3  # via google-api-python-client
-google-auth==1.9.0        # via google-api-python-client, google-auth-httplib2
-httplib2==0.18.0          # via google-api-python-client, google-auth-httplib2
-idna==2.8                 # via requests
-importlib-metadata==1.3.0  # via kombu
-inflection==0.3.1         # via drf-yasg
-itypes==1.1.0             # via coreapi
-jinja2==2.10.1            # via coreschema
-jmespath==0.9.4           # via boto3, botocore
-kombu==4.6.7              # via celery
-markupsafe==1.1.1         # via jinja2
-more-itertools==8.0.2     # via zipp
-oauthlib==3.1.0           # via requests-oauthlib
-packaging==19.2           # via -r requirements/base.in
-psycopg2==2.8.3           # via -r requirements/base.in
-pyasn1-modules==0.2.7     # via google-auth
-pyasn1==0.4.8             # via pyasn1-modules, rsa
-pycparser==2.19           # via cffi
-pyjwt==1.7.1              # via -r requirements/base.in
-pyparsing==2.4.5          # via packaging
-python-dateutil==2.8.0    # via -r requirements/base.in, botocore
-python3-openid==3.1.0     # via django-allauth
-pytz==2019.2              # via celery, django
-redis==3.3.11             # via celery, django-redis
-requests-oauthlib==1.2.0  # via django-allauth
-requests==2.22.0          # via coreapi, django-allauth, requests-oauthlib
-rsa==4.0                  # via google-auth
-ruamel.yaml.clib==0.1.2   # via ruamel.yaml
-ruamel.yaml==0.16.5       # via drf-yasg
-s3transfer==0.2.1         # via boto3
-six==1.12.0               # via argon2-cffi, cryptography, django-rest-auth, drf-yasg, google-api-python-client, google-auth, packaging, python-dateutil
-sqlparse==0.3.0           # via django
-uritemplate==3.0.0        # via coreapi, drf-yasg, google-api-python-client
-urllib3==1.25.3           # via botocore, requests
-vine==1.3.0               # via amqp, celery
-whitenoise==5.0.1         # via -r requirements/base.in
-zipp==0.6.0               # via importlib-metadata
+amqp==2.5.2
+    # via kombu
+argon2-cffi==19.1.0
+    # via -r base.in
+billiard==3.6.1.0
+    # via celery
+boto3==1.10.41
+    # via -r base.in
+botocore==1.13.41
+    # via
+    #   boto3
+    #   s3transfer
+cachetools==3.1.1
+    # via google-auth
+celery[redis]==4.4.0
+    # via -r base.in
+certifi==2019.6.16
+    # via requests
+cffi==1.12.3
+    # via
+    #   argon2-cffi
+    #   cryptography
+chardet==3.0.4
+    # via requests
+coreapi==2.3.3
+    # via drf-yasg
+coreschema==0.0.4
+    # via
+    #   coreapi
+    #   drf-yasg
+cryptography==2.8
+    # via -r base.in
+defusedxml==0.6.0
+    # via python3-openid
+django-allauth==0.40.0
+    # via django-rest-auth
+django-basic-auth-ip-whitelist==0.3.3
+    # via -r base.in
+django-cors-headers==3.1.0
+    # via -r base.in
+django-environ==0.4.5
+    # via -r base.in
+django-filter==2.2.0
+    # via -r base.in
+django-model-utils==3.2.0
+    # via -r base.in
+django-redis==4.11.0
+    # via -r base.in
+django-rest-auth[with_social]==0.9.5
+    # via -r base.in
+django-storages==1.8
+    # via -r base.in
+django==2.2.10
+    # via
+    #   -r base.in
+    #   django-allauth
+    #   django-basic-auth-ip-whitelist
+    #   django-cors-headers
+    #   django-filter
+    #   django-model-utils
+    #   django-redis
+    #   django-rest-auth
+    #   django-storages
+    #   drf-yasg
+djangorestframework==3.10.2
+    # via
+    #   -r base.in
+    #   django-rest-auth
+    #   drf-yasg
+docutils==0.15.2
+    # via botocore
+drf-yasg==1.16.1
+    # via -r base.in
+google-api-python-client==1.7.11
+    # via -r base.in
+google-auth-httplib2==0.0.3
+    # via google-api-python-client
+google-auth==1.9.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
+httplib2==0.18.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
+idna==2.8
+    # via requests
+inflection==0.3.1
+    # via drf-yasg
+itypes==1.1.0
+    # via coreapi
+jinja2==2.11.3
+    # via coreschema
+jmespath==0.9.4
+    # via
+    #   boto3
+    #   botocore
+kombu==4.6.7
+    # via celery
+markupsafe==1.1.1
+    # via jinja2
+oauthlib==3.1.0
+    # via requests-oauthlib
+packaging==19.2
+    # via -r base.in
+psycopg2==2.8.3
+    # via -r base.in
+pyasn1-modules==0.2.7
+    # via google-auth
+pyasn1==0.4.8
+    # via
+    #   pyasn1-modules
+    #   rsa
+pycparser==2.19
+    # via cffi
+pyjwt==1.7.1
+    # via -r base.in
+pyparsing==2.4.5
+    # via packaging
+python-dateutil==2.8.0
+    # via
+    #   -r base.in
+    #   botocore
+python3-openid==3.1.0
+    # via django-allauth
+pytz==2019.2
+    # via
+    #   celery
+    #   django
+redis==3.3.11
+    # via
+    #   celery
+    #   django-redis
+requests-oauthlib==1.2.0
+    # via django-allauth
+requests==2.22.0
+    # via
+    #   coreapi
+    #   django-allauth
+    #   requests-oauthlib
+rsa==4.0
+    # via google-auth
+ruamel.yaml==0.16.5
+    # via drf-yasg
+s3transfer==0.2.1
+    # via boto3
+six==1.12.0
+    # via
+    #   argon2-cffi
+    #   cryptography
+    #   django-rest-auth
+    #   drf-yasg
+    #   google-api-python-client
+    #   google-auth
+    #   packaging
+    #   python-dateutil
+sqlparse==0.3.0
+    # via django
+uritemplate==3.0.0
+    # via
+    #   coreapi
+    #   drf-yasg
+    #   google-api-python-client
+urllib3==1.25.3
+    # via
+    #   botocore
+    #   requests
+vine==1.3.0
+    # via
+    #   amqp
+    #   celery
+whitenoise==5.0.1
+    # via -r base.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
