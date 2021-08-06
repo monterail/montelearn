@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "commander": "5.1.0",
-    "handlebars": "4.7.6"
+    "handlebars": "4.7.7"
   },
   "devDependencies": {
     "@project/eslint": "1.0.0",
