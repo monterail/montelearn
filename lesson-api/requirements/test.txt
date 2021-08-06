@@ -4,98 +4,256 @@
 #
 #    pip-compile requirements/test.in
 #
-amqp==2.5.2               # via kombu
-apipkg==1.5               # via execnet
-argon2-cffi==19.1.0       # via -r requirements/./base.in
-atomicwrites==1.3.0       # via pytest
-attrs==19.1.0             # via packaging, pytest
-billiard==3.6.1.0         # via celery
-boto3==1.10.41            # via -r requirements/./base.in
-botocore==1.13.41         # via boto3, s3transfer
-cachetools==3.1.1         # via google-auth
-celery[redis]==4.4.0      # via -r requirements/./base.in
-certifi==2019.6.16        # via requests
-cffi==1.12.3              # via argon2-cffi, cryptography
-chardet==3.0.4            # via requests
-codecov==2.0.15           # via -r requirements/test.in
-coreapi==2.3.3            # via drf-yasg
-coreschema==0.0.4         # via coreapi, drf-yasg
-coverage==4.5.4           # via codecov, pytest-cov
-cryptography==2.8         # via -r requirements/./base.in
-defusedxml==0.6.0         # via python3-openid
-django-allauth==0.40.0    # via django-rest-auth
-django-basic-auth-ip-whitelist==0.3.3  # via -r requirements/./base.in
-django-cors-headers==3.1.0  # via -r requirements/./base.in
-django-environ==0.4.5     # via -r requirements/./base.in
-django-filter==2.2.0      # via -r requirements/./base.in
-django-model-utils==3.2.0  # via -r requirements/./base.in
-django-redis==4.11.0      # via -r requirements/./base.in
-django-rest-auth[with_social]==0.9.5  # via -r requirements/./base.in
-django-storages==1.8      # via -r requirements/./base.in
-django==2.2.10            # via -r requirements/./base.in, django-allauth, django-basic-auth-ip-whitelist, django-cors-headers, django-filter, django-model-utils, django-redis, django-rest-auth, django-storages, drf-yasg
-djangorestframework==3.10.2  # via -r requirements/./base.in, django-rest-auth, drf-yasg
-docutils==0.15.2          # via botocore
-drf-yasg==1.16.1          # via -r requirements/./base.in
-entrypoints==0.3          # via flake8
-execnet==1.7.1            # via pytest-xdist
-factory-boy==2.12.0       # via -r requirements/test.in
-faker==2.0.1              # via factory-boy
-flake8==3.7.8             # via -r requirements/test.in
-freezegun==0.3.12         # via -r requirements/test.in
-google-api-python-client==1.7.11  # via -r requirements/./base.in
-google-auth-httplib2==0.0.3  # via google-api-python-client
-google-auth==1.9.0        # via google-api-python-client, google-auth-httplib2
-httplib2==0.18.0          # via google-api-python-client, google-auth-httplib2
-idna==2.8                 # via requests
-importlib-metadata==0.21  # via kombu, pluggy, pytest
-inflection==0.3.1         # via drf-yasg
-itypes==1.1.0             # via coreapi
-jinja2==2.10.1            # via coreschema
-jmespath==0.9.4           # via boto3, botocore
-kombu==4.6.7              # via celery
-markupsafe==1.1.1         # via jinja2
-mccabe==0.6.1             # via flake8
-more-itertools==7.2.0     # via pytest
-oauthlib==3.1.0           # via requests-oauthlib
-packaging==19.1           # via -r requirements/./base.in, pytest, pytest-sugar
-pluggy==0.13.0            # via pytest
-psycopg2==2.8.3           # via -r requirements/./base.in
-py==1.8.0                 # via pytest
-pyasn1-modules==0.2.7     # via google-auth
-pyasn1==0.4.8             # via pyasn1-modules, rsa
-pycodestyle==2.5.0        # via flake8
-pycparser==2.19           # via cffi
-pyflakes==2.1.1           # via flake8
-pyjwt==1.7.1              # via -r requirements/./base.in
-pyparsing==2.4.2          # via packaging
-pytest-cov==2.7.1         # via -r requirements/test.in
-pytest-django==3.5.1      # via -r requirements/test.in
-pytest-forked==1.1.3      # via pytest-xdist
-pytest-picked==0.4.1      # via -r requirements/test.in
-pytest-sugar==0.9.2       # via -r requirements/test.in
-pytest-xdist==1.30.0      # via -r requirements/test.in
-pytest==5.1.1             # via pytest-cov, pytest-django, pytest-forked, pytest-picked, pytest-sugar, pytest-xdist
-python-dateutil==2.8.0    # via -r requirements/./base.in, botocore, faker, freezegun
-python3-openid==3.1.0     # via django-allauth
-pytz==2019.2              # via celery, django
-redis==3.3.11             # via celery, django-redis
-requests-mock==1.7.0      # via -r requirements/test.in
-requests-oauthlib==1.2.0  # via django-allauth
-requests==2.22.0          # via codecov, coreapi, django-allauth, requests-mock, requests-oauthlib
-rsa==4.0                  # via google-auth
-ruamel.yaml.clib==0.1.2   # via ruamel.yaml
-ruamel.yaml==0.16.5       # via drf-yasg
-s3transfer==0.2.1         # via boto3
-six==1.12.0               # via argon2-cffi, cryptography, django-rest-auth, drf-yasg, faker, freezegun, google-api-python-client, google-auth, packaging, pytest-xdist, python-dateutil, requests-mock
-sqlparse==0.3.0           # via django
-termcolor==1.1.0          # via pytest-sugar
-text-unidecode==1.2       # via faker
-uritemplate==3.0.0        # via coreapi, drf-yasg, google-api-python-client
-urllib3==1.25.3           # via botocore, requests
-vine==1.3.0               # via amqp, celery
-wcwidth==0.1.7            # via pytest
-whitenoise==5.0.1         # via -r requirements/./base.in
-zipp==0.6.0               # via importlib-metadata
+amqp==2.5.2
+    # via kombu
+apipkg==1.5
+    # via execnet
+argon2-cffi==19.1.0
+    # via -r ./base.in
+atomicwrites==1.3.0
+    # via pytest
+attrs==19.1.0
+    # via
+    #   packaging
+    #   pytest
+billiard==3.6.1.0
+    # via celery
+boto3==1.10.41
+    # via -r ./base.in
+botocore==1.13.41
+    # via
+    #   boto3
+    #   s3transfer
+cachetools==3.1.1
+    # via google-auth
+celery[redis]==4.4.0
+    # via -r ./base.in
+certifi==2019.6.16
+    # via requests
+cffi==1.12.3
+    # via
+    #   argon2-cffi
+    #   cryptography
+chardet==3.0.4
+    # via requests
+codecov==2.0.15
+    # via -r test.in
+coreapi==2.3.3
+    # via drf-yasg
+coreschema==0.0.4
+    # via
+    #   coreapi
+    #   drf-yasg
+coverage==4.5.4
+    # via
+    #   codecov
+    #   pytest-cov
+cryptography==2.8
+    # via -r ./base.in
+defusedxml==0.6.0
+    # via python3-openid
+django-allauth==0.40.0
+    # via django-rest-auth
+django-basic-auth-ip-whitelist==0.3.3
+    # via -r ./base.in
+django-cors-headers==3.1.0
+    # via -r ./base.in
+django-environ==0.4.5
+    # via -r ./base.in
+django-filter==2.2.0
+    # via -r ./base.in
+django-model-utils==3.2.0
+    # via -r ./base.in
+django-redis==4.11.0
+    # via -r ./base.in
+django-rest-auth[with_social]==0.9.5
+    # via -r ./base.in
+django-storages==1.8
+    # via -r ./base.in
+django==2.2.10
+    # via
+    #   -r ./base.in
+    #   django-allauth
+    #   django-basic-auth-ip-whitelist
+    #   django-cors-headers
+    #   django-filter
+    #   django-model-utils
+    #   django-redis
+    #   django-rest-auth
+    #   django-storages
+    #   drf-yasg
+djangorestframework==3.10.2
+    # via
+    #   -r ./base.in
+    #   django-rest-auth
+    #   drf-yasg
+docutils==0.15.2
+    # via botocore
+drf-yasg==1.16.1
+    # via -r ./base.in
+entrypoints==0.3
+    # via flake8
+execnet==1.7.1
+    # via pytest-xdist
+factory-boy==2.12.0
+    # via -r test.in
+faker==2.0.1
+    # via factory-boy
+flake8==3.7.8
+    # via -r test.in
+freezegun==0.3.12
+    # via -r test.in
+google-api-python-client==1.7.11
+    # via -r ./base.in
+google-auth-httplib2==0.0.3
+    # via google-api-python-client
+google-auth==1.9.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
+httplib2==0.18.0
+    # via
+    #   google-api-python-client
+    #   google-auth-httplib2
+idna==2.8
+    # via requests
+inflection==0.3.1
+    # via drf-yasg
+itypes==1.1.0
+    # via coreapi
+jinja2==2.11.3
+    # via coreschema
+jmespath==0.9.4
+    # via
+    #   boto3
+    #   botocore
+kombu==4.6.7
+    # via celery
+markupsafe==1.1.1
+    # via jinja2
+mccabe==0.6.1
+    # via flake8
+more-itertools==7.2.0
+    # via pytest
+oauthlib==3.1.0
+    # via requests-oauthlib
+packaging==19.1
+    # via
+    #   -r ./base.in
+    #   pytest
+    #   pytest-sugar
+pluggy==0.13.0
+    # via pytest
+psycopg2==2.8.3
+    # via -r ./base.in
+py==1.8.0
+    # via pytest
+pyasn1-modules==0.2.7
+    # via google-auth
+pyasn1==0.4.8
+    # via
+    #   pyasn1-modules
+    #   rsa
+pycodestyle==2.5.0
+    # via flake8
+pycparser==2.19
+    # via cffi
+pyflakes==2.1.1
+    # via flake8
+pyjwt==1.7.1
+    # via -r ./base.in
+pyparsing==2.4.2
+    # via packaging
+pytest-cov==2.7.1
+    # via -r test.in
+pytest-django==3.5.1
+    # via -r test.in
+pytest-forked==1.1.3
+    # via pytest-xdist
+pytest-picked==0.4.1
+    # via -r test.in
+pytest-sugar==0.9.2
+    # via -r test.in
+pytest-xdist==1.30.0
+    # via -r test.in
+pytest==5.1.1
+    # via
+    #   pytest-cov
+    #   pytest-django
+    #   pytest-forked
+    #   pytest-picked
+    #   pytest-sugar
+    #   pytest-xdist
+python-dateutil==2.8.0
+    # via
+    #   -r ./base.in
+    #   botocore
+    #   faker
+    #   freezegun
+python3-openid==3.1.0
+    # via django-allauth
+pytz==2019.2
+    # via
+    #   celery
+    #   django
+redis==3.3.11
+    # via
+    #   celery
+    #   django-redis
+requests-mock==1.7.0
+    # via -r test.in
+requests-oauthlib==1.2.0
+    # via django-allauth
+requests==2.22.0
+    # via
+    #   codecov
+    #   coreapi
+    #   django-allauth
+    #   requests-mock
+    #   requests-oauthlib
+rsa==4.0
+    # via google-auth
+ruamel.yaml==0.16.5
+    # via drf-yasg
+s3transfer==0.2.1
+    # via boto3
+six==1.12.0
+    # via
+    #   argon2-cffi
+    #   cryptography
+    #   django-rest-auth
+    #   drf-yasg
+    #   faker
+    #   freezegun
+    #   google-api-python-client
+    #   google-auth
+    #   packaging
+    #   pytest-xdist
+    #   python-dateutil
+    #   requests-mock
+sqlparse==0.3.0
+    # via django
+termcolor==1.1.0
+    # via pytest-sugar
+text-unidecode==1.2
+    # via faker
+uritemplate==3.0.0
+    # via
+    #   coreapi
+    #   drf-yasg
+    #   google-api-python-client
+urllib3==1.25.3
+    # via
+    #   botocore
+    #   requests
+vine==1.3.0
+    # via
+    #   amqp
+    #   celery
+wcwidth==0.1.7
+    # via pytest
+whitenoise==5.0.1
+    # via -r ./base.in
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
