@@ -53,13 +53,16 @@ export default function UsersRegisterPage() {
   };
 
   return (
-    <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-1/2">
+    <section className="w-full px-4 mx-auto mb-12 md:px-6 md:w-1/2">
       <Head>
         <title>montelearn / register</title>
       </Head>
       <div className="my-12 md:my-18">
-        <Title>Ahoy you!</Title>
-        <Title className="text-gray-300">Wanna register?</Title>
+        <Title>
+          Ahoy you!
+          <br />
+          <span className="text-gray-300">Wanna register?</span>
+        </Title>
       </div>
       <div className="">
         <Card>
@@ -111,7 +114,7 @@ export default function UsersRegisterPage() {
             errors={errors.password2}
           />
           <InputErrors errors={errors.non_field_errors} />
-          <ul className="flex font-roboto-mono mt-10">
+          <ul className="flex mt-10 font-roboto-mono">
             <Button className="px-8 py-4" onClick={handleLogin}>
               Register now
             </Button>

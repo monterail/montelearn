@@ -44,13 +44,16 @@ export default function UsersLoginPage() {
   };
 
   return (
-    <section className="px-4 md:px-6 mb-12 mx-auto w-full md:w-1/2">
+    <section className="w-full px-4 mx-auto mb-12 md:px-6 md:w-1/2">
       <Head>
         <title>montelearn / login</title>
       </Head>
       <div className="my-12 md:my-18">
-        <Title>Hi there!</Title>
-        <Title className="text-gray-300">Care to log in?</Title>
+        <Title>
+          Hi there!
+          <br />
+          <span className="text-gray-300">Care to log in?</span>
+        </Title>
       </div>
       <div className="">
         <Card>
@@ -75,11 +78,11 @@ export default function UsersLoginPage() {
             errors={errors.password}
           />
           <InputErrors errors={errors.non_field_errors} />
-          <ul className="flex font-roboto-mono mt-10">
-            <Button className="mx-0 sm:mx-2 px-8 py-4" onClick={handleLogin}>
+          <ul className="flex mt-10 font-roboto-mono">
+            <Button className="px-8 py-4 mx-0 sm:mx-2" onClick={handleLogin}>
               Login
             </Button>
-            <li className="mx-0 sm:mx-2 font-medium text-red-400">
+            <li className="mx-0 font-medium text-red-400 sm:mx-2">
               <Link href="/users/register">
                 <a className="flex px-8 py-4">Register</a>
               </Link>
@@ -91,7 +94,7 @@ export default function UsersLoginPage() {
         <Text>
           Did you forget your password?{" "}
           <Link href="/users/forgot-password">
-            <a className="text-red-400 font-medium">Reset it now</a>
+            <a className="font-medium text-red-400">Reset it now</a>
           </Link>
         </Text>
       </div>
